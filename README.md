@@ -134,7 +134,7 @@ const SECTIONS = [
     id: 'maintenance',
     name: 'Maintenance',
     icon: MaintenanceIcon,
-    section: 'property-management',
+    section: false,
   },
 ];
 ```

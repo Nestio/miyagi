@@ -25,13 +25,13 @@ const SECTIONS: Section[] = [
     name: 'CRM',
     docId: 'crm',
     icon: ReactIcon,
-    section: 'property-management',
+    section: false,
   },
   {
     name: 'Online Leasing',
     docId: 'online-leasing',
     icon: JSIcon,
-    section: 'property-management',
+    section: false,
   },
   {
     name: 'Resident Portal',
@@ -61,13 +61,6 @@ export type SectionsGroup = {
 };
 
 const SECTION_GROUPS: SectionsGroup[][] = [
-  [
-    {
-      name: 'Property Management',
-      section: 'property-management',
-      description: 'Core property management and leasing solutions.',
-    },
-  ],
   [
     {
       name: 'Resident Services',

@@ -1,10 +1,12 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
 import {
-  ChatMultipleRegular,
-  LiveRegular,
-  MicRegular,
   VideoRegular,
+  DocumentSignatureRegular,
+  ChatSparkleRegular,
+  AppsListDetailFilled,
+  PhoneKeyRegular,
+  BrainSparkleRegular,
 } from '@fluentui/react-icons';
 import ThemedImage from '@theme/ThemedImage';
 import clsx from 'clsx';
@@ -13,7 +15,7 @@ const PRODUCTS = [
   {
     title: 'CRM',
     link: '/guides/live-video/intro-video-conf',
-    icon: VideoRegular,
+    icon: AppsListDetailFilled,
     lightImage: '/static/landing-page/hero/video-graphic.png',
     darkImage: '/static/landing-page/hero/video-graphic-dark.png',
     text: 'Comprehensive customer relationship management for property managers. Track leads, manage prospects, and optimize your leasing pipeline.',
@@ -21,7 +23,7 @@ const PRODUCTS = [
   {
     title: 'Online Leasing',
     link: '/guides/voice-conf/intro-voice-conf',
-    icon: MicRegular,
+    icon: DocumentSignatureRegular,
     lightImage: '/static/landing-page/hero/voice-graphic.png',
     darkImage: '/static/landing-page/hero/voice-graphic-dark.png',
     text: 'Streamlined digital leasing application and processing. Transform the traditional leasing process into a seamless online experience.',
@@ -29,7 +31,7 @@ const PRODUCTS = [
   {
     title: 'Resident Portal',
     link: '/guides/livestream/livestream-overview',
-    icon: LiveRegular,
+    icon: PhoneKeyRegular,
     lightImage: '/static/landing-page/hero/livestream-graphic.png',
     darkImage: '/static/landing-page/hero/livestream-graphic-dark.png',
     text: 'Self-service portal for residents to manage accounts, submit maintenance requests, and access community features.',
@@ -37,7 +39,7 @@ const PRODUCTS = [
   {
     title: 'AI Virtual Assistant',
     link: '/guides/live-video/intro-video-conf',
-    icon: VideoRegular,
+    icon: ChatSparkleRegular,
     lightImage: '/static/landing-page/hero/video-graphic.png',
     darkImage: '/static/landing-page/hero/video-graphic-dark.png',
     text: 'Intelligent chatbot and automation solutions. Automate customer interactions and provide 24/7 support.',
@@ -45,9 +47,9 @@ const PRODUCTS = [
   {
     title: 'Voice AI & Insights',
     link: '/guides/live-video/intro-video-conf',
-    icon: VideoRegular,
-    lightImage: '/static/landing-page/hero/video-graphic.png',
-    darkImage: '/static/landing-page/hero/video-graphic-dark.png',
+    icon: BrainSparkleRegular,
+    lightImage: '/static/landing-page/hero/voice-graphic.png',
+    darkImage: '/static/landing-page/hero/voice-graphic-dark.png',
     text: 'Advanced call analytics and voice recognition. Transform phone conversations into actionable business intelligence.',
   },
 ];

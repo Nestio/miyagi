@@ -386,6 +386,8 @@ const config = {
       image: '/img/dyte-docs-card.png',
       colorMode: {
         defaultMode: 'light',
+        disableSwitch: true,
+        respectPrefersColorScheme: false,
       },
       docs: {
         sidebar: {
@@ -438,20 +440,16 @@ const config = {
                 to: '/online-leasing/',
               },
               {
-                label: 'Application Process',
-                to: '/online-leasing/application-process',
+                label: 'Lease Transactions',
+                to: '/online-leasing/lease-transactions',
               },
               {
-                label: 'Document Upload',
-                to: '/online-leasing/document-upload',
+                label: 'Screening and Fraud Prevention',
+                to: '/online-leasing/screening-fraud-prevention',
               },
               {
-                label: 'Payment Processing',
-                to: '/online-leasing/payment-processing',
-              },
-              {
-                label: 'Lease Agreements',
-                to: '/online-leasing/lease-agreements',
+                label: 'Legal and Contracts',
+                to: '/online-leasing/legal-contracts',
               },
             ],
           },
