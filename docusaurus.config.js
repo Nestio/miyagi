@@ -7,12 +7,12 @@ const code_themes = {
 
 /** @type {import('@docusaurus/types').Config} */
 const meta = {
-  title: 'Dyte Docs',
+  title: 'Funnel Leasing Docs',
   tagline:
-    'Explore comprehensive documentation for Dyte, including guides, references, and best practices.',
-  url: 'https://docs.dyte.io',
+    'Explore comprehensive documentation for Funnel Leasing products, including guides, references, and best practices.',
+  url: 'https://docs.funnelleasing.com',
   baseUrl: '/',
-  favicon: '/favicon.ico',
+  favicon: '/logo/favicon.png',
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -21,34 +21,11 @@ const meta = {
 
 /** @type {import('@docusaurus/plugin-content-docs').Options[]} */
 const docs = [
+  // Funnel Leasing Products
   {
-    id: 'cli',
-    path: 'docs/cli',
-    routeBasePath: '/cli',
-  },
-  {
-    id: 'plugin-sdk',
-    path: 'docs/plugin-sdk',
-    routeBasePath: '/plugin-sdk',
-    versions: {
-      current: {
-        label: '1.x.x',
-      },
-    },
-  },
-
-  // Community packages
-  {
-    id: 'community-packages',
-    path: 'docs/community-packages',
-    routeBasePath: '/community-packages',
-  },
-
-  // Web UI Kits
-  {
-    id: 'ui-kit',
-    path: 'docs/ui-kit',
-    routeBasePath: '/ui-kit',
+    id: 'crm',
+    path: 'docs/crm',
+    routeBasePath: '/crm',
     versions: {
       current: {
         label: '1.x.x',
@@ -56,9 +33,9 @@ const docs = [
     },
   },
   {
-    id: 'react-ui-kit',
-    path: 'docs/react-ui-kit',
-    routeBasePath: '/react-ui-kit',
+    id: 'online-leasing',
+    path: 'docs/online-leasing',
+    routeBasePath: '/online-leasing',
     versions: {
       current: {
         label: '1.x.x',
@@ -66,54 +43,9 @@ const docs = [
     },
   },
   {
-    id: 'angular-ui-kit',
-    path: 'docs/angular-ui-kit',
-    routeBasePath: '/angular-ui-kit',
-    versions: {
-      current: {
-        label: '1.x.x',
-      },
-    },
-  },
-
-  // Web Core
-  {
-    id: 'web-core',
-    path: 'docs/web-core',
-    routeBasePath: '/web-core',
-    versions: {
-      current: {
-        label: '2.x.x',
-      },
-    },
-  },
-  // React Web Core
-  {
-    id: 'react-web-core',
-    path: 'docs/react-web-core',
-    routeBasePath: '/react-web-core',
-    versions: {
-      current: {
-        label: '2.x.x',
-      },
-    },
-  },
-
-  // Mobile Core
-  {
-    id: 'android-core',
-    path: 'docs/android-core',
-    routeBasePath: '/android-core',
-    versions: {
-      current: {
-        label: '2.x.x',
-      },
-    },
-  },
-  {
-    id: 'flutter-core',
-    path: 'docs/flutter-core',
-    routeBasePath: '/flutter-core',
+    id: 'resident-portal',
+    path: 'docs/resident-portal',
+    routeBasePath: '/resident-portal',
     versions: {
       current: {
         label: '1.x.x',
@@ -121,31 +53,9 @@ const docs = [
     },
   },
   {
-    id: 'ios-core',
-    path: 'docs/ios-core',
-    routeBasePath: '/ios-core',
-    versions: {
-      current: {
-        label: '2.x.x',
-      },
-    },
-  },
-  {
-    id: 'rn-core',
-    path: 'docs/rn-core',
-    routeBasePath: '/rn-core',
-    versions: {
-      current: {
-        label: '0.x.x',
-      },
-    },
-  },
-
-  // Mobile UI Kits
-  {
-    id: 'android',
-    path: 'docs/android',
-    routeBasePath: '/android',
+    id: 'ai-virtual-assistant',
+    path: 'docs/ai-virtual-assistant',
+    routeBasePath: '/ai-virtual-assistant',
     versions: {
       current: {
         label: '1.x.x',
@@ -153,29 +63,9 @@ const docs = [
     },
   },
   {
-    id: 'flutter',
-    path: 'docs/flutter',
-    routeBasePath: '/flutter',
-    versions: {
-      current: {
-        label: '0.7.x',
-      },
-    },
-  },
-  {
-    id: 'ios',
-    path: 'docs/ios',
-    routeBasePath: '/ios',
-    versions: {
-      current: {
-        label: '1.x.x',
-      },
-    },
-  },
-  {
-    id: 'react-native',
-    path: 'docs/rn-ui-kit',
-    routeBasePath: '/react-native',
+    id: 'voice-ai-insights',
+    path: 'docs/voice-ai-insights',
+    routeBasePath: '/voice-ai-insights',
     versions: {
       current: {
         label: '1.x.x',
@@ -506,64 +396,167 @@ const config = {
       navbar: {
         logo: {
           href: '/',
-          src: '/logo/light.svg',
-          srcDark: '/logo/dark.svg',
-          alt: 'Dyte Documentation | Dyte Docs',
+          src: '/logo/funnel-logo.png',
+          alt: 'Funnel Leasing Documentation | Funnel Leasing Docs',
           height: '40px',
-          width: '101px',
         },
         items: [
           {
-            label: 'Guides',
-            to: 'guides',
-            className: 'guides-top-header',
-          },
-          {
-            label: 'SDKs',
+            label: 'CRM',
             type: 'dropdown',
-            className: 'dyte-dropdown',
+            className: 'funnel-dropdown',
             items: [
               {
-                type: 'html',
-                value: sdksHTML,
-                className: 'dyte-dropdown',
+                label: 'Overview',
+                to: '/crm/',
+              },
+              {
+                label: 'Lead Management',
+                to: '/crm/lead-management',
+              },
+              {
+                label: 'Prospect Tracking',
+                to: '/crm/prospect-tracking',
+              },
+              {
+                label: 'Deal Pipeline',
+                to: '/crm/deal-pipeline',
+              },
+              {
+                label: 'Reporting & Analytics',
+                to: '/crm/reporting-analytics',
               },
             ],
           },
           {
-            label: 'REST API',
+            label: 'Online Leasing',
+            type: 'dropdown',
+            className: 'funnel-dropdown',
+            items: [
+              {
+                label: 'Overview',
+                to: '/online-leasing/',
+              },
+              {
+                label: 'Application Process',
+                to: '/online-leasing/application-process',
+              },
+              {
+                label: 'Document Upload',
+                to: '/online-leasing/document-upload',
+              },
+              {
+                label: 'Payment Processing',
+                to: '/online-leasing/payment-processing',
+              },
+              {
+                label: 'Lease Agreements',
+                to: '/online-leasing/lease-agreements',
+              },
+            ],
+          },
+          {
+            label: 'Resident Portal',
+            type: 'dropdown',
+            className: 'funnel-dropdown',
+            items: [
+              {
+                label: 'Overview',
+                to: '/resident-portal/',
+              },
+              {
+                label: 'Account Management',
+                to: '/resident-portal/account-management',
+              },
+              {
+                label: 'Maintenance Requests',
+                to: '/resident-portal/maintenance-requests',
+              },
+              {
+                label: 'Payment History',
+                to: '/resident-portal/payment-history',
+              },
+              {
+                label: 'Community Features',
+                to: '/resident-portal/community-features',
+              },
+            ],
+          },
+          {
+            label: 'AI Virtual Assistant',
+            type: 'dropdown',
+            className: 'funnel-dropdown',
+            items: [
+              {
+                label: 'Overview',
+                to: '/ai-virtual-assistant/',
+              },
+              {
+                label: 'Chatbot Features',
+                to: '/ai-virtual-assistant/chatbot-features',
+              },
+              {
+                label: 'Lead Qualification',
+                to: '/ai-virtual-assistant/lead-qualification',
+              },
+              {
+                label: 'Appointment Scheduling',
+                to: '/ai-virtual-assistant/appointment-scheduling',
+              },
+              {
+                label: 'Integration Options',
+                to: '/ai-virtual-assistant/integration-options',
+              },
+            ],
+          },
+          {
+            label: 'Voice AI & Insights',
+            type: 'dropdown',
+            className: 'funnel-dropdown',
+            items: [
+              {
+                label: 'Overview',
+                to: '/voice-ai-insights/',
+              },
+              {
+                label: 'Call Analytics',
+                to: '/voice-ai-insights/call-analytics',
+              },
+              {
+                label: 'Sentiment Analysis',
+                to: '/voice-ai-insights/sentiment-analysis',
+              },
+              {
+                label: 'Performance Metrics',
+                to: '/voice-ai-insights/performance-metrics',
+              },
+              {
+                label: 'Voice Recognition',
+                to: '/voice-ai-insights/voice-recognition',
+              },
+            ],
+          },
+          {
+            label: 'API Reference',
             to: '/api/',
           },
           {
-            label: 'Resources',
-            type: 'dropdown',
-            className: 'dyte-dropdown resources-dropdown',
-            items: [
-              {
-                type: 'html',
-                value: resourcesHTML,
-                className: 'dyte-dropdown',
-              },
-            ],
-          },
-          {
             label: 'Support',
-            to: 'https://dyte.io/contact?type=docs',
+            to: 'https://funnelleasing.com/contact?type=docs',
           },
-
           {
             type: 'search',
             position: 'right',
           },
           {
             label: 'Book a demo',
-            href: 'https://dyte.io/schedule-demo',
+            href: 'https://funnelleasing.com/schedule-demo',
             position: 'right',
             className: 'navbar-book-demo',
           },
           {
             label: 'Sign Up',
-            href: 'https://dev.dyte.io/register',
+            href: 'https://funnelleasing.com/register',
             position: 'right',
             className: 'dev-portal-signup dev-portal-link',
           },
@@ -572,26 +565,33 @@ const config = {
       footer: {
         logo: {
           href: '/',
-          src: '/logo/light.svg',
-          srcDark: '/logo/dark.svg',
-          alt: 'Dyte Documentation | Dyte Docs',
+          src: '/logo/funnel-logo.png',
+          alt: 'Funnel Leasing Documentation | Funnel Leasing Docs',
           height: '36px',
         },
         links: [
           {
-            title: 'Product',
+            title: 'Products',
             items: [
               {
-                label: 'Demo',
-                href: 'https://app.dyte.io',
+                label: 'CRM',
+                href: '/crm/',
               },
               {
-                label: 'Developer Portal',
-                href: 'https://dev.dyte.io',
+                label: 'Online Leasing',
+                href: '/online-leasing/',
               },
               {
-                label: 'Pricing',
-                href: 'https://dyte.io/#pricing',
+                label: 'Resident Portal',
+                href: '/resident-portal/',
+              },
+              {
+                label: 'AI Virtual Assistant',
+                href: '/ai-virtual-assistant/',
+              },
+              {
+                label: 'Voice AI & Insights',
+                href: '/voice-ai-insights/',
               },
             ],
           },
@@ -600,19 +600,19 @@ const config = {
             items: [
               {
                 label: 'About Us',
-                href: 'https://dyte.io',
+                href: 'https://funnelleasing.com',
               },
               {
-                label: 'Join Us',
-                href: 'https://dyte.freshteam.com/jobs',
+                label: 'Careers',
+                href: 'https://funnelleasing.com/careers',
               },
               {
                 label: 'Privacy Policy',
-                href: 'https://dyte.io/privacy-policy',
+                href: 'https://funnelleasing.com/privacy-policy',
               },
               {
                 label: 'Contact Us',
-                href: 'https://dyte.io/contact',
+                href: 'https://funnelleasing.com/contact',
               },
             ],
           },
@@ -625,12 +625,16 @@ const config = {
               },
               {
                 label: 'Blog',
-                href: 'https://dyte.io/blog',
+                href: 'https://funnelleasing.com/blog',
+              },
+              {
+                label: 'Support',
+                href: 'https://funnelleasing.com/support',
               },
             ],
           },
         ],
-        copyright: 'Copyright © Dyte since 2023. All rights reserved.',
+        copyright: 'Copyright © Funnel Leasing since 2024. All rights reserved.',
       },
       prism: {
         theme: code_themes.light,

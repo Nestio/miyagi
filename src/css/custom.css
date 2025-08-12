@@ -54,8 +54,8 @@
 
 @layer base {
   :root {
-    --docs-color-primary-100: 26 144 255;
-    --docs-color-primary-200: 33 96 253;
+    --docs-color-primary-100: 255 47 255;
+    --docs-color-primary-200: 255 47 255;
 
     --docs-color-secondary-700: 232 232 236;
     --docs-color-secondary-800: 245 245 247;
@@ -146,10 +146,10 @@ body {
 
 /* Dyte Docs Tokens */
 :root {
-  --docs-color-primary: #2160fd;
+  --docs-color-primary: #ff2fff;
   /* --docs-color-primary-100: #1a90ff; */
-  --docs-color-primary-tint: rgba(33, 96, 253, 0.16);
-  --docs-color-primary-tint-light: rgba(33 96 253/0.24);
+  --docs-color-primary-tint: rgba(255, 47, 255, 0.16);
+  --docs-color-primary-tint-light: rgba(255 47 255/0.24);
 
   --docs-color-border: #dadde1;
 
@@ -199,13 +199,22 @@ body {
     Consolas, 'Liberation Mono', 'Courier New', monospace;
 
   /* Theme colors */
-  --ifm-color-primary: #2160fd;
-  --ifm-color-primary-dark: #1959fc;
-  --ifm-color-primary-darker: #0f51f8;
-  --ifm-color-primary-darkest: #0042e7;
-  --ifm-color-primary-light: #3d72f8;
-  --ifm-color-primary-lighter: #477af8;
-  --ifm-color-primary-lightest: #6791fc;
+  --ifm-color-primary: #ff2fff;
+  --ifm-color-primary-dark: #e61ee6;
+  --ifm-color-primary-darker: #cc1acc;
+  --ifm-color-primary-darkest: #b316b3;
+  --ifm-color-primary-light: #ff4dff;
+  --ifm-color-primary-lighter: #ff66ff;
+  --ifm-color-primary-lightest: #ff80ff;
+
+  /* Secondary color */
+  --ifm-color-secondary: #ff2fff;
+  --ifm-color-secondary-dark: #e61ee6;
+  --ifm-color-secondary-darker: #cc1acc;
+  --ifm-color-secondary-darkest: #b316b3;
+  --ifm-color-secondary-light: #ff4dff;
+  --ifm-color-secondary-lighter: #ff66ff;
+  --ifm-color-secondary-lightest: #ff80ff;
 
   --ifm-navbar-shadow: none;
   --ifm-toc-border-color: #dedede;
@@ -222,11 +231,20 @@ body {
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 html[data-theme='dark'] {
-  --ifm-link-color: #1a90ff;
-  --ifm-tabs-color-active-border: #1a90ff;
-  --ifm-tabs-color-active: #1a90ff;
+  --ifm-link-color: #ff2fff;
+  --ifm-tabs-color-active-border: #ff2fff;
+  --ifm-tabs-color-active: #ff2fff;
 
-  --ifm-color-primary: #1a90ff;
+  --ifm-color-primary: #ff2fff;
+
+  /* Secondary color for dark mode */
+  --ifm-color-secondary: #ff2fff;
+  --ifm-color-secondary-dark: #e61ee6;
+  --ifm-color-secondary-darker: #cc1acc;
+  --ifm-color-secondary-darkest: #b316b3;
+  --ifm-color-secondary-light: #ff4dff;
+  --ifm-color-secondary-lighter: #ff66ff;
+  --ifm-color-secondary-lightest: #ff80ff;
 
   --ifm-footer-background-color: #1c1c1c;
   --ifm-background-surface-color: #161616;
@@ -404,7 +422,7 @@ nav.menu {
 }
 
 .dev-portal-login {
-  --ifm-navbar-link-hover-color: theme('colors.primary.100');
+  --ifm-navbar-link-hover-color: #ff2fff;
   background-color: transparent;
 }
 
@@ -517,7 +535,7 @@ html[data-theme='dark']
 }
 
 .sections-menu-item:hover {
-  background-color: var(--docs-color-background-200);
+  background-color: rgba(255, 47, 255, 0.1);
 }
 
 .sections-menu-item[data-disabled] {
@@ -529,7 +547,7 @@ html[data-theme='dark']
 .sections-menu-item .item-indicator {
   height: 20px;
   width: 20px;
-  color: theme('colors.primary.100');
+  color: #ff2fff;
 }
 
 .sections-menu-trigger .item-text,
@@ -583,7 +601,7 @@ html[data-theme='dark']
 .loading-container dyte-spinner {
   width: 48px;
   height: 48px;
-  color: theme('colors.primary.100');
+  color: #ff2fff;
 }
 
 .dyte-video-showcase {
@@ -1268,16 +1286,20 @@ h2.anchor > code {
 }
 .cta_button {
   padding: 16px 32px;
-  background-color: #2160fd;
+  background-color: #ff2fff;
   color: white;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 500;
+  transition: all 0.2s ease-in-out;
 }
 
 .cta_button:hover {
   color: white;
   text-decoration: none;
+  background-color: #e61ee6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 47, 255, 0.3);
 }
 
 .cta_wrapper {

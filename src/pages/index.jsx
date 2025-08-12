@@ -42,10 +42,6 @@ export default function Homepage() {
 
       <HeroSection />
 
-      <GuidesAndSamples />
-
-      <SDKs />
-
       <APIReferenceSection />
 
       <div className="z-0">

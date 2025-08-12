@@ -11,28 +11,44 @@ import clsx from 'clsx';
 
 const PRODUCTS = [
   {
-    title: 'Live Video Calls',
+    title: 'CRM',
     link: '/guides/live-video/intro-video-conf',
     icon: VideoRegular,
     lightImage: '/static/landing-page/hero/video-graphic.png',
     darkImage: '/static/landing-page/hero/video-graphic-dark.png',
-    text: 'Enable live video communication within your application using WebRTC. Perfect for education, telemedicine, social networks and gaming',
+    text: 'Comprehensive customer relationship management for property managers. Track leads, manage prospects, and optimize your leasing pipeline.',
   },
   {
-    title: 'Voice Calls',
+    title: 'Online Leasing',
     link: '/guides/voice-conf/intro-voice-conf',
     icon: MicRegular,
     lightImage: '/static/landing-page/hero/voice-graphic.png',
     darkImage: '/static/landing-page/hero/voice-graphic-dark.png',
-    text: 'Incorporate high-quality real-time audio into your application using WebRTC. Build voice calls, audio conferences, voice chats in games and more',
+    text: 'Streamlined digital leasing application and processing. Transform the traditional leasing process into a seamless online experience.',
   },
   {
-    title: 'Interactive Live Streaming',
+    title: 'Resident Portal',
     link: '/guides/livestream/livestream-overview',
     icon: LiveRegular,
     lightImage: '/static/landing-page/hero/livestream-graphic.png',
     darkImage: '/static/landing-page/hero/livestream-graphic-dark.png',
-    text: 'Integrate highly scalable live video broadcasting capabilities into your app using HLS, ideal for apps that involve streaming webinars, sports or live events',
+    text: 'Self-service portal for residents to manage accounts, submit maintenance requests, and access community features.',
+  },
+  {
+    title: 'AI Virtual Assistant',
+    link: '/guides/live-video/intro-video-conf',
+    icon: VideoRegular,
+    lightImage: '/static/landing-page/hero/video-graphic.png',
+    darkImage: '/static/landing-page/hero/video-graphic-dark.png',
+    text: 'Intelligent chatbot and automation solutions. Automate customer interactions and provide 24/7 support.',
+  },
+  {
+    title: 'Voice AI & Insights',
+    link: '/guides/live-video/intro-video-conf',
+    icon: VideoRegular,
+    lightImage: '/static/landing-page/hero/video-graphic.png',
+    darkImage: '/static/landing-page/hero/video-graphic-dark.png',
+    text: 'Advanced call analytics and voice recognition. Transform phone conversations into actionable business intelligence.',
   },
 ];
 
@@ -83,13 +99,10 @@ export default function HeroSection() {
       <section className="no-underline-links px-4 pt-16 lg:py-0">
         <div className="flex flex-col items-center justify-between py-14">
           <h2 className="mb-4 font-jakarta text-5xl font-bold">
-            Build with Dyte
+            Scale with Funnel Leasing
           </h2>
           <p className="max-w-xl text-center text-text-400">
-            At Dyte, we're building the future of real-time communication.
-            Integrate programmable, and easily customizable live video and voice
-            into your web, mobile, and desktop applications with just a few
-            lines of code.
+          Streamline every aspect of property management with our comprehensive suite of solutions. From lead generation to resident services, we've got you covered.
           </p>
         </div>
       </section>

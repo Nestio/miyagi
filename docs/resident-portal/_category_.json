@@ -1,0 +1,8 @@
+{
+  "label": "Resident Portal",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Self-service portal for residents to manage their accounts"
+  }
+} 

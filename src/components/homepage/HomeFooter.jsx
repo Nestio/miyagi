@@ -336,11 +336,11 @@ export default function Footer() {
       <div className="mx-auto flex w-full max-w-[1080px] flex-col px-6 py-12">
         <div className="mb-12 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <ThemedImage
-            alt="Dyte"
+            alt="Funnel Leasing"
             className="h-9 w-fit lg:h-12"
             sources={{
-              light: '/logo/dyte.svg',
-              dark: '/logo/dyte_dark_logo.svg',
+              light: '/logo/funnel-leasing.webp',
+              dark: '/logo/funnel-leasing.webp',
             }}
           />
 
@@ -372,50 +372,50 @@ export default function Footer() {
 
           <div className="flex flex-wrap gap-2 text-sm text-gray-500">
             <Link
-              href="https://dyte.io/privacy-policy"
+              href="https://funnelleasing.com/privacy-policy"
               className="text-inherit hover:text-black hover:underline dark:text-[#999] dark:hover:text-[#2160fd]"
             >
               Privacy Policy
             </Link>
             &bull;
             <Link
-              href="https://dyte.io/terms-of-service"
+              href="https://funnelleasing.com/terms-of-service"
               className="text-inherit hover:text-black hover:underline dark:text-[#999] dark:hover:text-[#2160fd]"
             >
               Terms of Service
             </Link>
             &bull;
             <Link
-              href="https://dyte.io/website-terms-of-use"
+              href="https://funnelleasing.com/website-terms-of-use"
               className="text-inherit hover:text-black hover:underline dark:text-[#999] dark:hover:text-[#2160fd]"
             >
               Website Terms of Use
             </Link>
             &bull;
             <span className="text-inherit dark:text-[#999]">
-              &copy; {new Date().getFullYear()} Dyte Inc.
+              &copy; {new Date().getFullYear()} Funnel Leasing Inc.
             </span>
           </div>
 
           <div className="flex items-center gap-4">
             <Link
-              href="https://github.com/dyte-io"
-              aria-label="Dyte's GitHub Organization"
+              href="https://github.com/funnelleasing"
+              aria-label="Funnel Leasing's GitHub Organization"
             >
               <Github className="h-7 w-7 text-zinc-400 hover:text-primary" />
             </Link>
             <Link
-              href="https://linkedin.com/company/dyteio"
+              href="https://linkedin.com/company/funnelleasing"
               aria-label="LinkedIn"
             >
               <Linkedin className="h-7 w-7 text-zinc-400 hover:text-primary" />
             </Link>
-            <Link href="https://twitter.com/dyte_io" aria-label="Twitter">
+            <Link href="https://twitter.com/funnelleasing" aria-label="Twitter">
               <XIcon className="h-7 w-7 text-zinc-400 hover:text-primary" />
             </Link>
             <Link
-              href="https://youtube.com/company/dyteio"
-              aria-label="Dyte YouTube Channel"
+              href="https://youtube.com/company/funnelleasing"
+              aria-label="Funnel Leasing YouTube Channel"
             >
               <Youtube className="h-7 w-7 text-zinc-400 hover:text-primary" />
             </Link>
