@@ -250,7 +250,6 @@ export default function Footer() {
           </BrowserOnly>
         </div>
 
-
         <hr className="my-12 !bg-gray-300 dark:!bg-[#999]" />
 
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
