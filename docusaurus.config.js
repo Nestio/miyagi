@@ -1,9 +1,17 @@
 const { themes } = require('prism-react-renderer');
+const fs = require('fs');
+const path = require('path');
 
 const code_themes = {
   light: themes.github,
   dark: themes.dracula,
 };
+
+// Load HTML snippets
+const docsDropdownHTML = fs.readFileSync(
+  path.join(__dirname, 'src/snippets/docs-dropdown.html'),
+  'utf8'
+);
 
 /** @type {import('@docusaurus/types').Config} */
 const meta = {
@@ -330,7 +338,6 @@ const plugins = [
   ],
 ];
 
-const fs = require('fs');
 const sdksHTML = fs.readFileSync('./src/snippets/sdks.html', 'utf-8');
 const resourcesHTML = fs.readFileSync('./src/snippets/resources.html', 'utf-8');
 
@@ -406,89 +413,37 @@ const config = {
         },
         items: [
           {
-            label: 'CRM',
+            label: 'Docs',
             type: 'dropdown',
-            className: 'funnel-dropdown',
+            className: 'funnel-dropdown docs-dropdown',
             items: [
               {
-                label: 'Overview',
-                to: '/crm/',
-              },
-              {
-                label: 'Lead Management',
-                to: '/crm/lead-management',
-              },
-              {
-                label: 'Prospect Tracking',
-                to: '/crm/prospect-tracking',
+                type: 'html',
+                value: docsDropdownHTML,
+                className: 'funnel-dropdown',
               },
             ],
           },
           {
-            label: 'Online Leasing',
-            type: 'dropdown',
-            className: 'funnel-dropdown',
-            items: [
-              {
-                label: 'Overview',
-                to: '/online-leasing/',
-              },
-              {
-                label: 'Lease Transactions',
-                to: '/online-leasing/lease-transactions',
-              },
-              {
-                label: 'Screening and Fraud Prevention',
-                to: '/online-leasing/screening-fraud-prevention',
-              },
-              {
-                label: 'Legal and Contracts',
-                to: '/online-leasing/legal-contracts',
-              },
-            ],
+            label: 'Guides',
+            to: '/guides/',
           },
           {
-            label: 'Resident Portal',
+            label: 'Resources',
             type: 'dropdown',
             className: 'funnel-dropdown',
             items: [
               {
-                label: 'Overview',
-                to: '/resident-portal/',
+                label: 'Release Notes',
+                to: '/release-notes/',
               },
               {
-                label: 'Maintenance Requests',
-                to: '/resident-portal/maintenance-requests',
-              },
-            ],
-          },
-          {
-            label: 'AI Virtual Assistant',
-            type: 'dropdown',
-            className: 'funnel-dropdown',
-            items: [
-              {
-                label: 'Overview',
-                to: '/ai-virtual-assistant/',
+                label: 'FAQ',
+                to: '/faq/',
               },
               {
-                label: 'Chatbot Features',
-                to: '/ai-virtual-assistant/chatbot-features',
-              },
-            ],
-          },
-          {
-            label: 'Voice AI & Insights',
-            type: 'dropdown',
-            className: 'funnel-dropdown',
-            items: [
-              {
-                label: 'Overview',
-                to: '/voice-ai-insights/',
-              },
-              {
-                label: 'Call Analytics',
-                to: '/voice-ai-insights/call-analytics',
+                label: 'Support',
+                to: 'https://funnelleasing.com/contact?type=docs',
               },
             ],
           },
@@ -651,3 +606,4 @@ const config = {
 };
 
 module.exports = config;
+
