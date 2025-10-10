@@ -8,81 +8,35 @@ import ThemedImage from '@theme/ThemedImage';
 
 const products = [
   {
-    name: 'Live Video',
-    href: 'https://dyte.io/video-sdk',
+    name: 'Online Leasing',
+    href: '/online-leasing',
   },
   {
-    name: 'Voice Conferencing',
-    href: 'https://dyte.io/voice-sdk',
+    name: 'CRM & Lead Management',
+    href: '/crm',
   },
   {
-    name: 'Live Streaming',
-    href: 'https://dyte.io/live-streaming-sdk',
+    name: 'Resident Portal',
+    href: '/resident-portal',
   },
   {
-    name: 'Pricing',
-    href: 'https://dyte.io/pricing',
+    name: 'AI Virtual Assistant',
+    href: '/ai-virtual-assistant',
   },
   {
-    name: 'Features',
-    isAccordion: true,
-    content: [
-      {
-        name: 'Plugins',
-        href: 'https://dyte.io/features/plugin',
-      },
-      {
-        name: 'Breakout Rooms',
-        href: 'https://dyte.io/features/breakout-rooms',
-      },
-      {
-        name: 'Recording',
-        href: 'https://dyte.io/features/recording',
-      },
-      {
-        name: 'UI Kit',
-        href: 'https://dyte.io/features/ui-kit',
-      },
-      {
-        name: 'DevEx',
-        href: 'https://dyte.io/features/devex',
-      },
-      {
-        name: 'Security',
-        href: 'https://dyte.io/features/security',
-      },
-      {
-        name: 'AI',
-        href: 'https://dyte.io/features/dyte-ai',
-      },
-      {
-        name: 'Streaming',
-        href: 'https://dyte.io/features/streaming',
-      },
-      {
-        name: 'UX',
-        href: 'https://dyte.io/features/ux',
-      },
-      {
-        name: 'Interatcive',
-        href: 'https://dyte.io/features/interactive',
-      },
-    ],
+    name: 'Voice AI Insights',
+    href: '/voice-ai-insights',
+  },
+  {
+    name: 'Getting Started',
+    href: '/getting-started',
   },
 ];
 
 const developers = [
   {
-    name: 'Developer Portal',
-    href: 'https://accounts.dyte.io/auth/login',
-  },
-  {
     name: 'Documentation',
-    href: 'https://docs.dyte.io',
-  },
-  {
-    name: 'Showcase',
-    href: 'https://dyte.io/showcase',
+    href: '/',
   },
   {
     name: 'API Reference',
@@ -93,131 +47,81 @@ const developers = [
     href: '/guides',
   },
   {
-    name: 'Platform',
+    name: 'SDKs',
     isAccordion: true,
     content: [
       {
-        name: 'Flutter',
-        href: 'https://dyte.io/flutter-video-sdk',
+        name: 'React Web Core',
+        href: '/react-web-core',
       },
       {
-        name: 'Android',
-        href: 'https://dyte.io/android-video-sdk',
+        name: 'React UI Kit',
+        href: '/react-ui-kit',
       },
       {
-        name: 'iOS',
-        href: 'https://dyte.io/ios-video-sdk',
+        name: 'Angular UI Kit',
+        href: '/angular-ui-kit',
       },
       {
-        name: 'React',
-        href: 'https://dyte.io/react-video-sdk',
+        name: 'Flutter Core',
+        href: '/flutter-core',
       },
       {
-        name: 'React Native',
-        href: 'https://dyte.io/react-native-video-sdk',
+        name: 'Flutter UI Kit',
+        href: '/flutter',
+      },
+      {
+        name: 'iOS Core',
+        href: '/ios-core',
+      },
+      {
+        name: 'iOS UI Kit',
+        href: '/ios',
+      },
+      {
+        name: 'Android Core',
+        href: '/android-core',
+      },
+      {
+        name: 'Android UI Kit',
+        href: '/android',
+      },
+      {
+        name: 'React Native Core',
+        href: '/rn-core',
+      },
+      {
+        name: 'React Native UI Kit',
+        href: '/react-native',
       },
     ],
   },
   {
-    name: 'Migrate from Twilio',
-    href: 'https://dyte.io/blog/migrate-twilio-video-dyte-shim/',
+    name: 'Release Notes',
+    href: '/release-notes',
   },
 ];
 
 const usecases = [
-  { name: 'Ed-Tech', href: 'https://dyte.io/use-cases/ed-tech' },
-  { name: 'Telehealth', href: 'https://dyte.io/use-cases/telehealth' },
-  { name: 'HR Tech', href: 'https://dyte.io/use-cases/hr-tech' },
-  { name: 'Fitness', href: 'https://dyte.io/use-cases/fitness' },
-  { name: 'Social', href: 'https://dyte.io/use-cases/social' },
-  { name: 'Gaming', href: 'https://dyte.io/use-cases/gaming' },
-  { name: 'Events', href: 'https://dyte.io/use-cases/events' },
-  { name: 'Dating', href: 'https://dyte.io/use-cases/dating' },
+  { name: 'Lead Management', href: '/crm/lead-management' },
+  { name: 'Prospect Tracking', href: '/crm/prospect-tracking' },
+  { name: 'Lease Transactions', href: '/online-leasing/lease-transactions' },
+  { name: 'Legal Contracts', href: '/online-leasing/legal-contracts' },
+  { name: 'Screening & Fraud Prevention', href: '/online-leasing/screening-fraud-prevention' },
+  { name: 'Maintenance Requests', href: '/resident-portal/maintenance-requests' },
+  { name: 'Chatbot Features', href: '/ai-virtual-assistant/chatbot-features' },
+  { name: 'Call Analytics', href: '/voice-ai-insights/call-analytics' },
 ];
 
 const company = [
-  { name: 'About Us', href: 'https://funnelleasing.com/about' },
-  { name: 'Customers', href: 'https://dyte.io/customers' },
-  { name: 'Blog', href: 'https://funnelleasing.com/blog' },
-  { name: 'Careers', href: 'https://jobs.lever.co/dyte-io' },
-  { name: 'Contact Us', href: 'https://funnelleasing.com/contact' },
+  { name: 'About Funnel', href: 'https://funnelleasing.com/about' },
+  { name: 'Support', href: 'https://funnelleasing.com/support' },
+  { name: 'Contact', href: 'https://funnelleasing.com/contact' },
   { name: 'FAQ', href: '/faq' },
-  { name: 'Guide on Video SDK', href: 'https://dyte.io/blog/video-sdk/' },
+  { name: 'Search', href: '/search' },
+  { name: 'Homepage', href: 'https://funnelleasing.com' },
 ];
 
-const comparisons = [
-  { name: 'Dyte vs Raw WebRTC', href: 'https://dyte.io/webrtc-alternative' },
-  { name: 'Dyte vs Agora', href: 'https://dyte.io/agora-competitor' },
-  { name: 'Dyte vs Zoom', href: 'https://dyte.io/zoom-sdk-competitor' },
-  { name: 'Dyte vs Twilio', href: 'https://dyte.io/twilio-video-competitor' },
-  { name: 'Dyte vs Vonage', href: 'https://dyte.io/vonage-video-alternative' },
-  {
-    name: 'View 14 more',
-    isAccordion: true,
-    content: [
-      {
-        name: 'Zoom vs Agora',
-        href: 'https://dyte.io/zoom-vs-agora',
-      },
-      {
-        name: 'Agora vs Twilio',
-        href: 'https://dyte.io/agora-vs-twilio',
-      },
-      {
-        name: 'Zoom vs Twilio',
-        href: 'https://dyte.io/zoom-vs-twilio',
-      },
-      {
-        name: 'Agora vs Mux',
-        href: 'https://dyte.io/agora-vs-mux',
-      },
-      {
-        name: 'Zoom vs Whereby',
-        href: 'https://dyte.io/zoom-vs-whereby',
-      },
-      {
-        name: 'Tokbox vs Twilio',
-        href: 'https://dyte.io/tokbox-vs-twilio',
-      },
-      {
-        name: 'Tokbox vs Agora',
-        href: 'https://dyte.io/tokbox-vs-agora',
-      },
-      {
-        name: 'AWS Chime vs Twilio',
-        href: 'https://dyte.io/aws-chime-vs-twilio',
-      },
-      {
-        name: 'Tokbox vs Jitsi',
-        href: 'https://dyte.io/tokbox-vs-jitsi',
-      },
-      {
-        name: 'Zoom vs Jitsi',
-        href: 'https://dyte.io/zoom-vs-jitsi',
-      },
-      {
-        name: 'Agora vs Jitsi',
-        href: 'https://dyte.io/agora-vs-jitsi',
-      },
-      {
-        name: 'Whereby vs Jitsi',
-        href: 'https://dyte.io/whereby-vs-jitsi',
-      },
-      {
-        name: 'Livekit vs Jitsi',
-        href: 'https://dyte.io/livekit-vs-jitsi',
-      },
-      {
-        name: '100ms vs Agora',
-        href: 'https://dyte.io/100ms-vs-agora',
-      },
-      {
-        name: 'Twilio Video Alternatives',
-        href: 'https://dyte.io/blog/twilio-video-alternatives/',
-      },
-    ],
-  },
-];
 
 function Safety({ className }) {
   return (
@@ -346,13 +250,6 @@ export default function Footer() {
           </BrowserOnly>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 gap-y-12 md:justify-between lg:flex lg:flex-wrap">
-          <Links name="Product" links={products} />
-          <Links name="Developers" links={developers} />
-          <Links name="Usecases" links={usecases} />
-          <Links name="Company" links={company} />
-          <Links name="Compare" links={comparisons} />
-        </div>
 
         <hr className="my-12 !bg-gray-300 dark:!bg-[#999]" />
 
@@ -419,3 +316,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+
