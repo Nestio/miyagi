@@ -5,7 +5,6 @@ import HeroSection from '../components/homepage/HeroSection';
 import APIReferenceSection from '../components/homepage/APIReferenceSection';
 import CommunitySection from '../components/homepage/CommunitySection';
 import HomeFooter from '../components/homepage/HomeFooter';
-import ResourcesSection from '../components/homepage/ResourcesSection';
 import HelpSection from '../components/homepage/HelpSection';
 import Head from '@docusaurus/Head';
 import GuidesAndSamples from '../components/homepage/GuidesAndSamples';
@@ -45,7 +44,6 @@ export default function Homepage() {
       <APIReferenceSection />
 
       <div className="z-0">
-        <ResourcesSection />
         <HelpSection className="-mb-48" />
       </div>
 
