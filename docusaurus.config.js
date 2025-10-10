@@ -77,7 +77,7 @@ const docs = [
 /** @type {import('@docusaurus/plugin-content-docs').Options} */
 const defaultSettings = {
   breadcrumbs: true,
-  editUrl: 'https://github.com/dyte-io/docs/tree/main/',
+  editUrl: 'https://github.com/Nestio/miyagi/tree/main/',
   showLastUpdateTime: true,
   sidebarCollapsible: true,
   remarkPlugins: [
@@ -586,6 +586,10 @@ const config = {
               {
                 label: 'Support',
                 href: 'https://funnelleasing.com/support',
+              },
+              {
+                label: 'Status',
+                href: 'https://status.funnelleasing.com/',
               },
             ],
           },
