@@ -16,7 +16,7 @@ import PhHelloBar from '../components/homepage/PhHelloBar';
 export default function Homepage() {
   return (
     <Layout
-      title="Dyte Documentation"
+      title="Funnel Leasing Documentation"
       wrapperClassName="homepage flex flex-col"
       noFooter
     >

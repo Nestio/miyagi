@@ -20,19 +20,19 @@ const ALL_RESOURCES: Resource[] = [
   {
     url: '/guides/v2-migration-guide',
     type: 'blog',
-    title: 'Migrate to v2 REST API',
+    title: 'Getting Started with Funnel APIs',
     description:
-      'Excited to announce the release of our v2 REST APIs, which are faster, more idiomatic, and easier to use.',
+      'Learn how to integrate with Funnel Leasing APIs to automate your property management workflows.',
     image:
       'https://dyte.io/blog/content/images/size/w1000/2023/02/Dyte-Blog---v2-APIs.jpg',
     duration: '3 min',
   },
   {
-    url: 'https://dyte.io/blog/hls-in-depth/',
+    url: 'https://funnelleasing.com/blog',
     type: 'blog',
-    title: 'HLS in Depth',
+    title: 'Property Management Best Practices',
     description:
-      "HLS is widely adopted, simple, yet robust. Learn how it works from a client's perspective, its segments, features, and disadvantages.",
+      "Learn the latest trends and best practices in property management to optimize your leasing operations.",
     image:
       'https://dyte.io/blog/content/images/size/w1000/2023/07/HLS--indepth--header--1.png',
     duration: '10 min',
@@ -40,26 +40,26 @@ const ALL_RESOURCES: Resource[] = [
   {
     url: 'https://www.youtube.com/watch?v=eVUqkNNHh1o',
     type: 'video',
-    title: 'Integrating React UI Kit',
+    title: 'Funnel Leasing Integration Guide',
     description:
-      'In this video learn how to use React UI Kit prebuilt components to add live video and audio to your React application.',
+      'Learn how to integrate Funnel Leasing APIs with your existing property management systems.',
     image: 'https://img.youtube.com/vi/eVUqkNNHh1o/hqdefault.jpg',
     duration: '5 min',
   },
   {
     url: 'https://www.youtube.com/watch?v=ZkrZc8Neh6A',
     type: 'video',
-    title: 'Video KYC App using React UI Kit',
+    title: 'Online Leasing Application Demo',
     description:
-      'In this episode of Dyte Byte we show how to build Video KYC App using React UI Kit.',
+      'See how to build a complete online leasing application using Funnel Leasing APIs.',
     image: 'https://img.youtube.com/vi/ZkrZc8Neh6A/hqdefault.jpg',
     duration: '5 min',
   },
   {
     url: 'https://www.youtube.com/watch?v=UHuzWDxrvLk',
     type: 'video',
-    title: 'Calling Dyte REST APIs',
-    description: 'Understand our HTTP REST APIs',
+    title: 'Funnel Leasing REST APIs',
+    description: 'Understand our HTTP REST APIs for property management',
     image: 'https://img.youtube.com/vi/UHuzWDxrvLk/hqdefault.jpg',
     duration: '7 min',
   },

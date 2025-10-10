@@ -6,7 +6,6 @@
 /ui-kit/installation /ui-kit/quickstart 301
 /web-core/quickstart /web-core 301
 /faq/ /faq 200
-/api/ /api 200
 /react/<_> /react-ui-kit 301
 /react-web-core/* /web-core/:splat?framework=react 301
 /react-web-core /web-core?framework=react 301

@@ -494,7 +494,7 @@ const config = {
           },
           {
             label: 'API Reference',
-            to: '/api/',
+            to: 'https://developer.funnelleasing.com/customer-api/about/authentication/',
           },
           {
             label: 'Support',
