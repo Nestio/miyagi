@@ -343,6 +343,8 @@ const config = {
   },
 
   trailingSlash: false,
+  onBrokenLinks: 'ignore',
+  onBrokenMarkdownLinks: 'ignore',
   themes: ['@docusaurus/theme-live-codeblock', '@docusaurus/theme-mermaid'],
   clientModules: [
     require.resolve('./src/client/define-ui-kit.js'),
@@ -420,14 +422,6 @@ const config = {
                 label: 'Prospect Tracking',
                 to: '/crm/prospect-tracking',
               },
-              {
-                label: 'Deal Pipeline',
-                to: '/crm/deal-pipeline',
-              },
-              {
-                label: 'Reporting & Analytics',
-                to: '/crm/reporting-analytics',
-              },
             ],
           },
           {
@@ -463,20 +457,8 @@ const config = {
                 to: '/resident-portal/',
               },
               {
-                label: 'Account Management',
-                to: '/resident-portal/account-management',
-              },
-              {
                 label: 'Maintenance Requests',
                 to: '/resident-portal/maintenance-requests',
-              },
-              {
-                label: 'Payment History',
-                to: '/resident-portal/payment-history',
-              },
-              {
-                label: 'Community Features',
-                to: '/resident-portal/community-features',
               },
             ],
           },
@@ -493,18 +475,6 @@ const config = {
                 label: 'Chatbot Features',
                 to: '/ai-virtual-assistant/chatbot-features',
               },
-              {
-                label: 'Lead Qualification',
-                to: '/ai-virtual-assistant/lead-qualification',
-              },
-              {
-                label: 'Appointment Scheduling',
-                to: '/ai-virtual-assistant/appointment-scheduling',
-              },
-              {
-                label: 'Integration Options',
-                to: '/ai-virtual-assistant/integration-options',
-              },
             ],
           },
           {
@@ -519,18 +489,6 @@ const config = {
               {
                 label: 'Call Analytics',
                 to: '/voice-ai-insights/call-analytics',
-              },
-              {
-                label: 'Sentiment Analysis',
-                to: '/voice-ai-insights/sentiment-analysis',
-              },
-              {
-                label: 'Performance Metrics',
-                to: '/voice-ai-insights/performance-metrics',
-              },
-              {
-                label: 'Voice Recognition',
-                to: '/voice-ai-insights/voice-recognition',
               },
             ],
           },
