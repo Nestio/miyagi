@@ -24,7 +24,7 @@ const ALL_RESOURCES: Resource[] = [
     description:
       'Learn how to integrate with Funnel Leasing APIs to automate your property management workflows.',
     image:
-      'https://dyte.io/blog/content/images/size/w1000/2023/02/Dyte-Blog---v2-APIs.jpg',
+      'https://funnelleasing.com/blog/content/images/size/w1000/2023/02/Funnel-Blog---v2-APIs.jpg',
     duration: '3 min',
   },
   {
@@ -34,7 +34,7 @@ const ALL_RESOURCES: Resource[] = [
     description:
       "Learn the latest trends and best practices in property management to optimize your leasing operations.",
     image:
-      'https://dyte.io/blog/content/images/size/w1000/2023/07/HLS--indepth--header--1.png',
+      'https://funnelleasing.com/blog/content/images/size/w1000/2023/07/Funnel--indepth--header--1.png',
     duration: '10 min',
   },
   {
@@ -136,7 +136,7 @@ export default function ResourcesSection() {
             <h2 className="mb-6 text-4xl">Want to know more?</h2>
           </div>
           <Link
-            to="https://dyte.io/blog"
+            to="https://funnelleasing.com/blog"
             className="font-jakarta text-sm font-semibold text-primary"
           >
             All Blogs <ArrowRightFilled className="ml-1" />

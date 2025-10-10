@@ -136,11 +136,11 @@ const usecases = [
 ];
 
 const company = [
-  { name: 'About Us', href: 'https://dyte.io/about' },
+  { name: 'About Us', href: 'https://funnelleasing.com/about' },
   { name: 'Customers', href: 'https://dyte.io/customers' },
-  { name: 'Blog', href: 'https://dyte.io/blog' },
+  { name: 'Blog', href: 'https://funnelleasing.com/blog' },
   { name: 'Careers', href: 'https://jobs.lever.co/dyte-io' },
-  { name: 'Contact Us', href: 'https://dyte.io/contact' },
+  { name: 'Contact Us', href: 'https://funnelleasing.com/contact' },
   { name: 'FAQ', href: '/faq' },
   { name: 'Guide on Video SDK', href: 'https://dyte.io/blog/video-sdk/' },
 ];
@@ -405,7 +405,7 @@ export default function Footer() {
               <Github className="h-7 w-7 text-zinc-400 hover:text-primary" />
             </Link>
             <Link
-              href="https://linkedin.com/company/funnelleasing"
+              href="https://www.linkedin.com/company/funnelleasing/"
               aria-label="LinkedIn"
             >
               <Linkedin className="h-7 w-7 text-zinc-400 hover:text-primary" />
@@ -414,7 +414,7 @@ export default function Footer() {
               <XIcon className="h-7 w-7 text-zinc-400 hover:text-primary" />
             </Link>
             <Link
-              href="https://youtube.com/company/funnelleasing"
+              href="https://www.youtube.com/channel/UCzDmikmKU694trssiGpmgIg"
               aria-label="Funnel Leasing YouTube Channel"
             >
               <Youtube className="h-7 w-7 text-zinc-400 hover:text-primary" />
