@@ -233,13 +233,7 @@ function Safety({ className }) {
         Our Priority.
       </div>
       <div className="flex flex-1 items-center justify-around px-6">
-        <img src="/img/soc-compliant-1.png" alt="SOC Compliant" />
-        <img src="/img/vector.png" alt="HIPAA Compliant" />
-        <img
-          style={{ width: '62px' }}
-          src="/img/gdpr_docs.png"
-          alt="GDPR compliant"
-        />
+        <img src="/img/soc-compliant-1.png" alt="SOC Compliant" style={{ width: '170px' }} />
       </div>
     </div>
   );
