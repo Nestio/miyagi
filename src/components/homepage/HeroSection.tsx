@@ -16,8 +16,8 @@ const PRODUCTS = [
     title: 'CRM',
     link: '/guides/live-video/intro-video-conf',
     icon: AppsListDetailFilled,
-    lightImage: '/static/landing-page/hero/video-graphic.png',
-    darkImage: '/static/landing-page/hero/video-graphic-dark.png',
+    lightImage: '/static/landing-page/hero/crm-graphic.png',
+    darkImage: '/static/landing-page/hero/crm-graphic-dark.png',
     text: 'Comprehensive customer relationship management for property managers. Track leads, manage prospects, and optimize your leasing pipeline.',
   },
   {
@@ -70,10 +70,10 @@ function HeroProduct({
       }}
       className={clsx(
         'group cursor-pointer overflow-clip rounded-3xl from-primary/30 via-transparent to-transparent text-black transition-all hover:bg-gradient-to-tr hover:text-primary hover:no-underline dark:text-white',
-        'w-[90vw] border-secondary-700 bg-secondary-900 hover:!border-primary dark:border-secondary-800 sm:w-[440px]',
+        'w-[90vw] border-secondary-700 bg-secondary-900 hover:!border-primary dark:border-secondary-800 sm:w-[440px] flex flex-col',
       )}
     >
-      <div className="p-6 !pb-0">
+      <div className="p-6 !pb-0 flex-1">
         <h3 className="mb-1.5 flex items-center gap-3 font-jakarta group-hover:text-primary">
           <Icon className="h-7 w-7" />
           <div>
@@ -83,14 +83,16 @@ function HeroProduct({
         </h3>
         <p className="mb-0 text-sm text-zinc-400">{text}</p>
       </div>
-      <ThemedImage
-        sources={{
-          light: lightImage,
-          dark: darkImage,
-        }}
-        alt={title}
-        className="mt-1 w-full transition-transform group-hover:scale-110"
-      />
+      <div className="mt-auto">
+        <ThemedImage
+          sources={{
+            light: lightImage,
+            dark: darkImage,
+          }}
+          alt={title}
+          className="mt-1 w-full transition-transform group-hover:scale-110"
+        />
+      </div>
     </Link>
   );
 }
