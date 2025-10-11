@@ -24,8 +24,8 @@ const PRODUCTS = [
     title: 'Online Leasing',
     link: '/guides/voice-conf/intro-voice-conf',
     icon: DocumentSignatureRegular,
-    lightImage: '/static/landing-page/hero/voice-graphic.png',
-    darkImage: '/static/landing-page/hero/voice-graphic-dark.png',
+    lightImage: '/static/landing-page/hero/ol-graphic.png',
+    darkImage: '/static/landing-page/hero/ol-graphic.png',
     text: 'Streamlined digital leasing application and processing. Transform the traditional leasing process into a seamless online experience.',
   },
   {
