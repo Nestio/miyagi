@@ -37,19 +37,19 @@ const SECTIONS: Section[] = [
     name: 'Resident Portal',
     docId: 'resident-portal',
     icon: HTMLIcon,
-    section: 'resident-services',
+    section: false,
   },
   {
     name: 'AI Virtual Assistant',
     docId: 'ai-virtual-assistant',
     icon: AngularIcon,
-    section: 'ai-services',
+    section: false,
   },
   {
     name: 'Voice AI & Insights',
     docId: 'voice-ai-insights',
     icon: AndroidIcon,
-    section: 'ai-services',
+    section: false,
   },
 ];
 
@@ -61,20 +61,7 @@ export type SectionsGroup = {
 };
 
 const SECTION_GROUPS: SectionsGroup[][] = [
-  [
-    {
-      name: 'Resident Services',
-      section: 'resident-services',
-      description: 'Tools and portals for resident engagement and services.',
-    },
-  ],
-  [
-    {
-      name: 'AI Services',
-      section: 'ai-services',
-      description: 'Intelligent automation and analytics solutions.',
-    },
-  ],
+  [],
 ];
 
 export { SECTIONS, SECTION_GROUPS };

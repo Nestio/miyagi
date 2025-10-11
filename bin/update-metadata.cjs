@@ -55,7 +55,7 @@ for (const section of Object.keys(prefixes)) {
         section === 'guides' ? `${title} ${prefix}` : `${prefix} ${title}`;
 
       if (filePath.includes('/components/')) {
-        data.description = `Learn how to use and customize the ${title} component in Dyte's ${prefix} with our detailed documentation.`;
+        data.description = `Learn how to use and customize the ${title} component in Funnel's ${prefix} with our detailed documentation.`;
       }
 
       const updatedContent = [
