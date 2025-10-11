@@ -14,7 +14,7 @@ import clsx from 'clsx';
 const PRODUCTS = [
   {
     title: 'CRM',
-    link: '/guides/live-video/intro-video-conf',
+    link: '/crm/',
     icon: AppsListDetailFilled,
     lightImage: '/static/landing-page/hero/crm-graphic.png',
     darkImage: '/static/landing-page/hero/crm-graphic-dark.png',
@@ -22,7 +22,7 @@ const PRODUCTS = [
   },
   {
     title: 'Online Leasing',
-    link: '/guides/voice-conf/intro-voice-conf',
+    link: '/online-leasing/',
     icon: DocumentSignatureRegular,
     lightImage: '/static/landing-page/hero/ol-graphic.png',
     darkImage: '/static/landing-page/hero/ol-graphic.png',
@@ -30,7 +30,7 @@ const PRODUCTS = [
   },
   {
     title: 'Resident Portal',
-    link: '/guides/livestream/livestream-overview',
+    link: '/resident-portal/',
     icon: PhoneKeyRegular,
     lightImage: '/static/landing-page/hero/livestream-graphic.png',
     darkImage: '/static/landing-page/hero/livestream-graphic-dark.png',
@@ -38,7 +38,7 @@ const PRODUCTS = [
   },
   {
     title: 'AI Virtual Assistant',
-    link: '/guides/live-video/intro-video-conf',
+    link: '/ai-virtual-assistant/',
     icon: ChatSparkleRegular,
     lightImage: '/static/landing-page/hero/video-graphic.png',
     darkImage: '/static/landing-page/hero/video-graphic-dark.png',
@@ -46,7 +46,7 @@ const PRODUCTS = [
   },
   {
     title: 'Voice AI & Insights',
-    link: '/guides/live-video/intro-video-conf',
+    link: '/voice-ai-insights/',
     icon: BrainSparkleRegular,
     lightImage: '/static/landing-page/hero/voice-graphic.png',
     darkImage: '/static/landing-page/hero/voice-graphic-dark.png',
