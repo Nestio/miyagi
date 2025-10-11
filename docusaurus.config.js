@@ -169,8 +169,7 @@ const plugins = [
           return ['/guides/livestream/concepts-ils'];
         }
 
-        if (path.startsWith(''))
-          if (path.startsWith('/web-core/livestreaming')) {
+        if (path.startsWith('/web-core/livestreaming')) {
             return [
               path.replace(
                 '/web-core/livestreaming',
