@@ -80,6 +80,26 @@ const docs = [
       },
     },
   },
+  {
+    id: 'customer-api',
+    path: 'docs/apis/customer-api',
+    routeBasePath: '/apis/customer-api',
+    versions: {
+      current: {
+        label: '1.x.x',
+      },
+    },
+  },
+  {
+    id: 'partner-api',
+    path: 'docs/apis/partner-api',
+    routeBasePath: '/apis/partner-api',
+    versions: {
+      current: {
+        label: '1.x.x',
+      },
+    },
+  },
 ];
 
 /** @type {import('@docusaurus/plugin-content-docs').Options} */
@@ -355,6 +375,7 @@ const config = {
   clientModules: [
     require.resolve('./src/client/define-ui-kit.js'),
     require.resolve('./src/client/set-framework.js'),
+    require.resolve('./src/client/add-http-badges.js'),
   ],
   scripts: [{ src: 'https://cdn.statuspage.io/se-v2.js', async: true }],
   markdown: {
@@ -412,6 +433,21 @@ const config = {
         },
         items: [
           {
+            label: 'APIs',
+            type: 'dropdown',
+            className: 'funnel-dropdown',
+            items: [
+              {
+                label: 'Customer API',
+                to: '/apis/customer-api/',
+              },
+              {
+                label: 'Partner API',
+                to: '/apis/partner-api/',
+              },
+            ],
+          },
+          {
             label: 'Docs',
             type: 'dropdown',
             className: 'funnel-dropdown docs-dropdown',
@@ -445,10 +481,6 @@ const config = {
                 to: 'https://funnelleasing.com/contact?type=docs',
               },
             ],
-          },
-          {
-            label: 'API Reference',
-            to: 'https://developer.funnelleasing.com/customer-api/about/authentication/',
           },
           {
             label: 'Support',

@@ -1,0 +1,246 @@
+/* Stripe Docs-inspired Prism theme */
+/* Override Prism default styles with custom colors */
+
+.code-section-container .code-section-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #FDFDFE;
+}
+
+/* Default text color */
+.code-section-container .code-section-code .token,
+.code-section-container .code-section-code {
+  color: #FDFDFE;
+}
+
+/* Keywords, commands, attributes - cyan */
+.code-section-container .code-section-code .token.keyword,
+.code-section-container .code-section-code .token.function,
+.code-section-container .code-section-code .token.builtin,
+.code-section-container .code-section-code .token.class-name,
+.code-section-container .code-section-code .token.operator,
+.code-section-container .code-section-code .token.attr-name,
+.code-section-container .code-section-code .token.property,
+.code-section-container .code-section-code .token.selector,
+.code-section-container .code-section-code .token.tag {
+  color: #81B5C9;
+}
+
+/* Strings, numeric values - salmon */
+.code-section-container .code-section-code .token.string,
+.code-section-container .code-section-code .token.attr-value,
+.code-section-container .code-section-code .token.number,
+.code-section-container .code-section-code .token.boolean,
+.code-section-container .code-section-code .token.constant {
+  color: #E8B2B0;
+}
+
+/* Comments - muted */
+.code-section-container .code-section-code .token.comment,
+.code-section-container .code-section-code .token.prolog,
+.code-section-container .code-section-code .token.doctype,
+.code-section-container .code-section-code .token.cdata {
+  color: #6272a4;
+  font-style: italic;
+}
+
+/* Punctuation - default text color */
+.code-section-container .code-section-code .token.punctuation {
+  color: #FDFDFE;
+}
+
+/* Variables, parameters - default */
+.code-section-container .code-section-code .token.variable,
+.code-section-container .code-section-code .token.parameter {
+  color: #FDFDFE;
+}
+
+/* Token highlight marks (green pills) */
+.code-section-container .code-section-code mark.code-section-token-mark {
+  background-color: #90CB97;
+  color: #0B2A14;
+  border-radius: 0.375rem;
+  padding: 0.125rem 0.375rem;
+  font-weight: 500;
+  display: inline;
+  margin: 0;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Terminal prompt styling */
+.code-section-prompt {
+  color: #FDFDFE;
+  opacity: 0.8;
+  user-select: none;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Line numbers */
+.code-section-line-numbers {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  color: #FDFDFE;
+  opacity: 0.7;
+  user-select: none;
+  min-width: 3rem;
+  text-align: right;
+}
+
+/* Language switcher dropdown styles */
+.code-section-language-trigger {
+  outline: none;
+}
+
+.code-section-language-content {
+  z-index: 50;
+}
+
+.code-section-language-item {
+  transition: background-color 0.15s ease;
+}
+
+.code-section-language-item[data-highlighted] {
+  background-color: #232C5F;
+}
+
+/* Copy button tooltip */
+.code-section-tooltip {
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+/* Table layout for gutter + code (better alignment) */
+.code-section-grid-wrapper {
+  overflow-x: auto;
+}
+
+.code-section-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  /* Remove any visible borders or separators */
+  border: none;
+}
+
+.code-section-table-row {
+  line-height: 1.6;
+  /* Remove any borders or separators between rows */
+  border: none;
+  border-top: none;
+  border-bottom: none;
+}
+
+.code-section-table-row td {
+  border: none;
+  border-top: none;
+  border-bottom: none;
+}
+
+.code-section-gutter-cell {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  background: #232C5F;
+  padding-right: 1rem;
+  padding-left: 0;
+  user-select: none;
+  vertical-align: top;
+  width: auto;
+  min-width: 3rem;
+  text-align: right;
+  /* Ensure no borders */
+  border: none !important;
+}
+
+.code-section-code-cell {
+  padding: 0;
+  padding-left: 0;
+  vertical-align: top;
+  width: 100%;
+  /* Ensure no borders */
+  border: none !important;
+}
+
+.code-section-line-content {
+  display: inline;
+  /* Remove any line height that creates gaps */
+  line-height: 1.6;
+}
+
+.code-section-line-number {
+  display: inline-block;
+  text-align: right;
+  width: 100%;
+  color: rgba(253, 253, 254, 0.5);
+  font-size: 0.75rem;
+}
+
+/* Ensure code block scrolls horizontally on overflow */
+.code-section-body {
+  scrollbar-width: thin;
+  scrollbar-color: #333B6A #232C5F;
+}
+
+.code-section-body::-webkit-scrollbar {
+  height: 8px;
+}
+
+.code-section-body::-webkit-scrollbar-track {
+  background: #232C5F;
+}
+
+.code-section-body::-webkit-scrollbar-thumb {
+  background: #333B6A;
+  border-radius: 4px;
+}
+
+.code-section-body::-webkit-scrollbar-thumb:hover {
+  background: #3A4470;
+}
+
+/* Ensure pre element doesn't break layout */
+.code-section-pre {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Code styling - ensure seamless appearance */
+.code-section-code {
+  background: transparent !important;
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #FDFDFE;
+}
+
+/* Ensure spans are inline and don't create gaps */
+.code-section-code span {
+  display: inline;
+}
+
+/* Remove any spacing between table rows */
+.code-section-table tbody tr {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  background: transparent;
+}
+
+.code-section-table tbody tr td {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: transparent;
+}
+
+/* File variant filename badge */
+.code-section-filename {
+  font-size: 12px;
+  font-weight: 500;
+}
+

@@ -11,6 +11,14 @@ function webpackPlugin(context, options) {
                 fullySpecified: false,
               },
             },
+            // Handle WebAssembly files (for Shiki)
+            {
+              test: /\.wasm$/,
+              type: 'asset/resource',
+              generator: {
+                filename: 'static/wasm/[name][ext]',
+              },
+            },
           ],
         },
         plugins: [
@@ -29,6 +37,10 @@ function webpackPlugin(context, options) {
           alias: {
             process: 'process/browser.js',
           },
+        },
+        experiments: {
+          ...config.experiments,
+          asyncWebAssembly: true,
         },
       };
     },

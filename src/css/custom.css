@@ -1599,3 +1599,104 @@ h3.anchor > code {
 
 /* CSS for hello bar ends*/
 
+/* HTTP Method Badges in Sidebar */
+.http-method-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 20px;
+  padding: 0 8px;
+  margin-left: auto;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  line-height: 1;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.menu__link--with-badge {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* HTTP Method Colors */
+.http-method-badge--get {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+.http-method-badge--post {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+.http-method-badge--put {
+  background-color: #f59e0b;
+  color: #ffffff;
+}
+
+.http-method-badge--patch {
+  background-color: #8b5cf6;
+  color: #ffffff;
+}
+
+.http-method-badge--delete {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.http-method-badge--options {
+  background-color: #6b7280;
+  color: #ffffff;
+}
+
+.http-method-badge--head {
+  background-color: #6366f1;
+  color: #ffffff;
+}
+
+/* Dark mode adjustments */
+html[data-theme='dark'] .http-method-badge--get {
+  background-color: #059669;
+}
+
+html[data-theme='dark'] .http-method-badge--post {
+  background-color: #2563eb;
+}
+
+html[data-theme='dark'] .http-method-badge--put {
+  background-color: #d97706;
+}
+
+html[data-theme='dark'] .http-method-badge--patch {
+  background-color: #7c3aed;
+}
+
+html[data-theme='dark'] .http-method-badge--delete {
+  background-color: #dc2626;
+}
+
+html[data-theme='dark'] .http-method-badge--options {
+  background-color: #4b5563;
+}
+
+html[data-theme='dark'] .http-method-badge--head {
+  background-color: #4f46e5;
+}
+
+/* Hover effect */
+.menu__link--with-badge:hover .http-method-badge {
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme='dark'] .menu__link--with-badge:hover .http-method-badge {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
