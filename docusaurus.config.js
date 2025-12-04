@@ -7,12 +7,6 @@ const code_themes = {
   dark: themes.dracula,
 };
 
-// Load HTML snippets
-const docsDropdownHTML = fs.readFileSync(
-  path.join(__dirname, 'src/snippets/docs-dropdown.html'),
-  'utf8'
-);
-
 /** @type {import('@docusaurus/types').Config} */
 const meta = {
   title: 'Funnel Leasing Docs',
@@ -26,81 +20,6 @@ const meta = {
     locales: ['en'],
   },
 };
-
-/** @type {import('@docusaurus/plugin-content-docs').Options[]} */
-const docs = [
-  // Funnel Leasing Products
-  {
-    id: 'crm',
-    path: 'docs/crm',
-    routeBasePath: '/crm',
-    versions: {
-      current: {
-        label: '1.x.x',
-      },
-    },
-  },
-  {
-    id: 'online-leasing',
-    path: 'docs/online-leasing',
-    routeBasePath: '/online-leasing',
-    versions: {
-      current: {
-        label: '1.x.x',
-      },
-    },
-  },
-  {
-    id: 'resident-portal',
-    path: 'docs/resident-portal',
-    routeBasePath: '/resident-portal',
-    versions: {
-      current: {
-        label: '1.x.x',
-      },
-    },
-  },
-  {
-    id: 'ai-virtual-assistant',
-    path: 'docs/ai-virtual-assistant',
-    routeBasePath: '/ai-virtual-assistant',
-    versions: {
-      current: {
-        label: '1.x.x',
-      },
-    },
-  },
-  {
-    id: 'voice-ai-insights',
-    path: 'docs/voice-ai-insights',
-    routeBasePath: '/voice-ai-insights',
-    versions: {
-      current: {
-        label: '1.x.x',
-      },
-    },
-  },
-  {
-    id: 'customer-api',
-    path: 'docs/apis/customer-api',
-    routeBasePath: '/apis/customer-api',
-    versions: {
-      current: {
-        label: '1.x.x',
-      },
-    },
-  },
-  {
-    id: 'partner-api',
-    path: 'docs/apis/partner-api',
-    routeBasePath: '/apis/partner-api',
-    versions: {
-      current: {
-        label: '1.x.x',
-      },
-    },
-  },
-];
 
 /** @type {import('@docusaurus/plugin-content-docs').Options} */
 const defaultSettings = {
@@ -135,230 +54,43 @@ function create_doc_plugin({
 
 const { webpackPlugin } = require('./plugins/webpack-plugin.cjs');
 const tailwindPlugin = require('./plugins/tailwind-plugin.cjs');
-const docs_plugins = docs.map((doc) => create_doc_plugin(doc));
 
 const plugins = [
   tailwindPlugin,
-  ...docs_plugins,
   webpackPlugin,
   [
     '@docusaurus/plugin-client-redirects',
-    {
-      createRedirects(path) {
-        if (path.startsWith('/guides/capabilities/chat/export-chat-dump')) {
-          return ['/capabilities/export-chat-dump'];
-        }
-
-        if (path.startsWith('/guides/capabilities/misc/embed')) {
-          return ['/guides/capabilities/embed'];
-        }
-
-        if (path.startsWith('/react-ui-kit/basics/integrate')) {
-          return ['/react-ui-kit/basics/components-basics'];
-        }
-
-        if (
-          path.startsWith(
-            '/guides/capabilities/misc/livestreaming-other-platforms',
-          )
-        ) {
-          return [
-            '/guides/capabilities/livestreaming-other-platforms',
-            '/guides/capabilities/recording/livestream-recording',
-          ];
-        }
-
-        if (
-          path.startsWith('/guides/capabilities/video/add-virtual-background')
-        ) {
-          return [
-            '/guides/capabilities/middleware/add-virtual-background',
-            '/guides/capabilities/customization/add-virtual-background',
-          ];
-        }
-
-        if (path.startsWith('/guides/live-video/concepts')) {
-          return ['/guides/live-video/concepts-live-video'];
-        }
-
-        if (path.startsWith('/guides/voice-conf/concepts')) {
-          return ['/guides/voice-conf/concepts-voice-conf'];
-        }
-
-        if (path.startsWith('/guides/livestream/concepts')) {
-          return ['/guides/livestream/concepts-ils'];
-        }
-
-        if (path.startsWith('/web-core/livestreaming')) {
-            return [
-              path.replace(
-                '/web-core/livestreaming',
-                '/web-core/livestreaming/livestream-apis',
-              ),
-            ];
-          }
-        if (path.startsWith('/rn-core/livestreaming')) {
-          return [
-            path.replace(
-              '/rn-core/livestreaming',
-              '/rn-core/livestreaming/livestream-apis',
-            ),
-          ];
-        }
-        if (path.startsWith('/react-web-core/livestreaming')) {
-          return [
-            path.replace(
-              '/react-web-core/livestreaming',
-              '/react-web-core/livestreaming/livestream-apis',
-            ),
-          ];
-        }
-        if (path.startsWith('/web-core/stage')) {
-          return [
-            path.replace(
-              '/web-core/stage',
-              '/web-core/livestreaming/state-management-apis',
-            ),
-          ];
-        }
-        if (path.startsWith('/rn-core/stage')) {
-          return [
-            path.replace(
-              '/rn-core/stage',
-              '/rn-core/livestreaming/state-management-apis',
-            ),
-          ];
-        }
-        if (path.startsWith('/react-web-core/stage')) {
-          return [
-            path.replace(
-              '/react-web-core/stage',
-              '/react-web-core/livestreaming/state-management-apis',
-            ),
-          ];
-        }
-        if (path.startsWith('/guides/capabilities/webhooks')) {
-          return [
-            path.replace('/guides/capabilities/webhooks', '/guides/webhooks'),
-            path.replace(
-              '/guides/capabilities/webhooks',
-              '/guides/features/webhooks',
-            ),
-          ];
-        }
-        if (path.startsWith('/guides/capabilities/recording')) {
-          return [
-            path.replace('/guides/capabilities/recording', '/guides/recording'),
-            path.replace(
-              '/guides/capabilities/recording',
-              '/guides/features/recording',
-            ),
-          ];
-        }
-        if (path.startsWith('/guides/capabilities/recording')) {
-          return [
-            path.replace('/guides/capabilities/recording', '/guides/recording'),
-            path.replace(
-              '/guides/capabilities/recording',
-              '/guides/features/recording',
-            ),
-          ];
-        }
-        if (path.startsWith('/guides/capabilities/embed')) {
-          return [
-            path.replace('/guides/capabilities/embed', '/guides/embed'),
-            path.replace(
-              '/guides/capabilities/embed',
-              '/guides/features/embed',
-            ),
-          ];
-        }
-        if (path.startsWith('/guides/capabilities/export-chat-dump')) {
-          return [
-            path.replace(
-              '/guides/capabilities/export-chat-dump',
-              '/guides/export-chat-dump',
-            ),
-            path.replace(
-              '/guides/capabilities/export-chat-dump',
-              '/guides/features/export-chat-dump',
-            ),
-          ];
-        }
-        if (path.startsWith('/guides/capabilities/breakoutroom')) {
-          return [
-            path.replace(
-              '/guides/capabilities/breakoutroom',
-              '/guides/breakoutroom',
-            ),
-            path.replace(
-              '/guides/capabilities/breakoutroom',
-              '/guides/features/breakoutroom',
-            ),
-          ];
-        }
-        /* for everything else */
-        if (path.startsWith('/guides/capabilities')) {
-          return [path.replace('/guides/capabilities', '/guides/features')];
-        }
-        if (path === '/ui-kit') {
-          return [
-            '/javascript/advanced-usage',
-            '/javascript/customize-meeting-ui',
-            '/javascript/events',
-            '/javascript/installation',
-            '/javascript/quickstart',
-            '/javascript/reference/chat-message',
-            '/javascript/reference/connection-config',
-            '/javascript/reference/dyte-client',
-            '/javascript/reference/dyte-control-bar',
-            '/javascript/reference/dyte-errors',
-            '/javascript/reference/dyte-grid',
-            '/javascript/reference/dyte-meeting-events',
-            '/javascript/reference/dyte-plugin',
-            '/javascript/reference/dyte-ui-config',
-            '/javascript/reference/meeting',
-            '/javascript/reference/participant',
-            '/javascript/reference/self-participant',
-            '/javascript/sample-app',
-            '/javascript/usage',
-            '/javascript/virtual-background',
-            '/javascript/',
-          ];
-        }
-        if (path === '/react-ui-kit') {
-          return [
-            '/react/advanced-usage',
-            '/react/customize-meeting-ui',
-            '/react/events',
-            '/react/installation',
-            '/react/quickstart',
-            '/react/reference/chat-message',
-            '/react/reference/connection-config',
-            '/react/reference/dyte-client',
-            '/react/reference/dyte-control-bar',
-            '/react/reference/dyte-errors',
-            '/react/reference/dyte-grid',
-            '/react/reference/dyte-meeting-events',
-            '/react/reference/dyte-plugin',
-            '/react/reference/dyte-ui-config',
-            '/react/reference/meeting',
-            '/react/reference/participant',
-            '/react/reference/self-participant',
-            '/react/sample-app',
-            '/react/usage',
-            '/react/virtual-background',
-            '/react/',
-          ];
-        }
-        return undefined; // Return a falsy value: no redirect created
-      },
-    },
+    {},
   ],
+  // Customer API docs
+  create_doc_plugin({
+    id: 'customer-api',
+    path: 'docs/apis/customer-api',
+    routeBasePath: '/apis/customer-api',
+    sidebarPath: require.resolve('./sidebars-default.js'),
+  }),
+  // Partner API docs
+  create_doc_plugin({
+    id: 'partner-api',
+    path: 'docs/apis/partner-api',
+    routeBasePath: '/apis/partner-api',
+    sidebarPath: require.resolve('./sidebars-default.js'),
+  }),
+  // Webhooks latest docs
+  create_doc_plugin({
+    id: 'webhooks-latest',
+    path: 'docs/webhooks/latest',
+    routeBasePath: '/webhooks/latest',
+    sidebarPath: require.resolve('./sidebars-default.js'),
+  }),
+  // Webhooks legacy docs
+  create_doc_plugin({
+    id: 'webhooks-legacy',
+    path: 'docs/webhooks/legacy',
+    routeBasePath: '/webhooks/legacy',
+    sidebarPath: require.resolve('./sidebars-default.js'),
+  }),
 ];
-
-const sdksHTML = fs.readFileSync('./src/snippets/sdks.html', 'utf-8');
-const resourcesHTML = fs.readFileSync('./src/snippets/resources.html', 'utf-8');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -448,14 +180,32 @@ const config = {
             ],
           },
           {
-            label: 'Docs',
+            label: 'Webhooks',
             type: 'dropdown',
             className: 'funnel-dropdown docs-dropdown',
             items: [
               {
-                type: 'html',
-                value: docsDropdownHTML,
-                className: 'funnel-dropdown',
+                label: 'Latest (V2)',
+                to: '/webhooks/latest/',
+              },
+              {
+                label: 'Legacy (V1)',
+                to: '/webhooks/legacy/',
+              },
+            ],
+          },
+          {
+            label: 'Integrations',
+            type: 'dropdown',
+            className: 'funnel-dropdown',
+            items: [
+              {
+                label: 'Customer API',
+                to: '/apis/customer-api/',
+              },
+              {
+                label: 'Partner API',
+                to: '/apis/partner-api/',
               },
             ],
           },
@@ -482,23 +232,20 @@ const config = {
               },
             ],
           },
-          {
-            label: 'Support',
-            to: 'https://funnelleasing.com/contact?type=docs',
-          },
+          
           {
             type: 'search',
             position: 'right',
           },
           {
-            label: 'Book a demo',
-            href: 'https://funnelleasing.com/schedule-demo',
+            label: 'Support',
+            href: 'https://funnelleasing.com/contact?type=docs',
             position: 'right',
             className: 'navbar-book-demo',
           },
           {
-            label: 'Sign Up',
-            href: 'https://funnelleasing.com/register',
+            label: 'Book a demo',
+            href: 'https://funnelleasing.com/schedule-demo',
             position: 'right',
             className: 'dev-portal-signup dev-portal-link',
           },
@@ -617,23 +364,6 @@ const config = {
       },
     }),
 
-  // webpack: {
-  //   jsLoader: (isServer) => ({
-  //     loader: require.resolve('swc-loader'),
-  //     options: {
-  //       jsc: {
-  //         parser: {
-  //           syntax: 'typescript',
-  //           tsx: true,
-  //         },
-  //         target: 'es2017',
-  //       },
-  //       module: {
-  //         type: isServer ? 'commonjs' : 'es6',
-  //       },
-  //     },
-  //   }),
-  // },
 };
 
 module.exports = config;
