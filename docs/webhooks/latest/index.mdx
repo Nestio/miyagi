@@ -5,5 +5,18 @@ sidebar_label: Overview
 sidebar_position: 0
 ---
 
-Welcome to the Webhooks Overview of Funnel Online Leasing! This guide provides detailed insights into leveraging Funnel Leasing Webhook events to enhance your system’s automation capabilities. By tapping into these events, you can stay informed about crucial actions as they unfold within Funnel Online Leasing, such as unit reservations, application completions, or unit releases.
+Welcome to the Webhooks Overview of Funnel Online Leasing! This guide provides detailed insights into leveraging Funnel Leasing Webhook events to enhance your system's automation capabilities. By tapping into these events, you can stay informed about crucial actions as they unfold within Funnel Online Leasing, such as unit reservations, application completions, or unit releases.
 
+title="Note"
+Throughout our documentation, you may encounter the terms "webhooks", "events" and "callbacks", which are used interchangeably. Rest assured, they signify the same concept—a mechanism for delivering event-based notifications to your system.
+
+## What are Funnel Leasing Webhook Events
+
+Funnel Leasing Webhooks, are messages about an event that are sent via POST request from Funnel Leasing's servers to a user-defined callback url that you own. They allow Funnel Leasing to automatically send real-time event data to your app when triggered by an event (like a unit being reserved). You can think of webhooks as push notifications for servers.
+
+![Webhooks Diagram](webhooks_diagram.gif)
+
+
+## How Events Are Sent
+
+Events are transmitted as `application/json` POST requests, ensuring compatibility with a wide range of programming languages. Depending on your chosen language, you may need middleware tooling to effectively parse these requests and extract the relevant data. For a comprehensive understanding of handling Funnel Leasing Events, we recommend exploring our detailed [Events and Callbacks Walkthrough](/guides/events-and-callbacks/walkthrough). This resource offers invaluable insights into integrating event-driven functionalities seamlessly into your application architecture.

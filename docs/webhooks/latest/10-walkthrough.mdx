@@ -5,6 +5,66 @@ sidebar_label: Walkthrough
 sidebar_position: 10
 ---
 
-This walkthrough provides comprehensive instructions for integrating Funnel Leasing Events and Callbacks (commonly known as “webhooks”) into your application. These webhooks deliver event metadata automatically whenever an action occurs within the Funnel Online Leasing product.
+This walkthrough provides comprehensive instructions for integrating Funnel Leasing Events and Callbacks (commonly known as "webhooks") into your application. These webhooks deliver event metadata automatically whenever an action occurs within the Funnel Online Leasing product.
 
-This resource focuses on implementation details, offers examples, and guides you through the process of working with webhooks. For a broader understanding of Funnel Leasing Events, please consult the Events Overview section in our documentation.
+This resource focuses on implementation details, offers examples, and guides you through the process of working with webhooks. For a broader understanding of Funnel Leasing Events, please consult the [Events Overview](/guides/events-and-callbacks/overview) section in our documentation.
+
+### Setting Up Funnel Leasing Events
+
+Enabling Funnel Leasing Events (webhooks) involves two main steps:
+
+1. Setting the callback URL within Funnel Leasing, which we'll cover below.
+2. Responding to events to confirm their reception.
+
+
+#### Set a Callback Url
+
+To configure the account callback URL, please contact the Funnel Leasing technical support team at [support@funnelleasing.com](mailto:support@funnelleasing.com). Alternatively, you can reach out to your assigned account representative for direct assistance.
+
+#### Responding to Events
+
+Funnel Leasing dispatches events to a specified callback URL and expects a specific response for verification purposes. Upon receiving an event, the callback URL must return an HTTP `200` response with a body containing the string `Funnel Event Received`. Failure to respond triggers a retry mechanism by Funnel Leasing.
+
+
+
+title="FAILED CALLBACKS"
+Too many consecutive failed callbacks will result in Funnel Leasing deactivating webhooks for a callback url. Once deactivated, Funnel Leasing will stop sending events until a new callback url is added. Read more about this behavior in the Failures and Retries section.
+
+Here's a basic example in NodeJS:
+```js
+// This sample is stripped down
+// Use for reference only
+const express = require('express');
+const app = express();
+
+app.post('/funnel-events', (req, res) => {
+    res.set('content-Type', 'text/plain');
+    res.status(200).send('Funnel Event Received');
+});
+```
+
+#### Testing your Callback Url
+
+During the setup process, you can test your callback URL's functionality by triggering a test event through the Funnel Leasing testing API. This ensures that your webhook handler responds correctly to events.
+
+### Securing your Callback Handler
+We offer the option to enhance the security of your webhook URL by including an API token in our webhook event requests. If you would like to take advantage of this feature, please contact our support team. Provide them with your API token, and they will configure your webhook requests accordingly.
+
+It's important to inform us immediately if your API token changes. Without notification of the new token, we will continue to send requests using the old token, which will result in failed attempts to communicate with your servers.
+
+While this step is optional, it provides an extra layer of security for your webhook URL, ensuring that only authorized requests are processed. If you have any questions or need assistance with this setup, our support team is ready to help.
+
+
+### Failures and Retries
+
+If your callback url is not reachable or returns a non-successful response, we will retry POSTing the event up to **3 times**, with each retry interval being longer than the previous one.
+
+Please note that our requests will timeout after **5 seconds**, so callbacks will fail if your server takes longer than that to respond. The retry pattern is described below.
+
+| Retry  | Delay After Previous Attempt |
+|--------|------------------------------|
+| First  | 5 seconds                    |
+| Second | 10 seconds                   |
+| Third  | 15 seconds                   |
+
+The above retry pattern may not always be exact, but it is a good approximation of the retry pattern we use.
