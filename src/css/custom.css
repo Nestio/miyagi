@@ -327,6 +327,12 @@ nav.navbar {
   border-bottom: 1px solid var(--ifm-toc-border-color);
 }
 
+.navbar__brand img {
+  max-width: 280px;
+  height: auto;
+  object-fit: contain;
+}
+
 pre.prism-code {
   border: 1px solid var(--code-border);
   background-color: var(--code-bg);

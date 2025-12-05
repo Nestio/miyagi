@@ -159,7 +159,7 @@ const config = {
       navbar: {
         logo: {
           href: '/',
-          src: '/logo/funnel-logo.png',
+          src: '/logo/funnel-developers-logo.png',
           alt: 'Funnel Leasing Documentation | Funnel Leasing Docs',
           height: '40px',
         },
