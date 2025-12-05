@@ -15,6 +15,8 @@ interface ApiDocumentationProps {
   code: string;
   title?: string;
   lang?: string;
+  contentType?: string;
+  formatLabel?: string;
 }
 
 export default function ApiDocumentation({
@@ -22,6 +24,8 @@ export default function ApiDocumentation({
   code,
   title = 'Example response',
   lang = 'json',
+  contentType,
+  formatLabel,
 }: ApiDocumentationProps) {
   return (
     <div 
@@ -34,7 +38,13 @@ export default function ApiDocumentation({
         <AttributeList attributes={attributes} />
       </Col>
       <Col sticky>
-        <CodeExample title={title} language={lang} code={code} />
+        <CodeExample 
+          title={title} 
+          language={lang} 
+          code={code}
+          contentType={contentType}
+          formatLabel={formatLabel}
+        />
       </Col>
     </div>
   );

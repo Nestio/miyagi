@@ -1,0 +1,37 @@
+---
+title: Quote PDF
+sidebar_label: Quote PDF
+sidebar_position: 2
+hide_table_of_contents: true
+---
+
+# Quote PDF
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "response",
+      type: "string (base64)",
+      description: "The response body is a base64-encoded string containing the PDF document. Decode this string using standard base64 decoding to obtain the binary PDF file. The response includes a Content-Type header of 'application/pdf'. The base64 string can be used directly in data URIs for web applications or decoded to save as a file.",
+    },
+  ];
+
+  const exampleCode = `JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMiAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL1R5cGUgL1BhZ2VzCi9LaWRzIFszIDAgUl0KL0NvdW50IDEKL01lZGlhQm94IFswIDAgNTk1IDg0Ml0KPj4KZW5kb2JqCjMgMCBvYmoKPDwKL1R5cGUgL1BhZ2UKL1BhcmVudCAyIDAgUgovUmVzb3VyY2VzIDw8Ci9Gb250IDw8Ci9GMSA0IDAgUgo+Pgo+PgovQ29udGVudHMgNSAwIFIKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL1N1YnR5cGUgL1R5cGUxCi9CYXNlRm9udCAvSGVsdmV0aWNhCj4+CmVuZG9iago1IDAgb2JqCjw8Ci9MZW5ndGggNDQKPj4Kc3RyZWFtCkJUCi9GMSAxMiBUZgooTXkgUERGIFNhbXBsZSkKRVQKZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgNgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMDkgMDAwMDAgbiAKMDAwMDAwMDA1OCAwMDAwMCBuIAowMDAwMDAwMTE1IDAwMDAwIG4gCjAwMDAwMDAyNzMgMDAwMDAgbiAKMDAwMDAwMDM0OCAwMDAwMCBuIAp0cmFpbGVyCjw8Ci9TaXplIDYKL1Jvb3QgMSAwIFIKPj4Kc3RhcnR4cmVmCjQyNwolJUVPRgo=`;
+
+  return (
+    <ApiPage
+      title="Quote PDF"
+      description="This GET endpoint allows you to download the PDF document for a specific client quote. The response body contains a base64-encoded string representing the PDF document. To use the PDF, decode the base64 string to obtain the binary PDF file. The response includes a Content-Type header of 'application/pdf'. You can decode the base64 string using standard base64 decoding libraries in your programming language, or use it directly in data URIs (e.g., 'data:application/pdf;base64,<encoded_string>')."
+      method="GET"
+      path="/api/v2/quotes/:id/pdf"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example response (base64-encoded PDF string)"
+      exampleLang="text"
+      contentType="application/pdf"
+      formatLabel="TEXT"
+    />
+  );
+})()}
+

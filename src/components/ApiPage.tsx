@@ -19,6 +19,8 @@ interface ApiPageProps {
   exampleCode: string;
   exampleTitle?: string;
   exampleLang?: string;
+  contentType?: string;
+  formatLabel?: string;
 }
 
 /**
@@ -49,6 +51,8 @@ export default function ApiPage({
   exampleCode,
   exampleTitle = 'Example request payload',
   exampleLang = 'json',
+  contentType,
+  formatLabel,
 }: ApiPageProps) {
   return (
     <>
@@ -109,6 +113,8 @@ export default function ApiPage({
           code={exampleCode}
           title={exampleTitle}
           lang={exampleLang}
+          contentType={contentType}
+          formatLabel={formatLabel}
         />
       </div>
     </>

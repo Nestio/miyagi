@@ -10,6 +10,8 @@ export interface CodeExampleProps {
   className?: string;
   statusCode?: number;
   statusCodes?: { code: number; response: string }[];
+  contentType?: string;
+  formatLabel?: string;
 }
 
 export default function CodeExample({
@@ -19,6 +21,8 @@ export default function CodeExample({
   className,
   statusCode = 200,
   statusCodes,
+  contentType = 'application/json',
+  formatLabel = 'JSON',
 }: CodeExampleProps) {
   const [copied, setCopied] = useState(false);
   const [activeStatusCode, setActiveStatusCode] = useState(statusCode);
@@ -90,7 +94,7 @@ export default function CodeExample({
             {title}
           </span>
           
-          {/* JSON Pill */}
+          {/* Format Label Pill */}
           <span
             style={{
               fontSize: '11px',
@@ -105,7 +109,7 @@ export default function CodeExample({
               whiteSpace: 'nowrap',
             }}
           >
-            JSON
+            {formatLabel}
           </span>
 
           {/* Status Code and Content Type */}
@@ -116,7 +120,7 @@ export default function CodeExample({
               whiteSpace: 'nowrap',
             }}
           >
-            {activeStatusCode} · application/json
+            {activeStatusCode} · {contentType}
           </span>
         </div>
 

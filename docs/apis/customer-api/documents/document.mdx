@@ -1,0 +1,37 @@
+---
+title: Document
+sidebar_label: Document
+sidebar_position: 1
+hide_table_of_contents: true
+---
+
+# Document
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "response",
+      type: "string (base64)",
+      description: "The response body is a base64-encoded string containing the document content. Decode this string using standard base64 decoding to obtain the binary document file. When available, a header named 'Original-Content-Type' will be included in the response, indicating the MIME type of the document (e.g., 'application/pdf'). The base64 string can be used directly in data URIs for web applications or decoded to save as a file.",
+    },
+  ];
+
+  const exampleCode = `JVBERi0xLjEKJcKlwrHDqwoKMSAwIG9iagogIDw8IC9UeXBlIC9DYXRhbG9nCiAgICAgL1BhZ2VzIDIgMCBSCiAgPj4KZW5kb2JqCgoyIDAgb2JqCiAgPDwgL1R5cGUgL1BhZ2VzCiAgICAgL0tpZHMgWzMgMCBSXQogICAgIC9Db3VudCAxCiAgICAgL01lZGlhQm94IFswIDAgMzAwIDE0NF0KICA+PgplbmRvYmoKCjMgMCBvYmoKICA8PCAgL1R5cGUgL1BhZ2UKICAgICAgL1BhcmVudCAyIDAgUgogICAgICAvUmVzb3VyY2VzCiAgICAgICA8PCAvRm9udAogICAgICAgICAgIDw8IC9GMQogICAgICAgICAgICAgICA8PCAvVHlwZSAvRm9udAogICAgICAgICAgICAgICAgICAvU3VidHlwZSAvVHlwZTEKICAgICAgICAgICAgICAgICAgL0Jhc2VGb250IC9UaW1lcy1Sb21hbgogICAgICAgICAgICAgICA+PgogICAgICAgICAgID4+CiAgICAgICA+PgogICAgICAvQ29udGVudHMgNCAwIFIKICA+PgplbmRvYmoKCjQgMCBvYmoKICA8PCAvTGVuZ3RoIDU1ID4+CnN0cmVhbQogIEJUCiAgICAvRjEgMTggVGYKICAgIDAgMCBUZAogICAgKEhlbGxvIFdvcmxkKSBUagogIEVUCmVuZHN0cmVhbQplbmRvYmoKCnhyZWYKMCA1CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAxOCAwMDAwMCBuIAowMDAwMDAwMDc3IDAwMDAwIG4gCjAwMDAwMDAxNzggMDAwMDAgbiAKMDAwMDAwMDQ1NyAwMDAwMCBuIAp0cmFpbGVyCiAgPDwgIC9Sb290IDEgMCBSCiAgICAgIC9TaXplIDUKICA+PgpzdGFydHhyZWYKNTY1CiUlRU9GCg==`;
+
+  return (
+    <ApiPage
+      title="Document"
+      description="The Document object represents a lease or lease transaction document and is included in the serialized data for each lease or lease transaction. It features a url field that provides access to the document's base64-encoded content. This URL is pre-generated for you, so you won't need to construct it yourself. To access the content, simply provide your API key, as with other endpoints. When available, a header named 'Original-Content-Type' will be included in the response. This header indicates the MIME type of the document. For example, you might see 'Original-Content-Type: application/pdf'."
+      method="GET"
+      path="/api/v2/documents/:id/:document_type"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example response (base64-encoded document string)"
+      exampleLang="text"
+      contentType="application/pdf"
+      formatLabel="TEXT"
+    />
+  );
+})()}
+

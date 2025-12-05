@@ -1,0 +1,398 @@
+---
+title: Quote
+sidebar_label: Quote
+sidebar_position: 1
+hide_table_of_contents: true
+---
+
+# Quote
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "client_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the guest card of the client.",
+    },
+    {
+      name: "guestcard_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the guest card, if applicable.",
+    },
+    {
+      name: "tenant_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the tenant, if applicable.",
+    },
+    {
+      name: "quote_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the quote.",
+    },
+    {
+      name: "quote_type",
+      type: "string",
+      description: 'Type of quote (e.g., "Application", "Transfer lease", "Renewal lease").',
+    },
+    {
+      name: "quote_url",
+      type: "string",
+      description: "Funnel API endpoint to call to retrieve the quote's PDF content.",
+    },
+    {
+      name: "lease_start_date",
+      type: "string",
+      description: 'Start date of the lease. Format is "YYYY-MM-DD".',
+    },
+    {
+      name: "lease_end_date",
+      type: "string",
+      description: 'End date of the lease. Format is "YYYY-MM-DD".',
+    },
+    {
+      name: "lease_term",
+      type: "integer",
+      description: "Duration of the lease in months.",
+    },
+    {
+      name: "expiration_datetime",
+      type: "string",
+      description: 'Date and time at which the quote will expire. Format is "YYYY-MM-DDTHH:MM:SS".',
+    },
+    {
+      name: "base_price",
+      type: "string",
+      description: "The rent amount in dollars that is initially applicable for the selected terms.",
+    },
+    {
+      name: "price",
+      type: "string",
+      description: 'The rent amount in dollars that is actually applied for the quote. The difference between the "base price" and the "price" is that an agent can apply a discount when creating the quote, the "price" is the "base price" minus the discount.',
+    },
+    {
+      name: "total_monthly_fees",
+      type: "string",
+      description: "The total amount in dollars of all the monthly fees that are applicable for the quote.",
+    },
+    {
+      name: "total_move_in_fees",
+      type: "string",
+      description: "The total amount in dollars of all the fees that will be charged to the tenant at move-in.",
+    },
+    {
+      name: "community_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the community.",
+    },
+    {
+      name: "community_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the community, if applicable.",
+    },
+    {
+      name: "unit_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the unit.",
+    },
+    {
+      name: "unit_number",
+      type: "string",
+      description: "Internal unit number.",
+    },
+    {
+      name: "unit_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the unit, if applicable.",
+    },
+    {
+      name: "previous_unit_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the previous unit, if applicable (Transfer lease only).",
+    },
+    {
+      name: "previous_unit_number",
+      type: "string",
+      description: "Internal previous unit number, if applicable (Transfer lease only).",
+    },
+    {
+      name: "previous_unit_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the previous unit, if applicable (Transfer lease only).",
+    },
+    {
+      name: "application_fees",
+      type: "array",
+      description: "Details about the application fees.",
+      children: [
+        {
+          name: "name",
+          type: "string",
+          description: "The display name of the fee.",
+        },
+        {
+          name: "category",
+          type: "string",
+          description: 'The category of the fee. Example: "app-fee", "pets-cates", "base_rent" etc.',
+        },
+        {
+          name: "type",
+          type: "string",
+          description: 'The type of the fee. Example: "fee", "deposit", "savings" etc.',
+        },
+        {
+          name: "amount",
+          type: "string",
+          description: "The amount of the fee, in dollars.",
+        },
+        {
+          name: "tax_amount",
+          type: "string",
+          description: "The tax amount, in dollars.",
+        },
+        {
+          name: "fee_help_text",
+          type: "string",
+          description: "Description to help the understanding of what the fee is for.",
+        },
+      ],
+    },
+    {
+      name: "move_in_fees",
+      type: "array",
+      description: "Details about the move-in fees.",
+      children: [
+        {
+          name: "name",
+          type: "string",
+          description: "The display name of the fee.",
+        },
+        {
+          name: "category",
+          type: "string",
+          description: 'The category of the fee. Example: "app-fee", "pets-cates", "base_rent" etc.',
+        },
+        {
+          name: "type",
+          type: "string",
+          description: 'The type of the fee. Example: "fee", "deposit", "savings" etc.',
+        },
+        {
+          name: "amount",
+          type: "string",
+          description: "The amount of the fee, in dollars.",
+        },
+        {
+          name: "tax_amount",
+          type: "string",
+          description: "The tax amount, in dollars.",
+        },
+        {
+          name: "fee_help_text",
+          type: "string",
+          description: "Description to help the understanding of what the fee is for.",
+        },
+      ],
+    },
+    {
+      name: "monthly_fees",
+      type: "array",
+      description: "Details about the monthly fees.",
+      children: [
+        {
+          name: "name",
+          type: "string",
+          description: "The display name of the fee.",
+        },
+        {
+          name: "category",
+          type: "string",
+          description: 'The category of the fee. Example: "app-fee", "pets-cates", "base_rent" etc.',
+        },
+        {
+          name: "type",
+          type: "string",
+          description: 'The type of the fee. Example: "fee", "deposit", "savings" etc.',
+        },
+        {
+          name: "amount",
+          type: "string",
+          description: "The amount of the fee, in dollars.",
+        },
+        {
+          name: "tax_amount",
+          type: "string",
+          description: "The tax amount, in dollars.",
+        },
+        {
+          name: "fee_help_text",
+          type: "string",
+          description: "Description to help the understanding of what the fee is for.",
+        },
+      ],
+    },
+    {
+      name: "savings",
+      type: "array",
+      description: "Details about the concessions.",
+      children: [
+        {
+          name: "name",
+          type: "string",
+          description: "The display name of the fee.",
+        },
+        {
+          name: "category",
+          type: "string",
+          description: 'The category of the fee. Example: "app-fee", "pets-cates", "base_rent" etc.',
+        },
+        {
+          name: "type",
+          type: "string",
+          description: 'The type of the fee. Example: "fee", "deposit", "savings" etc.',
+        },
+        {
+          name: "amount",
+          type: "string",
+          description: "The amount of the fee, in dollars.",
+        },
+        {
+          name: "tax_amount",
+          type: "string",
+          description: "The tax amount, in dollars.",
+        },
+        {
+          name: "fee_help_text",
+          type: "string",
+          description: "Description to help the understanding of what the fee is for.",
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+  "client_id": 17754333,
+  "guestcard_pms_identifier": "guestcard-123",
+  "tenant_pms_identifier": "resident-household-123",
+  "quote_id": 5462236,
+  "quote_type": "Application",
+  "quote_url": "https://api.funnelleasing.com/api/v2/quotes/5462236/pdf",
+  "lease_start_date": "2025-01-12",
+  "lease_end_date": "2025-07-11",
+  "lease_term": 6,
+  "expiration_datetime": "2025-01-12T03:49:50.280490",
+  "base_price": "2165.00",
+  "price": "2100.00",
+  "total_monthly_fees": "2165.00",
+  "total_move_in_fees": "1946.67",
+  "community_id": 5733,
+  "community_pms_identifier": "5367514",
+  "unit_id": 4499780,
+  "unit_number": "1234",
+  "unit_pms_identifier": "203",
+  "previous_unit_id": null,
+  "previous_unit_number": null,
+  "previous_unit_pms_identifier": null,
+  "application_fees": [
+    {
+      "name": "Administration Fee",
+      "category": "holding-deposit",
+      "type": "deposit",
+      "amount": "250",
+      "tax_amount": "0",
+      "fee_help_text": ""
+    },
+    {
+      "name": "Application Fee",
+      "category": "app-fee",
+      "type": "fee",
+      "amount": "100",
+      "tax_amount": "0",
+      "fee_help_text": ""
+    }
+  ],
+  "move_in_fees": [
+    {
+      "name": "New Account Setup Fee",
+      "category": "app-fee",
+      "type": "fee",
+      "amount": "5",
+      "tax_amount": "0",
+      "fee_help_text": ""
+    },
+    {
+      "name": "Security Deposit",
+      "category": "unit_security_deposit",
+      "type": "deposit",
+      "amount": "565",
+      "tax_amount": "0",
+      "fee_help_text": ""
+    },
+    {
+      "name": "January Base Rent",
+      "category": "base_rent",
+      "type": "fee",
+      "amount": "1,330",
+      "tax_amount": "0",
+      "fee_help_text": ""
+    },
+    {
+      "name": "January Liability Only Protection Fee",
+      "category": "",
+      "type": "fee",
+      "amount": "9.50",
+      "tax_amount": "0",
+      "fee_help_text": ""
+    },
+    {
+      "name": "January Storage 112 sqft",
+      "category": "storage",
+      "type": "fee",
+      "amount": "31.67",
+      "tax_amount": "0",
+      "fee_help_text": ""
+    }
+  ],
+  "monthly_fees": [
+    {
+      "name": "Base Rent",
+      "category": "base_rent",
+      "type": "fee",
+      "amount": "2,100",
+      "tax_amount": "0",
+      "fee_help_text": ""
+    },
+    {
+      "name": "Liability Only Protection Fee",
+      "category": "",
+      "type": "fee",
+      "amount": "15",
+      "tax_amount": "0",
+      "fee_help_text": ""
+    },
+    {
+      "name": "Storage 112 sqft",
+      "category": "storage",
+      "type": "fee",
+      "amount": "50",
+      "tax_amount": "0",
+      "fee_help_text": ""
+    }
+  ],
+  "savings": []
+}`;
+
+  return (
+    <ApiPage
+      title="Quote"
+      description="This GET endpoint allows you to retrieve all the details about a specific client quote."
+      method="GET"
+      path="/api/v2/quotes/:id"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example request payload"
+      exampleLang="json"
+    />
+  );
+})()}
+
