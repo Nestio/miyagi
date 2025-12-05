@@ -1,0 +1,1065 @@
+---
+title: Lease
+sidebar_label: Lease
+sidebar_position: 1
+hide_table_of_contents: true
+---
+
+# Lease
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "id",
+      type: "integer",
+      description: "Unique identifier for the lease.",
+    },
+    {
+      name: "type",
+      type: "string",
+      description: 'Type of the lease. Possible values: "Funnel Originated", "Imported", "Reconciled".',
+    },
+    {
+      name: "status",
+      type: "string",
+      description: 'Current status of the lease. Possible values: "Active", "Ended", "Upcoming", "Canceled".',
+    },
+    {
+      name: "lease_profile",
+      type: "string",
+      description: 'Lease profile type. Possible values: "Standard", "Corporate Housing", "Affordable Housing", "Employee Housing", "Courtesy Officer Housing", "Open Arms Housing", "Cares Housing", "Preferred Employer Housing", "Below Market Rate".',
+    },
+    {
+      name: "guest_card",
+      type: "object",
+      description: "Information related to the guest card.",
+      children: [
+        {
+          name: "client_id",
+          type: "integer",
+          description: "Client identifier associated with the guest card.",
+        },
+        {
+          name: "pms_guestcard_id",
+          type: "string",
+          description: "PMS guest card identifier.",
+        },
+        {
+          name: "pms_resident_household_id",
+          type: "string",
+          description: "PMS resident household identifier.",
+        },
+      ],
+    },
+    {
+      name: "unit",
+      type: "object",
+      description: "Details of the unit.",
+      children: [
+        {
+          name: "id",
+          type: "integer",
+          description: "Unique identifier for the unit.",
+        },
+        {
+          name: "unit_number",
+          type: "string",
+          description: "Unit number.",
+        },
+        {
+          name: "price",
+          type: "integer",
+          description: "Monthly rent price for the unit.",
+        },
+        {
+          name: "address",
+          type: "string",
+          description: "Address of the unit.",
+        },
+        {
+          name: "building_number",
+          type: "string",
+          description: "The building number associated to the unit.",
+        },
+      ],
+    },
+    {
+      name: "lease_term",
+      type: "integer",
+      description: "Term of the lease in months.",
+    },
+    {
+      name: "lease_start_date",
+      type: "string",
+      description: 'Start date of the lease in the format "YYYY-MM-DD".',
+    },
+    {
+      name: "lease_end_date",
+      type: "string",
+      description: 'End date of the lease in the format "YYYY-MM-DD".',
+    },
+    {
+      name: "move_in_status",
+      type: "string",
+      description: 'Status of the move-in process. Possible values: "Not set yet", "Moved-In", "Move-In Reversed".',
+    },
+    {
+      name: "move_out_date",
+      type: "string",
+      description: 'Move-out date in the format "YYYY-MM-DD".',
+    },
+    {
+      name: "base_rent",
+      type: "string",
+      description: "Base rent amount for the lease.",
+    },
+    {
+      name: "is_holdover_eligible",
+      type: "boolean",
+      description: "Indicates if the lease is eligible for holdover.",
+    },
+    {
+      name: "is_holdover",
+      type: "boolean",
+      description: "Indicates if the lease is currently in holdover.",
+    },
+    {
+      name: "is_month_to_month",
+      type: "boolean",
+      description: "Indicates if the lease is month-to-month.",
+    },
+    {
+      name: "month_to_month_rent",
+      type: "string",
+      description: "Rent amount for month-to-month leases.",
+    },
+    {
+      name: "is_renewed",
+      type: "boolean",
+      description: "Indicates if the lease has been renewed.",
+    },
+    {
+      name: "renewed_to",
+      type: "string",
+      description: "Lease term renewed to.",
+    },
+    {
+      name: "is_vacating",
+      type: "boolean",
+      description: "Indicates if the lease is currently in vacating status.",
+    },
+    {
+      name: "selected_lease_offer",
+      type: "integer",
+      description: "Identifier of the selected lease offer.",
+    },
+    {
+      name: "lease_offers",
+      type: "array",
+      description: "List of lease offers.",
+      children: [
+        {
+          name: "id",
+          type: "integer",
+          description: "Unique identifier for the lease offer.",
+        },
+        {
+          name: "rent",
+          type: "string",
+          description: "Rent amount for the lease offer.",
+        },
+        {
+          name: "is_month_to_month",
+          type: "boolean",
+          description: "Indicates if the lease offer is month-to-month.",
+        },
+        {
+          name: "minimum_lease_term",
+          type: "integer",
+          description: "Minimum lease term for the offer in months.",
+        },
+        {
+          name: "maximum_lease_term",
+          type: "integer",
+          description: "Maximum lease term for the offer in months.",
+        },
+        {
+          name: "lease_start",
+          type: "string",
+          description: 'Start date of the lease offer in the format "YYYY-MM-DD".',
+        },
+        {
+          name: "lease_end",
+          type: "string",
+          description: 'End date of the lease offer in the format "YYYY-MM-DD".',
+        },
+      ],
+    },
+    {
+      name: "holdover_rent",
+      type: "string",
+      description: "Rent amount for holdover leases.",
+    },
+    {
+      name: "original_holdover_end_date",
+      type: "string",
+      description: 'Original end date for holdover leases in the format "YYYY-MM-DD".',
+    },
+    {
+      name: "termination_option",
+      type: "string",
+      description: 'Termination option for the lease. Possible values: "Rent Responsible", "Termination Fee", "Lease Fulfilled".',
+    },
+    {
+      name: "termination_fee",
+      type: "string",
+      description: "Termination fee for the lease.",
+    },
+    {
+      name: "renewal_threshold",
+      type: "integer",
+      description: "Threshold for lease renewal in days.",
+    },
+    {
+      name: "is_compliant",
+      type: "boolean",
+      description: "Indicates if the lease is compliant with regulations.",
+    },
+    {
+      name: "is_below_market_rate",
+      type: "boolean",
+      description: "Indicates if the lease rate is below market rate.",
+    },
+    {
+      name: "residents",
+      type: "array",
+      description: "List of residents associated with the lease.",
+      children: [
+        {
+          name: "id",
+          type: "integer",
+          description: "Unique identifier for the resident.",
+        },
+        {
+          name: "role",
+          type: "string",
+          description: 'Role of the resident. Possible values: "Primary", "Roommate", "Guarantor", "Occupant", "Dependent", "Corporation".',
+        },
+        {
+          name: "first_name",
+          type: "string",
+          description: "First name of the resident.",
+        },
+        {
+          name: "last_name",
+          type: "string",
+          description: "Last name of the resident.",
+        },
+        {
+          name: "start_date",
+          type: "string",
+          description: 'Start date for the resident in the format "YYYY-MM-DD". Note: This field is optional and will only be present for residents added via lease revisions.',
+        },
+        {
+          name: "end_date",
+          type: "string",
+          description: 'End date for the resident in the format "YYYY-MM-DD".',
+        },
+        {
+          name: "account_id",
+          type: "integer",
+          description: "Account identifier for the resident.",
+        },
+        {
+          name: "representative_first_name",
+          type: "string",
+          description: "First name of the representative (if applicable).",
+        },
+        {
+          name: "representative_last_name",
+          type: "string",
+          description: "Last name of the representative (if applicable).",
+        },
+        {
+          name: "corporation_name",
+          type: "string",
+          description: "Name of the corporation (if applicable).",
+        },
+      ],
+    },
+    {
+      name: "lease_updates",
+      type: "object",
+      description: "Updates related to the lease.",
+      children: [
+        {
+          name: "midlease_change",
+          type: "array",
+          description: "List of mid-lease change transactions.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "Unique identifier for the transaction.",
+            },
+            {
+              name: "status",
+              type: "string",
+              description: "Status of the transaction.",
+            },
+            {
+              name: "type",
+              type: "string",
+              description: "Type of the transaction. This will be set according to the transaction type.",
+            },
+            {
+              name: "created_at",
+              type: "string",
+              description: "Creation date of the lease transaction.",
+            },
+            {
+              name: "updated_at",
+              type: "string",
+              description: "Last updated timestamp for the lease transaction.",
+            },
+          ],
+        },
+        {
+          name: "renewal",
+          type: "array",
+          description: "List of lease renewal transactions.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "Unique identifier for the transaction.",
+            },
+            {
+              name: "status",
+              type: "string",
+              description: "Status of the transaction.",
+            },
+            {
+              name: "type",
+              type: "string",
+              description: "Type of the transaction. This will be set according to the transaction type.",
+            },
+            {
+              name: "created_at",
+              type: "string",
+              description: "Creation date of the lease transaction.",
+            },
+            {
+              name: "updated_at",
+              type: "string",
+              description: "Last updated timestamp for the lease transaction.",
+            },
+          ],
+        },
+        {
+          name: "vacate",
+          type: "array",
+          description: "List of notice to vacate lease transactions.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "Unique identifier for the transaction.",
+            },
+            {
+              name: "status",
+              type: "string",
+              description: "Status of the transaction.",
+            },
+            {
+              name: "type",
+              type: "string",
+              description: "Type of the transaction. This will be set according to the transaction type.",
+            },
+            {
+              name: "created_at",
+              type: "string",
+              description: "Creation date of the lease transaction.",
+            },
+            {
+              name: "updated_at",
+              type: "string",
+              description: "Last updated timestamp for the lease transaction.",
+            },
+          ],
+        },
+        {
+          name: "reconciliation",
+          type: "array",
+          description: "List of reconciliation lease transactions.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "Unique identifier for the transaction.",
+            },
+            {
+              name: "status",
+              type: "string",
+              description: "Status of the transaction.",
+            },
+            {
+              name: "type",
+              type: "string",
+              description: "Type of the transaction. This will be set according to the transaction type.",
+            },
+            {
+              name: "created_at",
+              type: "string",
+              description: "Creation date of the lease transaction.",
+            },
+            {
+              name: "updated_at",
+              type: "string",
+              description: "Last updated timestamp for the lease transaction.",
+            },
+          ],
+        },
+        {
+          name: "transfer",
+          type: "array",
+          description: "List of transfer lease transactions.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "Unique identifier for the transaction.",
+            },
+            {
+              name: "status",
+              type: "string",
+              description: "Status of the transaction.",
+            },
+            {
+              name: "type",
+              type: "string",
+              description: "Type of the transaction. This will be set according to the transaction type.",
+            },
+            {
+              name: "created_at",
+              type: "string",
+              description: "Creation date of the lease transaction.",
+            },
+            {
+              name: "updated_at",
+              type: "string",
+              description: "Last updated timestamp for the lease transaction.",
+            },
+          ],
+        },
+        {
+          name: "holdover",
+          type: "array",
+          description: "List of holdover lease transactions.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "Unique identifier for the transaction.",
+            },
+            {
+              name: "status",
+              type: "string",
+              description: "Status of the transaction.",
+            },
+            {
+              name: "type",
+              type: "string",
+              description: "Type of the transaction. This will be set according to the transaction type.",
+            },
+            {
+              name: "created_at",
+              type: "string",
+              description: "Creation date of the lease transaction.",
+            },
+            {
+              name: "updated_at",
+              type: "string",
+              description: "Last updated timestamp for the lease transaction.",
+            },
+          ],
+        },
+        {
+          name: "month_to_month",
+          type: "array",
+          description: "List of month-to-month lease transactions.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "Unique identifier for the transaction.",
+            },
+            {
+              name: "status",
+              type: "string",
+              description: "Status of the transaction.",
+            },
+            {
+              name: "type",
+              type: "string",
+              description: "Type of the transaction. This will be set according to the transaction type.",
+            },
+            {
+              name: "created_at",
+              type: "string",
+              description: "Creation date of the lease transaction.",
+            },
+            {
+              name: "updated_at",
+              type: "string",
+              description: "Last updated timestamp for the lease transaction.",
+            },
+          ],
+        },
+        {
+          name: "lease_document_regeneration",
+          type: "array",
+          description: "List of lease document regeneration lease transactions.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "Unique identifier for the transaction.",
+            },
+            {
+              name: "status",
+              type: "string",
+              description: "Status of the transaction.",
+            },
+            {
+              name: "type",
+              type: "string",
+              description: "Type of the transaction. This will be set according to the transaction type.",
+            },
+            {
+              name: "created_at",
+              type: "string",
+              description: "Creation date of the lease transaction.",
+            },
+            {
+              name: "updated_at",
+              type: "string",
+              description: "Last updated timestamp for the lease transaction.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "created_from_lease_transaction_id",
+      type: "integer",
+      description: "The ID of the lease transaction that created this lease. This applies only to transactions like applications, transfers, and renewals. Mid-lease changes, reconciliations, and notice-to-vacate transactions do not create new leases; they only update the existing lease.",
+    },
+    {
+      name: "rentable_items",
+      type: "array",
+      description: "List of rentable items associated with the lease.",
+      children: [
+        {
+          name: "id",
+          type: "integer",
+          description: "Internal Funnel Leasing unique identifier for the rental option item.",
+        },
+        {
+          name: "item_id",
+          type: "string",
+          description: "Unique external customer identifier for the rentable item.",
+        },
+        {
+          name: "item_name",
+          type: "string",
+          description: 'External customer-assigned name or number for the rentable item (e.g., "#12", "Storage Unit A").',
+        },
+        {
+          name: "item_type_name",
+          type: "string",
+          description: 'External customer-defined name for the rentable item type (e.g., "Parking", "Storage").',
+        },
+        {
+          name: "item_type_id",
+          type: "string",
+          description: "Unique external customer identifier for the rentable item type.",
+        },
+        {
+          name: "name",
+          type: "string",
+          description: "Name of the rentable item.",
+        },
+        {
+          name: "start_date",
+          type: "string",
+          description: 'Start date for the rentable item in the format "YYYY-MM-DD".',
+        },
+        {
+          name: "end_date",
+          type: "string",
+          description: 'End date for the rentable item in the format "YYYY-MM-DD".',
+        },
+        {
+          name: "charges",
+          type: "array",
+          description: "List of charges associated with the rentable item.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "Unique identifier for the charge.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Name of the charge.",
+            },
+            {
+              name: "amount",
+              type: "string",
+              description: "Amount for the charge.",
+            },
+            {
+              name: "refundable",
+              type: "boolean",
+              description: "Indicates if the charge is refundable.",
+            },
+            {
+              name: "due_at",
+              type: "string",
+              description: 'When the charge is due. Example: "Monthly".',
+            },
+            {
+              name: "start_date",
+              type: "string",
+              description: 'Start date for the charge in the format "YYYY-MM-DD".',
+            },
+            {
+              name: "end_date",
+              type: "string",
+              description: 'End date for the charge in the format "YYYY-MM-DD".',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "pets",
+      type: "array",
+      description: "List of pets associated with the lease.",
+      children: [
+        {
+          name: "id",
+          type: "integer",
+          description: "Unique identifier for the pet.",
+        },
+        {
+          name: "name",
+          type: "string",
+          description: "Name of the pet.",
+        },
+        {
+          name: "start_date",
+          type: "string",
+          description: 'Start date for the pet in the format "YYYY-MM-DD".',
+        },
+        {
+          name: "end_date",
+          type: "string",
+          description: 'End date for the pet in the format "YYYY-MM-DD".',
+        },
+        {
+          name: "type",
+          type: "string",
+          description: 'Type of the pet. Example: "Dog".',
+        },
+        {
+          name: "breed",
+          type: "string",
+          description: "Breed of the pet.",
+        },
+        {
+          name: "weight",
+          type: "string",
+          description: "Weight of the pet.",
+        },
+        {
+          name: "description",
+          type: "string",
+          description: "Description of the pet.",
+        },
+        {
+          name: "is_service_animal",
+          type: "boolean",
+          description: "Indicates if the pet is a service animal.",
+        },
+        {
+          name: "charges",
+          type: "array",
+          description: "List of charges associated with the pet.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "Unique identifier for the charge.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Name of the charge.",
+            },
+            {
+              name: "amount",
+              type: "string",
+              description: "Amount for the charge.",
+            },
+            {
+              name: "refundable",
+              type: "boolean",
+              description: "Indicates if the charge is refundable.",
+            },
+            {
+              name: "due_at",
+              type: "string",
+              description: 'When the charge is due. Example: "Monthly".',
+            },
+            {
+              name: "start_date",
+              type: "string",
+              description: 'Start date for the charge in the format "YYYY-MM-DD".',
+            },
+            {
+              name: "end_date",
+              type: "string",
+              description: 'End date for the charge in the format "YYYY-MM-DD".',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "vehicles",
+      type: "array",
+      description: "List of vehicles associated with the lease.",
+      children: [
+        {
+          name: "id",
+          type: "integer",
+          description: "Unique identifier for the vehicle.",
+        },
+        {
+          name: "start_date",
+          type: "string",
+          description: 'Start date for the vehicle in the format "YYYY-MM-DD".',
+        },
+        {
+          name: "end_date",
+          type: "string",
+          description: 'End date for the vehicle in the format "YYYY-MM-DD".',
+        },
+        {
+          name: "make",
+          type: "string",
+          description: "Make of the vehicle.",
+        },
+        {
+          name: "model",
+          type: "string",
+          description: "Model of the vehicle.",
+        },
+        {
+          name: "color",
+          type: "string",
+          description: "Color of the vehicle.",
+        },
+        {
+          name: "year",
+          type: "integer",
+          description: "Year of the vehicle.",
+        },
+        {
+          name: "state",
+          type: "string",
+          description: "State where the vehicle is registered.",
+        },
+        {
+          name: "plate",
+          type: "string",
+          description: "License plate number of the vehicle.",
+        },
+        {
+          name: "permit",
+          type: "string",
+          description: "Permit number for the vehicle.",
+        },
+      ],
+    },
+    {
+      name: "documents",
+      type: "array",
+      description: "List of documents related to the lease.",
+      children: [
+        {
+          name: "title",
+          type: "string",
+          description: "Title of the document.",
+        },
+        {
+          name: "document_type",
+          type: "string",
+          description: "Type of the document.",
+        },
+        {
+          name: "url",
+          type: "string",
+          description: "URL for accessing the document's base64-encoded content. To retrieve the content, you must provide your API key, just as you would with other endpoints.",
+        },
+      ],
+    },
+    {
+      name: "created_at",
+      type: "string",
+      description: "Creation timestamp of the lease record.",
+    },
+    {
+      name: "updated_at",
+      type: "string",
+      description: "Last updated timestamp of the lease record.",
+    },
+  ];
+
+  const exampleCode = `{
+    "id": 295135,
+    "type": "Funnel Originated",
+    "status": "Active",
+    "lease_profile": "Standard",
+    "guest_card": {
+        "client_id": 15209251,
+        "pms_guestcard_id": "p5003908",
+        "pms_resident_household_id": "t2570581"
+    },
+    "unit": {
+        "id": 3998520,
+        "unit_number": "0625",
+        "price": 1973,
+        "address": "721 E Ridge Dr - #0625",
+        "building_number": "721"
+    },
+    "lease_term": 5,
+    "lease_start_date": "2024-06-27",
+    "lease_end_date": "2024-11-26",
+    "move_in_status": "Not set yet",
+    "move_out_date": null,
+    "base_rent": "1973.00",
+    "is_holdover_eligible": false,
+    "is_holdover": false,
+    "is_month_to_month": false,
+    "month_to_month_rent": "0.00",
+    "is_renewed": false,
+    "renewed_to": null,
+    "is_vacating": false,
+    "selected_lease_offer": 10,
+    "lease_offers": [
+        {
+            "id": 960638,
+            "rent": "1000.00",
+            "is_month_to_month": false,
+            "minimum_lease_term": 10,
+            "maximum_lease_term": 12,
+            "lease_start": "2024-11-24",
+            "lease_end": null
+        }
+    ],
+    "holdover_rent": null,
+    "original_holdover_end_date": null,
+    "termination_option": null,
+    "termination_fee": null,
+    "renewal_threshold": 90,
+    "is_compliant": true,
+    "is_below_market_rate": false,
+    "residents": [
+        {
+            "id": 2359922,
+            "role": "Primary",
+            "first_name": "test",
+            "last_name": "elim",
+            "start_date": null,
+            "end_date": null,
+            "account_id": 422424,
+            "representative_first_name": "",
+            "representative_last_name": "",
+            "corporation_name": ""
+        }
+    ],
+    "lease_updates": {
+        "midlease_change": [],
+        "renewal": [
+            {
+                "id": 347586,
+                "status": "Canceled",
+                "type": "Renewal",
+                "created_at": "2024-06-27T14:15:08.749579",
+                "updated_at": "2024-07-30T05:39:05.154981"
+            }
+        ],
+        "vacate": [
+            {
+                "id": 347579,
+                "status": "Canceled",
+                "type": "Notice to Vacate",
+                "created_at": "2024-06-27T14:09:20.954958",
+                "updated_at": "2024-06-27T14:10:08.879526"
+            },
+            {
+                "id": 352226,
+                "status": "Approved",
+                "type": "Notice to Vacate",
+                "created_at": "2024-07-30T05:39:06.341763",
+                "updated_at": "2024-07-30T05:39:09.250540"
+            }
+        ],
+        "reconciliation": [],
+        "transfer": [],
+        "holdover": [],
+        "month_to_month": [],
+        "lease_document_regeneration": []
+    },
+    "created_from_lease_transaction_id": 123,
+    "rentable_items": [
+        {
+            "id": 21532501,
+            "item_id": "12",
+            "item_name": "#10",
+            "item_type_name": "Garage",
+            "item_type_id": "99",
+            "name": "Garage",
+            "start_date": "2024-06-27",
+            "end_date": null,
+            "charges": [
+                {
+                    "id": 21949362,
+                    "name": "Rent",
+                    "amount": "95.00",
+                    "refundable": false,
+                    "due_at": "Monthly",
+                    "start_date": "2024-06-27",
+                    "end_date": null
+                }
+            ]
+        }
+    ],
+    "pets": [
+        {
+            "id": 21532499,
+            "name": "Bob",
+            "start_date": "2024-06-27",
+            "end_date": null,
+            "charges": [
+                {
+                    "id": 21949356,
+                    "name": "Dog Rent",
+                    "amount": "25.00",
+                    "refundable": false,
+                    "due_at": "Monthly",
+                    "start_date": "2024-06-27",
+                    "end_date": null
+                },
+                {
+                    "id": 21949357,
+                    "name": "Dog Deposit",
+                    "amount": "400.00",
+                    "refundable": true,
+                    "due_at": "At move-in",
+                    "start_date": "2024-06-27",
+                    "end_date": null
+                }
+            ],
+            "type": "Dog",
+            "breed": "Pitbull",
+            "weight": "25",
+            "description": null,
+            "is_service_animal": false
+        },
+        {
+            "id": 21532500,
+            "name": null,
+            "start_date": "2024-06-27",
+            "end_date": null,
+            "charges": [
+                {
+                    "id": 21949359,
+                    "name": "Rent",
+                    "amount": "0.00",
+                    "refundable": false,
+                    "due_at": "Monthly",
+                    "start_date": "2024-06-27",
+                    "end_date": null
+                },
+                {
+                    "id": 21949360,
+                    "name": "Pet Fee",
+                    "amount": "00.00",
+                    "refundable": false,
+                    "due_at": "At move-in",
+                    "start_date": "2024-06-27",
+                    "end_date": null
+                }
+            ],
+            "type": "Other",
+            "breed": null,
+            "weight": null,
+            "description": "Dragon",
+            "is_service_animal": true
+        }
+    ],
+    "vehicles": [
+        {
+            "id": 21532503,
+            "start_date": "2024-06-27",
+            "end_date": null,
+            "make": "Toyota",
+            "model": "Rav4",
+            "color": "Blue",
+            "year": 2007,
+            "state": "TX",
+            "plate": "TX1342",
+            "permit": "12345"
+        }
+    ],
+    "documents": [
+        {
+            "title": null,
+            "document_type": "lease_document",
+            "url": "https://api.funnelleasing.com/api/v2/documents/255904/lease_document"
+        },
+        {
+            "title": "money.jpeg",
+            "document_type": "user_uploaded_document",
+            "url": "https://webhooks-chuck-pr27411.nestiostaging.com/api/vgs/v2/242138/user_uploaded_document/10/"
+        },
+        {
+            "title": "AAN - test elim",
+            "document_type": "aan_document",
+            "url": "https://api.funnelleasing.com/api/v2/documents/44071/aan_document"
+        }
+    ],
+    "created_at": "2024-06-27T14:09:00.526774",
+    "updated_at": "2024-07-30T05:55:34.673978"
+}`;
+
+  return (
+    <ApiPage
+      title="Lease"
+      description="The Lease object represents a rental agreement between a landlord (or property manager) and a tenant. It encapsulates crucial information about the terms and conditions of the lease, including rental property details, lease duration, rental payments, executed documents, and various other attributes. This object serves as a comprehensive record of the lease agreement's key aspects, facilitating effective management and tracking throughout its lifecycle."
+      method="GET"
+      path="/api/v2/leases/:id"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example request payload"
+      exampleLang="json"
+    />
+  );
+})()}
+

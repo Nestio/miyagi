@@ -1,0 +1,70 @@
+---
+title: Edit Lease Transaction
+sidebar_label: Edit Lease Transaction
+sidebar_position: 2
+hide_table_of_contents: true
+---
+
+# Edit Lease Transaction
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "resident_household_id",
+      type: "string",
+      description: "The 'Resident Household ID' from Realpage. Required.",
+    },
+    {
+      name: "lease_integration_id",
+      type: "string",
+      description: "The 'Lease ID' from Realpage. Required.",
+    },
+    {
+      name: "residents",
+      type: "array",
+      description: "An array of objects containing the PMS identifiers for each individual person. The field is required but can be empty.",
+      children: [
+        {
+          name: "resident_member_id",
+          type: "string",
+          description: "The 'Resident Member ID' from Realpage for the individual. Required.",
+        },
+        {
+          name: "account_id",
+          type: "integer",
+          description: "The Funnel applicant ID of the individual. You can retrieve it by calling the related GET endpoint, under the 'applicants' attribute. Required.",
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+    "resident_household_id": "rh-123",
+    "lease_integration_id": "lease-123",
+    "residents": [
+        {
+            "resident_member_id": "rm-123",
+            "account_id": 737759
+        },
+        {
+            "resident_member_id": "rm-456",
+            "account_id": 737787
+        }
+    ]
+}`;
+
+  return (
+    <ApiPage
+      title="Edit Lease Transaction"
+      description="This PATCH endpoint allows you to provide Funnel with the PMS identifiers related to a lease transaction."
+      method="PATCH"
+      path="/api/v2/lease-transactions/:id"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example request payload"
+      exampleLang="json"
+    />
+  );
+})()}
+
