@@ -1,0 +1,74 @@
+---
+title: Listings Sync
+sidebar_label: Listings Sync
+sidebar_position: 3
+hide_table_of_contents: true
+---
+
+# Listings Sync
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "items",
+      type: "array",
+      description: "Array of listing objects. The data will be returned in paginated form with 50 listings per page.",
+      children: [
+        {
+          name: "building_ownership",
+          type: "integer",
+          description: "The ownership class of the building. Possible values: 10 - Multi-family, 20 - Condo, 30 - Co-op, 40 - Condop, 60 - Single-family.",
+        },
+        {
+          name: "building_type",
+          type: "integer",
+          description: "The type of building structure. Possible values: 10 - High-Rise, 20 - Walk-Up, 30 - Elevator, 40 - Hotel, 50 - Loft, 60 - Townhouse, 70 - Detached House, 80 - Attached House, 90 - Semi-detached House, 100 - Mid-Rise, 110 - Low-Rise.",
+        },
+        {
+          name: "pets",
+          type: "integer",
+          description: "Description of what kinds of pets the building's management company allows. Possible values: 10 - No Pets Allowed, 20 - Pets Allowed, 30 - Cats Only, 40 - Dogs Only, 50 - Cats/Small Dogs Allowed, 60 - Pets Allowed Case by Case.",
+        },
+        {
+          name: "status",
+          type: "integer",
+          description: "Describes the current status of the unit with respect to availability, pending applications, etc. Possible values: 100 - Available, 200 - App Pending, 210 - Offer Pending, 220 - Complete App, 230 - Approved, 240 - Lease Out, 250 - Transfer, 260 - In Contract, 300 - Under Renovation, 310 - Hold, 320 - Lease Break, 400 - Rented, 410 - Sold.",
+        },
+      ],
+    },
+    {
+      name: "pointer",
+      type: "object",
+      description: "Pointer-based pagination information for retrieving the next page of results.",
+      children: [
+        {
+          name: "next_id",
+          type: "integer",
+          description: "The ID to use as the max_id parameter when requesting the next page of results.",
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+    "items": [ /* listings... */ ],
+    "pointer": {
+        "next_id": 234567
+    }
+}`;
+
+  return (
+    <ApiPage
+      title="Listings Sync"
+      description="This endpoint allows you to sync listings in bulk from Funnel's database into your own. The data will be returned in paginated form with 50 listings per page, and can be filtered using query string parameters. The sync API uses pointer-based pagination. Each page of API results provides a pointer to the next available page. To get the pointer to the next page, look for the 'pointer.next_id' field in the response, and then pass that value as the max_id parameter to retrieve the next page. The Listings Sync endpoint is only available using Basic Authentication. Before you use the listings sync endpoint, please confirm with your Funnel representative that your Funnel plan includes sync access, and it is enabled for your API key."
+      method="GET"
+      path="/api/v2/sync/listings"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}
+

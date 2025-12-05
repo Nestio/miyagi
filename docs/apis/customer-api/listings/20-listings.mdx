@@ -1,0 +1,675 @@
+---
+title: Listings Search
+sidebar_label: Listings Search
+sidebar_position: 2
+hide_table_of_contents: true
+---
+
+# Listings Search
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "total_items",
+      type: "integer",
+      description: "Total number of listings matching the search criteria.",
+    },
+    {
+      name: "total_pages",
+      type: "integer",
+      description: "Total number of pages available.",
+    },
+    {
+      name: "page",
+      type: "integer",
+      description: "Current page number.",
+    },
+    {
+      name: "items",
+      type: "array",
+      description: "Array of listing objects matching the search criteria.",
+      children: [
+        {
+          name: "id",
+          type: "integer",
+          description: "Funnel database id of the unit.",
+        },
+        {
+          name: "status",
+          type: "string",
+          description: "Describes the current status of the unit with respect to availability, pending applications, etc.",
+        },
+        {
+          name: "price",
+          type: "string",
+          description: "All prices in USD. For rentals this is the rent for one month. For sales this is the current asking price.",
+        },
+        {
+          name: "bedrooms",
+          type: "integer",
+          description: "Integer number of bedrooms in the unit. Studio and loft units will have 0 as the value of bedrooms.",
+        },
+        {
+          name: "bathrooms",
+          type: "number",
+          description: "Number of bathrooms in the unit. Example: a unit with 1 full bathroom and 1 half bathroom will have 1.5 as the value of bathrooms.",
+        },
+        {
+          name: "layout",
+          type: "string",
+          description: "A more detailed description of the layout of the unit. For example, a unit with 2 bedrooms and a home office will have bedrooms '2', but layout will have the more detailed description '2 Bedroom /w HO'.",
+        },
+        {
+          name: "square_footage",
+          type: "number | null",
+          description: "Square footage of the unit, or null if not available.",
+        },
+        {
+          name: "total_rooms",
+          type: "integer | null",
+          description: "Total number of rooms in the unit, or null if not available.",
+        },
+        {
+          name: "unit_number",
+          type: "string",
+          description: "The number of the unit within the building. Example: '3G' or '2R'.",
+        },
+        {
+          name: "floor",
+          type: "integer | null",
+          description: "The floor of the building the unit is located on, or null if not available.",
+        },
+        {
+          name: "date_available",
+          type: "string",
+          description: "Timestamp when the unit is available for move-in. Format: 'YYYY-MM-DD'.",
+        },
+        {
+          name: "last_listed_at",
+          type: "string",
+          description: "Timestamp of the most recent previous listing of the unit.",
+        },
+        {
+          name: "updated_at",
+          type: "string",
+          description: "Timestamp of the most recent change to the listing.",
+        },
+        {
+          name: "property_type",
+          type: "string",
+          description: "Residential or Commercial.",
+        },
+        {
+          name: "listing_type",
+          type: "string",
+          description: "For Rent or For Sale.",
+        },
+        {
+          name: "source",
+          type: "string",
+          description: "Describes the primary source where the listing data originated.",
+        },
+        {
+          name: "exclusive",
+          type: "boolean | null",
+          description: "True if the unit is exclusive to the listing brokerage, null otherwise.",
+        },
+        {
+          name: "featured",
+          type: "boolean",
+          description: "Whether the listing is featured.",
+        },
+        {
+          name: "private",
+          type: "boolean",
+          description: "True if the listing is marked private in Funnel.",
+        },
+        {
+          name: "website_marketable",
+          type: "boolean",
+          description: "If false, listing cannot be marketed on a website.",
+        },
+        {
+          name: "description",
+          type: "string",
+          description: "Text description of the unit itself.",
+        },
+        {
+          name: "access_info",
+          type: "string",
+          description: "Text describing how to access the listing for a showing.",
+        },
+        {
+          name: "pets",
+          type: "string",
+          description: "Description of what kinds of pets the building's management company allows.",
+        },
+        {
+          name: "amenities",
+          type: "array",
+          description: "List of amenities and unit features.",
+        },
+        {
+          name: "incentives",
+          type: "string | null",
+          description: "Describes additional incentives offered by the building's owner to brokers, or null if not applicable.",
+        },
+        {
+          name: "min_lease_term",
+          type: "integer | null",
+          description: "Minimum number of months a lease can be signed for (rental listings only), or null if not applicable.",
+        },
+        {
+          name: "max_lease_term",
+          type: "integer | null",
+          description: "Maximum number of months a lease can be signed for (rental listings only), or null if not applicable.",
+        },
+        {
+          name: "renter_fee",
+          type: "string | null",
+          description: "Whether or not a renter signing a lease has to be a broker's fee (rental listings only), or null if not applicable.",
+        },
+        {
+          name: "key_in_office",
+          type: "boolean | null",
+          description: "True if the listing brokerage possesses the key, null otherwise.",
+        },
+        {
+          name: "occupancy_status",
+          type: "boolean | null",
+          description: "True if the unit has a current tenant, null otherwise.",
+        },
+        {
+          name: "first_showing_date",
+          type: "string | null",
+          description: "First showing date, or null if not available.",
+        },
+        {
+          name: "street_address",
+          type: "string",
+          description: "The street address of the building, modified by address display preferences.",
+        },
+        {
+          name: "primary_video_url",
+          type: "string | null",
+          description: "URL of the primary video associated with the listing, or null if not available.",
+        },
+        {
+          name: "secondary_video_url",
+          type: "string | null",
+          description: "URL of the secondary video associated with the listing, or null if not available.",
+        },
+        {
+          name: "virtual_tour_url",
+          type: "string | null",
+          description: "URL of the virtual tour associated with the listing, or null if not available.",
+        },
+        {
+          name: "exposure",
+          type: "string | null",
+          description: "If we have data about the unit's facing it will appear here with one of the following possible values: North, East, South, West, or null if not available.",
+        },
+        {
+          name: "view",
+          type: "string | null",
+          description: "If we have data on the view from the unit it will appear here with one of the following possible values: Open View, Partially Obstructed, or Obstructed, or null if not available.",
+        },
+        {
+          name: "furnished_type",
+          type: "string | null",
+          description: "If the unit is furnished it might have one of the following types of furnishing: Unfurnished, Furnished, Optional, or null if not applicable.",
+        },
+        {
+          name: "furnished_price",
+          type: "string | null",
+          description: "If the unit is provided furnished it might have a different price than the normal listed price, or null if not applicable.",
+        },
+        {
+          name: "fee_structure",
+          type: "string",
+          description: "Either 'CYOF' (Collect Your Own Fee) or 'Co-Broke'.",
+        },
+        {
+          name: "building",
+          type: "object",
+          description: "Building information for the listing.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "Funnel database id of the building.",
+            },
+            {
+              name: "name",
+              type: "string | null",
+              description: "The nickname of the building if it has one, or null otherwise.",
+            },
+            {
+              name: "street_address",
+              type: "string",
+              description: "The street address of the building, modified by address display preferences.",
+            },
+            {
+              name: "city",
+              type: "string",
+              description: "The name of the city or borough.",
+            },
+            {
+              name: "state",
+              type: "string",
+              description: "2 letter postal code abbreviation. Example: 'NY' or 'NJ'.",
+            },
+            {
+              name: "postal_code",
+              type: "string",
+              description: "The USPS postal code of the building.",
+            },
+            {
+              name: "location",
+              type: "object",
+              description: "Geographic coordinates of the building.",
+              children: [
+                {
+                  name: "latitude",
+                  type: "number",
+                  description: "Latitude coordinate.",
+                },
+                {
+                  name: "longitude",
+                  type: "number",
+                  description: "Longitude coordinate.",
+                },
+              ],
+            },
+            {
+              name: "amenities",
+              type: "array",
+              description: "List of amenities and building features.",
+            },
+            {
+              name: "building_description",
+              type: "string",
+              description: "Text description of the building.",
+            },
+            {
+              name: "building_age",
+              type: "string",
+              description: "String. 'Pre-War', 'Post-War', or 'New Development'.",
+            },
+            {
+              name: "year_built",
+              type: "integer | null",
+              description: "Integer. Example: 2009, or null if not available.",
+            },
+            {
+              name: "total_units",
+              type: "integer | null",
+              description: "Integer. Total units in the building, or null if not available.",
+            },
+            {
+              name: "floors",
+              type: "number | null",
+              description: "Float. Number of floors in the building. Example: 15.0, or null if not available.",
+            },
+            {
+              name: "tax_lot",
+              type: "string | null",
+              description: "String. For the city's record keeping system for parcels of land, or null if not available.",
+            },
+            {
+              name: "tax_block",
+              type: "string | null",
+              description: "String. For the city's record keeping system for parcels of land, or null if not available.",
+            },
+            {
+              name: "building_type",
+              type: "string | null",
+              description: "String. Example: 'High-Rise' or 'Townhouse', or null if not available.",
+            },
+            {
+              name: "building_ownership",
+              type: "string | null",
+              description: "The ownership class of the building. Example: 'condo' or 'co-op', or null if not available.",
+            },
+            {
+              name: "cross_streets",
+              type: "array",
+              description: "Cross streets of the building's address, if we have them, otherwise null. This field will be modified by address display preferences.",
+            },
+            {
+              name: "source_id",
+              type: "string | null",
+              description: "If the building data originated from a source external to Funnel, we will include the id number assigned by that source to the building here, or null otherwise.",
+            },
+          ],
+        },
+        {
+          name: "listing_company",
+          type: "object",
+          description: "Information about the listing company.",
+          children: [
+            {
+              name: "company_id",
+              type: "integer",
+              description: "The company's unique ID.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Name of the company.",
+            },
+            {
+              name: "phone_number",
+              type: "string",
+              description: "Phone number of the company.",
+            },
+            {
+              name: "email",
+              type: "string",
+              description: "Email address of the company.",
+            },
+            {
+              name: "website",
+              type: "string",
+              description: "Website URL of the company.",
+            },
+            {
+              name: "address",
+              type: "string",
+              description: "Address of the company.",
+            },
+            {
+              name: "logo",
+              type: "string | null",
+              description: "URL to the company logo, or null if not available.",
+            },
+            {
+              name: "fax_number",
+              type: "string",
+              description: "Fax number of the company.",
+            },
+          ],
+        },
+        {
+          name: "photos",
+          type: "array",
+          description: "Array of photo objects. Please note that there are query parameters after the file extension on image urls. You don't need to concern yourself with these - the important information is provided in the JSON keys.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "Funnel database id of the photo.",
+            },
+            {
+              name: "original",
+              type: "string",
+              description: "URL of the image with the original size it was uploaded as.",
+            },
+            {
+              name: "thumbnail",
+              type: "string",
+              description: "URL of the image resized to be suitable for use as a small thumbnail (100px by 70px, cropped).",
+            },
+            {
+              name: "small",
+              type: "string",
+              description: "URL of the image resized to be larger than a thumbnail but smaller than the original (240px by 180px, cropped).",
+            },
+            {
+              name: "large",
+              type: "string",
+              description: "URL of the image resized to be larger than thumbnail and small sizes (720px by 540px, cropped).",
+            },
+            {
+              name: "xlarge",
+              type: "string",
+              description: "URL of the largest resized image (up to 1000px by 1000px, uncropped).",
+            },
+            {
+              name: "media_type",
+              type: "string",
+              description: "Photo or floorplan.",
+            },
+            {
+              name: "sort_order",
+              type: "integer",
+              description: "The order the photo is intended to be displayed in.",
+            },
+          ],
+        },
+        {
+          name: "open_houses",
+          type: "array",
+          description: "Array of open house objects.",
+          children: [
+            {
+              name: "start_time",
+              type: "string",
+              description: "Start time of the open house.",
+            },
+            {
+              name: "end_time",
+              type: "string",
+              description: "End time of the open house.",
+            },
+            {
+              name: "date",
+              type: "string",
+              description: "Date of the open house.",
+            },
+          ],
+        },
+        {
+          name: "contacts",
+          type: "array",
+          description: "Array of contact objects.",
+          children: [
+            {
+              name: "agent_id",
+              type: "integer",
+              description: "Funnel database id of the agent.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Name of the contact.",
+            },
+            {
+              name: "email",
+              type: "string",
+              description: "Email address of the contact.",
+            },
+            {
+              name: "phone_number",
+              type: "string",
+              description: "Phone number of the contact.",
+            },
+            {
+              name: "mobile_phone_number",
+              type: "string",
+              description: "Mobile phone number of the contact.",
+            },
+            {
+              name: "title",
+              type: "string",
+              description: "Title of the contact.",
+            },
+            {
+              name: "headshot",
+              type: "object | null",
+              description: "Headshot image of the contact, or null if not available.",
+              children: [
+                {
+                  name: "original",
+                  type: "string",
+                  description: "URL of the image with the original size it was uploaded as.",
+                },
+                {
+                  name: "thumbnail",
+                  type: "string",
+                  description: "URL of the image resized to be suitable for use as a small thumbnail.",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: "mls_policies",
+          type: "object",
+          description: "This field lists policies specific to the MLS source the listing is from.",
+          children: [
+            {
+              name: "vow_opt_out",
+              type: "boolean",
+              description: "If true, this listing may not be displayed on a RLS VOW website.",
+            },
+            {
+              name: "idx_opt_out",
+              type: "boolean",
+              description: "If true, this listing may not be displayed on a RLS IDX website.",
+            },
+            {
+              name: "allow_comments",
+              type: "boolean",
+              description: "If true, the MLS source allows user comments to be left on the listing.",
+            },
+            {
+              name: "allow_automated_valuations",
+              type: "boolean",
+              description: "If true, the MLS source allows automated property valuation services to leave estimates on the listing.",
+            },
+            {
+              name: "cobroke_agreement",
+              type: "string",
+              description: "This will show text describing the type of cobroke agreement the listing is permitted to be marketed with.",
+            },
+          ],
+        },
+        {
+          name: "commission_structure",
+          type: "string | null",
+          description: "If we have information about the unit's commission structure it will appear here. Note: this data will only appear if your API key is configured to provide broker info, or null otherwise.",
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+  "total_items": 500,
+  "items": [
+    {
+      "max_lease_term": 24,
+      "exclusive": null,
+      "min_lease_term": 12,
+      "bathrooms": 2,
+      "square_footage": null,
+      "updated_at": "2015-07-18T11:12:32.786308",
+      "property_type": "Residential",
+      "id": 350889,
+      "featured": false,
+      "occupancy_status": null,
+      "renter_fee": null,
+      "layout": "2 Bedroom",
+      "floor": null,
+      "date_available": "2015-09-01",
+      "last_listed_at": "2015-07-18T11:12:32.786508",
+      "source": "Blast",
+      "amenities": [
+        "Hardwood Floors",
+        "Stainless Steel Appliances",
+        "Windowed Kitchen",
+        "Pass-Through Kitchen",
+        "Walk-In Closet",
+        "Marble",
+        "Desirable Layout"
+      ],
+      "pets": "Pets Allowed",
+      "access_info": "To schedule a viewing, contact Example Broker. example@fakebrokerage.com 555-555-5555",
+      "status": "Available",
+      "description": "",
+      "price": "7200.00",
+      "bedrooms": 2,
+      "incentives": null,
+      "key_in_office": null,
+      "listing_company": {
+        "phone_number": "(555) 555-5555",
+        "email": "",
+        "website": "",
+        "name": "Example Management Company",
+        "address": "123 Some St, New York, NY 10010",
+        "logo": null,
+        "company_id": 1289,
+        "fax_number": ""
+      },
+      "primary_video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "secondary_video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "virtual_tour_url": "https://virtualtours.com/1234",
+      "photos": [
+        {
+          "original": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?s=a51703d90404d302f030b5b79c1b324a",
+          "large": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=crop&h=540&w=720&s=2334719c403d5c8f2a07e81369e4cca9",
+          "thumbnail": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=crop&h=70&w=100&s=a3d5d4b3fe655f23f04e8ce9e493e1c9",
+          "sort_order": 0,
+          "small": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=crop&h=180&w=240&s=8ca556ba82008a5c3cbcb53e1ab00ffb",
+          "xlarge": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=max&h=1000&w=1000&s=20297f84cb26b5208a6ab5f043688a1a",
+          "media_type": "Photo",
+          "id": 2677180
+        }
+      ],
+      "listing_type": "For Rent",
+      "building": {
+        "cross_streets": ["Columbus Ave / W 59th St"],
+        "id": 103019,
+        "city": "Manhattan",
+        "name": "",
+        "building_ownership": null,
+        "postal_code": "10019",
+        "state": "NY",
+        "amenities": [],
+        "location": {
+          "latitude": 40.7691689,
+          "longitude": -73.9850159
+        },
+        "building_description": "",
+        "building_age": "New Development",
+        "building_type": "Loft",
+        "year_built": 2011,
+        "total_units": 50,
+        "floors": 10.0,
+        "tax_lot": "11",
+        "tax_block": "12",
+        "street_address": "1 Columbus Pl"
+      },
+      "first_showing_date": null,
+      "unit_number": "N-46D",
+      "open_houses": [],
+      "mls_policies": {
+        "vow_opt_out": false,
+        "idx_opt_out": false,
+        "allow_comments": false,
+        "allow_automated_valuations": false,
+        "cobroke_agreement": "REBNY Universal Co-broke"
+      },
+      "contacts": [],
+      "street_address": "1 Columbus Pl"
+    }
+  ],
+  "total_pages": 500,
+  "page": 1
+}`;
+
+  return (
+    <ApiPage
+      title="Listings Search"
+      description="These endpoints enable you to query the Funnel Listings Database for the listings that your company has access to. It will return a list of currently available listings that match your search parameters. Available endpoints: GET /api/v2/listings/all (aggregated set including both residential and commercial, and both rentals and sales), GET /api/v2/listings/residential/rentals/ (residential rentals only), GET /api/v2/listings/residential/sales/ (residential sales only), GET /api/v2/listings/commercial/rentals/ (commercial rentals only), GET /api/v2/listings/commercial/sales/ (commercial sales only). All endpoints support extensive filtering via query parameters including agents, building, price range, layout, amenities, and many more options."
+      method="GET"
+      path="/api/v2/listings/all"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}
+
