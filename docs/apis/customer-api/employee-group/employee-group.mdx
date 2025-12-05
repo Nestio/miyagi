@@ -1,0 +1,85 @@
+---
+title: Employee Group
+sidebar_label: Employee Group
+sidebar_position: 1
+hide_table_of_contents: true
+---
+
+# Employee Group
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "id",
+      type: "integer",
+      description: "The employee group's unique ID.",
+    },
+    {
+      name: "name",
+      type: "string",
+      description: "The employee group's name.",
+    },
+    {
+      name: "guided_tours_enabled",
+      type: "boolean",
+      description: "Whether the employee group allows any guided tours, either booked through the API or internally within the Funnel application.",
+    },
+    {
+      name: "guided_tours_external_bookings_enabled",
+      type: "boolean",
+      description: "Whether the employee group allows guided tours booked through the API. Important: guided tours can only be booked if this and guided_tours_enabled are both true (tour_type='guided').",
+    },
+    {
+      name: "self_guided_tours_enabled",
+      type: "boolean",
+      description: "Whether the employee group allows any self-guided tours, either booked through the API or internally within the Funnel application.",
+    },
+    {
+      name: "self_guided_tours_external_bookings_enabled",
+      type: "boolean",
+      description: "Whether the employee group allows self-guided tours booked through the API. Important: self guided tours can only be booked if this and self_guided_tours_enabled are both true (tour_type='self-guided').",
+    },
+    {
+      name: "video_tours_enabled",
+      type: "boolean",
+      description: "Whether the employee group allows any video tours, either booked through the API or internally within the Funnel application.",
+    },
+    {
+      name: "video_tours_external_bookings_enabled",
+      type: "boolean",
+      description: "Whether the employee group allows video tours booked through the API. Important: video tours can only be booked if this and video_tours_enabled are both true (is_video_tour=true & tour_type='guided').",
+    },
+    {
+      name: "platform_of_choice",
+      type: "string",
+      description: "The employee group's supported platform of choices for the video tours.",
+    },
+  ];
+
+  const exampleCode = `{
+    "id": 23,
+    "name": "Some Employee group",
+    "guided_tours_enabled": true,
+    "guided_tours_external_bookings_enabled": true,
+    "self_guided_tours_enabled": true,
+    "self_guided_tours_external_bookings_enabled": true,
+    "video_tours_enabled": true,
+    "video_tours_external_bookings_enabled": true,
+    "platform_of_choice": "Skype, Facebook, Hangouts"
+}`;
+
+  return (
+    <ApiPage
+      title="Employee Group"
+      description="Returns a single employee group specified by group_id. This endpoint provides information about the employee group's tour configuration, including which tour types are enabled and whether external bookings are allowed through the API."
+      method="GET"
+      path="/api/v2/group/:group_id"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}
+

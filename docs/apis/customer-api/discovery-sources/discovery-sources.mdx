@@ -1,0 +1,63 @@
+---
+title: Discovery Sources
+sidebar_label: Discovery Sources
+sidebar_position: 1
+hide_table_of_contents: true
+---
+
+# Discovery Sources
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "data",
+      type: "object",
+      description: "Response data container.",
+      children: [
+        {
+          name: "discovery_sources",
+          type: "array",
+          description: "Array of discovery source objects. This list is filtered to your company's selected options, so there may be additional valid options that are not returned. Unless otherwise specified, values will need to be specified by id or name (i.e., just the value 466 or 'facebook') instead of the full object representation.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "The unique identifier for the discovery source.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "The name of the discovery source.",
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+    "data": {
+        "discovery_sources": [
+            {
+                "id": 466,
+                "name": "Facebook"
+            }
+        ]
+    }
+}`;
+
+  return (
+    <ApiPage
+      title="Discovery Sources"
+      description="Returns a list of sources that can be used when specifying a lead source or discovery source. This list is filtered to your company's selected options, so there may be additional valid options that are not returned. Unless otherwise specified, values will need to be specified by id or name (i.e., just the value 466 or 'facebook') instead of the full object representation."
+      method="GET"
+      path="/api/v2/discovery-sources"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}
+
