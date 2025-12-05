@@ -2,7 +2,191 @@
 title: Applicant SPII
 sidebar_label: Applicant SPII
 sidebar_position: 2
+hide_table_of_contents: true
 ---
 
 # Applicant SPII
 
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "id",
+      type: "integer",
+      description: "A unique Funnel identifier for the applicant.",
+    },
+    {
+      name: "lease_transaction_id",
+      type: "integer",
+      description: "The ID of the lease transaction associated with the applicant.",
+    },
+    {
+      name: "role",
+      type: "string",
+      description: 'The role of the applicant in the lease transaction. Possible values: "Primary Applicant", "Roommate", "Guarantor", "Occupant", "Corporation".',
+    },
+    {
+      name: "first_name",
+      type: "string",
+      description: "The first name of the applicant.",
+    },
+    {
+      name: "middle_name",
+      type: "string",
+      description: "The middle name of the applicant.",
+    },
+    {
+      name: "last_name",
+      type: "string",
+      description: "The last name of the applicant.",
+    },
+    {
+      name: "suffix",
+      type: "string",
+      description: 'The suffix of the applicant\'s name. Possible values: "Sr.", "Jr.", "I", "II", "III", "IV".',
+    },
+    {
+      name: "email",
+      type: "string",
+      description: "The email address of the applicant.",
+    },
+    {
+      name: "address_street",
+      type: "string",
+      description: "The street address of the applicant.",
+    },
+    {
+      name: "address_line_2",
+      type: "string",
+      description: "Additional line of address (e.g., apartment or business name).",
+    },
+    {
+      name: "address_city",
+      type: "string",
+      description: "The city of the applicant's address.",
+    },
+    {
+      name: "address_state",
+      type: "string",
+      description: "The state of the applicant's address.",
+    },
+    {
+      name: "address_postal_code",
+      type: "string",
+      description: "The postal code of the applicant's address.",
+    },
+    {
+      name: "ssn",
+      type: "string",
+      description: "The Social Security Number (SSN) of the applicant.",
+    },
+    {
+      name: "date_of_birth",
+      type: "string",
+      description: "The date of birth of the applicant in ISO 8601 format.",
+    },
+    {
+      name: "financial_data",
+      type: "object",
+      description: "Financial information of the applicant.",
+      children: [
+        {
+          name: "income_total",
+          type: "string",
+          description: "Total reported income of the applicant.",
+        },
+        {
+          name: "asset_total",
+          type: "string",
+          description: "Total reported assets of the applicant.",
+        },
+        {
+          name: "vouchers_total",
+          type: "string",
+          description: "Total value of vouchers reported by the applicant.",
+        },
+      ],
+    },
+    {
+      name: "employer",
+      type: "object",
+      description: "Employer details of the applicant.",
+      children: [
+        {
+          name: "name",
+          type: "string",
+          description: "The name of the employer.",
+        },
+        {
+          name: "address_street",
+          type: "string",
+          description: "The street address of the employer.",
+        },
+        {
+          name: "address_line_2",
+          type: "string",
+          description: "Additional address details (e.g., floor number).",
+        },
+        {
+          name: "address_city",
+          type: "string",
+          description: "The city of the employer's address.",
+        },
+        {
+          name: "address_state",
+          type: "string",
+          description: "The state of the employer's address.",
+        },
+        {
+          name: "address_postal_code",
+          type: "string",
+          description: "The postal code of the employer's address.",
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+    "id": 564323,
+    "lease_transaction_id": 347612,
+    "role": "Primary Applicant",
+    "first_name": "John",
+    "middle_name": "Mary",
+    "last_name": "Doe",
+    "suffix": "Jr",
+    "email": "john.doe@gmail.com",
+    "address_street": "21 Jump St.",
+    "address_line_2": "Gelato Bar",
+    "address_city": "New York",
+    "address_state": "NY",
+    "address_postal_code": "10001",
+    "ssn": "123-45-6789",
+    "date_of_birth": "2003-12-04",
+    "financial_data": {
+        "income_total": "10,000.00",
+        "asset_total": "20,000.00",
+        "vouchers_total": "30,000.00"
+    },
+    "employer": {
+        "name": "Nestio",
+        "address_street": "150 W 22nd St",
+        "address_line_2": "Flr 8",
+        "address_city": "New York",
+        "address_state": "NY",
+        "address_postal_code": "10011"
+    }
+}`;
+
+  return (
+    <ApiPage
+      title="Applicant SPII"
+      description="The Applicant SPII object represents sensitive personally identifiable information for an applicant applying for a lease transaction within the Funnel Leasing system. This includes data such as Social Security Number (SSN), detailed financial information, and employer details. Proper care and security protocols must be followed when accessing or processing this information to comply with privacy regulations. SPII is encrypted for security purposes. To access decrypted information, simply make a request to the proxy endpoint (https://tntdv44mdst.live.verygoodproxy.com/api/v2/applicants/:id/spii), providing your API key as you would for direct API calls. We use VGS (Very Good Proxy) for encrypting and decrypting sensitive data. The proxy will automatically return the data in decrypted form."
+      method="GET"
+      path="https://tntdv44mdst.live.verygoodproxy.com/api/v2/applicants/:id/spii"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example request payload"
+      exampleLang="json"
+    />
+  );
+})()}

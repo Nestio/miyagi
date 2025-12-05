@@ -1,0 +1,1180 @@
+---
+title: Community
+sidebar_label: Community
+sidebar_position: 1
+hide_table_of_contents: true
+---
+
+# Community
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "id",
+      type: "integer",
+      description: "A unique Funnel identifier for the community.",
+    },
+    {
+      name: "team_id",
+      type: "integer",
+      description: "The ID of the team associated with the community.",
+    },
+    {
+      name: "name",
+      type: "string",
+      description: "The name of the community.",
+    },
+    {
+      name: "street_address",
+      type: "string",
+      description: "The street address of the community.",
+    },
+    {
+      name: "city",
+      type: "string",
+      description: "The city where the community is located.",
+    },
+    {
+      name: "postal_code",
+      type: "string",
+      description: "The postal code of the community's address.",
+    },
+    {
+      name: "state",
+      type: "string",
+      description: "The state where the community is located.",
+    },
+    {
+      name: "location",
+      type: "object",
+      description: "Geographic coordinates of the community.",
+      children: [
+        {
+          name: "latitude",
+          type: "number",
+          description: "The latitude coordinate of the community.",
+        },
+        {
+          name: "longitude",
+          type: "number",
+          description: "The longitude coordinate of the community.",
+        },
+      ],
+    },
+    {
+      name: "logo",
+      type: "string | null",
+      description: "URL to the community's logo image, or null if not available.",
+    },
+    {
+      name: "apartment_features",
+      type: "array",
+      description: "Array of apartment features available in the community.",
+    },
+    {
+      name: "parking_options",
+      type: "array",
+      description: "Array of parking options available at the community.",
+    },
+    {
+      name: "amenities",
+      type: "array",
+      description: "Array of amenities available at the community.",
+    },
+    {
+      name: "pets",
+      type: "object",
+      description: "Pet policy and restrictions for the community.",
+      children: [
+        {
+          name: "restrictions",
+          type: "string",
+          description: "Description of pet breed restrictions.",
+        },
+        {
+          name: "fee",
+          type: "number | null",
+          description: "General pet fee, or null if not applicable.",
+        },
+        {
+          name: "notes",
+          type: "string",
+          description: "Additional notes about the pet policy.",
+        },
+        {
+          name: "deposit",
+          type: "number",
+          description: "General pet deposit amount.",
+        },
+        {
+          name: "deposit_dogs",
+          type: "number | null",
+          description: "Pet deposit amount for dogs, or null if not specified.",
+        },
+        {
+          name: "extra_rent",
+          type: "number",
+          description: "Additional monthly rent for pets.",
+        },
+        {
+          name: "breed_restriction",
+          type: "integer",
+          description: "Indicates if breed restrictions are in place (1) or not (0).",
+        },
+        {
+          name: "deposit_refundable",
+          type: "boolean | null",
+          description: "Whether the pet deposit is refundable, or null if not specified.",
+        },
+        {
+          name: "deposit_cats",
+          type: "number | null",
+          description: "Pet deposit amount for cats, or null if not specified.",
+        },
+        {
+          name: "fee_cats",
+          type: "number | null",
+          description: "Pet fee for cats, or null if not specified.",
+        },
+        {
+          name: "extra_rent_dogs",
+          type: "number",
+          description: "Additional monthly rent for dogs.",
+        },
+        {
+          name: "policy",
+          type: "string",
+          description: "The pet policy (e.g., 'Pets Allowed').",
+        },
+        {
+          name: "fee_dogs",
+          type: "number | null",
+          description: "Pet fee for dogs, or null if not specified.",
+        },
+        {
+          name: "extra_rent_cats",
+          type: "number",
+          description: "Additional monthly rent for cats.",
+        },
+        {
+          name: "max_allowed",
+          type: "integer",
+          description: "Maximum number of pets allowed.",
+        },
+        {
+          name: "interview_required",
+          type: "boolean | null",
+          description: "Whether a pet interview is required, or null if not specified.",
+        },
+        {
+          name: "max_weight",
+          type: "number | null",
+          description: "Maximum weight allowed for pets, or null if not specified.",
+        },
+      ],
+    },
+    {
+      name: "special_offers",
+      type: "string",
+      description: "Special offers or promotions available at the community.",
+    },
+    {
+      name: "contact_phone",
+      type: "string",
+      description: "Contact phone number for the community.",
+    },
+    {
+      name: "contact_email",
+      type: "string",
+      description: "Contact email address for the community.",
+    },
+    {
+      name: "website_url",
+      type: "string",
+      description: "URL to the community's website.",
+    },
+    {
+      name: "application_url",
+      type: "string",
+      description: "URL to the community's application page.",
+    },
+    {
+      name: "media_page_url",
+      type: "string",
+      description: "URL to the community's media page.",
+    },
+    {
+      name: "availability_page_url",
+      type: "string",
+      description: "URL to the community's availability page.",
+    },
+    {
+      name: "leasing_page_url",
+      type: "string",
+      description: "URL to the community's leasing page.",
+    },
+    {
+      name: "guided_tours_enabled",
+      type: "boolean",
+      description: "Whether guided tours are enabled for the community.",
+    },
+    {
+      name: "guided_tours_external_bookings_enabled",
+      type: "boolean",
+      description: "Whether external bookings for guided tours are enabled.",
+    },
+    {
+      name: "video_tours_enabled",
+      type: "boolean",
+      description: "Whether video tours are enabled for the community.",
+    },
+    {
+      name: "video_tours_external_bookings_enabled",
+      type: "boolean",
+      description: "Whether external bookings for video tours are enabled.",
+    },
+    {
+      name: "self_guided_tours_enabled",
+      type: "boolean",
+      description: "Whether self-guided tours are enabled for the community.",
+    },
+    {
+      name: "self_guided_tours_external_bookings_enabled",
+      type: "boolean",
+      description: "Whether external bookings for self-guided tours are enabled.",
+    },
+    {
+      name: "platform_of_choice",
+      type: "string",
+      description: "Preferred platform for virtual tours (e.g., 'Facetime, Hangouts, Google Duo').",
+    },
+    {
+      name: "leasing_deposit",
+      type: "string",
+      description: "Leasing deposit amount.",
+    },
+    {
+      name: "leasing_application_fee",
+      type: "string",
+      description: "Leasing application fee amount.",
+    },
+    {
+      name: "leasing_administrative_fee",
+      type: "string",
+      description: "Leasing administrative fee amount.",
+    },
+    {
+      name: "leasing_lease_term",
+      type: "array",
+      description: "Array of available lease term lengths in months.",
+    },
+    {
+      name: "leasing_lease_terms_notes",
+      type: "string",
+      description: "Additional notes about lease terms.",
+    },
+    {
+      name: "company_name",
+      type: "string",
+      description: "The name of the company managing the community.",
+    },
+    {
+      name: "layout_options",
+      type: "array",
+      description: "Array of available layout options (e.g., 'Studio', '1 Bedroom', '2 Bedroom').",
+    },
+    {
+      name: "allow_guarantors",
+      type: "boolean",
+      description: "Whether guarantors are allowed for applications.",
+    },
+    {
+      name: "maximum_guarantors_allowed",
+      type: "integer",
+      description: "Maximum number of guarantors allowed per application.",
+    },
+    {
+      name: "income_requirements_type",
+      type: "integer",
+      description: "Type of income requirement calculation method.",
+    },
+    {
+      name: "applicant_income_requirements",
+      type: "integer",
+      description: "Income requirement multiplier for applicants (e.g., 40 means 40x monthly rent).",
+    },
+    {
+      name: "guarantor_income_requirement_multiplier",
+      type: "integer",
+      description: "Income requirement multiplier for guarantors (e.g., 80 means 80x monthly rent).",
+    },
+    {
+      name: "home_type_wording",
+      type: "string",
+      description: "Preferred wording for home type (e.g., 'apartment home').",
+    },
+    {
+      name: "description",
+      type: "string",
+      description: "Description of the community.",
+    },
+    {
+      name: "utilities",
+      type: "object",
+      description: "Utility information for the community.",
+      children: [
+        {
+          name: "water",
+          type: "object",
+          description: "Water utility information.",
+          children: [
+            {
+              name: "company",
+              type: "string",
+              description: "Water utility company name.",
+            },
+            {
+              name: "paid_by_property",
+              type: "boolean | null",
+              description: "Whether water is paid by the property, or null if not specified.",
+            },
+            {
+              name: "fees",
+              type: "string",
+              description: "Water utility fees information.",
+            },
+          ],
+        },
+        {
+          name: "sewer",
+          type: "object",
+          description: "Sewer utility information.",
+          children: [
+            {
+              name: "company",
+              type: "string | null",
+              description: "Sewer utility company name, or null if not applicable.",
+            },
+            {
+              name: "paid_by_property",
+              type: "boolean",
+              description: "Whether sewer is paid by the property.",
+            },
+            {
+              name: "fees",
+              type: "string | null",
+              description: "Sewer utility fees information, or null if not applicable.",
+            },
+          ],
+        },
+        {
+          name: "electric",
+          type: "object",
+          description: "Electric utility information.",
+          children: [
+            {
+              name: "company",
+              type: "string",
+              description: "Electric utility company name.",
+            },
+            {
+              name: "paid_by_property",
+              type: "boolean",
+              description: "Whether electric is paid by the property.",
+            },
+            {
+              name: "fees",
+              type: "string",
+              description: "Electric utility fees information.",
+            },
+          ],
+        },
+        {
+          name: "cable",
+          type: "object",
+          description: "Cable utility information.",
+          children: [
+            {
+              name: "company",
+              type: "string",
+              description: "Cable utility company name.",
+            },
+            {
+              name: "paid_by_property",
+              type: "boolean",
+              description: "Whether cable is paid by the property.",
+            },
+            {
+              name: "fees",
+              type: "string",
+              description: "Cable utility fees information.",
+            },
+          ],
+        },
+        {
+          name: "internet",
+          type: "object",
+          description: "Internet utility information.",
+          children: [
+            {
+              name: "company",
+              type: "string",
+              description: "Internet utility company name.",
+            },
+            {
+              name: "paid_by_property",
+              type: "boolean",
+              description: "Whether internet is paid by the property.",
+            },
+            {
+              name: "fees",
+              type: "string | null",
+              description: "Internet utility fees information, or null if not applicable.",
+            },
+          ],
+        },
+        {
+          name: "trash",
+          type: "object",
+          description: "Trash utility information.",
+          children: [
+            {
+              name: "company",
+              type: "string | null",
+              description: "Trash utility company name, or null if not applicable.",
+            },
+            {
+              name: "paid_by_property",
+              type: "boolean",
+              description: "Whether trash is paid by the property.",
+            },
+            {
+              name: "fees",
+              type: "string",
+              description: "Trash utility fees information.",
+            },
+          ],
+        },
+        {
+          name: "gas",
+          type: "object",
+          description: "Gas utility information.",
+          children: [
+            {
+              name: "company",
+              type: "string",
+              description: "Gas utility company name.",
+            },
+            {
+              name: "paid_by_property",
+              type: "boolean",
+              description: "Whether gas is paid by the property.",
+            },
+            {
+              name: "fees",
+              type: "string",
+              description: "Gas utility fees information.",
+            },
+          ],
+        },
+        {
+          name: "telephone",
+          type: "object",
+          description: "Telephone utility information.",
+          children: [
+            {
+              name: "company",
+              type: "string",
+              description: "Telephone utility company name.",
+            },
+            {
+              name: "paid_by_property",
+              type: "boolean",
+              description: "Whether telephone is paid by the property.",
+            },
+            {
+              name: "fees",
+              type: "string",
+              description: "Telephone utility fees information.",
+            },
+          ],
+        },
+        {
+          name: "pest_control",
+          type: "object",
+          description: "Pest control utility information.",
+          children: [
+            {
+              name: "company",
+              type: "string | null",
+              description: "Pest control company name, or null if not applicable.",
+            },
+            {
+              name: "paid_by_property",
+              type: "boolean",
+              description: "Whether pest control is paid by the property.",
+            },
+            {
+              name: "fees",
+              type: "string | null",
+              description: "Pest control fees information, or null if not applicable.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "photos",
+      type: "array",
+      description: "Array of photo objects associated with the community.",
+      children: [
+        {
+          name: "description",
+          type: "string",
+          description: "Description of the photo.",
+        },
+        {
+          name: "id",
+          type: "integer",
+          description: "Unique identifier for the photo.",
+        },
+        {
+          name: "sort_order",
+          type: "integer",
+          description: "Sort order of the photo.",
+        },
+        {
+          name: "media_type",
+          type: "string",
+          description: "Type of media (e.g., 'Photo').",
+        },
+        {
+          name: "original",
+          type: "string",
+          description: "URL to the original size photo.",
+        },
+        {
+          name: "large",
+          type: "string",
+          description: "URL to the large size photo.",
+        },
+        {
+          name: "thumbnail",
+          type: "string",
+          description: "URL to the thumbnail size photo.",
+        },
+        {
+          name: "small",
+          type: "string",
+          description: "URL to the small size photo.",
+        },
+        {
+          name: "xlarge",
+          type: "string",
+          description: "URL to the extra large size photo.",
+        },
+      ],
+    },
+    {
+      name: "affordable_housing_notes",
+      type: "string",
+      description: "Notes about affordable housing options at the community.",
+    },
+    {
+      name: "affordable_housing_offered",
+      type: "boolean",
+      description: "Whether affordable housing is offered at the community.",
+    },
+    {
+      name: "year_built",
+      type: "string",
+      description: "Year the community was built.",
+    },
+    {
+      name: "sister_communities",
+      type: "array",
+      description: "Array of sister communities related to this community.",
+      children: [
+        {
+          name: "city",
+          type: "string",
+          description: "City of the sister community.",
+        },
+        {
+          name: "name",
+          type: "string",
+          description: "Name of the sister community.",
+        },
+        {
+          name: "state",
+          type: "string",
+          description: "State of the sister community.",
+        },
+        {
+          name: "team_id",
+          type: "integer",
+          description: "Team ID of the sister community.",
+        },
+        {
+          name: "postal_code",
+          type: "string",
+          description: "Postal code of the sister community.",
+        },
+        {
+          name: "street_address",
+          type: "string",
+          description: "Street address of the sister community.",
+        },
+        {
+          name: "id",
+          type: "integer",
+          description: "Unique identifier of the sister community.",
+        },
+        {
+          name: "website_url",
+          type: "string",
+          description: "Website URL of the sister community.",
+        },
+        {
+          name: "description",
+          type: "string",
+          description: "Description of the sister community.",
+        },
+      ],
+    },
+    {
+      name: "unit_types",
+      type: "array",
+      description: "Array of unit types available at the community.",
+      children: [
+        {
+          name: "description",
+          type: "string",
+          description: "Description of the unit type.",
+        },
+        {
+          name: "id",
+          type: "integer",
+          description: "Unique identifier for the unit type.",
+        },
+        {
+          name: "name",
+          type: "string",
+          description: "Name of the unit type.",
+        },
+      ],
+    },
+    {
+      name: "hours_of_operation",
+      type: "object",
+      description: "Hours of operation for each day of the week.",
+      children: [
+        {
+          name: "monday",
+          type: "object",
+          description: "Monday hours of operation.",
+          children: [
+            {
+              name: "close_at",
+              type: "string | null",
+              description: "Closing time in HH:MM:SS format, or null if closed.",
+            },
+            {
+              name: "is_closed",
+              type: "boolean",
+              description: "Whether the community is closed on Monday.",
+            },
+            {
+              name: "open_at",
+              type: "string | null",
+              description: "Opening time in HH:MM:SS format, or null if closed.",
+            },
+          ],
+        },
+        {
+          name: "tuesday",
+          type: "object",
+          description: "Tuesday hours of operation.",
+          children: [
+            {
+              name: "close_at",
+              type: "string | null",
+              description: "Closing time in HH:MM:SS format, or null if closed.",
+            },
+            {
+              name: "is_closed",
+              type: "boolean",
+              description: "Whether the community is closed on Tuesday.",
+            },
+            {
+              name: "open_at",
+              type: "string | null",
+              description: "Opening time in HH:MM:SS format, or null if closed.",
+            },
+          ],
+        },
+        {
+          name: "wednesday",
+          type: "object",
+          description: "Wednesday hours of operation.",
+          children: [
+            {
+              name: "close_at",
+              type: "string | null",
+              description: "Closing time in HH:MM:SS format, or null if closed.",
+            },
+            {
+              name: "is_closed",
+              type: "boolean",
+              description: "Whether the community is closed on Wednesday.",
+            },
+            {
+              name: "open_at",
+              type: "string | null",
+              description: "Opening time in HH:MM:SS format, or null if closed.",
+            },
+          ],
+        },
+        {
+          name: "thursday",
+          type: "object",
+          description: "Thursday hours of operation.",
+          children: [
+            {
+              name: "close_at",
+              type: "string | null",
+              description: "Closing time in HH:MM:SS format, or null if closed.",
+            },
+            {
+              name: "is_closed",
+              type: "boolean",
+              description: "Whether the community is closed on Thursday.",
+            },
+            {
+              name: "open_at",
+              type: "string | null",
+              description: "Opening time in HH:MM:SS format, or null if closed.",
+            },
+          ],
+        },
+        {
+          name: "friday",
+          type: "object",
+          description: "Friday hours of operation.",
+          children: [
+            {
+              name: "close_at",
+              type: "string | null",
+              description: "Closing time in HH:MM:SS format, or null if closed.",
+            },
+            {
+              name: "is_closed",
+              type: "boolean",
+              description: "Whether the community is closed on Friday.",
+            },
+            {
+              name: "open_at",
+              type: "string | null",
+              description: "Opening time in HH:MM:SS format, or null if closed.",
+            },
+          ],
+        },
+        {
+          name: "saturday",
+          type: "object",
+          description: "Saturday hours of operation.",
+          children: [
+            {
+              name: "close_at",
+              type: "string | null",
+              description: "Closing time in HH:MM:SS format, or null if closed.",
+            },
+            {
+              name: "is_closed",
+              type: "boolean",
+              description: "Whether the community is closed on Saturday.",
+            },
+            {
+              name: "open_at",
+              type: "string | null",
+              description: "Opening time in HH:MM:SS format, or null if closed.",
+            },
+          ],
+        },
+        {
+          name: "sunday",
+          type: "object",
+          description: "Sunday hours of operation.",
+          children: [
+            {
+              name: "close_at",
+              type: "string | null",
+              description: "Closing time in HH:MM:SS format, or null if closed.",
+            },
+            {
+              name: "is_closed",
+              type: "boolean",
+              description: "Whether the community is closed on Sunday.",
+            },
+            {
+              name: "open_at",
+              type: "string | null",
+              description: "Opening time in HH:MM:SS format, or null if closed.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "furnished",
+      type: "boolean | null",
+      description: "Whether units are furnished, or null if not specified.",
+    },
+    {
+      name: "furnished_notes",
+      type: "string",
+      description: "Additional notes about furnished units.",
+    },
+    {
+      name: "lease_up_community",
+      type: "boolean",
+      description: "Whether this is a lease-up community.",
+    },
+    {
+      name: "self_guided_tour_provider_name",
+      type: "string",
+      description: "Name of the self-guided tour provider.",
+    },
+    {
+      name: "virtual_agent_show_sister_community_units",
+      type: "boolean",
+      description: "Whether the virtual agent should show units from sister communities.",
+    },
+    {
+      name: "virtual_agent_clo_search_logic",
+      type: "integer",
+      description: "Defines the search logic used by the virtual agent when searching for Current Lease Offers (CLOs). Possible values: 10 - None (no expanded search logic), 20 - Immediate Expanded Search (expanded search applied immediately), 30 - Fallback Expanded Search (expanded search only applied as fallback when initial search returns no results).",
+    },
+    {
+      name: "message_blocks",
+      type: "array",
+      description: "Array of message blocks used by the virtual agent.",
+      children: [
+        {
+          name: "id",
+          type: "integer",
+          description: "Unique identifier for the message block.",
+        },
+        {
+          name: "name",
+          type: "string",
+          description: "Name of the message block.",
+        },
+        {
+          name: "category",
+          type: "string",
+          description: "Category of the message block.",
+        },
+        {
+          name: "email_content",
+          type: "string",
+          description: "Email content for the message block.",
+        },
+        {
+          name: "sms_content",
+          type: "string",
+          description: "SMS content for the message block.",
+        },
+        {
+          name: "chatbot_content",
+          type: "string",
+          description: "Chatbot content for the message block.",
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+    "id": 123,
+    "team_id": 121,
+    "name": "The Chelsea Muse",
+    "street_address": "150 West 22nd Street",
+    "city": "New York",
+    "postal_code": "10011",
+    "location": {
+      "latitude": 40.7406319,
+      "longitude": -73.9913739
+    },
+    "logo": null,
+    "apartment_features": [
+      "Kitchen island",
+      "Hardwood Fllors",
+      "Patio/balcony",
+      "Granite countertops",
+      "Stainless steel appliances",
+      "USB charging ports",
+      "Walk-in closet",
+      "Washer and dryer"
+    ],
+    "parking_options": [],
+    "state": "WA",
+    "amenities": [
+      "24/7 maintenance",
+      "BBQ area",
+      "Bike storage",
+      "Elevator",
+      "Storage space available",
+      "Management on-site",
+      "Pet friendly",
+      "Resident lounge",
+      "Rooftop terrace",
+      "Smoke-free community"
+    ],
+    "pets": {
+      "restrictions": "The following breeds are not allowed: Rottweilers, Doberman Pinschers, Pit Bulls, German Shepherds, Chow Chow, and wolf hybrids.",
+      "fee": null,
+      "notes": "Pets must be spayed/neutered.",
+      "deposit": 300.0,
+      "deposit_dogs": null,
+      "extra_rent": 25.0,
+      "breed_restriction": 1,
+      "deposit_refundable": null,
+      "deposit_cats": null,
+      "fee_cats": null,
+      "extra_rent_dogs": 25.0,
+      "policy": "Pets Allowed",
+      "fee_dogs": null,
+      "extra_rent_cats": 25.0,
+      "max_allowed": 2,
+      "interview_required": null,
+      "max_weight": null
+    },
+    "special_offers": "1 month free on 12 month leases",
+    "contact_phone": "(212) 555-9188",
+    "contact_email": "info@chelseamuse.com",
+    "website_url": "http://bestcommunity.apartments",
+    "application_url": "http://bestcommunity.apartments/new-application",
+    "media_page_url": "http://bestcommunity.apartments/media",
+    "availability_page_url": "http://bestcommunity.apartments/availability",
+    "leasing_page_url": "http://bestcommunity.apartments/leasing",
+    "guided_tours_enabled": true,
+    "guided_tours_external_bookings_enabled": true,
+    "video_tours_enabled": true,
+    "video_tours_external_bookings_enabled": true,
+    "self_guided_tours_enabled": true,
+    "self_guided_tours_external_bookings_enabled": true,
+    "platform_of_choice": "Facetime, Hangouts, Google Duo",
+    "leasing_deposit": "$500",
+    "leasing_application_fee": "$85",
+    "leasing_administrative_fee": "$150",
+    "leasing_lease_term": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "leasing_lease_terms_notes": "Shorter lease terms available upon request! Additional fees may apply",
+    "company_name": "Chelsea Tower",
+    "layout_options": [
+      "Studio",
+      "1 Bedroom",
+      "2 Bedroom"
+    ],
+    "allow_guarantors": false,
+    "maximum_guarantors_allowed": 1,
+    "income_requirements_type": 10,
+    "applicant_income_requirements": 40,
+    "guarantor_income_requirement_multiplier": 80,
+    "home_type_wording": "apartment home",
+    "description": "The Chelsea Muse apartments in the heart of Manhattan offer luxury living with easy access to the city.",
+    "utilities": {
+      "water": {
+        "company": "City of New York",
+        "paid_by_property": null,
+        "fees": "Pay to community"
+      },
+      "sewer": {
+        "company": null,
+        "paid_by_property": false,
+        "fees": null
+      },
+      "electric": {
+        "company": "Con Edison",
+        "paid_by_property": false,
+        "fees": ""
+      },
+      "cable": {
+        "company": "Comcast",
+        "paid_by_property": false,
+        "fees": ""
+      },
+      "internet": {
+        "company": "Comcast",
+        "paid_by_property": false,
+        "fees": null
+      },
+      "trash": {
+        "company": null,
+        "paid_by_property": false,
+        "fees": "Pay to community"
+      },
+      "gas": {
+        "company": "National Grid",
+        "paid_by_property": false,
+        "fees": ""
+      },
+      "telephone": {
+        "company": "Comcast",
+        "paid_by_property": false,
+        "fees": ""
+      },
+      "pest_control": {
+        "company": null,
+        "paid_by_property": false,
+        "fees": null
+      }
+    },
+    "photos": [
+      {
+        "description": "a dining room table in front of a window",
+        "id": 773761,
+        "sort_order": 0,
+        "media_type": "Photo",
+        "original": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?s=a51703d90404d302f030b5b79c1b324a",
+        "large": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=crop&h=540&w=720&s=2334719c403d5c8f2a07e81369e4cca9",
+        "thumbnail": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=crop&h=70&w=100&s=a3d5d4b3fe655f23f04e8ce9e493e1c9",
+        "small": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=crop&h=180&w=240&s=8ca556ba82008a5c3cbcb53e1ab00ffb",
+        "xlarge": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=max&h=1000&w=1000&s=20297f84cb26b5208a6ab5f043688a1a"
+      },
+      {
+        "description": "a store front at day",
+        "id": 773762,
+        "sort_order": 1,
+        "media_type": "Photo",
+        "original": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?s=a51703d90404d302f030b5b79c1b324a",
+        "large": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=crop&h=540&w=720&s=2334719c403d5c8f2a07e81369e4cca9",
+        "thumbnail": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=crop&h=70&w=100&s=a3d5d4b3fe655f23f04e8ce9e493e1c9",
+        "small": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=crop&h=180&w=240&s=8ca556ba82008a5c3cbcb53e1ab00ffb",
+        "xlarge": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=max&h=1000&w=1000&s=20297f84cb26b5208a6ab5f043688a1a"
+      },
+      {
+        "description": "a table that has a sign on the side of a building",
+        "id": 773763,
+        "sort_order": 2,
+        "media_type": "Photo",
+        "original": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?s=a51703d90404d302f030b5b79c1b324a",
+        "large": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=crop&h=540&w=720&s=2334719c403d5c8f2a07e81369e4cca9",
+        "thumbnail": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=crop&h=70&w=100&s=a3d5d4b3fe655f23f04e8ce9e493e1c9",
+        "small": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=crop&h=180&w=240&s=8ca556ba82008a5c3cbcb53e1ab00ffb",
+        "xlarge": "https://assets-img.nestiostatic.com/unit_photos/originals/1e33cf2e65d517301adce1fda8f30e76.jpg?fit=max&h=1000&w=1000&s=20297f84cb26b5208a6ab5f043688a1a"
+      }
+    ],
+    "affordable_housing_notes": "Section 8 accepted, please contact community for more information",
+    "affordable_housing_offered": true,
+    "year_built": "2013",
+    "sister_communities": [
+      {
+        "city": "New York",
+        "name": "The Flatiron Muse",
+        "state": "NY",
+        "team_id": 456,
+        "postal_code": "10010",
+        "street_address": "20 West 22nd Street",
+        "id": 908,
+        "website_url": "http://anothergood.apartments",
+        "description": "The Flatiron muse apartments in New York, NY offer true lifestyle living."
+      }
+    ],
+    "unit_types": [
+      {
+        "description": "",
+        "id": 124,
+        "name": "1 Bed 1 Bath Terrace"
+      },
+      {
+        "description": "",
+        "id": 125,
+        "name": "2 Bed 2 Bath"
+      },
+      {
+        "description": "",
+        "id": 131,
+        "name": "1 Bed 1 Bath"
+      }
+    ],
+    "hours_of_operation": {
+      "monday": {
+        "close_at": null,
+        "is_closed": true,
+        "open_at": null
+      },
+      "tuesday": {
+        "close_at": "18:00:00",
+        "is_closed": false,
+        "open_at": "09:00:00"
+      },
+      "friday": {
+        "close_at": null,
+        "is_closed": true,
+        "open_at": null
+      },
+      "wednesday": {
+        "close_at": null,
+        "is_closed": true,
+        "open_at": null
+      },
+      "thursday": {
+        "close_at": "18:00:00",
+        "is_closed": false,
+        "open_at": "09:00:00"
+      },
+      "sunday": {
+        "close_at": null,
+        "is_closed": true,
+        "open_at": null
+      },
+      "saturday": {
+        "close_at": "18:00:00",
+        "is_closed": false,
+        "open_at": "14:00:00"
+      }
+    },
+    "furnished": null,
+    "furnished_notes": "",
+    "lease_up_community": false,
+    "self_guided_tour_provider_name": "Generic",
+    "virtual_agent_show_sister_community_units": false,
+    "virtual_agent_clo_search_logic": 10,
+    "message_blocks": [
+      {
+        "id": 1,
+        "name": "Chatbot Greeting",
+        "category": "Chatbot Greeting",
+        "email_content": "",
+        "sms_content": "",
+        "chatbot_content": "Hi there - I'm {{chatbot_name}}! How can I help you today?"
+      }
+    ]
+  }`;
+
+  return (
+    <ApiPage
+      title="Community"
+      description="Returns data about a single community stored in Funnel. The Community object contains comprehensive information about a residential community, including location details, amenities, pet policies, leasing information, utilities, photos, and operational settings."
+      method="GET"
+      path="/api/v2/communities/:id"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example response body"
+      exampleLang="json"
+    />
+  );
+})()}
+

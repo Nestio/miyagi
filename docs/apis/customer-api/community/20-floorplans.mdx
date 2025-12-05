@@ -1,0 +1,310 @@
+---
+title: Community Floorplans
+sidebar_label: Community Floorplans
+sidebar_position: 2
+hide_table_of_contents: true
+---
+
+# Community Floorplans
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "page",
+      type: "integer",
+      description: "The current page number in the paginated response.",
+    },
+    {
+      name: "total_pages",
+      type: "integer",
+      description: "The total number of pages available.",
+    },
+    {
+      name: "total_items",
+      type: "integer",
+      description: "The total number of floorplans across all pages.",
+    },
+    {
+      name: "items",
+      type: "array",
+      description: "Array of floorplan objects.",
+      children: [
+        {
+          name: "id",
+          type: "integer",
+          description: "A unique identifier for the floorplan.",
+        },
+        {
+          name: "name",
+          type: "string",
+          description: "The name of the floorplan.",
+        },
+        {
+          name: "marketing_description",
+          type: "string",
+          description: "Marketing description for the floorplan.",
+        },
+        {
+          name: "unit_types",
+          type: "array",
+          description: "Array of unit types associated with this floorplan.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "Unique identifier for the unit type.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Name of the unit type.",
+            },
+            {
+              name: "description",
+              type: "string",
+              description: "Description of the unit type.",
+            },
+          ],
+        },
+        {
+          name: "photos",
+          type: "array",
+          description: "Array of photo objects for the floorplan.",
+          children: [
+            {
+              name: "id",
+              type: "integer",
+              description: "Unique identifier for the photo.",
+            },
+            {
+              name: "xlarge",
+              type: "string",
+              description: "URL to the extra large size photo.",
+            },
+            {
+              name: "media_type",
+              type: "string",
+              description: "Type of media (e.g., 'Floor plan').",
+            },
+            {
+              name: "sort_order",
+              type: "integer",
+              description: "Sort order of the photo.",
+            },
+            {
+              name: "description",
+              type: "string | null",
+              description: "Description of the photo, or null if not provided.",
+            },
+            {
+              name: "thumbnail",
+              type: "string",
+              description: "URL to the thumbnail size photo.",
+            },
+            {
+              name: "small",
+              type: "string",
+              description: "URL to the small size photo.",
+            },
+            {
+              name: "large",
+              type: "string",
+              description: "URL to the large size photo.",
+            },
+            {
+              name: "original",
+              type: "string",
+              description: "URL to the original size photo.",
+            },
+          ],
+        },
+        {
+          name: "total_rooms",
+          type: "object",
+          description: "Range of total rooms for this floorplan.",
+          children: [
+            {
+              name: "min",
+              type: "integer | null",
+              description: "Minimum number of total rooms, or null if not specified.",
+            },
+            {
+              name: "max",
+              type: "integer | null",
+              description: "Maximum number of total rooms, or null if not specified.",
+            },
+          ],
+        },
+        {
+          name: "bedrooms",
+          type: "object",
+          description: "Range of bedrooms for this floorplan.",
+          children: [
+            {
+              name: "min",
+              type: "integer | null",
+              description: "Minimum number of bedrooms, or null if not specified.",
+            },
+            {
+              name: "max",
+              type: "integer | null",
+              description: "Maximum number of bedrooms, or null if not specified.",
+            },
+          ],
+        },
+        {
+          name: "bathrooms",
+          type: "object",
+          description: "Range of bathrooms for this floorplan.",
+          children: [
+            {
+              name: "min",
+              type: "integer | null",
+              description: "Minimum number of bathrooms, or null if not specified.",
+            },
+            {
+              name: "max",
+              type: "integer | null",
+              description: "Maximum number of bathrooms, or null if not specified.",
+            },
+          ],
+        },
+        {
+          name: "square_footage",
+          type: "object",
+          description: "Range of square footage for this floorplan.",
+          children: [
+            {
+              name: "min",
+              type: "integer | null",
+              description: "Minimum square footage, or null if not specified.",
+            },
+            {
+              name: "max",
+              type: "integer | null",
+              description: "Maximum square footage, or null if not specified.",
+            },
+          ],
+        },
+        {
+          name: "price",
+          type: "object",
+          description: "Range of prices for this floorplan.",
+          children: [
+            {
+              name: "min",
+              type: "string | null",
+              description: "Minimum price as a string, or null if not specified.",
+            },
+            {
+              name: "max",
+              type: "string | null",
+              description: "Maximum price as a string, or null if not specified.",
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+    "page": 1,
+    "total_pages": 1,
+    "total_items": 2,
+    "items": [
+      {
+        "id": 1,
+        "name": "Floorplan 1",
+        "marketing_description": "Great",
+        "unit_types": [
+          {
+            "id": 123,
+            "name": "Unit A",
+            "description": ""
+          }
+        ],
+        "photos": [
+          {
+            "id": 32,
+            "xlarge": "https://nestio-assets-dev.imgix.net/floorplan_media/originals/68719a18f23cea739045167ce8a7023e.jpg?fit=max&h=1000&w=1000&s=84baf017ff4adc9702066a5258656be2",
+            "media_type": "Floor plan",
+            "sort_order": 0,
+            "description": null,
+            "thumbnail": "https://nestio-assets-dev.imgix.net/floorplan_media/originals/68719a18f23cea739045167ce8a7023e.jpg?fit=crop&h=70&w=100&s=f52d53ba7684b3eb4a6751d3ac0c8b9f",
+            "small": "https://nestio-assets-dev.imgix.net/floorplan_media/originals/68719a18f23cea739045167ce8a7023e.jpg?fit=crop&h=180&w=240&s=c6c77eedadc047c980a6bb6377d932d0",
+            "large": "https://nestio-assets-dev.imgix.net/floorplan_media/originals/68719a18f23cea739045167ce8a7023e.jpg?fit=crop&h=540&w=720&s=d7810a541e3e4793f1b7ee37a8742bb9",
+            "original": "https://nestiolistings-assets-dev.s3.amazonaws.com/floorplan_media/originals/68719a18f23cea739045167ce8a7023e.jpg?s=f7036da0d7dd6de17c754d5e67e087b9"
+          }
+        ],
+        "total_rooms": {
+          "min": 10,
+          "max": 11
+        },
+        "bedrooms": {
+          "min": 0,
+          "max": 3
+        },
+        "bathrooms": {
+          "min": 2,
+          "max": 4
+        },
+        "square_footage": {
+          "min": 1000,
+          "max": 1100
+        },
+        "price": {
+          "min": "140000.00",
+          "max": "200000.00"
+        }
+      },
+      {
+        "id": 2,
+        "name": "Floorplan 2",
+        "marketing_description": "Great",
+        "unit_types": [
+          {
+            "id": 456,
+            "name": "Unit B",
+            "description": ""
+          }
+        ],
+        "photos": [],
+        "total_rooms": {
+          "min": null,
+          "max": null
+        },
+        "bedrooms": {
+          "min": null,
+          "max": null
+        },
+        "bathrooms": {
+          "min": null,
+          "max": null
+        },
+        "square_footage": {
+          "min": null,
+          "max": null
+        },
+        "price": {
+          "min": null,
+          "max": null
+        }
+      }
+    ]
+  }`;
+
+  return (
+    <ApiPage
+      title="Community Floorplans"
+      description="Returns a paginated list of floorplans associated with the community. Each floorplan includes details such as name, marketing description, associated unit types, photos, and ranges for rooms, bedrooms, bathrooms, square footage, and pricing."
+      method="GET"
+      path="/api/v2/communities/:id/floorplans"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example response body"
+      exampleLang="json"
+    />
+  );
+})()}
+
