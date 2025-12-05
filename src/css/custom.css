@@ -185,6 +185,45 @@ body {
 
   --docs-color-android: #44db85;
   --docs-color-apple: var(--docs-color-text) !important;
+
+  /* Brand Colors */
+  --color-primary: #ff2fff;
+  --color-primary-soft: rgba(255, 47, 255, 0.08);
+  --color-primary-border: rgba(255, 47, 255, 0.28);
+  --color-primary-glow: rgba(255, 47, 255, 0.45);
+
+  /* Neutral Palette */
+  --bg-page: #f8f8fb;
+  --bg-surface: #ffffff;
+  --bg-surface-alt: #f3f3f7;
+  --border-color: #e5e5ec;
+  --text-primary: #111015;
+  --text-secondary: #5e5c68;
+  --text-muted: #7a7a85;
+
+  /* Code Theme */
+  --code-bg: #1a0f1e;
+  --code-bg-alt: #140b17;
+  --code-border: #2a1a2f;
+  --code-key: rgba(255, 47, 255, 0.8);
+  --code-string: #ffd6ff;
+  --code-number: #ff9bff;
+  --code-operator: #ff9cf9;
+  --code-punctuation: #ded6e8;
+  --code-boolean: #b282ff;
+  --code-comment: #6e5c78;
+
+  /* Semantic Colors */
+  --get-green: #22c55e;
+  --post-blue: #3b82f6;
+  --patch-amber: #f59e0b;
+  --delete-red: #ef4444;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
 }
 
 [data-theme='dark'] {
@@ -199,6 +238,15 @@ body {
   --docs-color-background-300: #2e2e2e;
 
   --docs-color-code-background: #1e1e1e;
+
+  /* Dark mode overrides for neutral palette */
+  --bg-page: #0d0c13;
+  --bg-surface: #161616;
+  --bg-surface-alt: #1c1c1c;
+  --border-color: #2a2730;
+  --text-primary: #ffffff;
+  --text-secondary: #b4b4b4;
+  --text-muted: #7a7a85;
 }
 
 /* Docusaurus Theming */
@@ -280,7 +328,8 @@ nav.navbar {
 }
 
 pre.prism-code {
-  border: 1px solid var(--code-border-color);
+  border: 1px solid var(--code-border);
+  background-color: var(--code-bg);
 }
 
 .navbar__item,
@@ -1062,6 +1111,33 @@ details p {
   @apply mt-4;
 }
 
+/* API Documentation Page Title Spacing */
+.theme-doc-markdown.markdown h1:first-child {
+  margin-top: 0;
+  margin-bottom: 40px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* Full width for API documentation pages using Docusaurus container variables */
+/* This uses Docusaurus's built-in CSS variables to control container width */
+:root {
+  --ifm-container-width-xl: 100%;
+  --ifm-container-width: 100%;
+}
+
+/* Remove max-width constraints on main content wrapper */
+.main-wrapper {
+  max-width: 100% !important;
+}
+
+/* Ensure markdown content container uses full available width */
+.theme-doc-markdown.markdown .container {
+  max-width: 100% !important;
+}
+
 .code-block-error-line {
   background-color: #ff000020;
   display: block;
@@ -1698,5 +1774,50 @@ html[data-theme='dark'] .http-method-badge--head {
 
 html[data-theme='dark'] .menu__link--with-badge:hover .http-method-badge {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom Scrollbar for Code Viewer */
+.code-viewer-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.code-viewer-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.code-viewer-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.code-viewer-container::-webkit-scrollbar-thumb:hover {
+  background: #ff2fff;
+}
+
+/* Firefox scrollbar */
+.code-viewer-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) rgba(0, 0, 0, 0.1);
+}
+
+/* Section Separators */
+.section-separator {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme='dark'] .section-separator {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Attribute List Dividers */
+.attribute-list > li {
+  border-bottom: 1px solid #f3f1f6;
+}
+
+.attribute-list > li:last-child {
+  border-bottom: none !important;
 }
 

@@ -20,6 +20,12 @@ import Badge from '../components/Badge';
 import SectionHeader from '../components/SectionHeader';
 import FAQAccordion from '../components/FAQAccordion';
 import ModernTable from '../components/ModernTable';
+import APIEndpoint from '../components/APIEndpoint';
+import AttributeList from '../components/AttributeList';
+import CodeExample from '../components/CodeExample';
+import ApiDocumentation from '../components/ApiDocumentation';
+import ApiPage from '../components/ApiPage';
+import { Row, Col, Properties, Property } from '../components/Layout';
 import * as icons from '../icons';
 
 export default {
@@ -47,4 +53,13 @@ export default {
   SectionHeader,
   FAQAccordion,
   ModernTable,
+  APIEndpoint,
+  AttributeList,
+  CodeExample,
+  ApiDocumentation,
+  ApiPage,
+  Row,
+  Col,
+  Properties,
+  Property,
 };

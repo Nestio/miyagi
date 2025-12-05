@@ -2,9 +2,10 @@
 /* Override Prism default styles with custom colors */
 
 .code-section-container .code-section-code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 13px;
-  line-height: 1.6;
+  font-family: "JetBrains Mono", "IBM Plex Mono", monospace;
+  font-size: 13.5px;
+  line-height: 1.5;
+  letter-spacing: -0.2px;
   color: #FDFDFE;
 }
 
@@ -14,40 +15,54 @@
   color: #FDFDFE;
 }
 
-/* Keywords, commands, attributes - cyan */
+/* Keywords, properties, functions - brand pink at 80% opacity */
 .code-section-container .code-section-code .token.keyword,
 .code-section-container .code-section-code .token.function,
 .code-section-container .code-section-code .token.builtin,
 .code-section-container .code-section-code .token.class-name,
-.code-section-container .code-section-code .token.operator,
 .code-section-container .code-section-code .token.attr-name,
 .code-section-container .code-section-code .token.property,
 .code-section-container .code-section-code .token.selector,
 .code-section-container .code-section-code .token.tag {
-  color: #81B5C9;
+  color: rgba(255, 47, 255, 0.8);
 }
 
-/* Strings, numeric values - salmon */
+/* Operators - light magenta */
+.code-section-container .code-section-code .token.operator {
+  color: #ff9cf9;
+}
+
+/* Strings - soft pinkish-white */
 .code-section-container .code-section-code .token.string,
-.code-section-container .code-section-code .token.attr-value,
-.code-section-container .code-section-code .token.number,
+.code-section-container .code-section-code .token.attr-value {
+  color: #ffd6ff;
+}
+
+/* Numbers - lighter magenta */
+.code-section-container .code-section-code .token.number {
+  color: #ff9bff;
+}
+
+/* Booleans and null - lavender-purple */
 .code-section-container .code-section-code .token.boolean,
 .code-section-container .code-section-code .token.constant {
-  color: #E8B2B0;
+  color: #b282ff;
 }
 
-/* Comments - muted */
+/* Comments - muted purple */
 .code-section-container .code-section-code .token.comment,
 .code-section-container .code-section-code .token.prolog,
 .code-section-container .code-section-code .token.doctype,
 .code-section-container .code-section-code .token.cdata {
-  color: #6272a4;
+  color: #6e5c78;
   font-style: italic;
 }
 
-/* Punctuation - default text color */
-.code-section-container .code-section-code .token.punctuation {
-  color: #FDFDFE;
+/* Punctuation, brackets, braces - neutral text */
+.code-section-container .code-section-code .token.punctuation,
+.code-section-container .code-section-code .token.bracket,
+.code-section-container .code-section-code .token.brace {
+  color: #ded6e8;
 }
 
 /* Variables, parameters - default */
@@ -74,12 +89,12 @@
   color: #FDFDFE;
   opacity: 0.8;
   user-select: none;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: "JetBrains Mono", "IBM Plex Mono", monospace;
 }
 
 /* Line numbers */
 .code-section-line-numbers {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: "JetBrains Mono", "IBM Plex Mono", monospace;
   color: #FDFDFE;
   opacity: 0.7;
   user-select: none;
@@ -210,9 +225,10 @@
 .code-section-code {
   background: transparent !important;
   display: block;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 13px;
-  line-height: 1.6;
+  font-family: "JetBrains Mono", "IBM Plex Mono", monospace;
+  font-size: 13.5px;
+  line-height: 1.5;
+  letter-spacing: -0.2px;
   color: #FDFDFE;
 }
 

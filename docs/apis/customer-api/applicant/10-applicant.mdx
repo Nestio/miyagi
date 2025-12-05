@@ -2,7 +2,255 @@
 title: Applicant
 sidebar_label: Applicant
 sidebar_position: 1
+hide_table_of_contents: true
 ---
 
 # Applicant
 
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "id",
+      type: "integer",
+      description: "A Unique Funnel Identifier for the applicant.",
+    },
+    {
+      name: "lease_transaction_id",
+      type: "integer",
+      description: "The ID of the Lease Transaction associated with the applicant.",
+    },
+    {
+      name: "role",
+      type: "string",
+      description: 'The role of the applicant in the lease transaction. Possible values: "Primary Applicant", "Roommate", "Guarantor", "Occupant", "Corporation".',
+    },
+    {
+      name: "first_name",
+      type: "string",
+      description: "The first name of the applicant.",
+    },
+    {
+      name: "middle_name",
+      type: "string",
+      description: "The middle name of the applicant.",
+    },
+    {
+      name: "last_name",
+      type: "string",
+      description: "The last name of the applicant.",
+    },
+    {
+      name: "suffix",
+      type: "string",
+      description: 'The suffix of the applicant\'s name. Possible values: "Sr.", "Jr.", "I", "II", "III", "IV".',
+    },
+    {
+      name: "email",
+      type: "string",
+      description: "The email address of the applicant.",
+    },
+    {
+      name: "address_street",
+      type: "string",
+      description: "The street address of the applicant.",
+    },
+    {
+      name: "address_line_2",
+      type: "string",
+      description: "Additional line of address (e.g., apartment number).",
+    },
+    {
+      name: "address_city",
+      type: "string",
+      description: "The city of the applicant's address.",
+    },
+    {
+      name: "address_state",
+      type: "string",
+      description: "The state of the applicant's address.",
+    },
+    {
+      name: "address_postal_code",
+      type: "string",
+      description: "The postal code of the applicant's address.",
+    },
+    {
+      name: "move_in_date",
+      type: "string",
+      description: "The requested move-in date for the applicant. Format is 'YYYY-MM-DD'. Note: This field is optional and will only be present for applicants added in lease revisions.",
+    },
+    {
+      name: "creation_time",
+      type: "string",
+      description: 'The time when the applicant was created. Possible values: "Applicant sign-up", "Lease confirmation", "Lease offer", "Self-serve renewal", "Admin-managed lease transaction", "Imported lease".',
+    },
+    {
+      name: "employment_status",
+      type: "string",
+      description: 'The employment status of the applicant. Possible values: "Employed", "Student", "Retired", "Other".',
+    },
+    {
+      name: "screening_eviction_recommendation",
+      type: "string",
+      description: 'Recommendation from eviction screening. Possible values: "Approve", "Conditionally Approve", "Deny", "Refer", "Pending", "Error".',
+    },
+    {
+      name: "screening_criminal_recommendation",
+      type: "string",
+      description: 'Recommendation from criminal screening. Possible values: "Approve", "Conditionally Approve", "Deny", "Refer", "Pending", "Error".',
+    },
+    {
+      name: "identity_verification_status",
+      type: "string",
+      description: 'The status of identity verification (e.g., "Manually Verified").',
+    },
+    {
+      name: "warnings_and_cautions",
+      type: "array",
+      description: "Array of warnings and cautions associated with the applicant.",
+      children: [
+        {
+          name: "type",
+          type: "string",
+          description: 'The type of warning or caution (e.g., "Warning").',
+        },
+        {
+          name: "source",
+          type: "string",
+          description: 'The source of the warning or caution (e.g., "Transunion Report").',
+        },
+        {
+          name: "description",
+          type: "string",
+          description: "The description of the warning or caution.",
+        },
+      ],
+    },
+    {
+      name: "financial_data",
+      type: "object",
+      description: "Financial information of the applicant.",
+      children: [
+        {
+          name: "reported_no_income_assets",
+          type: "boolean",
+          description: "Indicates if the applicant reported no income/assets.",
+        },
+        {
+          name: "income_total",
+          type: "string",
+          description: "Total reported income of the applicant.",
+        },
+        {
+          name: "asset_total",
+          type: "string",
+          description: "Total reported assets of the applicant.",
+        },
+        {
+          name: "vouchers_total",
+          type: "string",
+          description: "Total value of vouchers reported by the applicant.",
+        },
+      ],
+    },
+    {
+      name: "employer",
+      type: "object",
+      description: "Employer details of the applicant.",
+      children: [
+        {
+          name: "name",
+          type: "string",
+          description: "The name of the employer.",
+        },
+        {
+          name: "address_street",
+          type: "string",
+          description: "The street address of the employer.",
+        },
+        {
+          name: "address_line_2",
+          type: "string",
+          description: "Additional line of employer's address (e.g., floor number).",
+        },
+        {
+          name: "address_city",
+          type: "string",
+          description: "The city of the employer's address.",
+        },
+        {
+          name: "address_state",
+          type: "string",
+          description: "The state of the employer's address.",
+        },
+        {
+          name: "address_postal_code",
+          type: "string",
+          description: "The postal code of the employer's address.",
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+    "id": 564323,
+    "lease_transaction_id": 347612,
+    "role": "Primary Applicant",
+    "first_name": "John",
+    "middle_name": "Mary",
+    "last_name": "Doe",
+    "suffix": "Jr",
+    "email": "john.doe@gmail.com",
+    "address_street": "2 Main Street",
+    "address_line_2": "Apt 5",
+    "address_city": "New York",
+    "address_state": "NY",
+    "address_postal_code": "10036",
+    "move_in_date": "2024-01-01",
+    "creation_time": "Applicant sign-up",
+    "employment_status": "Employed",
+    "screening_eviction_recommendation": "Accept",
+    "screening_criminal_recommendation": "Accept",
+    "identity_verification_status": "Manually Verified",
+    "warnings_and_cautions": [
+        {
+            "type": "Warning",
+            "source": "Transunion Report",
+            "description": "No Record Found"
+        },
+        {
+            "type": "Warning",
+            "source": "International Applicant",
+            "description": "*Notice: INTERNATIONAL APPLICANT.\nApplicants without a SSN (typically international applicants) cannot be screened for credit."
+        }
+    ],
+    "financial_data": {
+        "reported_no_income_assets": false,
+        "income_total": "250,000",
+        "asset_total": "103,760",
+        "vouchers_total": "30,000.00"
+    },
+    "employer": {
+        "name": "Funnel Leasing ",
+        "address_street": "33 Chelsea Street",
+        "address_line_2": "Floor 3",
+        "address_city": "Tampa",
+        "address_state": "FL",
+        "address_postal_code": "12341"
+    }
+}`;
+
+  return (
+    <ApiPage
+      title="Applicant"
+      description="The Applicant object represents an individual or entity applying for a lease transaction within the Funnel Leasing system. It encapsulates detailed information about the applicant, including personal details, financial information, screening results, and application status. This object serves as a central entity in managing lease applications and facilitates the screening and approval process."
+      method="GET"
+      path="/api/v2/applicants/:id"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example request payload"
+      exampleLang="json"
+    />
+  );
+})()}
