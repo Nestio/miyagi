@@ -1,0 +1,217 @@
+---
+title: Prospect Appointments
+sidebar_label: Prospect Appointments
+sidebar_position: 6
+hide_table_of_contents: true
+---
+
+# Prospect Appointments
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "data",
+      type: "object",
+      description: "Response data container.",
+      children: [
+        {
+          name: "appointments",
+          type: "array",
+          description: "Array of appointment objects, ordered by appointment start time, which are either status=CONFIRMED or status=null.",
+          children: [
+            {
+              name: "status",
+              type: "integer | null",
+              description: 'Represents an appointment status. Possible values: null (appointment was created by a user within the app), 10 (Tentative), 20 (Not Confirmed), 30 (Confirmed), 40 (Cancelled), 50 (Completed), 60 (No Show).',
+            },
+            {
+              name: "id",
+              type: "integer",
+              description: "The appointment's unique ID.",
+            },
+            {
+              name: "start",
+              type: "string",
+              description: "Datetime in ISO format. The time an appointment will start.",
+            },
+            {
+              name: "end",
+              type: "string",
+              description: "Datetime in ISO format. The time an appointment will end.",
+            },
+            {
+              name: "notes",
+              type: "string",
+              description: "Any notes which were added when creating the appointment.",
+            },
+            {
+              name: "location",
+              type: "string",
+              description: "If extra location information was added when creating the appointment.",
+            },
+            {
+              name: "employee",
+              type: "object",
+              description: "The employee to whom the appointment is assigned.",
+              children: [
+                {
+                  name: "id",
+                  type: "integer",
+                  description: "The employee's unique ID.",
+                },
+                {
+                  name: "photo",
+                  type: "string | null",
+                  description: "A URL to the employee's headshot, or null if not available.",
+                },
+                {
+                  name: "name",
+                  type: "string",
+                  description: "Full name of employee. If employee's name is empty, falls back to username or user's email without the domain portion.",
+                },
+              ],
+            },
+            {
+              name: "client",
+              type: "object",
+              description: "The prospect this appointment is for.",
+              children: [
+                {
+                  name: "id",
+                  type: "integer",
+                  description: "The prospect's unique ID.",
+                },
+                {
+                  name: "name",
+                  type: "string",
+                  description: "Name associated with prospect. If the prospect is associated with multiple people, it will be a comma delimited string of each person's name.",
+                },
+                {
+                  name: "person",
+                  type: "object",
+                  description: "Primary contact of prospect object.",
+                  children: [
+                    {
+                      name: "id",
+                      type: "integer",
+                      description: "The primary person's unique ID.",
+                    },
+                    {
+                      name: "first_name",
+                      type: "string",
+                      description: "First name of the primary person.",
+                    },
+                    {
+                      name: "last_name",
+                      type: "string",
+                      description: "Last name of the primary person.",
+                    },
+                    {
+                      name: "is_primary",
+                      type: "boolean",
+                      description: "If this is the primary person (by definition is always true).",
+                    },
+                    {
+                      name: "email",
+                      type: "string",
+                      description: "Email of primary person.",
+                    },
+                    {
+                      name: "phone_1",
+                      type: "string",
+                      description: "Preferred phone number of primary person.",
+                    },
+                    {
+                      name: "phone_2",
+                      type: "string",
+                      description: "Secondary phone number of primary person.",
+                    },
+                  ],
+                },
+                {
+                  name: "agents",
+                  type: "array",
+                  description: "Array of objects. Agents assigned to prospect. Disregard for appointment purposes.",
+                },
+                {
+                  name: "broker_first_name",
+                  type: "string",
+                  description: "First name of broker (if there was one involved).",
+                },
+                {
+                  name: "broker_last_name",
+                  type: "string",
+                  description: "Last name of broker (if there was one involved).",
+                },
+                {
+                  name: "lead_source",
+                  type: "integer | string | null",
+                  description: "Integer or String value representing the way the prospect became a lead for your property (defaults to null if choice does not match). To retrieve the list of available sources, see Discovery Sources documentation.",
+                },
+              ],
+            },
+            {
+              name: "appointment_showings",
+              type: "array",
+              description: "This data is used internally and you can safely disregard for purposes of this endpoint.",
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+  "data": {
+    "appointments": [
+      {
+        "status": 30,
+        "id": 509,
+        "start": "2019-06-24T08:00:00+00:00",
+        "end": "2019-06-24T08:30:00+00:00",
+        "notes": "",
+        "location": "",
+        "employee": {
+          "id": 596,
+          "photo": null,
+          "name": "Travis Smiley"
+        },
+        "client": {
+          "id": 890,
+          "name": "John Doe, Jane Fonda",
+          "group": null,
+          "person": {
+            "id": 740,
+            "first_name": "John",
+            "last_name": "Doe",
+            "is_primary": true,
+            "email": "johndoe@name.com",
+            "phone_1": "555-555-5555",
+            "phone_2": ""
+          },
+          "agents": [],
+          "broker_first_name": "",
+          "broker_last_name": "",
+          "lead_source": "StreetEasy"
+        },
+        "appointment_showings": []
+      }
+    ]
+  }
+}`;
+
+  return (
+    <ApiPage
+      title="Prospect Appointments"
+      description="This endpoint returns all of a prospect's appointments, ordered by appointment start time, which are either status=CONFIRMED or status=null (e.g., appointments that are created directly within the Funnel web application)."
+      method="GET"
+      path="/api/v2/clients/:client_id/appointments"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}
+

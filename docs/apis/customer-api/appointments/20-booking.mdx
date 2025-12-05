@@ -1,0 +1,250 @@
+---
+title: Appointment Booking
+sidebar_label: Appointment Booking
+sidebar_position: 2
+hide_table_of_contents: true
+---
+
+# Appointment Booking
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "appointment",
+      type: "object",
+      description: "Appointment data for the booking.",
+      children: [
+        {
+          name: "start",
+          type: "string",
+          description: "Required. ISO formatted datetime. Use times returned from the appointment times endpoint. Setting an appointment to an unavailable timeslot will return an error.",
+        },
+        {
+          name: "location",
+          type: "string",
+          description: "Optional. More specific instructions for appointment location (e.g., 'Entrance is on W 22nd St side').",
+        },
+        {
+          name: "broker_booked",
+          type: "boolean",
+          description: "Optional. Setting broker_booked to true will validate and make broker_email a required field in the prospect data.",
+        },
+        {
+          name: "tour_type",
+          type: "string",
+          description: 'Required. Possible types: "guided" and "self-guided".',
+        },
+        {
+          name: "is_video_tour",
+          type: "boolean",
+          description: "Optional. Setting is_video_tour to true will validate and make platform_of_choice and platform_of_choice_details required fields in the appointment data.",
+        },
+        {
+          name: "platform_of_choice",
+          type: "string",
+          description: "Conditionally required. If is_video_tour is set to true. This can be any string. It tells an agent what platform should be used during a video tour (e.g., 'Google Hangouts' or 'Apple Facetime').",
+        },
+        {
+          name: "platform_of_choice_details",
+          type: "string",
+          description: "Conditionally required. If is_video_tour is set to true. This can be any string. It tells an agent how a prospect can be reached during a video tour (e.g., 'johndo@gmail.com' or 'johndo@icloud.com').",
+        },
+      ],
+    },
+    {
+      name: "client",
+      type: "object",
+      description: "Prospect data (client information).",
+      children: [
+        {
+          name: "people",
+          type: "array",
+          description: "Array of objects. A prospect can consist of one or more people. If multiple people are POSTed to the endpoint, both people will be tied to a single prospect.",
+          children: [
+            {
+              name: "first_name",
+              type: "string",
+              description: "Optional. Prospect's first name.",
+            },
+            {
+              name: "last_name",
+              type: "string",
+              description: "Optional. Prospect's last name.",
+            },
+            {
+              name: "phone_1",
+              type: "string",
+              description: "Optional. Prospect's primary phone number.",
+            },
+            {
+              name: "email",
+              type: "string",
+              description: "Optional. Prospect's email. Must be a validly formatted email address.",
+            },
+          ],
+        },
+        {
+          name: "sms_opted_in",
+          type: "string",
+          description: 'Optional. String value indicating whether the recorded lead has opted in to receiving SMS communication. Only include when sending a lead that has a phone number. Available choices: "marketing-enabled" (opted into all communication including automated marketing), "marketing-disabled" (opted into communications but not automated marketing, default), "all-sms-disabled" (temporarily disable SMS), "client-opted-out" (permanently disable all SMS).',
+        },
+        {
+          name: "move_in_date",
+          type: "string",
+          description: "Optional. String must be a valid ISO 8601 date (e.g., 2019-07-01). A valid ISO datetime can also be accepted but only the date portion will be used.",
+        },
+        {
+          name: "layout",
+          type: "array",
+          description: 'Optional. Array of strings. Up to six choices: "loft", "studio", "1br", "2br", "3br", "4+br".',
+        },
+        {
+          name: "price_floor",
+          type: "decimal",
+          description: "Optional. Bottom range of prospect's budget.",
+        },
+        {
+          name: "price_ceiling",
+          type: "decimal",
+          description: "Optional. Top range of prospect's budget.",
+        },
+        {
+          name: "pets",
+          type: "array",
+          description: "Optional. Array of integers. Choices: 10 - Cats, 20 - Small Dogs, 30 - Large Dogs.",
+        },
+        {
+          name: "discovery_source",
+          type: "integer",
+          description: "Optional. Same choices as the discovery_source_choices. To retrieve the list of available sources, see Discovery Sources documentation.",
+        },
+        {
+          name: "lead_source",
+          type: "integer | string",
+          description: "Optional. Integer or String value representing the way the prospect became a lead. To retrieve the list of available sources, see Discovery Sources documentation. Integer value must match an ID on your list of available discovery sources. String value must match a name on your list of available discovery sources.",
+        },
+        {
+          name: "notes",
+          type: "string",
+          description: "Optional. Any notes the prospect wants to add not captured in any other form field.",
+        },
+        {
+          name: "elevator",
+          type: "boolean",
+          description: "Optional. If the prospect prefers a property with elevator access.",
+        },
+        {
+          name: "laundry",
+          type: "array",
+          description: "Optional. Array of integers. Choices: 10 - Laundry In Unit, 20 - Laundry In Building, 30 - Laundry In Unit Connection.",
+        },
+        {
+          name: "parking",
+          type: "integer",
+          description: "Optional. Only one possible value: 10 - Has Parking.",
+        },
+        {
+          name: "outdoor_space",
+          type: "array",
+          description: "Optional. Array of integers. Choices: 10 - Private Outdoor Space, 20 - Public Outdoor Space.",
+        },
+        {
+          name: "broker_first_name",
+          type: "string",
+          description: "Optional. If appointment booked by a broker, the broker's first name.",
+        },
+        {
+          name: "broker_last_name",
+          type: "string",
+          description: "Optional. If appointment booked by a broker, the broker's last name.",
+        },
+        {
+          name: "broker_company",
+          type: "string",
+          description: "Optional. If appointment booked by a broker, the name of broker's company.",
+        },
+        {
+          name: "broker_phone",
+          type: "string",
+          description: "Optional. If appointment booked by a broker, the broker's phone number.",
+        },
+        {
+          name: "broker_email",
+          type: "string",
+          description: "Conditionally required. If broker_booked is set to true, a valid email is required.",
+        },
+        {
+          name: "community",
+          type: "integer",
+          description: "Optional. The Funnel Community ID that you want the prospect/tour to be associated with. NOTE: You should only pass one of three community/building/unit, otherwise you will get a validation error.",
+        },
+        {
+          name: "building",
+          type: "integer",
+          description: "Optional. The Funnel Building ID of the building the prospect is inquiring about. NOTE: You should only pass one of three community/building/unit, otherwise you will get a validation error.",
+        },
+        {
+          name: "unit",
+          type: "integer",
+          description: "Optional. The Funnel Unit ID of a unit the prospect is inquiring about. If a unit is specified, the unit must be available. When booking an appointment, if the unit is not available, Funnel will return an error. NOTE: You should only pass one of three community/building/unit, otherwise you will get a validation error.",
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+   "appointment":{
+      "start":"2019-06-21T08:15:00",
+      "location":"",
+      "broker_booked":false,
+      "is_video_tour": false,
+      "tour_type": "guided",
+      "platform_of_choice": "",
+      "platform_of_choice_details": ""
+   },
+   "client":{
+      "broker_first_name":"Jeff",
+      "broker_last_name":"Brokerman",
+      "broker_company":"Jeff Brokerman Brokerage",
+      "broker_phone":"18222120422",
+      "broker_email":"jeff@brokermanbrokerage.com",
+      "people":[
+         {
+            "first_name":"John",
+            "last_name":"Doe",
+            "email":"johndoe@name.com",
+            "phone_1":"18582007006"
+         }
+      ],
+      "community": 215,
+      "building": 9685,
+      "unit": 5689,
+      "sms_opted_in": "marketing-enabled",
+      "move_in_date":"2019-07-01T00:00:00",
+      "layout":null,
+      "price_floor":"3000",
+      "price_ceiling":"4500",
+      "pets":[20, 10],
+      "discovery_source":270,
+      "notes": "Looking for an apartment for a great prospect of mine",
+      "elevator":true,
+      "laundry":[20, 10],
+      "outdoor_space":[10]
+   }
+}`;
+
+  return (
+    <ApiPage
+      title="Appointment Booking"
+      description="This endpoint is where you will POST the actual appointment information to the server to create an appointment and either create a new prospect or modify an existing one. The payload is separated into two parts: appointment data and prospect data (client). Please note that while many of these fields are optional, prospect data is much more useful the more you collect. Consider performing client-side validation and requiring at minimum the people fields (first name, last name, email, phone)."
+      method="POST"
+      path="/api/v2/appointments/group/:group_id/book"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example request payload"
+      exampleLang="json"
+    />
+  );
+})()}
+

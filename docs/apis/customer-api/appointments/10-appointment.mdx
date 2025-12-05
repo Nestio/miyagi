@@ -1,0 +1,41 @@
+---
+title: Available Appointment Times
+sidebar_label: Available Appointment Times
+sidebar_position: 1
+hide_table_of_contents: true
+---
+
+# Available Appointment Times
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "available_times",
+      type: "array",
+      description: "Array of ISO formatted datetime strings representing available appointment times for the specified date range.",
+    },
+  ];
+
+  const exampleCode = `{
+   "available_times": [
+      "2019-06-19T08:00:00", "2019-06-19T08:15:00", "2019-06-19T08:30:00", "2019-06-19T08:45:00",
+      "2019-06-19T17:45:00", "2019-06-19T18:00:00", "2019-06-19T18:15:00", "2019-06-19T18:30:00",
+      "2019-06-19T18:45:00", "2019-06-19T19:00:00", "2019-06-19T19:15:00", "2019-06-19T19:30:00"
+   ]
+}`;
+
+  return (
+    <ApiPage
+      title="Available Appointment Times"
+      description="Returns a list of available appointment times for the group specified by group_id. Required query parameters: from_date (ISO format YYYY-MM-DD) - the start of the date range. Optional query parameters: to_date (ISO format YYYY-MM-DD) - the end of the date range (range can span a maximum of 7 days), tour_type (either 'guided' or 'self-guided', defaults to 'guided'; note for virtual/video tours, use 'guided'). If you only provide a from_date parameter, it will return availability for that date only."
+      method="GET"
+      path="/api/v2/appointments/group/:group_id/available-times"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}
+

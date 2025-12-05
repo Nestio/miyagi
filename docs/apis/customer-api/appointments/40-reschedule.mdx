@@ -1,0 +1,84 @@
+---
+title: Appointment Reschedule
+sidebar_label: Appointment Reschedule
+sidebar_position: 4
+hide_table_of_contents: true
+---
+
+# Appointment Reschedule
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "appointment",
+      type: "object",
+      description: "Appointment object with updated information.",
+      children: [
+        {
+          name: "id",
+          type: "integer",
+          description: "The appointment's unique ID.",
+        },
+        {
+          name: "status",
+          type: "integer",
+          description: 'Represents an appointment status. Possible values: null (created by user within app), 10 (Tentative), 20 (Not Confirmed), 30 (Confirmed), 40 (Cancelled), 50 (Completed), 60 (No Show).',
+        },
+        {
+          name: "start",
+          type: "string",
+          description: "Datetime in ISO format. The time an appointment will start.",
+        },
+        {
+          name: "end",
+          type: "string",
+          description: "Datetime in ISO format. The time an appointment will end.",
+        },
+        {
+          name: "notes",
+          type: "string",
+          description: "Any notes which were added when creating the appointment.",
+        },
+        {
+          name: "location",
+          type: "string",
+          description: "If extra location information was added when creating the appointment.",
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+  "appointment": {
+    "start": "2019-07-20T14:00:00"
+  }
+}`;
+
+  const exampleResponseCode = `{
+  "data": {
+    "appointment": {
+      "id": 952,
+      "status": 30,
+      "start": "2019-07-20T05:00:00+00:00",
+      "end": "2019-07-20T05:30:00+00:00",
+      "notes": "Please mind the gap",
+      "location": "Near the fountain of the building's main entrance"
+    }
+  }
+}`;
+
+  return (
+    <ApiPage
+      title="Appointment Reschedule"
+      description="This endpoint allows you to reschedule an appointment to a new time. If the time is valid, we will attempt to reschedule the appointment with the same employee. If that employee is not available, another employee belonging to the specified employee group will be selected randomly."
+      method="PUT"
+      path="/api/v2/appointments/:appointment_id/group/:group_id/book"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example request payload"
+      exampleLang="json"
+    />
+  );
+})()}
+

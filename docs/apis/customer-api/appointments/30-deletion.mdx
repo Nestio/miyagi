@@ -1,0 +1,45 @@
+---
+title: Appointment Deletion
+sidebar_label: Appointment Deletion
+sidebar_position: 3
+hide_table_of_contents: true
+---
+
+# Appointment Deletion
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "message",
+      type: "string",
+      description: "Defaults to 'success'.",
+    },
+    {
+      name: "notification_sent",
+      type: "boolean",
+      description: "Whether an internal notification email was sent to the employee assigned to the appointment.",
+    },
+  ];
+
+  const exampleCode = `{
+  "data": {
+    "message": "success",
+    "notification_sent": true
+  }
+}`;
+
+  return (
+    <ApiPage
+      title="Appointment Deletion"
+      description="This endpoint allows you to delete an appointment. While this is a delete endpoint, the appointment will actually be set to status=CANCELLED. If the appointment was previously confirmed, this will send an email to the employee assigned to the appointment notifying them of the appointment cancellation."
+      method="DELETE"
+      path="/api/v2/appointments/:appointment_id"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}
+
