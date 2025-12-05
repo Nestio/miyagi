@@ -1676,104 +1676,120 @@ h3.anchor > code {
 /* CSS for hello bar ends*/
 
 /* HTTP Method Badges in Sidebar */
+/* Modern, Premium HTTP Method Badges */
+/* Designed for subtlety, scannability, and theme consistency */
+/* Following premium API documentation design principles */
+
 .http-method-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 48px;
-  height: 20px;
-  padding: 0 8px;
+  min-width: 44px;
+  height: 22px;
+  padding: 4px 10px;
   margin-left: auto;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.015em;
   text-transform: uppercase;
   line-height: 1;
-  transition: all 0.2s ease;
+  transition: opacity 0.15s ease;
   flex-shrink: 0;
+  border: none;
 }
 
 .menu__link--with-badge {
   display: flex !important;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
 }
 
-/* HTTP Method Colors */
+/* Soft, desaturated semantic colors with opacity-based backgrounds */
+/* Light mode: subtle background with darker text for better readability */
+/* Colors follow modern API documentation conventions with reduced saturation */
+
 .http-method-badge--get {
-  background-color: #10b981;
-  color: #ffffff;
+  background-color: rgba(58, 175, 169, 0.1); /* Soft teal - desaturated */
+  color: #2d7d78; /* Darker teal for contrast */
 }
 
 .http-method-badge--post {
-  background-color: #3b82f6;
-  color: #ffffff;
+  background-color: rgba(108, 150, 255, 0.1); /* Soft blue - theme-primary light variant */
+  color: #3a5bb7; /* Darker blue for contrast */
 }
 
 .http-method-badge--put {
-  background-color: #f59e0b;
-  color: #ffffff;
+  background-color: rgba(246, 216, 130, 0.12); /* Soft amber - softened */
+  color: #b8860b; /* Darker amber for contrast */
 }
 
 .http-method-badge--patch {
-  background-color: #8b5cf6;
-  color: #ffffff;
+  background-color: rgba(139, 92, 246, 0.1); /* Soft purple */
+  color: #6d4ab8; /* Darker purple for contrast */
 }
 
 .http-method-badge--delete {
-  background-color: #ef4444;
-  color: #ffffff;
+  background-color: rgba(242, 138, 138, 0.12); /* Soft red - controlled semantic */
+  color: #c53030; /* Controlled semantic red */
 }
 
 .http-method-badge--options {
-  background-color: #6b7280;
-  color: #ffffff;
+  background-color: rgba(107, 114, 128, 0.08); /* Soft gray */
+  color: #4b5563; /* Darker gray for contrast */
 }
 
 .http-method-badge--head {
-  background-color: #6366f1;
-  color: #ffffff;
+  background-color: rgba(99, 102, 241, 0.1); /* Soft indigo */
+  color: #4f46e5; /* Darker indigo for contrast */
 }
 
-/* Dark mode adjustments */
+/* Dark mode: Slightly more opacity, lighter text colors for better contrast */
 html[data-theme='dark'] .http-method-badge--get {
-  background-color: #059669;
+  background-color: rgba(58, 175, 169, 0.18);
+  color: #77cbb9; /* Lighter teal for dark mode */
 }
 
 html[data-theme='dark'] .http-method-badge--post {
-  background-color: #2563eb;
+  background-color: rgba(108, 150, 255, 0.18);
+  color: #aecbff; /* Lighter blue for dark mode */
 }
 
 html[data-theme='dark'] .http-method-badge--put {
-  background-color: #d97706;
+  background-color: rgba(246, 216, 130, 0.18);
+  color: #f6d882; /* Lighter amber for dark mode */
 }
 
 html[data-theme='dark'] .http-method-badge--patch {
-  background-color: #7c3aed;
+  background-color: rgba(139, 92, 246, 0.18);
+  color: #a78bfa; /* Lighter purple for dark mode */
 }
 
 html[data-theme='dark'] .http-method-badge--delete {
-  background-color: #dc2626;
+  background-color: rgba(242, 138, 138, 0.18);
+  color: #f28a8a; /* Softer red for dark mode */
 }
 
 html[data-theme='dark'] .http-method-badge--options {
-  background-color: #4b5563;
+  background-color: rgba(107, 114, 128, 0.12);
+  color: #9ca3af; /* Lighter gray for dark mode */
 }
 
 html[data-theme='dark'] .http-method-badge--head {
-  background-color: #4f46e5;
+  background-color: rgba(99, 102, 241, 0.18);
+  color: #818cf8; /* Lighter indigo for dark mode */
 }
 
-/* Hover effect */
+/* Subtle hover effect - no scaling, just slight opacity change */
 .menu__link--with-badge:hover .http-method-badge {
-  transform: scale(1.05);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
 }
 
 html[data-theme='dark'] .menu__link--with-badge:hover .http-method-badge {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  opacity: 0.85;
 }
 
 /* Custom Scrollbar for Code Viewer */

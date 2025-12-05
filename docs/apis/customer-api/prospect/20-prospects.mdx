@@ -1,0 +1,85 @@
+---
+title: Edit Prospect
+sidebar_label: Edit Prospect
+sidebar_position: 2
+hide_table_of_contents: true
+---
+
+# Edit Prospect
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "status",
+      type: "string",
+      description: 'String value representing new prospect status. Choices are: "lead", "toured", "applicant", "resident", and "not-a-prospect".',
+    },
+    {
+      name: "application",
+      type: "object",
+      description: "Optional. Details about the prospect's application if they are being set to 'applicant' or 'resident' status. If not setting to one of those statuses, leave this key out of the payload.",
+      children: [
+        {
+          name: "unit_id",
+          type: "integer",
+          description: "The Funnel unit id for the unit that the prospect has applied for.",
+        },
+        {
+          name: "lease_start_date",
+          type: "string",
+          description: "YYYY-MM-DD formatted date that the prospect's lease starts.",
+        },
+        {
+          name: "lease_end_date",
+          type: "string",
+          description: "YYYY-MM-DD formatted date that the prospect's lease expires.",
+        },
+        {
+          name: "application_submitted_date",
+          type: "string",
+          description: "YYYY-MM-DD formatted date that the prospect's application was submitted.",
+        },
+        {
+          name: "application_price",
+          type: "string",
+          description: "The rent price the prospect is applying with.",
+        },
+        {
+          name: "closed_date",
+          type: "string",
+          description: "YYYY-MM-DD formatted date that the prospect was closed.",
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+    "status": "applicant",
+    "application": {
+      "unit_id": 123,
+      "lease_start_date": "2020-06-01",
+      "lease_end_date": "2020-05-31",
+      "application_submitted_date": "2020-05-20",
+      "application_price": "1200.00"
+    }
+  }`;
+
+  const exampleCodeSimple = `{
+    "status": "toured"
+  }`;
+
+  return (
+    <ApiPage
+      title="Edit Prospect"
+      description="Edit a limited number of fields on a specified company prospect. This endpoint allows you to update the prospect's status and optionally provide application details when setting status to 'applicant' or 'resident'. The application object is only required when setting status to 'applicant' or 'resident'."
+      method="PUT"
+      path="/api/v2/clients/:client_id"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example request payload (with application)"
+      exampleLang="json"
+    />
+  );
+})()}
+

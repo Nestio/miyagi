@@ -1,0 +1,227 @@
+---
+title: Create Prospect
+sidebar_label: Create Prospect
+sidebar_position: 120
+hide_table_of_contents: true
+---
+
+# Create Prospect
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "client",
+      type: "object",
+      description: "Prospect data. Note that in order for Funnel to properly ingest prospects and associate them with teams and properties, the following fields are required: first_name, last_name, email, group.",
+      children: [
+        {
+          name: "people",
+          type: "array",
+          description: "List of objects representing people associated with this prospect record.",
+          children: [
+            {
+              name: "first_name",
+              type: "string",
+              description: "Required. String field for first name.",
+            },
+            {
+              name: "last_name",
+              type: "string",
+              description: "Required. String field for last name.",
+            },
+            {
+              name: "email",
+              type: "string",
+              description: "Required. String field for email.",
+            },
+            {
+              name: "phone_1",
+              type: "string",
+              description: "String field for phone number.",
+            },
+            {
+              name: "phone_2",
+              type: "string",
+              description: "Additional phone number field.",
+            },
+            {
+              name: "is_primary",
+              type: "boolean",
+              description: "Boolean field indicating whether or not person is primary prospect contact.",
+            },
+          ],
+        },
+        {
+          name: "move_in_date",
+          type: "string",
+          description: "Prospect's desired move in date in format YYYY-MM-DD.",
+        },
+        {
+          name: "layout",
+          type: "array",
+          description: "Array of layout choices. Choices are: 80 - Loft, 10 - Studio, 20 - 1 BR, 30 - 2 BR, 40 - 3 BR, 50 - 4+ BR.",
+        },
+        {
+          name: "price_floor",
+          type: "number",
+          description: "Number value representing lowest dollar value the prospect would like to pay.",
+        },
+        {
+          name: "price_ceiling",
+          type: "number",
+          description: "Number value representing highest dollar value the prospect would like to pay.",
+        },
+        {
+          name: "notes",
+          type: "string",
+          description: "Free text field for prospect-sourced information.",
+        },
+        {
+          name: "group",
+          type: "integer",
+          description: "Required. Number value provided by Funnel representing the group id the prospect should be assigned to. Please contact us at support@funnelleasing.com to get your group id and more details.",
+        },
+        {
+          name: "broker_company",
+          type: "string",
+          description: "String field for broker company if representing prospect.",
+        },
+        {
+          name: "broker_email",
+          type: "string",
+          description: "String field for broker email if representing prospect.",
+        },
+        {
+          name: "broker_first_name",
+          type: "string",
+          description: "String field for broker first name if representing prospect.",
+        },
+        {
+          name: "broker_last_name",
+          type: "string",
+          description: "String field for broker last name if representing prospect.",
+        },
+        {
+          name: "broker_phone",
+          type: "string",
+          description: "String field for broker phone if representing prospect.",
+        },
+        {
+          name: "client_referral",
+          type: "string",
+          description: "String field for prospect referral source (up to 255 characters).",
+        },
+        {
+          name: "campaign_id",
+          type: "string",
+          description: "Campaign Identifier (up to 255 characters).",
+        },
+        {
+          name: "campaign_info",
+          type: "string",
+          description: "Optional string. Use this parameter to pass a value to Funnel for marketing attribution. To assign a lead source to a prospect, set the value to a string that matches the name of your campaign as entered in Funnel under marketing settings. The value must match exactly (case sensitive). If also using Funnel's DNI script, the value of this parameter can be pulled from local storage of the browser and sent via the form.",
+        },
+        {
+          name: "community",
+          type: "integer",
+          description: "Number value representing the Funnel Community id a prospect is inquiring about. NOTE: You should only pass one of three community/building/unit, otherwise you will get a validation error.",
+        },
+        {
+          name: "building",
+          type: "integer",
+          description: "Number value representing the Funnel Building id a prospect is inquiring about. NOTE: You should only pass one of three community/building/unit, otherwise you will get a validation error.",
+        },
+        {
+          name: "unit",
+          type: "integer",
+          description: "Number value representing the Funnel unit id a prospect is inquiring about. NOTE: You should only pass one of three community/building/unit, otherwise you will get a validation error.",
+        },
+        {
+          name: "discovery_source",
+          type: "string",
+          description: "String value representing the way the prospect says they discovered your property. This can be entered manually by a prospect on a contact form, guest card, or tour scheduler and is typically presented as the question: 'How did you hear about us?' (defaults to null if choice does not match). To retrieve the list of available sources, see Discovery Sources documentation.",
+        },
+        {
+          name: "lead_source",
+          type: "integer | string",
+          description: "Integer or String value representing the way the prospect became a lead for your property (defaults to null if choice does not match). To retrieve the list of available sources, see Discovery Sources documentation. To send an integer value, it will need to match an ID on your list of available discovery sources. To send a string value, it will need to match a name on your list of available discovery sources.",
+        },
+        {
+          name: "device",
+          type: "string | integer",
+          description: "String or integer value indicating the type of device the lead was on when captured. Choices are: 10 - Phone, 20 - Tablet, 30 - Desktop, 40 - Other, or blank if unknown.",
+        },
+        {
+          name: "source_type",
+          type: "string",
+          description: "String value indicating whether the recorded lead originated from a paid marketing campaign or from an organic, non-paid initiative. Choices are 'paid', 'organic', or blank if unknown.",
+        },
+        {
+          name: "sms_opted_in",
+          type: "string",
+          description: "String value indicating whether the recorded lead has opted in to receiving SMS communication. The available choices are: 'marketing-enabled' (opted into all communication including automated marketing messages), 'marketing-disabled' (opted into communications but not automated marketing messages, default), 'all-sms-disabled' (temporarily disable SMS), 'client-opted-out' (permanently disable all SMS communication).",
+        },
+        {
+          name: "request_sms",
+          type: "boolean",
+          description: "Boolean value which will create an event declaring the prospect requested a sms, set the client's preference for sms, and enable virtual agent for that client if all other factors are satisfied (for instance sms_opted_in).",
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+    "client": {
+      "people": [
+        {
+          "first_name": "John",
+          "last_name": "Doe",
+          "email": "johndoe@example.com",
+          "phone_1": "5101234567",
+          "phone_2": "",
+          "is_primary": true
+        },
+        {
+          "first_name": "Jane",
+          "last_name": "Doe",
+          "email": "janedoe@example.com",
+          "phone_1": "",
+          "phone_2": "",
+          "is_primary": false
+        }
+      ],
+      "move_in_date": "1970-01-01",
+      "layout": [10, 20],
+      "price_floor": 1500,
+      "price_ceiling": 2500,
+      "notes": "looking for affordable neighborhood with bars and restaurants",
+      "group": 12,
+      "broker_company": "Jerry Company",
+      "broker_email": "jerry@seinfeld.com",
+      "broker_first_name": "Jerry",
+      "broker_last_name": "Seinfeld",
+      "broker_phone": "4101230987",
+      "client_referral": "Company Website",
+      "campaign_id": "Test-Campaign",
+      "campaign_info": "GooglePPC",
+      "unit": 5309,
+      "device": 10,
+      "source_type": "organic"
+    }
+  }`;
+
+  return (
+    <ApiPage
+      title="Create Prospect"
+      description="Create a prospect record in Funnel. Note that in order for Funnel to properly ingest prospects and associate them with teams and properties, the following fields are required: first_name, last_name, email, group."
+      method="POST"
+      path="/api/v2/clients"
+      attributes={attributes}
+      exampleCode={exampleCode}
+      exampleTitle="Example request payload"
+      exampleLang="json"
+    />
+  );
+})()}
+
