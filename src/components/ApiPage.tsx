@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col } from './Layout';
 import APIEndpoint from './APIEndpoint';
 import ApiDocumentation from './ApiDocumentation';
+import APIRequestDocumentation from './APIRequestDocumentation';
 
 interface AttributeItem {
   name: string;
@@ -21,6 +22,12 @@ interface ApiPageProps {
   exampleLang?: string;
   contentType?: string;
   formatLabel?: string;
+  // Optional request section props
+  requestAttributes?: AttributeItem[];
+  requestExampleCode?: string;
+  requestExampleTitle?: string;
+  requestMethod?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'HEAD' | 'OPTIONS';
+  requestPath?: string;
 }
 
 /**
@@ -49,11 +56,22 @@ export default function ApiPage({
   path,
   attributes,
   exampleCode,
-  exampleTitle = 'Example request payload',
+  exampleTitle = 'Example',
   exampleLang = 'json',
   contentType,
   formatLabel,
+  requestAttributes,
+  requestExampleCode,
+  requestExampleTitle = 'Example request payload',
+  requestMethod,
+  requestPath,
 }: ApiPageProps) {
+  // Show request section if we have request attributes (even if no body for GET requests)
+  const showRequestSection = requestAttributes && requestAttributes.length > 0;
+  // Use request-specific method/path if provided, otherwise fall back to main method/path
+  const displayRequestMethod = requestMethod || method;
+  const displayRequestPath = requestPath || path;
+
   return (
     <>
       {/* Header Section: Description + Endpoint */}
@@ -88,7 +106,40 @@ export default function ApiPage({
         }}
       />
 
-      {/* Attributes Section */}
+      {/* Request Section */}
+      {showRequestSection && (
+        <div
+          style={{
+            border: '1px solid #eee',
+            borderRadius: '16px',
+            background: 'white',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+            padding: '24px 24px',
+            marginBottom: '48px',
+            marginLeft: '8px',
+          }}
+        >
+          <h4 
+            className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+            style={{ 
+              marginTop: '0',
+              fontFamily: 'inherit',
+            }}
+          >Request</h4>
+
+          <APIRequestDocumentation
+            attributes={requestAttributes}
+            code={requestExampleCode || ''}
+            method={displayRequestMethod}
+            path={displayRequestPath}
+            title={requestExampleTitle}
+            lang={exampleLang}
+            contentType={contentType}
+          />
+        </div>
+      )}
+
+      {/* Response Section */}
       <div
         style={{
           border: '1px solid #eee',
@@ -106,7 +157,7 @@ export default function ApiPage({
             marginTop: '0',
             fontFamily: 'inherit',
           }}
-        >Attributes</h4>
+        >Response</h4>
 
         <ApiDocumentation
           attributes={attributes}

@@ -193,6 +193,16 @@ hide_table_of_contents: true
     },
   ];
 
+  // Request attributes (path parameters for GET request)
+  const requestAttributes = [
+    {
+      name: "id",
+      type: "integer",
+      description: "Unique identifier of the applicant to retrieve. Required path parameter.",
+      required: true,
+    },
+  ];
+
   const exampleCode = `{
     "id": 564323,
     "lease_transaction_id": 347612,
@@ -241,6 +251,9 @@ hide_table_of_contents: true
     }
 }`;
 
+  // GET request doesn't have a body, so we pass empty string
+  const requestExampleCode = '';
+
   return (
     <ApiPage
       title="Applicant"
@@ -249,8 +262,13 @@ hide_table_of_contents: true
       path="/api/v2/applicants/:id"
       attributes={attributes}
       exampleCode={exampleCode}
-      exampleTitle="Example request payload"
+      exampleTitle="Example response payload"
       exampleLang="json"
+      requestAttributes={requestAttributes}
+      requestExampleCode={requestExampleCode}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/v2/applicants/:id"
     />
   );
 })()}

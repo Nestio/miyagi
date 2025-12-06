@@ -6,6 +6,12 @@ interface AttributeItem {
   type: string;
   description: string;
   children?: AttributeItem[];
+  required?: boolean;
+  nullable?: boolean;
+  example?: string;
+  format?: string;
+  pattern?: string;
+  constraints?: Record<string, any>;
 }
 
 interface AttributeListProps {
@@ -26,6 +32,12 @@ const AttributeList = ({ attributes }: AttributeListProps) => {
             name={attribute.name}
             type={attribute.type}
             description={attribute.description}
+            required={attribute.required}
+            nullable={attribute.nullable}
+            example={attribute.example}
+            format={attribute.format}
+            pattern={attribute.pattern}
+            constraints={attribute.constraints}
           >
             {attribute.children && <AttributeList attributes={attribute.children} />}
           </Attribute>
