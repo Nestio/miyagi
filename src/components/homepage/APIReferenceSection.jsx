@@ -13,9 +13,8 @@ export default function APIReferenceSection() {
       </Head>
       <div className="relative mx-auto flex w-full max-w-7xl flex-col items-center gap-10 rounded-2xl bg-gradient-to-r from-black to-zinc-800 px-6 py-20 text-center text-white dark:from-zinc-100 dark:to-white dark:text-black lg:flex-row lg:p-20 lg:text-left">
         <Link
-          href="https://developer.funnelleasing.com/customer-api/about/authentication/"
+          to="/apis/customer-api/authentication"
           aria-label="API Reference"
-          target="_blank"
           className="absolute top-8 right-8 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-600/40 dark:bg-transparent"
         >
           <ArrowUpRight className="h-6 w-6 text-zinc-400 dark:text-black" />
@@ -29,7 +28,7 @@ export default function APIReferenceSection() {
             programmatically.
           </p>
           <Link
-            href="https://developer.funnelleasing.com/customer-api/about/authentication/"
+            to="/apis/customer-api/authentication"
             className="font-medium text-primary-100 dark:text-primary"
           >
             Get started with Funnel Leasing APIs &rarr;
@@ -37,7 +36,7 @@ export default function APIReferenceSection() {
           <ul className="mt-10 flex list-none flex-col gap-4 text-left lg:pl-0">
             <li className="flex flex-col gap-1">
               <Link
-                href="https://developer.funnelleasing.com/customer-api/about/authentication/"
+                to="/apis/customer-api/authentication"
                 className="group font-jakarta font-semibold text-current"
               >
                 Create a prospect
@@ -51,7 +50,7 @@ export default function APIReferenceSection() {
             </li>
             <li className="flex flex-col gap-1">
               <Link
-                href="https://developer.funnelleasing.com/customer-api/about/authentication/"
+                to="/apis/customer-api/authentication"
                 className="group font-jakarta font-semibold text-current"
               >
                 Book an appointment
@@ -65,7 +64,7 @@ export default function APIReferenceSection() {
             </li>
             <li className="flex flex-col gap-1">
               <Link
-                href="https://developer.funnelleasing.com/customer-api/about/authentication/"
+                to="/apis/customer-api/authentication"
                 className="group font-jakarta font-semibold text-current"
               >
                 Process lease application
