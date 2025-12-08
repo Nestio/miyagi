@@ -895,6 +895,19 @@ hide_table_of_contents: true
     },
   ];
 
+  // Request attributes for GET /api/v2/communities/:id
+  const requestAttributes = [
+    {
+      name: "id",
+      type: "integer",
+      description: "The unique identifier of the community to retrieve.",
+      required: true,
+    },
+  ];
+
+  // GET request doesn't have a body
+  const requestExampleCode = '';
+
   const exampleCode = `{
     "id": 123,
     "team_id": 121,
@@ -1174,6 +1187,11 @@ hide_table_of_contents: true
       exampleCode={exampleCode}
       exampleTitle="Example response body"
       exampleLang="json"
+      requestAttributes={requestAttributes}
+      requestExampleCode={requestExampleCode}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/v2/communities/:id"
     />
   );
 })()}

@@ -17,6 +17,25 @@ hide_table_of_contents: true
     },
   ];
 
+  // Request attributes for GET /api/v2/documents/:id/:document_type
+  const requestAttributes = [
+    {
+      name: "id",
+      type: "integer",
+      description: "The unique identifier of the document.",
+      required: true,
+    },
+    {
+      name: "document_type",
+      type: "string",
+      description: "The type of document. Common values include 'lease_document', 'aan_document', 'user_uploaded_document'.",
+      required: true,
+    },
+  ];
+
+  // GET request doesn't have a body
+  const requestExampleCode = '';
+
   const exampleCode = `JVBERi0xLjEKJcKlwrHDqwoKMSAwIG9iagogIDw8IC9UeXBlIC9DYXRhbG9nCiAgICAgL1BhZ2VzIDIgMCBSCiAgPj4KZW5kb2JqCgoyIDAgb2JqCiAgPDwgL1R5cGUgL1BhZ2VzCiAgICAgL0tpZHMgWzMgMCBSXQogICAgIC9Db3VudCAxCiAgICAgL01lZGlhQm94IFswIDAgMzAwIDE0NF0KICA+PgplbmRvYmoKCjMgMCBvYmoKICA8PCAgL1R5cGUgL1BhZ2UKICAgICAgL1BhcmVudCAyIDAgUgogICAgICAvUmVzb3VyY2VzCiAgICAgICA8PCAvRm9udAogICAgICAgICAgIDw8IC9GMQogICAgICAgICAgICAgICA8PCAvVHlwZSAvRm9udAogICAgICAgICAgICAgICAgICAvU3VidHlwZSAvVHlwZTEKICAgICAgICAgICAgICAgICAgL0Jhc2VGb250IC9UaW1lcy1Sb21hbgogICAgICAgICAgICAgICA+PgogICAgICAgICAgID4+CiAgICAgICA+PgogICAgICAvQ29udGVudHMgNCAwIFIKICA+PgplbmRvYmoKCjQgMCBvYmoKICA8PCAvTGVuZ3RoIDU1ID4+CnN0cmVhbQogIEJUCiAgICAvRjEgMTggVGYKICAgIDAgMCBUZAogICAgKEhlbGxvIFdvcmxkKSBUagogIEVUCmVuZHN0cmVhbQplbmRvYmoKCnhyZWYKMCA1CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAxOCAwMDAwMCBuIAowMDAwMDAwMDc3IDAwMDAwIG4gCjAwMDAwMDAxNzggMDAwMDAgbiAKMDAwMDAwMDQ1NyAwMDAwMCBuIAp0cmFpbGVyCiAgPDwgIC9Sb290IDEgMCBSCiAgICAgIC9TaXplIDUKICA+PgpzdGFydHhyZWYKNTY1CiUlRU9GCg==`;
 
   return (
@@ -31,6 +50,11 @@ hide_table_of_contents: true
       exampleLang="text"
       contentType="application/pdf"
       formatLabel="TEXT"
+      requestAttributes={requestAttributes}
+      requestExampleCode={requestExampleCode}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/v2/documents/:id/:document_type"
     />
   );
 })()}

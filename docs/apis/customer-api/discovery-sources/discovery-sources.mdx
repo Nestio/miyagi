@@ -36,6 +36,13 @@ hide_table_of_contents: true
     },
   ];
 
+  // Request attributes for GET /api/v2/discovery-sources
+  // This endpoint has no path parameters, query parameters, or request body
+  const requestAttributes = [];
+
+  // GET request doesn't have a body
+  const requestExampleCode = '';
+
   const exampleCode = `{
     "data": {
         "discovery_sources": [
@@ -57,6 +64,11 @@ hide_table_of_contents: true
       exampleCode={exampleCode}
       exampleTitle="Example response"
       exampleLang="json"
+      requestAttributes={requestAttributes}
+      requestExampleCode={requestExampleCode}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/v2/discovery-sources"
     />
   );
 })()}

@@ -57,6 +57,19 @@ hide_table_of_contents: true
     },
   ];
 
+  // Request attributes for GET /api/v2/group/:group_id
+  const requestAttributes = [
+    {
+      name: "group_id",
+      type: "integer",
+      description: "The unique identifier of the employee group to retrieve.",
+      required: true,
+    },
+  ];
+
+  // GET request doesn't have a body
+  const requestExampleCode = '';
+
   const exampleCode = `{
     "id": 23,
     "name": "Some Employee group",
@@ -79,6 +92,11 @@ hide_table_of_contents: true
       exampleCode={exampleCode}
       exampleTitle="Example response"
       exampleLang="json"
+      requestAttributes={requestAttributes}
+      requestExampleCode={requestExampleCode}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/v2/group/:group_id"
     />
   );
 })()}

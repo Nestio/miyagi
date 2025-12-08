@@ -146,6 +146,16 @@ hide_table_of_contents: true
     },
   ];
 
+  // Request attributes (path parameters for GET request)
+  const requestAttributes = [
+    {
+      name: "id",
+      type: "integer",
+      description: "Unique identifier of the applicant to retrieve SPII data for. Required path parameter.",
+      required: true,
+    },
+  ];
+
   const exampleCode = `{
     "id": 564323,
     "lease_transaction_id": 347612,
@@ -177,6 +187,9 @@ hide_table_of_contents: true
     }
 }`;
 
+  // GET request doesn't have a body, so we pass empty string
+  const requestExampleCode = '';
+
   return (
     <ApiPage
       title="Applicant SPII"
@@ -185,8 +198,13 @@ hide_table_of_contents: true
       path="https://tntdv44mdst.live.verygoodproxy.com/api/v2/applicants/:id/spii"
       attributes={attributes}
       exampleCode={exampleCode}
-      exampleTitle="Example request payload"
+      exampleTitle="Example response payload"
       exampleLang="json"
+      requestAttributes={requestAttributes}
+      requestExampleCode={requestExampleCode}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="https://tntdv44mdst.live.verygoodproxy.com/api/v2/applicants/:id/spii"
     />
   );
 })()}

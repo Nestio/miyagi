@@ -667,6 +667,19 @@ hide_table_of_contents: true
     },
   ];
 
+  // Request attributes for GET /api/v2/lease-transactions/:id
+  const requestAttributes = [
+    {
+      name: "id",
+      type: "integer",
+      description: "The unique identifier of the lease transaction to retrieve.",
+      required: true,
+    },
+  ];
+
+  // GET request doesn't have a body
+  const requestExampleCode = '';
+
   const exampleCode = `{
     "id": 347612,
     "type": "Application",
@@ -893,8 +906,13 @@ hide_table_of_contents: true
       path="/api/v2/lease-transactions/:id"
       attributes={attributes}
       exampleCode={exampleCode}
-      exampleTitle="Example request payload"
+      exampleTitle="Example response"
       exampleLang="json"
+      requestAttributes={requestAttributes}
+      requestExampleCode={requestExampleCode}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/v2/lease-transactions/:id"
     />
   );
 })()}

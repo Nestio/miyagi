@@ -41,8 +41,21 @@ export default function APIRequestDocumentation({
   // Replace path parameters with example values
   const getExamplePath = () => {
     let examplePath = path;
-    if (path.includes(':id')) {
-      examplePath = path.replace(':id', '564323');
+    // Replace common path parameters with example values
+    if (examplePath.includes(':id')) {
+      examplePath = examplePath.replace(':id', '564323');
+    }
+    if (examplePath.includes(':group_id')) {
+      examplePath = examplePath.replace(':group_id', '123');
+    }
+    if (examplePath.includes(':appointment_id')) {
+      examplePath = examplePath.replace(':appointment_id', '952');
+    }
+    if (examplePath.includes(':client_id')) {
+      examplePath = examplePath.replace(':client_id', '890');
+    }
+    if (examplePath.includes(':document_type')) {
+      examplePath = examplePath.replace(':document_type', 'lease_document');
     }
     return examplePath;
   };
