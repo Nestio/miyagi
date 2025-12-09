@@ -1,0 +1,109 @@
+---
+title: Send communication
+sidebar_label: Send communication
+sidebar_position: 61
+hide_table_of_contents: true
+---
+
+# Send communication
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [
+  {
+    "name": "message_type",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "default"
+  },
+  {
+    "name": "message_text_body",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "your documents are ready to be signed"
+  },
+  {
+    "name": "message_html_body",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "<h1>Documents ready</h1><br/>Your documents to renew are ready, you can sign them."
+  },
+  {
+    "name": "message_template_id",
+    "type": "integer",
+    "description": "",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "message_subject",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "Document to sign"
+  },
+  {
+    "name": "to_addresses",
+    "type": "array<string>",
+    "description": "",
+    "required": false,
+    "nullable": false
+  }
+];
+
+  const responseAttributes = [
+  {
+    "name": "status",
+    "type": "boolean",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "true"
+  },
+  {
+    "name": "messagesQueued",
+    "type": "array<object>",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "[object Object],[object Object]"
+  },
+  {
+    "name": "messagesFailed",
+    "type": "array<object>",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "[object Object],[object Object]"
+  }
+];
+
+  const requestExampleCode = "{\n  \"message_type\": \"default\",\n  \"message_text_body\": \"your documents are ready to be signed\",\n  \"message_html_body\": \"<h1>Documents ready</h1><br/>Your documents to renew are ready, you can sign them.\",\n  \"message_template_id\": 0,\n  \"message_subject\": \"Document to sign\",\n  \"to_addresses\": [\n    \"na@na.com\"\n  ]\n}";
+
+  const responseExampleCode = "{\n  \"status\": true,\n  \"messagesQueued\": [\n    {\n      \"funnel_person_id\": 123,\n      \"renter_person_xid\": 856,\n      \"email\": \"na@na.com\",\n      \"from_email_address\": \"na@na.com\",\n      \"message\": \"This is an email message to the renter\",\n      \"message_type\": \"email\",\n      \"message_id\": 123,\n      \"subject\": \"This is a subject\"\n    },\n    {\n      \"funnel_person_id\": 123,\n      \"renter_person_xid\": 856,\n      \"phone\": 1234567890,\n      \"from_phone_number\": 1234567890,\n      \"message\": \"This is a sms message to the renter\",\n      \"message_type\": \"sms\",\n      \"message_id\": 123\n    }\n  ],\n  \"messagesFailed\": [\n    {\n      \"funnel_person_id\": 457,\n      \"renter_person_xid\": 632,\n      \"phone\": 1456123789,\n      \"message\": \"your documents are ready\",\n      \"message_type\": \"sms\",\n      \"message_id\": \"7wge34\"\n    },\n    {\n      \"email\": \"na@na.com\",\n      \"message_type\": \"email\",\n      \"error_message\": \"Unable to match the 'na@na.com'.\"\n    }\n  ]\n}";
+
+  return (
+    <ApiPage
+      title="Send communication"
+      description="Send communication via sms/email to the given renter"
+      method="POST"
+      path="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/send-communication/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="POST"
+      requestPath="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/send-communication/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

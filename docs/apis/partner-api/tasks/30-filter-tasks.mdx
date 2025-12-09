@@ -1,0 +1,66 @@
+---
+title: Filter tasks
+sidebar_label: Filter tasks
+sidebar_position: 82
+hide_table_of_contents: true
+---
+
+# Filter tasks
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [];
+
+  const responseAttributes = [
+  {
+    "name": "items",
+    "type": "array<TaskQuery>",
+    "description": "",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "page",
+    "type": "integer",
+    "description": "",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "total_pages",
+    "type": "integer",
+    "description": "",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "total_items",
+    "type": "integer",
+    "description": "",
+    "required": false,
+    "nullable": false
+  }
+];
+
+  const requestExampleCode = "{}";
+
+  const responseExampleCode = "{\n  \"items\": [\n    {\n      \"task_id\": \"123\",\n      \"due_date\": \"2023-10-05\",\n      \"status\": \"string\",\n      \"task_type\": \"string\",\n      \"funnel_renter_id\": 0,\n      \"funnel_team_id\": 0,\n      \"assignee_funnel_user_id\": 0,\n      \"description\": \"Call about renewal options\",\n      \"created_at\": \"2023-10-04T00:02:23\",\n      \"task_category\": 0\n    }\n  ],\n  \"page\": 0,\n  \"total_pages\": 0,\n  \"total_items\": 0\n}";
+
+  return (
+    <ApiPage
+      title="Filter tasks"
+      description="Filter tasks for a community"
+      method="GET"
+      path="/api/partners/v1/community/:community_id/tasks/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/partners/v1/community/:community_id/tasks/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

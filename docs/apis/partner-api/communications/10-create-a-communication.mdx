@@ -1,0 +1,85 @@
+---
+title: Create a Communication
+sidebar_label: Create a Communication
+sidebar_position: 60
+hide_table_of_contents: true
+---
+
+# Create a Communication
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [
+  {
+    "name": "direction",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "incoming, outcoming"
+  },
+  {
+    "name": "message_type",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "email, sms"
+  },
+  {
+    "name": "subject",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "Email Subject"
+  },
+  {
+    "name": "message",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "Message Text"
+  },
+  {
+    "name": "to_addresses",
+    "type": "array<string>",
+    "description": "",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "from_address",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "fromexample@email.com"
+  }
+];
+
+  const responseAttributes = [];
+
+  const requestExampleCode = "{\n  \"direction\": \"incoming, outcoming\",\n  \"message_type\": \"email, sms\",\n  \"subject\": \"Email Subject\",\n  \"message\": \"Message Text\",\n  \"to_addresses\": [\n    \"example@email.com\"\n  ],\n  \"from_address\": \"fromexample@email.com\"\n}";
+
+  const responseExampleCode = "{}";
+
+  return (
+    <ApiPage
+      title="Create a Communication"
+      description="create a communication in funnel for a communications created by partner api"
+      method="POST"
+      path="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/communication/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="POST"
+      requestPath="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/communication/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

@@ -1,0 +1,101 @@
+---
+title: Create a Chat Conversation
+sidebar_label: Create a Chat Conversation
+sidebar_position: 70
+hide_table_of_contents: true
+---
+
+# Create a Chat Conversation
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [
+  {
+    "name": "funnel_renter_id",
+    "type": "integer",
+    "description": "Funnel Renter ID",
+    "required": false,
+    "nullable": false,
+    "example": "123"
+  },
+  {
+    "name": "conversation_type",
+    "type": "string",
+    "description": "Obtain appropriate value from Funnel",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "website_url",
+    "type": "string",
+    "description": "URL where the covnersation happened",
+    "required": false,
+    "nullable": false,
+    "example": "http://example.com"
+  },
+  {
+    "name": "is_active",
+    "type": "boolean",
+    "description": "Has the conversation finished",
+    "required": false,
+    "nullable": false,
+    "example": "true"
+  },
+  {
+    "name": "messages",
+    "type": "array<object>",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "children": [
+      {
+        "name": "author_type",
+        "type": "string",
+        "description": "Who wrote the message",
+        "required": false,
+        "nullable": false
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "description": "The content of the message",
+        "required": false,
+        "nullable": false,
+        "example": "hi"
+      },
+      {
+        "name": "timestamp",
+        "type": "string",
+        "description": "Datetime of when the message was created",
+        "required": false,
+        "nullable": false,
+        "example": "2023-10-04T00:02:23"
+      }
+    ]
+  }
+];
+
+  const responseAttributes = [];
+
+  const requestExampleCode = "{\n  \"funnel_renter_id\": 123,\n  \"conversation_type\": \"string\",\n  \"website_url\": \"http://example.com\",\n  \"is_active\": true,\n  \"messages\": [\n    {\n      \"author_type\": \"string\",\n      \"message\": \"hi\",\n      \"timestamp\": \"2023-10-04T00:02:23\"\n    }\n  ]\n}";
+
+  const responseExampleCode = "{}";
+
+  return (
+    <ApiPage
+      title="Create a Chat Conversation"
+      description="create a Chat Conversation in Funnel for a Chat Conversation created by a partner"
+      method="POST"
+      path="/api/partners/v1/community/:community_id/chat-conversations/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="POST"
+      requestPath="/api/partners/v1/community/:community_id/chat-conversations/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

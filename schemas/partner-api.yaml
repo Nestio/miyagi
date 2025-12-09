@@ -1,0 +1,2830 @@
+openapi: 3.0.0
+# servers:
+#   - description: SwaggerHub API Auto Mocking
+#     url: https://virtserver.swaggerhub.com/nestio/onlineleasing/1.0.0
+info:
+  version: "1.0"
+  title: Partner API
+  description: |
+    ### Authentication
+    Funnel provides you with an API key for authentication. You can use it in either of the following ways:
+
+    **Option 1: Basic Auth**
+    Use the API key as the username with an empty password.
+
+    **Option 2: Bearer Token**
+    Use the API key directly as a bearer token.
+    Example header:
+    ```
+    Authorization: Bearer <API_KEY>
+    ```
+    By utilizing our API you agree to our <a href="/license-agreement" target="_blank">License Agreement</a>
+
+security:
+  - BasicAuth: []
+  - BearerAuth: []
+# TOOD overall description
+
+tags:
+  - name: Appointment Booking
+    description: |
+      Endpoints for booking appointments. Basic flow is:
+        * Request available dates from the available-days end-point
+        * Request times for a specific date using the available-times end-point
+        * Book an appointment using book an appointment end-point
+
+paths:
+  /api/partners/v1/communities/:
+    parameters: []
+    get:
+      tags:
+        - Community Details
+      parameters:
+        - in: query
+          name: community_xid
+          schema:
+            type: string
+          description: The community xid
+        - in: query
+          name: pms_integration_type
+          schema:
+            type: string
+            enum:
+              - YARDI
+              - REALPAGE_ONESITE
+              - RESMAN
+              - ENTRATA
+          description: The PMS identifier to match the external renter_household_xid with.
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Page number
+      summary: List communities
+      description: Return a list of communities connected to the partner api management company
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/CommunitiesSchema"
+                  page:
+                    type: integer
+                  total_pages:
+                    type: integer
+                  total_items:
+                    type: integer
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+  /api/partners/v1/community/{community_id}/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+    get:
+      tags:
+        - Community Details
+      summary: Get community details
+      description: Return details about a community
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommunityDetailsSchema"
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/appointments/available-days/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - $ref: "#/components/parameters/tourType"
+    get:
+      tags:
+        - Appointment Booking
+      summary: Get dates available for appointment booking
+      description: Returns a list of dates that have times available for appointments in the next 60 days.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AvailableDatesList"
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+
+  /api/partners/v1/community/{community_id}/appointments/available-times/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - in: query
+        name: date
+        schema:
+          type: string
+        required: true
+        description: |
+          Date in the format `YYYY-MM-DD`
+      - $ref: "#/components/parameters/tourType"
+    get:
+      tags:
+        - Appointment Booking
+      summary: Get times available for appointment booking
+      description: |
+        Returns a list of times that are avaialble for a booking on the given date. Any of these times should be a valid
+        value for start field when booking an appointment using the booking end-point.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AvailableTimesList"
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+
+  /api/partners/v1/community/{community_id}/appointments/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+    post:
+      tags:
+        - Appointment Booking
+      summary: Book an appointment
+      description: TODO
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProspectAppointmentSchema"
+      responses:
+        "201":
+          description: Appointment successfully created.
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/renters/{funnel_renter_id}/appointment/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - $ref: "#/components/parameters/funnelRenterId"
+    post:
+      tags:
+        - Appointment Booking
+      summary: Book an appointment
+      description: Create an appointment(tour) in Funnel for the specified renter for the specified community
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAppointmentSchema"
+      responses:
+        "201":
+          description: Appointment successfully created.
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/appointments/{appointment_id}/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - $ref: "#/components/parameters/appointmentId"
+    put:
+      tags:
+        - Appointment Booking
+      summary: Edit appointment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppointmentDetailSchema"
+      responses:
+        "200":
+          description: Appointment successfully updated.
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityAppointmentNotFound"
+    delete:
+      tags:
+        - Appointment Booking
+      summary: Cancel appointment.
+      responses:
+        "200":
+          description: Appointment successfully cancelled.
+        "400":
+          description: Appointment could not be cancelled. See error message for details.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityAppointmentNotFound"
+
+  /api/partners/v1/community/{community_id}/appointments/booked/:
+    get:
+      tags:
+        - Appointment Booking
+      summary: Get all appointments for a community.
+      description: Returns a paginated list of booked appointments ordered by appointment ID.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookedAppointmentsList"
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404BookedAppointmentNotFound"
+      parameters:
+        - $ref: "#/components/parameters/communityId"
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          description: Page number to return
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 50
+          description: Number of items per page.
+        - in: query
+          name: date
+          schema:
+            type: string
+            format: date
+          description: |
+            Specific date for which to fetch appointments.
+            Format: `YYYY-MM-DD`
+        - in: query
+          name: from_date
+          schema:
+            type: string
+            format: date
+          description: |
+            Start of a date range. Required if using `to_date`. When using date range parameters,
+            the range cannot exceed 365 days between from_date and to_date.
+            Format: `YYYY-MM-DD`
+        - in: query
+          name: to_date
+          schema:
+            type: string
+            format: date
+          description: |
+            End of a date range. Required if using `from_date`. When using date range parameters,
+            the range cannot exceed 365 days between from_date and to_date.
+            Format: `YYYY-MM-DD`
+        - in: query
+          name: email
+          schema:
+            type: string
+          description: Email address of a prospect to match by contact info
+        - in: query
+          name: phone
+          schema:
+            type: string
+          description: Phone number of a prospect to match by contact info. Should begin with + country code
+
+  /api/partners/v1/community/{community_id}/prospects/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+    post:
+      tags:
+        - Prospects
+      summary: Create a Prospect
+      description: TODO
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientSchema"
+      responses:
+        "200":
+          description: Client successfully created/updated.
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404ProspectNotFound"
+  /api/partners/v1/community/{community_id}/prospects/{prospect_id}:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - $ref: "#/components/parameters/prospectId"
+      - $ref: "#/components/parameters/excludeMovedOut"
+      - $ref: "#/components/parameters/excludeMinors"
+    get:
+      tags:
+        - Prospects
+      summary: Get a Prospect
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProspectSchema"
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+    put:
+      tags:
+        - Prospects
+      summary: Edit a Prospect
+      description: TODO
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EditClientSchema"
+      responses:
+        "200":
+          description: Client successfully created/updated.
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404ProspectNotFound"
+  /api/partners/v1/community/{community_id}/renters/{funnel_renter_id}/action-required/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - $ref: "#/components/parameters/funnelRenterId"
+    post:
+      tags:
+        - Third Party VLA Handling
+      summary: Create an AR and Task on Prospect
+      description: Create an action_required and task in funnel and disable third party vla, if specified in request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                funnel_last_communication_id:
+                  type: string
+                disable:
+                  type: boolean
+                  example: false
+                  description: "disables third party vla handling"
+                  default: true
+                due_date:
+                  type: string
+                  example: "2023-05-16T14:30:00-04:00"
+                  description: "must follow ISO 8601 and include offset"
+                  default: "current date and time"
+                task_description:
+                  type: string
+                  description: "Description to be added to the reminder text for the action_required task"
+      responses:
+        "200":
+          description: Action Required successfully assigned to prospect
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully added task
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/renters/{funnel_renter_id}/enable-handling/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - $ref: "#/components/parameters/funnelRenterId"
+    post:
+      tags:
+        - Third Party VLA Handling
+      summary: Enable third party vla handling
+      description: Enable third party vla handling for a renter on the given community
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                funnel_last_communication_id:
+                  type: string
+      responses:
+        "200":
+          description: Action Required successfully assigned to prospect
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Handling successfully enabled
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/renters/{funnel_renter_id}/thirdparty/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - $ref: "#/components/parameters/funnelRenterId"
+    get:
+      tags:
+        - Third Party VLA Handling
+      summary: Get third party vla handling status for a prospect
+      description: |
+        Currently returns whether third party VLA handling (ex: MeetElise) is enabled
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  vla_handling_enabled:
+                    type: boolean
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/renters/{funnel_renter_id}/communication/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - $ref: "#/components/parameters/funnelRenterId"
+    post:
+      tags:
+        - Communications
+      summary: Create a Communication
+      description: create a communication in funnel for a communications created by partner api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CommunicationSchema"
+      responses:
+        "200":
+          description: Communication successfully created/updated.
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/chat-conversations/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+    post:
+      tags:
+        - Chat
+      summary: Create a Chat Conversation
+      description: create a Chat Conversation in Funnel for a Chat Conversation created by a partner
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatConversationSchema"
+      responses:
+        "200":
+          description: Chat Conversation created succesfully.
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/renters/{funnel_renter_id}/send-communication/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - $ref: "#/components/parameters/funnelRenterId"
+    post:
+      tags:
+        - Communications
+      summary: Send communication
+      description: Send communication via sms/email to the given renter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendCommunicationSchema"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  messagesQueued:
+                    type: array
+                    items:
+                      type: object
+                    example:
+                      - funnel_person_id: 123
+                        renter_person_xid: 856
+                        email: na@na.com
+                        from_email_address: na@na.com
+                        message: "This is an email message to the renter"
+                        message_type: email
+                        message_id: 123
+                        subject: "This is a subject"
+                      - funnel_person_id: 123
+                        renter_person_xid: 856
+                        phone: +1234567890
+                        from_phone_number: +1234567890
+                        message: "This is a sms message to the renter"
+                        message_type: sms
+                        message_id: 123
+                  messagesFailed:
+                    type: array
+                    items:
+                      type: object
+                    example:
+                      - funnel_person_id: 457
+                        renter_person_xid: 632
+                        phone: +1456123789
+                        message: "your documents are ready"
+                        message_type: sms
+                        message_id: 7wge34
+                      - email: "na@na.com"
+                        message_type: email
+                        error_message: "Unable to match the 'na@na.com'."
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/renters/{funnel_renter_id}/task/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - $ref: "#/components/parameters/funnelRenterId"
+    post:
+      tags:
+        - Tasks
+      summary: Create a Task
+      description: Create a task and assign it to team or agent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskSchema"
+      responses:
+        "200":
+          description: Task successfully created/updated.
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/renters/{funnel_renter_id}/task/{task_id}:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - $ref: "#/components/parameters/funnelRenterId"
+      - $ref: "#/components/parameters/taskIdPath"
+    put:
+      tags:
+        - Tasks
+      summary: Update a task
+      description: Update a task
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateTaskSchema"
+      responses:
+        "200":
+          description: Task successfully updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  task_id:
+                    type: string
+        "204":
+          description: No change on the server.
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/tasks/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+    get:
+      tags:
+        - Tasks
+      summary: Filter tasks
+      description: Filter tasks for a community
+      parameters:
+        - $ref: "#/components/parameters/taskId"
+        - $ref: "#/components/parameters/funnelRenterIdQ"
+        - $ref: "#/components/parameters/funnelTeamId"
+        - $ref: "#/components/parameters/dueDateBefore"
+        - $ref: "#/components/parameters/dueDateAfter"
+        - $ref: "#/components/parameters/status"
+        - $ref: "#/components/parameters/createdAtBefore"
+        - $ref: "#/components/parameters/createdAtAfter"
+        - $ref: "#/components/parameters/assigneeFunnelUserId"
+        - $ref: "#/components/parameters/taskCategoryId"
+      responses:
+        "200":
+          description: Task list matching the filter parameters passed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TaskQuerySchema"
+                  page:
+                    type: integer
+                  total_pages:
+                    type: integer
+                  total_items:
+                    type: integer
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/discovery-sources/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+    get:
+      tags:
+        - Community Details
+      description: Retrieve available discovery sources for given `community_id`.
+      summary: Get discovery sources
+      responses:
+        "200":
+          description: Community with given ID was found and its sources returned.
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/agents/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+    get:
+      tags:
+        - Community Details
+      description: Return a list of agents associated with the community
+      summary: List community agents
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Page number
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/CommunityAgentsSchema"
+                  page:
+                    type: integer
+                  total_pages:
+                    type: integer
+                  total_items:
+                    type: integer
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/renter-household-by-xid/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+    get:
+      tags:
+        - Community Details
+      summary: List funnel renter IDs
+      description: Return a list of funnel_renter_ids (often referred to as client id or prospect id), from a renter household by xid
+      parameters:
+        - in: query
+          name: renter_household_xid
+          required: true
+          schema:
+            type: string
+          description: The external renter household identifier.
+        - in: query
+          name: pms_integration_type
+          required: true
+          schema:
+            type: string
+          description: The PMS identifier to match the external renter_household_xid with. Valid values are ['REALPAGE_ONESITE', 'YARDI', 'ENTRATA'].
+        - in: query
+          name: should_have_active_lease
+          required: false
+          schema:
+            type: boolean
+          description: Excludes clients without an active lease.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    funnel_renter_id:
+                      type: string
+                    group_assignment_status:
+                      type: string
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+  /api/partners/v1/community/{community_id}/unit-by-xid/{unit_xid}/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - $ref: "#/components/parameters/unitXid"
+    get:
+      tags:
+        - Community Details
+      summary: Get unit details
+      description: Return a unit details from an unit_xid and community_id
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  community_id:
+                    type: integer
+                    description: The id of the community
+                    example: 123
+                  building_id:
+                    type: integer
+                    description: The id of the building
+                    example: 123
+                  unit_id:
+                    type: integer
+                    description: The id of the unit
+                    example: 123
+                  unit_xid:
+                    type: string
+                    description: The unit_xid
+                    example: "123"
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404UnitNotFound"
+  /api/partners/v1/team/{team_id}/:
+    parameters:
+      - $ref: "#/components/parameters/teamId"
+    get:
+      tags:
+        - Team
+      summary: Get team details
+      description: Return team details including a list of the employees
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The id of the team
+                    example: 123
+                  name:
+                    type: string
+                    description: The name of the team
+                    example: TeamName
+                  team_type:
+                    enum: ["Site Team", "Central Team"]
+                    type: string
+                    description: The type of the team
+                  users:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TeamUserSchema"
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CommunityNotFound"
+
+  /api/partners/v1/company/{company_id}/customer-score/:
+    parameters:
+      - $ref: "#/components/parameters/companyId"
+    post:
+      tags:
+        - Custom Scoring
+      summary: Update a Client's customer score
+      description: |
+        The client must belong to the company, and is being matched using email and/or phone.
+        The fields that can be updated are customer_score_name, customer_score_value, customer_score_maximum, customer_score_submitted_at
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerScoreSchema"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The id of the matched client
+                  customer_score_name:
+                    type: string
+                    description: The updated score name
+                  customer_score_value:
+                    type: integer
+                    description: The updated score value
+                  customer_score_maximum:
+                    type: integer
+                    description: The updated maximum value
+                  customer_score_submitted_at:
+                    type: string
+                    description: The updated submitted at date
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404RenterNotFound"
+
+  /api/partners/v1/company/{company_id}/task-categories/:
+    parameters:
+      - $ref: "#/components/parameters/companyId"
+    get:
+      tags:
+        - Tasks
+      summary: List task categories
+      description: |
+        Returns a list of task categories associated with the company
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: The id of the task category
+                    name:
+                      type: string
+                      description: The name of the task category
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404CompanyNotFound"
+
+  /api/partners/v1/community/{community_id}/renters/{funnel_renter_id}/units/{funnel_unit_id}/renewal-status/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - $ref: "#/components/parameters/funnelRenterId"
+      - $ref: "#/components/parameters/funnelUnitId"
+    put:
+      tags:
+        - Renewal Status
+      summary: Update a renewal status
+      description: Update a lease's renewal status for a given renter and unit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateRenewalStatusSchema"
+      responses:
+        "200":
+          description: Renewal status successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  renewal_status_id:
+                    type: integer
+                    example: 7
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404LeaseNotFound"
+
+  /api/partners/v1/community/{community_id}/renters/{funnel_renter_id}/units/{funnel_unit_id}/push-notification/:
+    parameters:
+      - $ref: "#/components/parameters/communityId"
+      - $ref: "#/components/parameters/funnelRenterId"
+      - $ref: "#/components/parameters/funnelUnitId"
+    post:
+      tags:
+        - ResidentApp
+      summary: Send a ResApp push notification
+      description: Send a ResApp push notification to a given renter and unit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePushNotificationSchema"
+      responses:
+        "201":
+          description: Push notification scheduled
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          $ref: "#/components/responses/404LeaseNotFound"
+
+  /api/partners/v1/residentapp/{resident_app_context_id}/widget-context/:
+    parameters:
+      - $ref: "#/components/parameters/residentAppContextId"
+    get:
+      tags:
+        - ResidentApp
+      summary: Get ResApp widget context.
+      description: Returns the widget context for a given ResApp context ID.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  widget_context:
+                    type: object
+                    description: The widget context data.
+        "400":
+          $ref: "#/components/responses/400Invalid"
+        "401":
+          $ref: "#/components/responses/401AuthenticationRequired"
+        "403":
+          $ref: "#/components/responses/403Unauthorized"
+        "404":
+          description: ResidentApp context record does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_type:
+                    type: string
+                    example: ResidentAppContextNotFound
+                  message:
+                    type: string
+                    example: ResidentApp context record does not exist
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: |
+        Use API key as username and leave password blank.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: |
+        Use your API key as bearer token in the `Authorization` header.
+        Example: `Authorization: Bearer <API_KEY>`
+
+  parameters:
+    communityId:
+      in: path
+      name: community_id
+      schema:
+        type: string
+      required: true
+      description: |
+        The Community ID, this will look like either '1234' or 'P1234-567'. Alternatively, if you prefix this value with
+        `partner-id:`, for example `partner-id:apts123` you can use your own community, as long as you have previously provided that
+        ID to Funnel.
+      examples:
+        community_id:
+          value: 1234
+          summary: Funnel Community ID
+          description: The raw integer Funnel ID of a community.
+        syndication_id:
+          value: P1234-567
+          summary: Funnel Community Syndication ID
+          description: The community's Funnel syndcation ID. An ID in this format is often provided in Funnel feeds to ILS partners.
+        partner_id:
+          value: partner-id:apts123
+          summary: Partner ID
+          description: The ID of the community in the partner system. This needs to have been previously provided to Funnel and setup.
+    conversationId:
+      in: path
+      name: conversation_id
+      schema:
+        type: string
+      required: true
+      description: |
+        The ID for a VoiceAssistantConversation object. It will be a integer.
+      examples:
+        funnel_raw_id:
+          value: 1234
+          summary: Voice Assistant Conversation ID
+          description: What it says on the tin.
+    residentAppContextId:
+      in: path
+      name: resident_app_context_id
+      schema:
+        type: integer
+      required: true
+      description: The ID of the ResidentApp context.
+      example: 123
+    unitXid:
+      in: path
+      name: unit_xid
+      schema:
+        type: string
+      required: true
+      description: The external id for the unit.
+      example: "123"
+    taskIdPath:
+      in: path
+      name: task_id
+      schema:
+        type: string
+      required: true
+      description: The primary key of the task.
+      example: 123
+    dueDateBefore:
+      in: query
+      name: due_date_before
+      schema:
+        type: string
+        format: date
+      description: The tasks with a due date before this date.
+      example: 2023-01-01
+    dueDateAfter:
+      in: query
+      name: due_date_after
+      schema:
+        type: string
+        format: date
+      description: The tasks with a due date after this date.
+      example: 2023-01-01
+    taskId:
+      in: query
+      name: task_id
+      schema:
+        type: string
+      description: The primary key of the task.
+      example: 123
+    funnelRenterIdQ:
+      in: query
+      name: funnel_renter_id
+      schema:
+        type: string
+      description: The client's funnel id (often referred to as client id or prospect id), this will look like '1234'.
+      example: 123
+    funnelTeamId:
+      in: query
+      name: funnel_team_id
+      schema:
+        type: string
+      description: The employee group id associated with the reminder, this will look like '1234'.
+      example: 123
+    status:
+      in: query
+      name: status
+      schema:
+        type: string
+      description: The status of the reminder.
+      example: Active
+    createdAtBefore:
+      in: query
+      name: created_at_before
+      schema:
+        type: string
+        format: date
+      description: To filter reminders with a created_at date before this date.
+      example: 2023-01-01
+    createdAtAfter:
+      in: query
+      name: created_at_after
+      schema:
+        type: string
+        format: date
+      description: To filter reminders with a created_at date after this date.
+      example: 2023-01-01
+    assigneeFunnelUserId:
+      in: query
+      name: assignee_funnel_user_id
+      schema:
+        type: string
+      description: The User ID the reminder is assigned to..
+      example: 123
+    funnelRenterId:
+      in: path
+      name: funnel_renter_id
+      schema:
+        type: string
+      required: true
+      description: The client's funnel id (often referred to as client id or prospect id), this will look like '1234'.
+      example: 12345
+    appointmentId:
+      in: path
+      name: appointment_id
+      schema:
+        type: integer
+      required: true
+    tourType:
+      in: query
+      name: tour_type
+      schema:
+        type: string
+        enum: [guided, self-guided, video]
+        default: guided
+      description: |
+        Appointment type
+    prospectId:
+      in: path
+      name: prospect_id
+      schema:
+        type: string
+      required: true
+      description: The client's funnel id (often referred to as client id or funnel renter id), this will look like '12345'.
+      example: 12345
+    teamId:
+      in: path
+      name: team_id
+      schema:
+        type: string
+      required: true
+      description: The team id.
+      example: 12345
+    companyId:
+      in: path
+      name: company_id
+      schema:
+        type: integer
+      required: true
+      description: The company id.
+      example: 12345
+    funnelUnitId:
+      in: path
+      name: funnel_unit_id
+      schema:
+        type: string
+      required: true
+      description: The Funnel unit id.
+      example: 12345
+    taskCategoryId:
+      in: query
+      name: task_category
+      schema:
+        type: string
+      description: The task category.
+      example: 12345
+    excludeMovedOut:
+      in: query
+      name: exclude_moved_out
+      schema:
+        type: boolean
+        default: false
+      description: |
+        Exclude persons of the household if they have moved out in the people attribute of the response.
+    excludeMinors:
+      in: query
+      name: exclude_minors
+      schema:
+        type: boolean
+        default: false
+      description: |
+        Exclude persons of the household if they're a minor in the people attribute of the response.
+  responses:
+    400Invalid:
+      $ref: "#/components/schemas/Error"
+    401AuthenticationRequired:
+      $ref: "#/components/schemas/Error"
+    401AuthenticationRequiredEmpty:
+      description: Authentication required. No API key was found in the request.
+    403UnauthorizedEmpty:
+      description: We were unable to authenticate your request with the provided API key.
+    403Unauthorized:
+      description: We were unable to authenticate your request with the provided API key.
+      content:
+        application/json:
+          schema:
+            properties:
+              error_type:
+                type: string
+                example: CommunityNotFound
+              message:
+                type: string
+                example: Could not find community with corresponding ID.
+    404CommunityNotFound:
+      description: A community with this ID does not exist.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_type:
+                type: string
+                example: CommunityNotFound
+              message:
+                type: string
+                example: Could not find community with corresponding ID.
+    404CompanyNotFound:
+      description: A company with this ID does not exist.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_type:
+                type: string
+                example: CompanyNotFound
+              message:
+                type: string
+                example: Could not find company with corresponding ID.
+    404CommunityAppointmentNotFound:
+      description: A community or appointment with this ID does not exist.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_type:
+                type: string
+                example: CommunityNotFound
+              message:
+                type: string
+                example: Could not find community with corresponding ID.
+    404UnitNotFound:
+      description: The unit does not exist.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_type:
+                type: string
+                example: UnitNotFound
+              message:
+                type: string
+                example: Unit not found.
+    404ProspectNotFound:
+      description: A community or prospect with this ID does not exist.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_type:
+                type: string
+                example: ProspectNotFound
+              message:
+                type: string
+                example: Could not find prospect with prospect ID.
+    404RenterNotFound:
+      description: A client could not be matched using the provided email and/or phone.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_type:
+                type: string
+                example: RenterNotFound
+              message:
+                type: string
+                example: Unable to match renter using phone or email.
+    404LeaseNotFound:
+      description: An active lease could not be matched using the provided community, renter, and unit.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_type:
+                type: string
+                example: LeaseNotFound
+              message:
+                type: string
+                example: Could not find active lease for client.
+    404BookedAppointmentNotFound:
+      description: No booked appointments could be found for the provided community and query params.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: string
+                example: No booked appointments found
+
+  schemas:
+    ProspectSchema:
+      type: object
+      properties:
+        funnel_renter_id:
+          type: integer
+          example: 7
+        funnel_community_id:
+          type: integer
+          nullable: true
+          example: 1234
+        status:
+          type: string
+          enum:
+            [
+              "Prospect",
+              "Toured",
+              "Applicant",
+              "Resident",
+              "Did Not Rent",
+              "Client Merged",
+              "Client Deleted",
+              "Vendor/Spam",
+              "Former Resident",
+            ]
+        lead_source:
+          type: string
+          nullable: true
+          example: "Google My Business"
+        move_in_date:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2023-04-26"
+        layouts:
+          type: array
+          items:
+            type: string
+            enum:
+              [
+                "Studio",
+                "Efficiency",
+                "Alcove Studio",
+                "Jr 1 Bedroom",
+                "1 Bedroom",
+                "Convertible",
+                "1 Bedroom w/ Den",
+                "Jr 4",
+                "2 Bedroom",
+                "2 Bedroom w/ Den",
+                "3 Bedroom",
+                "3 Bedroom w/ Den",
+                "4 Bedroom",
+                "5 Bedroom",
+                "6+ Bedroom",
+                "Loft",
+                "4 Room",
+                "5 Room",
+                "6 Room",
+                "7 Room",
+                "8 Room",
+                "Flex 2",
+                "Flex 3",
+                "Flex 4",
+                "Studio w/ HO",
+                "1 Bedroom w/ HO",
+                "2 Bedroom w/ HO",
+                "3 Bedroom w/ HO",
+                "4 Bedroom w/ HO",
+                "Building",
+              ]
+        created_at:
+          type: string
+          format: date-time
+          example: "2023-04-26T02:08:12"
+        people:
+          type: array
+          items:
+            $ref: "#/components/schemas/PersonSchema"
+        listings:
+          type: array
+          items:
+            $ref: "#/components/schemas/ListingSchema"
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/MessageSchema"
+
+    PersonSchema:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 7
+        first_name:
+          type: string
+          example: "Mike"
+        last_name:
+          type: string
+          example: "Jones"
+        email:
+          type: string
+          example: "stilltippin@fofos.com"
+        phone_1:
+          type: string
+          nullable: true
+          example: "803-123-1234"
+        phone_2:
+          type: string
+          nullable: true
+          example: null
+        sms_opt_in:
+          type: boolean
+          example: false
+        email_updates_opt_in:
+          type: boolean
+          example: false
+        is_minor:
+          type: boolean
+          nullable: true
+          example: false
+    ListingSchema:
+      type: object
+      properties:
+        funnel_unit_id:
+          type: integer
+          example: 7
+          nullable: true
+        property_address:
+          type: string
+          nullable: true
+          example: "550 Memory Lane"
+        property_internal_id:
+          type: string
+          nullable: true
+          example: "123456"
+    MessageSchema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Move-In Timeline : 5/26/2023\r\nTour Appointment Date/Time : 04-29-2023 01:15 PM\r\nLink : https://myperqleads.com/03dty03buze6c3xz\r\nAutomated SMS Opt-in : Yes\r\nLead Source : Google My Business\r\n\r\nCRM Qualification Date : 04-25-2023 09:08 PM (Central Daylight Time)'
+        received_at:
+          type: string
+          format: date-time
+          example: "2023-04-26T02:08:12"
+    CommunityDetailsSchema:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 7
+        name:
+          type: string
+          example: "The Soho Muse"
+        street_address:
+          type: string
+          example: "550 Memory Lane"
+        city:
+          type: string
+          example: "New York"
+        state:
+          type: string
+          example: "NY"
+        postal_code:
+          type: string
+          example: "11231"
+        special_offers:
+          type: string
+          example: "One month free on immediate move-in."
+        hours_of_operation:
+          $ref: "#/components/schemas/WeekdaysHoursOfOperationSchema"
+    CommunitiesSchema:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            example: 7
+          name:
+            type: string
+            example: "The Soho Muse"
+          street_address:
+            type: string
+            example: "550 Memory Lane"
+          city:
+            type: string
+            example: "New York"
+          state:
+            type: string
+            example: "NY"
+          postal_code:
+            type: string
+            example: "11231"
+          community_xid:
+            type: string
+            example: "1234"
+          pms_integration_type:
+            enum: ["YARDI", "REALPAGE_ONESITE", "RESMAN", "ENTRATA"]
+            type: string
+          team:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: The id of the team
+                example: 123
+              name:
+                type: string
+                description: The name of the team
+                example: TeamName
+              team_type:
+                enum: ["Site Team", "Central Team"]
+                type: string
+                description: The type of the team
+
+    WeekdaysHoursOfOperationSchema:
+      type: object
+      properties:
+        monday:
+          $ref: "#/components/schemas/HoursOfOperationSchema"
+        tuesday:
+          $ref: "#/components/schemas/HoursOfOperationSchema"
+        wednesday:
+          $ref: "#/components/schemas/HoursOfOperationSchema"
+        thursday:
+          $ref: "#/components/schemas/HoursOfOperationSchema"
+        friday:
+          $ref: "#/components/schemas/HoursOfOperationSchema"
+        saturday:
+          $ref: "#/components/schemas/HoursOfOperationSchema"
+        sunday:
+          $ref: "#/components/schemas/HoursOfOperationSchema"
+    HoursOfOperationSchema:
+      type: object
+      properties:
+        open_at:
+          type: string
+          example: "09:00:00"
+        close_at:
+          type: string
+          example: "18:00:00"
+        is_closed:
+          type: boolean
+          example: false
+    CommunicationSchema:
+      type: object
+      properties:
+        direction:
+          type: string
+          example: "incoming, outcoming"
+        message_type:
+          type: string
+          example: "email, sms"
+        subject:
+          type: string
+          example: "Email Subject"
+        message:
+          type: string
+          example: "Message Text"
+        to_addresses:
+          type: array
+          items:
+            type: string
+            example: "example@email.com"
+        from_address:
+          type: string
+          example: "fromexample@email.com"
+    SendCommunicationSchema:
+      type: object
+      properties:
+        message_type:
+          type: string
+          enum: [sms, email, default]
+          example: "default"
+        message_text_body:
+          type: string
+          example: "your documents are ready to be signed"
+        message_html_body:
+          type: string
+          example: "<h1>Documents ready</h1><br/>Your documents to renew are ready, you can sign them."
+        message_template_id:
+          type: integer
+        message_subject:
+          type: string
+          example: "Document to sign"
+        to_addresses:
+          type: array
+          items:
+            type: string
+            example: "na@na.com"
+    TaskSchema:
+      type: object
+      properties:
+        due_date:
+          type: string
+          format: date
+          example: "2023-10-05"
+          description: Task due date
+        task_type:
+          type: string
+          enum: [CUSTOM, FOLLOW_UP, BIRTHDAY, SEND_EMAIL, SEND_SMS, MAKE_A_CALL]
+          description: Task Type
+        group_assignment_assignee:
+          type: boolean
+          description: Whether to assign the task to the group assignment assignee
+          default: false
+        assignee_funnel_user_id:
+          type: integer
+          description: Agent IT to assign task to
+          default: null
+          nullable: true
+        description:
+          type: string
+          description: Task Description
+          example: Call about renewal options
+        task_category:
+          type: integer
+          description: Task Category ID
+          nullable: true
+      required:
+        - due_date
+        - task_type
+        - description
+    UpdateTaskSchema:
+      type: object
+      properties:
+        due_date:
+          type: string
+          format: date
+          example: "2023-10-05"
+          description: Task due date
+        task_type:
+          type: string
+          enum: [CUSTOM, FOLLOW_UP, BIRTHDAY, SEND_EMAIL, SEND_SMS, MAKE_A_CALL]
+          description: Task Type
+        description:
+          type: string
+          description: Task Description
+          example: Call about renewal options
+        status:
+          type: string
+          enum: [Active, Canceled, Completed, Not Applicable]
+        task_category:
+          type: integer
+          description: Task Category ID
+          nullable: true
+    Error:
+      type: object
+      properties:
+        error_type:
+          type: string
+          description: "Error type"
+        message:
+          type: string
+          description: "Error message"
+        errors:
+          type: object
+          description: "Detailed errors"
+    AvailableDatesList:
+      type: object
+      properties:
+        available_days:
+          type: array
+          items:
+            type: string
+            example: "2020-01-07"
+    AvailableTimesList:
+      type: object
+      properties:
+        available_times:
+          type: array
+          items:
+            type: string
+            example: "2020-01-07T09:00:00"
+    ProspectAppointmentSchema:
+      {
+        "required": ["appointment", "prospect"],
+        "type": "object",
+        "properties":
+          {
+            "prospect":
+              {
+                "required": ["people"],
+                "type": "object",
+                "properties":
+                  {
+                    "price_floor": { "type": "string", "nullable": true },
+                    "layout":
+                      {
+                        "items":
+                          {
+                            "type": "string",
+                            "nullable": true,
+                            "enum":
+                              ["loft", "studio", "1br", "2br", "3br", "4+br"],
+                            "example": "loft",
+                          },
+                        "type": "array",
+                        "nullable": true,
+                      },
+                    "people":
+                      {
+                        "minItems": 1,
+                        "items":
+                          {
+                            "type": "object",
+                            "properties":
+                              {
+                                "first_name":
+                                  { "type": "string", "nullable": true },
+                                "last_name":
+                                  { "type": "string", "nullable": true },
+                                "is_primary":
+                                  { "type": "boolean", "nullable": true },
+                                "phone_2":
+                                  { "type": "string", "nullable": true },
+                                "email": { "type": "string" },
+                                "phone_1":
+                                  { "type": "string", "nullable": true },
+                              },
+                          },
+                        "type": "array",
+                      },
+                    "sms_opted_in":
+                      {
+                        "type": "boolean",
+                        "description": "If you explicitly collect SMS Opt-in consent in a TCPA compliant way, pass true to this field, otherwise leave it out of your submission.",
+                      },
+                    "price_ceiling": { "type": "string", "nullable": true },
+                    "move_in_date":
+                      { "nullable": true, "type": "string", "format": "date" },
+                  },
+              },
+            "appointment":
+              {
+                "required": ["start"],
+                "type": "object",
+                "properties":
+                  {
+                    "start": { "type": "string" },
+                    "message":
+                      {
+                        "type": "string",
+                        "example": "Looking forward to my appointment",
+                      },
+                    "tour_type":
+                      {
+                        "default": "guided",
+                        "enum": ["guided", "self-guided", "video"],
+                        "type": "string",
+                      },
+                    "pms_unit_ids":
+                      {
+                        "type": "array",
+                        "items": { "type": "string" },
+                        "example": ["123", "5678"],
+                      },
+                  },
+              },
+          },
+      }
+    CreateAppointmentSchema:
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        message:
+          type: string
+        tour_type:
+          type: string
+        pms_unit_ids:
+          type: array
+          items:
+            type: string
+          example: ["123", "5678"]
+    PmsUnitSchema:
+      type: object
+      required:
+        - pms_property_id
+        - pms_unit_id
+      properties:
+        pms_property_id:
+          type: string
+        pms_unit_id:
+          type: string
+    AppointmentDetailSchema:
+      type: object
+      description: Schema for updating appointment details, any fields not provided in the request will not be updated.
+      properties:
+        status:
+          type: string
+          enum: [no-show, complete]
+        notes:
+          type: string
+        message:
+          type: string
+          description: Prospect notes or message submitted with the appointment
+          example: "Looking forward to my appointment"
+        pms_units:
+          type: array
+          items:
+            $ref: "#/components/schemas/PmsUnitSchema"
+    ClientSchema:
+      required:
+        - people
+      type: object
+      properties:
+        people:
+          minItems: 1
+          items:
+            type: object
+            properties:
+              first_name:
+                type: string
+                nullable: true
+              last_name:
+                type: string
+                nullable: true
+              is_primary:
+                type: boolean
+                nullable: true
+              phone_1:
+                type: string
+                nullable: true
+              phone_2:
+                type: string
+                nullable: true
+              email:
+                type: string
+          type: array
+        move_in_date:
+          nullable: true
+          type: string
+          description: |
+            YYYY-MM-DD (ISO 8601 date format)
+            - Prospect's desired move-in date
+          example: "2022-06-25"
+        price_floor:
+          type: string
+          nullable: true
+          description: The prospect's price floor
+        price_ceiling:
+          type: string
+          nullable: true
+          description: The prospect's price ceiling
+        discovery_source:
+          type: string
+          nullable: true
+          description: |
+            Funnel Discovery Source ID. 
+            - Valid values can be retrieved from the /discovery_sources endpoint for a given customer. 
+            - Most vendors typically only send a value for lead_source, not discovery_source.
+          example: "123"
+        lead_source:
+          type: string
+          nullable: true
+          description: |
+            Funnel Discovery Source ID. 
+            - Valid values can be retrieved from the /discovery_sources endpoint for a given customer. 
+            - Most vendors typically only send a value for lead_source, not discovery_source.
+          example: "123"
+        medium:
+          type: string
+          nullable: true
+          enum:
+            - Direct/Manual
+            - Appointment Scheduler
+            - Lead Capture Widget
+            - API
+            - Phone
+            - Text
+            - Guest Card
+            - Funnel Website
+            - PMS Import
+            - ILS Integrations
+            - Email
+            - Facebook Messenger
+            - Chatbot
+            - Call Center
+        agents:
+          items:
+            type: string
+          type: array
+          description: |
+            - Any agents that are associated with the prospect
+          nullable: true
+        parking:
+          nullable: true
+          enum:
+            - 10
+            - 20
+            - 30
+            - 35
+            - 40
+            - 45
+            - 50
+          type: integer
+          format: int32
+          description: |
+            PARKING_ANY = 10
+            PARKING_OFF_STREET = 20
+            PARKING_GARAGE = 30
+            PARKING_ATTACHED_GARAGE = 35
+            PARKING_DETACHED_GARAGE = 40
+            PARKING_COVERED = 45
+            PARKING_STREET = 50
+            - Prospect's desired parking options
+        doorman:
+          nullable: true
+          enum:
+            - -10
+            - 10
+            - 20
+          type: integer
+          format: int32
+          description: |
+            DOORMAN_NONE = -10
+            DOORMAN_ANY = 10
+            DOORMAN_FULL_TIME = 20
+            - Prospect's desired doorman options
+        group:
+          type: string
+          nullable: true
+          description: Funnel Employee group ID
+        sms_opted_in:
+          type: boolean
+          description: >-
+            If you explicitly collect SMS Opt-in consent in a TCPA compliant
+            way, pass true to this field, otherwise leave it out of your
+            submission.
+        elevator:
+          type: boolean
+          nullable: true
+          description: |
+            - Prospect's desired elevator options
+        pets:
+          description: |
+            PETS_NO_PETS = 10
+            PETS_ALLOWED = 20
+            PETS_CATS_ONLY = 30
+            - Prospect's desired pet options
+          items:
+            nullable: true
+            enum:
+              - 10
+              - 20
+              - 30
+            type: integer
+            format: int32
+          type: array
+          nullable: true
+        laundry:
+          type: array
+          nullable: true
+          description: |
+            LAUNDRY_IN_UNIT = 10
+            LAUNDRY_IN_BUILDING = 20
+            [UNUSED / UNKNOWN — do not use] = 30
+            - Prospect's desired laundry options
+            - Value 30 is not currently supported or clearly defined; do not use it in production.
+          items:
+            nullable: true
+            enum:
+              - 10
+              - 20
+            type: integer
+            format: int32
+        outdoor_space:
+          type: array
+          nullable: true
+          description: |
+            OUTDOOR_SPACE_PRIVATE = 10
+            OUTDOOR_SPACE_PUBLIC = 20
+            [UNUSED / UNKNOWN — do not use] = 30
+            - Prospect's desired outdoor space options
+            - Value 30 is not currently supported or clearly defined; do not use it in production.
+          items:
+            nullable: true
+            enum:
+              - 10
+              - 20
+            type: integer
+            format: int32
+        layout:
+          type: array
+          nullable: true
+          description: |
+              - Prospect's desired layout options.
+          items:
+            type: string
+            nullable: true
+            enum: [loft, studio, 1br, 2br, 3br, 4+br]
+            example: loft
+        notes:
+          type: string
+          nullable: true
+          description: |
+            This field should be used for any message submitted by the prospect. This will appear as a message in the receiving system.
+        neighborhoods:
+          items:
+            type: string
+            nullable: true
+            description: |
+              Legacy field, do not use
+          type: array
+          nullable: true
+        third_party_vla_handling:
+          type: boolean
+          nullable: true
+        broker_company:
+          type: string
+          nullable: true
+        broker_first_name:
+          type: string
+          nullable: true
+        broker_last_name:
+          type: string
+          nullable: true
+        broker_phone:
+          type: string
+          nullable: true
+        current_postal_code:
+          type: string
+          nullable: true
+        client_referral:
+          type: string
+          nullable: true
+        marketing_email_opt_in:
+          type: boolean
+          nullable: true
+        source_type:
+          type: string
+          nullable: true
+        broker_email:
+          type: string
+          nullable: true
+        device:
+          type: string
+          nullable: true
+        campaign_id:
+          type: string
+          nullable: true
+        campaign_info:
+          type: string
+          nullable: true
+        website_session_id:
+          type: string
+          nullable: true
+        website_app_id:
+          type: string
+          nullable: true
+        website_user_id:
+          type: string
+          nullable: true
+    EditClientSchema:
+      required:
+        - people
+      type: object
+      properties:
+        people:
+          minItems: 1
+          items:
+            type: object
+            properties:
+              first_name:
+                type: string
+                nullable: true
+              last_name:
+                type: string
+                nullable: true
+              is_primary:
+                type: boolean
+                nullable: true
+              phone_1:
+                type: string
+                nullable: true
+              phone_2:
+                type: string
+                nullable: true
+              email:
+                type: string
+          type: array
+        move_in_date:
+          nullable: true
+          type: string
+          description: |
+            YYYY-MM-DD (ISO 8601 date format)
+            - Prospect's desired move-in date
+          example: "2022-06-25"
+        price_floor:
+          type: string
+          nullable: true
+          description: The prospect's price floor
+        price_ceiling:
+          type: string
+          nullable: true
+          description: The prospect's price ceiling
+        discovery_source:
+          type: string
+          nullable: true
+          description: |
+            Funnel Discovery Source ID. 
+            - Valid values can be retrieved from the /discovery_sources endpoint for a given customer. 
+            - Most vendors typically only send a value for lead_source, not discovery_source.
+          example: "123"
+        lead_source:
+          type: string
+          nullable: true
+          description: |
+            Funnel Discovery Source ID. 
+            - Valid values can be retrieved from the /discovery_sources endpoint for a given customer. 
+            - Most vendors typically only send a value for lead_source, not discovery_source.
+          example: "123"
+        medium:
+          type: string
+          nullable: true
+          enum:
+            - Direct/Manual
+            - Appointment Scheduler
+            - Lead Capture Widget
+            - API
+            - Phone
+            - Text
+            - Guest Card
+            - Funnel Website
+            - PMS Import
+            - ILS Integrations
+            - Email
+            - Facebook Messenger
+            - Chatbot
+            - Call Center
+        agents:
+          items:
+            type: string
+          type: array
+          description: |
+            - Any agents that are associated with the prospect
+          nullable: true
+        parking:
+          nullable: true
+          enum:
+            - 10
+            - 20
+            - 30
+            - 35
+            - 40
+            - 45
+            - 50
+          type: integer
+          format: int32
+          description: |
+            PARKING_ANY = 10
+            PARKING_OFF_STREET = 20
+            PARKING_GARAGE = 30
+            PARKING_ATTACHED_GARAGE = 35
+            PARKING_DETACHED_GARAGE = 40
+            PARKING_COVERED = 45
+            PARKING_STREET = 50
+            - Prospect's desired parking options
+        doorman:
+          nullable: true
+          enum:
+            - -10
+            - 10
+            - 20
+          type: integer
+          format: int32
+          description: |
+            DOORMAN_NONE = -10
+            DOORMAN_ANY = 10
+            DOORMAN_FULL_TIME = 20
+            - Prospect's desired doorman options
+        group:
+          type: string
+          nullable: true
+          description: Funnel Employee group ID
+        sms_opted_in:
+          type: boolean
+          description: >-
+            If you explicitly collect SMS Opt-in consent in a TCPA compliant
+            way, pass true to this field, otherwise leave it out of your
+            submission.
+        elevator:
+          type: boolean
+          nullable: true
+          description: |
+            - Prospect's desired elevator options
+        pets:
+          description: |
+            PETS_NO_PETS = 10
+            PETS_ALLOWED = 20
+            PETS_CATS_ONLY = 30
+            - Prospect's desired pet options
+          items:
+            nullable: true
+            enum:
+              - 10
+              - 20
+              - 30
+            type: integer
+            format: int32
+          type: array
+          nullable: true
+        laundry:
+          type: array
+          nullable: true
+          description: |
+            LAUNDRY_IN_UNIT = 10
+            LAUNDRY_IN_BUILDING = 20
+            [UNUSED / UNKNOWN — do not use] = 30
+            - Prospect's desired laundry options
+            - Value 30 is not currently supported or clearly defined; do not use it in production.
+          items:
+            nullable: true
+            enum:
+              - 10
+              - 20
+            type: integer
+            format: int32
+        outdoor_space:
+          type: array
+          nullable: true
+          description: |
+            OUTDOOR_SPACE_PRIVATE = 10
+            OUTDOOR_SPACE_PUBLIC = 20
+            [UNUSED / UNKNOWN — do not use] = 30
+            - Prospect's desired outdoor space options
+            - Value 30 is not currently supported or clearly defined; do not use it in production.
+          items:
+            nullable: true
+            enum:
+              - 10
+              - 20
+            type: integer
+            format: int32
+        layout:
+          type: array
+          nullable: true
+          description: |
+              - Prospect's desired layout options.
+          items:
+            type: string
+            nullable: true
+            enum: [loft, studio, 1br, 2br, 3br, 4+br]
+            example: loft
+        notes:
+          type: string
+          nullable: true
+          description: |
+            This field should be used for any message submitted by the prospect. This will appear as a message in the receiving system.
+        neighborhoods:
+          items:
+            type: string
+            nullable: true
+            description: |
+              Legacy field, do not use
+          type: array
+          nullable: true
+        third_party_vla_handling:
+          type: boolean
+          nullable: true
+        broker_company:
+          type: string
+          nullable: true
+        broker_first_name:
+          type: string
+          nullable: true
+        broker_last_name:
+          type: string
+          nullable: true
+        broker_phone:
+          type: string
+          nullable: true
+        current_postal_code:
+          type: string
+          nullable: true
+        client_referral:
+          type: string
+          nullable: true
+        marketing_email_opt_in:
+          type: boolean
+          nullable: true
+        source_type:
+          type: string
+          nullable: true
+        broker_email:
+          type: string
+          nullable: true
+        device:
+          type: string
+          nullable: true
+        campaign_id:
+          type: string
+          nullable: true
+        campaign_info:
+          type: string
+          nullable: true
+        website_session_id:
+          type: string
+          nullable: true
+        website_app_id:
+          type: string
+          nullable: true
+        website_user_id:
+          type: string
+          nullable: true
+    CommunityAgentsSchema:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        id:
+          type: integer
+          format: int32
+    TaskQuerySchema:
+      type: object
+      properties:
+        task_id:
+          type: string
+          example: "123"
+          description: Task primary key
+        due_date:
+          type: string
+          format: date
+          example: "2023-10-05"
+          description: Task due date
+        status:
+          type: string
+          enum: [Active, Canceled, Completed, Not Applicable]
+          description: Status of the task.
+        task_type:
+          type: string
+          enum: [CUSTOM, FOLLOW_UP, BIRTHDAY, SEND_EMAIL, SEND_SMS, MAKE_A_CALL]
+          description: Task Type
+        funnel_renter_id:
+          type: integer
+          description: Team ID to assign task to
+          nullable: true
+        funnel_team_id:
+          type: integer
+          description: Group ID of the reminder
+          nullable: true
+        assignee_funnel_user_id:
+          type: integer
+          description: Agent IT to assign task to
+          default: null
+          nullable: true
+        description:
+          type: string
+          description: Task Description
+          example: Call about renewal options
+        created_at:
+          type: string
+          format: date-time
+          description: Datetime of task creation
+          example: "2023-10-04T00:02:23"
+        task_category:
+          type: integer
+          description: Task Category ID
+    TeamUserSchema:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The id of the user
+          example: 123
+        first_name:
+          type: string
+          description: The first name of the user
+          example: Elon
+        last_name:
+          type: string
+          description: The last name of the user
+          example: Zukerburg
+        email:
+          type: string
+          description: The email of the user
+          example: elon.zukerburg@x.com
+        role:
+          type: string
+          description: The role of the user
+          example: user-role
+    CustomerScoreSchema:
+      type: object
+      properties:
+        score_name:
+          type: string
+          example: "Customer Satisfaction"
+        score_value:
+          type: integer
+        maximum_score:
+          type: integer
+        submitted_at:
+          type: string
+          example: "2022-06-05T00:34:00"
+        email:
+          type: string
+          example: "test@example.com"
+        phone:
+          type: string
+          example: "567-567-5678"
+    UpdateRenewalStatusSchema:
+      type: object
+      properties:
+        renewal_card_status:
+          type: boolean
+          description: Should show the Renewal card
+        renewal_body:
+          type: string
+          description: The text of the renewal body
+        renewal_alert_status:
+          type: boolean
+          description: Should show the alert
+        renewal_alert_body:
+          type: string
+          description: The text of the renewal alert body
+        renewal_alert_type:
+          type: string
+          description: The alert type "WARNING" or "INFO"
+        renewal_allow_clickthrough:
+          type: boolean
+          description: Should allow click-through by the resident to the Renewals Widget
+        renewal_header:
+          type: string
+          description: The text of the renewal header
+        renewal_subheader:
+          type: string
+          description: The text of the renewal header
+        renewal_icon:
+          type: string
+          description: The icon to show in the renewal card
+          example: "RENEWAL, AUTOPAY, etc. for all icons see https://docs.google.com/document/d/1rY4lMiGGa1IxT_IAzrCBXSpifZ9Fz2LCKAJ2TeLHOR8"
+    CreatePushNotificationSchema:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [RENEWAL]
+          example: "RENEWAL"
+        context:
+          type: object
+          description: Depending on the type of notification, this is an object containing the relevant push notification data, i.e. "lease_end_date"
+    EmailCommunicationSuccessSchema:
+      type: object
+      properties:
+        funnel_person_id:
+          type: integer
+          description: The id of the person
+          example: 123
+        renter_person_xid:
+          type: string
+          description: The xid of the person
+          example: 123
+        email:
+          type: string
+          description: The email of the person
+          example: na@na.com
+        from_address:
+          type: string
+          description: The from address of the email
+          example: na@na.com
+        message_type:
+          type: string
+          description: The message type of the communication that was sent to this person
+          example: email
+        message_id:
+          type: string
+          description: The message id of the communication
+          example: 123
+    EmailCommunicationFailureSchema:
+      type: object
+      properties:
+        funnel_person_id:
+          type: integer
+          description: The id of the person
+          example: 123
+        renter_person_xid:
+          type: string
+          description: The xid of the person
+          example: 123
+        email:
+          type: string
+          description: The email of the person
+          example: na@na.com
+        from_address:
+          type: string
+          description: The from address of the email
+          example: na@na.com
+        message_type:
+          type: string
+          description: The message type of the communication that was sent to this person
+          example: email
+        failure_reason:
+          type: string
+          description: The failure reason of the communication
+          example: 123
+    SMSCommunicationSuccessSchema:
+      type: object
+      properties:
+        funnel_person_id:
+          type: integer
+          description: The id of the person
+          example: 123
+        renter_person_xid:
+          type: string
+          description: The xid of the person
+          example: 123
+        phone:
+          type: string
+          description: The phone of the person
+          example: +1456123789
+        message:
+          type: string
+          description: The content of the message sent
+          example: This is content of the message
+        message_type:
+          type: string
+          description: The message type of the communication that was sent to this person
+          example: sms
+        message_id:
+          type: string
+          description: The message id of the communication
+          example: 123
+    SMSCommunicationFailureSchema:
+      type: object
+      properties:
+        funnel_person_id:
+          type: integer
+          description: The id of the person
+          example: 123
+        renter_person_xid:
+          type: string
+          description: The xid of the person
+          example: 123
+        phone:
+          type: string
+          description: The phone of the person
+          example: +1456123789
+        message_type:
+          type: string
+          description: The message type of the communication that was sent to this person
+          example: sms
+        failure_reason:
+          type: string
+          description: The failure reason of the communication
+          example: The user doesn't have a phone number
+    BookedAppointmentsList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/BookedAppointmentSchema"
+        page:
+          type: integer
+          description: Current page number
+          example: 1
+        total_pages:
+          type: integer
+          description: Total number of pages available
+          example: 1
+        total_items:
+          type: integer
+          description: Total number of matching appointments
+          example: 1
+    BookedAppointmentSchema:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 123
+          description: Appointment ID
+        date:
+          type: string
+          format: date
+          example: "2023-10-05"
+          description: Date of appointment
+        time:
+          type: string
+          example: "09:55"
+          description: Appointment time
+        client:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+              description: Client guestcard ID
+            first_name:
+              type: string
+              example: "John"
+              description: Primary person firstname
+            last_name:
+              type: string
+              example: "Doe"
+              description: Primary person lastname
+            email:
+              type: string
+              example: "johndoe@sample.email"
+              description: Primary person email
+            phone:
+              type: string
+              example: "+15551234567"
+              description: Primary person phone number
+            origin_source:
+              type: string
+              example: "Online Leasing"
+              description: Origin source of the client
+        agent:
+          type: object
+          properties:
+            name:
+              type: string
+              example: "Jane Doe"
+              description: Name of appointment's assigned agent in Funnel or else `Unassigned`; may be null
+            email:
+              type: string
+              example: "janedoe@sample.email"
+              description: Email of the assigned agent's Funnel user; null if unassigned
+        tour_type:
+          type: string
+          example: "Self-Guided"
+          enum: [Guided, Self-Guided, Pre-Recorded, Resident Appointment]
+        status:
+          type: string
+          example: "Completed"
+          enum:
+            [Tentative, Not Confirmed, Confirmed, Cancelled, Completed, No Show]
+          description: Current status of the appointment
+    ChatConversationSchema:
+      type: object
+      properties:
+        funnel_renter_id:
+          type: integer
+          example: 123
+          description: Funnel Renter ID
+        conversation_type:
+          type: string
+          description: Obtain appropriate value from Funnel
+        website_url:
+          type: string
+          example: "http://example.com"
+          description: URL where the covnersation happened
+        is_active:
+          type: boolean
+          example: true
+          description: Has the conversation finished
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              author_type:
+                type: string
+                description: Who wrote the message
+                enum: ["CHATBOT", "CLIENT"]
+              message:
+                type: string
+                description: The content of the message
+                example: "hi"
+              timestamp:
+                type: string
+                format: date-time
+                description: Datetime of when the message was created
+                example: "2023-10-04T00:02:23"

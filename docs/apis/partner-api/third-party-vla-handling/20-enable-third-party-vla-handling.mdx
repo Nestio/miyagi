@@ -1,0 +1,54 @@
+---
+title: Enable third party vla handling
+sidebar_label: Enable third party vla handling
+sidebar_position: 51
+hide_table_of_contents: true
+---
+
+# Enable third party vla handling
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [
+  {
+    "name": "funnel_last_communication_id",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false
+  }
+];
+
+  const responseAttributes = [
+  {
+    "name": "message",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "Handling successfully enabled"
+  }
+];
+
+  const requestExampleCode = "{\n  \"funnel_last_communication_id\": \"string\"\n}";
+
+  const responseExampleCode = "{\n  \"message\": \"Handling successfully enabled\"\n}";
+
+  return (
+    <ApiPage
+      title="Enable third party vla handling"
+      description="Enable third party vla handling for a renter on the given community"
+      method="POST"
+      path="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/enable-handling/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="POST"
+      requestPath="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/enable-handling/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

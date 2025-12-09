@@ -13,6 +13,7 @@ import ComponentsGrid from '../components/ComponentsGrid';
 import { CardSection, Card } from '../components/CardComponents';
 import AuthenticationPage from '../components/AuthenticationPage';
 import IntroductionPage from '../components/IntroductionPage';
+import PartnerIntroductionPage from '../components/PartnerIntroductionPage';
 import ErrorsPage from '../components/ErrorsPage';
 import CodeSection from '../components/CodeSection';
 import Callout from '../components/Callout';
@@ -46,6 +47,7 @@ export default {
   Card,
   AuthenticationPage,
   IntroductionPage,
+  PartnerIntroductionPage,
   ErrorsPage,
   CodeSection,
   Callout,

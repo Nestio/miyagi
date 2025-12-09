@@ -1,0 +1,45 @@
+---
+title: Get third party vla handling status for a prospect
+sidebar_label: Get third party vla handling status for a prospect
+sidebar_position: 52
+hide_table_of_contents: true
+---
+
+# Get third party vla handling status for a prospect
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [];
+
+  const responseAttributes = [
+  {
+    "name": "vla_handling_enabled",
+    "type": "boolean",
+    "description": "",
+    "required": false,
+    "nullable": false
+  }
+];
+
+  const requestExampleCode = "{}";
+
+  const responseExampleCode = "{\n  \"vla_handling_enabled\": false\n}";
+
+  return (
+    <ApiPage
+      title="Get third party vla handling status for a prospect"
+      description="Currently returns whether third party VLA handling (ex: MeetElise) is enabled "
+      method="GET"
+      path="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/thirdparty/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/thirdparty/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

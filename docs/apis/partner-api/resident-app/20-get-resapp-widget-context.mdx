@@ -1,0 +1,45 @@
+---
+title: Get ResApp widget context.
+sidebar_label: Get ResApp widget context.
+sidebar_position: 121
+hide_table_of_contents: true
+---
+
+# Get ResApp widget context.
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [];
+
+  const responseAttributes = [
+  {
+    "name": "widget_context",
+    "type": "object",
+    "description": "The widget context data.",
+    "required": false,
+    "nullable": false
+  }
+];
+
+  const requestExampleCode = "{}";
+
+  const responseExampleCode = "{}";
+
+  return (
+    <ApiPage
+      title="Get ResApp widget context."
+      description="Returns the widget context for a given ResApp context ID."
+      method="GET"
+      path="/api/partners/v1/residentapp/:resident_app_context_id/widget-context/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/partners/v1/residentapp/:resident_app_context_id/widget-context/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

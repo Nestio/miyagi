@@ -1,0 +1,82 @@
+---
+title: Create a Task
+sidebar_label: Create a Task
+sidebar_position: 80
+hide_table_of_contents: true
+---
+
+# Create a Task
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [
+  {
+    "name": "due_date",
+    "type": "string",
+    "description": "Task due date",
+    "required": true,
+    "nullable": false,
+    "example": "2023-10-05"
+  },
+  {
+    "name": "task_type",
+    "type": "string",
+    "description": "Task Type",
+    "required": true,
+    "nullable": false
+  },
+  {
+    "name": "group_assignment_assignee",
+    "type": "boolean",
+    "description": "Whether to assign the task to the group assignment assignee",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "assignee_funnel_user_id",
+    "type": "integer",
+    "description": "Agent IT to assign task to",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Task Description",
+    "required": true,
+    "nullable": false,
+    "example": "Call about renewal options"
+  },
+  {
+    "name": "task_category",
+    "type": "integer",
+    "description": "Task Category ID",
+    "required": false,
+    "nullable": true
+  }
+];
+
+  const responseAttributes = [];
+
+  const requestExampleCode = "{\n  \"due_date\": \"2023-10-05\",\n  \"task_type\": \"string\",\n  \"group_assignment_assignee\": false,\n  \"assignee_funnel_user_id\": 0,\n  \"description\": \"Call about renewal options\",\n  \"task_category\": 0\n}";
+
+  const responseExampleCode = "{}";
+
+  return (
+    <ApiPage
+      title="Create a Task"
+      description="Create a task and assign it to team or agent"
+      method="POST"
+      path="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/task/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="POST"
+      requestPath="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/task/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

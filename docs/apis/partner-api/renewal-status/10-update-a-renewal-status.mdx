@@ -1,0 +1,111 @@
+---
+title: Update a renewal status
+sidebar_label: Update a renewal status
+sidebar_position: 110
+hide_table_of_contents: true
+---
+
+# Update a renewal status
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [
+  {
+    "name": "renewal_card_status",
+    "type": "boolean",
+    "description": "Should show the Renewal card",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "renewal_body",
+    "type": "string",
+    "description": "The text of the renewal body",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "renewal_alert_status",
+    "type": "boolean",
+    "description": "Should show the alert",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "renewal_alert_body",
+    "type": "string",
+    "description": "The text of the renewal alert body",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "renewal_alert_type",
+    "type": "string",
+    "description": "The alert type \"WARNING\" or \"INFO\"",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "renewal_allow_clickthrough",
+    "type": "boolean",
+    "description": "Should allow click-through by the resident to the Renewals Widget",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "renewal_header",
+    "type": "string",
+    "description": "The text of the renewal header",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "renewal_subheader",
+    "type": "string",
+    "description": "The text of the renewal header",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "renewal_icon",
+    "type": "string",
+    "description": "The icon to show in the renewal card",
+    "required": false,
+    "nullable": false,
+    "example": "RENEWAL, AUTOPAY, etc. for all icons see https://docs.google.com/document/d/1rY4lMiGGa1IxT_IAzrCBXSpifZ9Fz2LCKAJ2TeLHOR8"
+  }
+];
+
+  const responseAttributes = [
+  {
+    "name": "renewal_status_id",
+    "type": "integer",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "7"
+  }
+];
+
+  const requestExampleCode = "{\n  \"renewal_card_status\": false,\n  \"renewal_body\": \"string\",\n  \"renewal_alert_status\": false,\n  \"renewal_alert_body\": \"string\",\n  \"renewal_alert_type\": \"string\",\n  \"renewal_allow_clickthrough\": false,\n  \"renewal_header\": \"string\",\n  \"renewal_subheader\": \"string\",\n  \"renewal_icon\": \"RENEWAL, AUTOPAY, etc. for all icons see https://docs.google.com/document/d/1rY4lMiGGa1IxT_IAzrCBXSpifZ9Fz2LCKAJ2TeLHOR8\"\n}";
+
+  const responseExampleCode = "{\n  \"renewal_status_id\": 7\n}";
+
+  return (
+    <ApiPage
+      title="Update a renewal status"
+      description="Update a lease's renewal status for a given renter and unit"
+      method="PUT"
+      path="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/units/:funnel_unit_id/renewal-status/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="PUT"
+      requestPath="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/units/:funnel_unit_id/renewal-status/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

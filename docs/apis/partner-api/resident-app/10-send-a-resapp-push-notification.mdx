@@ -1,0 +1,53 @@
+---
+title: Send a ResApp push notification
+sidebar_label: Send a ResApp push notification
+sidebar_position: 120
+hide_table_of_contents: true
+---
+
+# Send a ResApp push notification
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [
+  {
+    "name": "type",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "RENEWAL"
+  },
+  {
+    "name": "context",
+    "type": "object",
+    "description": "Depending on the type of notification, this is an object containing the relevant push notification data, i.e. \"lease_end_date\"",
+    "required": false,
+    "nullable": false
+  }
+];
+
+  const responseAttributes = [];
+
+  const requestExampleCode = "{\n  \"type\": \"RENEWAL\"\n}";
+
+  const responseExampleCode = "{}";
+
+  return (
+    <ApiPage
+      title="Send a ResApp push notification"
+      description="Send a ResApp push notification to a given renter and unit"
+      method="POST"
+      path="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/units/:funnel_unit_id/push-notification/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="POST"
+      requestPath="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/units/:funnel_unit_id/push-notification/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

@@ -1,0 +1,70 @@
+---
+title: Get unit details
+sidebar_label: Get unit details
+sidebar_position: 35
+hide_table_of_contents: true
+---
+
+# Get unit details
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [];
+
+  const responseAttributes = [
+  {
+    "name": "community_id",
+    "type": "integer",
+    "description": "The id of the community",
+    "required": false,
+    "nullable": false,
+    "example": "123"
+  },
+  {
+    "name": "building_id",
+    "type": "integer",
+    "description": "The id of the building",
+    "required": false,
+    "nullable": false,
+    "example": "123"
+  },
+  {
+    "name": "unit_id",
+    "type": "integer",
+    "description": "The id of the unit",
+    "required": false,
+    "nullable": false,
+    "example": "123"
+  },
+  {
+    "name": "unit_xid",
+    "type": "string",
+    "description": "The unit_xid",
+    "required": false,
+    "nullable": false,
+    "example": "123"
+  }
+];
+
+  const requestExampleCode = "{}";
+
+  const responseExampleCode = "{\n  \"community_id\": 123,\n  \"building_id\": 123,\n  \"unit_id\": 123,\n  \"unit_xid\": \"123\"\n}";
+
+  return (
+    <ApiPage
+      title="Get unit details"
+      description="Return a unit details from an unit_xid and community_id"
+      method="GET"
+      path="/api/partners/v1/community/:community_id/unit-by-xid/:unit_xid/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/partners/v1/community/:community_id/unit-by-xid/:unit_xid/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

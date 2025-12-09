@@ -1,0 +1,88 @@
+---
+title: List communities
+sidebar_label: List communities
+sidebar_position: 30
+hide_table_of_contents: true
+---
+
+# List communities
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [
+  {
+    "name": "community_xid",
+    "type": "string",
+    "description": "The community xid",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "pms_integration_type",
+    "type": "string",
+    "description": "The PMS identifier to match the external renter_household_xid with.",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "page",
+    "type": "integer",
+    "description": "Page number",
+    "required": false,
+    "nullable": false
+  }
+];
+
+  const responseAttributes = [
+  {
+    "name": "items",
+    "type": "array<Communities>",
+    "description": "",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "page",
+    "type": "integer",
+    "description": "",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "total_pages",
+    "type": "integer",
+    "description": "",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "total_items",
+    "type": "integer",
+    "description": "",
+    "required": false,
+    "nullable": false
+  }
+];
+
+  const requestExampleCode = "{}";
+
+  const responseExampleCode = "{\n  \"items\": [\n    [\n      {\n        \"id\": 7,\n        \"name\": \"The Soho Muse\",\n        \"street_address\": \"550 Memory Lane\",\n        \"city\": \"New York\",\n        \"state\": \"NY\",\n        \"postal_code\": \"11231\",\n        \"community_xid\": \"1234\",\n        \"pms_integration_type\": \"string\",\n        \"team\": {\n          \"id\": 123,\n          \"name\": \"TeamName\",\n          \"team_type\": \"string\"\n        }\n      }\n    ]\n  ],\n  \"page\": 0,\n  \"total_pages\": 0,\n  \"total_items\": 0\n}";
+
+  return (
+    <ApiPage
+      title="List communities"
+      description="Return a list of communities connected to the partner api management company"
+      method="GET"
+      path="/api/partners/v1/communities/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/partners/v1/communities/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

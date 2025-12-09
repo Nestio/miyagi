@@ -1,0 +1,83 @@
+---
+title: Update a task
+sidebar_label: Update a task
+sidebar_position: 81
+hide_table_of_contents: true
+---
+
+# Update a task
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [
+  {
+    "name": "due_date",
+    "type": "string",
+    "description": "Task due date",
+    "required": false,
+    "nullable": false,
+    "example": "2023-10-05"
+  },
+  {
+    "name": "task_type",
+    "type": "string",
+    "description": "Task Type",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Task Description",
+    "required": false,
+    "nullable": false,
+    "example": "Call about renewal options"
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "task_category",
+    "type": "integer",
+    "description": "Task Category ID",
+    "required": false,
+    "nullable": true
+  }
+];
+
+  const responseAttributes = [
+  {
+    "name": "task_id",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false
+  }
+];
+
+  const requestExampleCode = "{\n  \"due_date\": \"2023-10-05\",\n  \"task_type\": \"string\",\n  \"description\": \"Call about renewal options\",\n  \"status\": \"string\",\n  \"task_category\": 0\n}";
+
+  const responseExampleCode = "{\n  \"task_id\": \"string\"\n}";
+
+  return (
+    <ApiPage
+      title="Update a task"
+      description="Update a task"
+      method="PUT"
+      path="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/task/:task_id"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="PUT"
+      requestPath="/api/partners/v1/community/:community_id/renters/:funnel_renter_id/task/:task_id"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

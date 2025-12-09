@@ -1,0 +1,59 @@
+---
+title: List funnel renter IDs
+sidebar_label: List funnel renter IDs
+sidebar_position: 34
+hide_table_of_contents: true
+---
+
+# List funnel renter IDs
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [
+  {
+    "name": "renter_household_xid",
+    "type": "string",
+    "description": "The external renter household identifier.",
+    "required": true,
+    "nullable": false
+  },
+  {
+    "name": "pms_integration_type",
+    "type": "string",
+    "description": "The PMS identifier to match the external renter_household_xid with. Valid values are ['REALPAGE_ONESITE', 'YARDI', 'ENTRATA'].",
+    "required": true,
+    "nullable": false
+  },
+  {
+    "name": "should_have_active_lease",
+    "type": "boolean",
+    "description": "Excludes clients without an active lease.",
+    "required": false,
+    "nullable": false
+  }
+];
+
+  const responseAttributes = [];
+
+  const requestExampleCode = "{}";
+
+  const responseExampleCode = "[\n  {\n    \"funnel_renter_id\": \"string\",\n    \"group_assignment_status\": \"string\"\n  }\n]";
+
+  return (
+    <ApiPage
+      title="List funnel renter IDs"
+      description="Return a list of funnel_renter_ids (often referred to as client id or prospect id), from a renter household by xid"
+      method="GET"
+      path="/api/partners/v1/community/:community_id/renter-household-by-xid/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/partners/v1/community/:community_id/renter-household-by-xid/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

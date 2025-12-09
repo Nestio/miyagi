@@ -1,0 +1,37 @@
+---
+title: List task categories
+sidebar_label: List task categories
+sidebar_position: 83
+hide_table_of_contents: true
+---
+
+# List task categories
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [];
+
+  const responseAttributes = [];
+
+  const requestExampleCode = "{}";
+
+  const responseExampleCode = "[\n  {\n    \"id\": 0,\n    \"name\": \"string\"\n  }\n]";
+
+  return (
+    <ApiPage
+      title="List task categories"
+      description="Returns a list of task categories associated with the company "
+      method="GET"
+      path="/api/partners/v1/company/:company_id/task-categories/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/partners/v1/company/:company_id/task-categories/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

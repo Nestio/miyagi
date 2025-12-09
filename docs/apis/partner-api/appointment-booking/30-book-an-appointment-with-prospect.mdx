@@ -1,0 +1,172 @@
+---
+title: Book an appointment (with prospect)
+sidebar_label: Book an appointment (with prospect)
+sidebar_position: 22
+hide_table_of_contents: true
+---
+
+# Book an appointment (with prospect)
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [
+  {
+    "name": "prospect",
+    "type": "object",
+    "description": "",
+    "required": true,
+    "nullable": false,
+    "children": [
+      {
+        "name": "price_floor",
+        "type": "string",
+        "description": "",
+        "required": false,
+        "nullable": true
+      },
+      {
+        "name": "layout",
+        "type": "array<string>",
+        "description": "",
+        "required": false,
+        "nullable": true
+      },
+      {
+        "name": "people",
+        "type": "array<object>",
+        "description": "",
+        "required": true,
+        "nullable": false,
+        "children": [
+          {
+            "name": "first_name",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": true
+          },
+          {
+            "name": "last_name",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": true
+          },
+          {
+            "name": "is_primary",
+            "type": "boolean",
+            "description": "",
+            "required": false,
+            "nullable": true
+          },
+          {
+            "name": "phone_2",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": true
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false
+          },
+          {
+            "name": "phone_1",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": true
+          }
+        ]
+      },
+      {
+        "name": "sms_opted_in",
+        "type": "boolean",
+        "description": "If you explicitly collect SMS Opt-in consent in a TCPA compliant way, pass true to this field, otherwise leave it out of your submission.",
+        "required": false,
+        "nullable": false
+      },
+      {
+        "name": "price_ceiling",
+        "type": "string",
+        "description": "",
+        "required": false,
+        "nullable": true
+      },
+      {
+        "name": "move_in_date",
+        "type": "string",
+        "description": "",
+        "required": false,
+        "nullable": true
+      }
+    ]
+  },
+  {
+    "name": "appointment",
+    "type": "object",
+    "description": "",
+    "required": true,
+    "nullable": false,
+    "children": [
+      {
+        "name": "start",
+        "type": "string",
+        "description": "",
+        "required": true,
+        "nullable": false
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "description": "",
+        "required": false,
+        "nullable": false,
+        "example": "Looking forward to my appointment"
+      },
+      {
+        "name": "tour_type",
+        "type": "string",
+        "description": "",
+        "required": false,
+        "nullable": false
+      },
+      {
+        "name": "pms_unit_ids",
+        "type": "array<string>",
+        "description": "",
+        "required": false,
+        "nullable": false,
+        "example": "123,5678"
+      }
+    ]
+  }
+];
+
+  const responseAttributes = [];
+
+  const requestExampleCode = "{\n  \"prospect\": {\n    \"price_floor\": \"string\",\n    \"layout\": [\n      \"loft\"\n    ],\n    \"people\": [\n      {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"is_primary\": false,\n        \"phone_2\": \"string\",\n        \"email\": \"string\",\n        \"phone_1\": \"string\"\n      }\n    ],\n    \"sms_opted_in\": false,\n    \"price_ceiling\": \"string\",\n    \"move_in_date\": \"2023-01-01\"\n  },\n  \"appointment\": {\n    \"start\": \"string\",\n    \"message\": \"Looking forward to my appointment\",\n    \"tour_type\": \"string\",\n    \"pms_unit_ids\": [\n      \"123\",\n      \"5678\"\n    ]\n  }\n}";
+
+  const responseExampleCode = "{}";
+
+  return (
+    <ApiPage
+      title="Book an appointment (with prospect)"
+      description="TODO"
+      method="POST"
+      path="/api/partners/v1/community/:community_id/appointments/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="POST"
+      requestPath="/api/partners/v1/community/:community_id/appointments/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

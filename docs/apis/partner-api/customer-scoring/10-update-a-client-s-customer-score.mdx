@@ -1,0 +1,120 @@
+---
+title: Update a Client's customer score
+sidebar_label: Update a Client's customer score
+sidebar_position: 100
+hide_table_of_contents: true
+---
+
+# Update a Client's customer score
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [
+  {
+    "name": "score_name",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "Customer Satisfaction"
+  },
+  {
+    "name": "score_value",
+    "type": "integer",
+    "description": "",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "maximum_score",
+    "type": "integer",
+    "description": "",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "submitted_at",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "2022-06-05T00:34:00"
+  },
+  {
+    "name": "email",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "test@example.com"
+  },
+  {
+    "name": "phone",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "567-567-5678"
+  }
+];
+
+  const responseAttributes = [
+  {
+    "name": "id",
+    "type": "integer",
+    "description": "The id of the matched client",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "customer_score_name",
+    "type": "string",
+    "description": "The updated score name",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "customer_score_value",
+    "type": "integer",
+    "description": "The updated score value",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "customer_score_maximum",
+    "type": "integer",
+    "description": "The updated maximum value",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "customer_score_submitted_at",
+    "type": "string",
+    "description": "The updated submitted at date",
+    "required": false,
+    "nullable": false
+  }
+];
+
+  const requestExampleCode = "{\n  \"score_name\": \"Customer Satisfaction\",\n  \"score_value\": 0,\n  \"maximum_score\": 0,\n  \"submitted_at\": \"2022-06-05T00:34:00\",\n  \"email\": \"test@example.com\",\n  \"phone\": \"567-567-5678\"\n}";
+
+  const responseExampleCode = "{\n  \"id\": 0,\n  \"customer_score_name\": \"string\",\n  \"customer_score_value\": 0,\n  \"customer_score_maximum\": 0,\n  \"customer_score_submitted_at\": \"string\"\n}";
+
+  return (
+    <ApiPage
+      title="Update a Client's customer score"
+      description="The client must belong to the company, and is being matched using email and/or phone. The fields that can be updated are customer_score_name, customer_score_value, customer_score_maximum, customer_score_submitted_at "
+      method="POST"
+      path="/api/partners/v1/company/:company_id/customer-score/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="POST"
+      requestPath="/api/partners/v1/company/:company_id/customer-score/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

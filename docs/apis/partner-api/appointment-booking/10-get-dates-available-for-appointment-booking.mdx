@@ -1,0 +1,45 @@
+---
+title: Get dates available for appointment booking
+sidebar_label: Get dates available for appointment booking
+sidebar_position: 20
+hide_table_of_contents: true
+---
+
+# Get dates available for appointment booking
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [];
+
+  const responseAttributes = [
+  {
+    "name": "available_days",
+    "type": "array<string>",
+    "description": "",
+    "required": false,
+    "nullable": false
+  }
+];
+
+  const requestExampleCode = "{}";
+
+  const responseExampleCode = "{\n  \"available_days\": [\n    \"2020-01-07\"\n  ]\n}";
+
+  return (
+    <ApiPage
+      title="Get dates available for appointment booking"
+      description="Returns a list of dates that have times available for appointments in the next 60 days."
+      method="GET"
+      path="/api/partners/v1/community/:community_id/appointments/available-days/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/partners/v1/community/:community_id/appointments/available-days/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

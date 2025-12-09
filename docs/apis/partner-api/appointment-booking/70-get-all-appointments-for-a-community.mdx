@@ -1,0 +1,119 @@
+---
+title: Get all appointments for a community.
+sidebar_label: Get all appointments for a community.
+sidebar_position: 26
+hide_table_of_contents: true
+---
+
+# Get all appointments for a community.
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [
+  {
+    "name": "page",
+    "type": "integer",
+    "description": "Page number to return",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "per_page",
+    "type": "integer",
+    "description": "Number of items per page.",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "date",
+    "type": "string",
+    "description": "Specific date for which to fetch appointments.\nFormat: `YYYY-MM-DD`\n",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "from_date",
+    "type": "string",
+    "description": "Start of a date range. Required if using `to_date`. When using date range parameters,\nthe range cannot exceed 365 days between from_date and to_date.\nFormat: `YYYY-MM-DD`\n",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "to_date",
+    "type": "string",
+    "description": "End of a date range. Required if using `from_date`. When using date range parameters,\nthe range cannot exceed 365 days between from_date and to_date.\nFormat: `YYYY-MM-DD`\n",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "email",
+    "type": "string",
+    "description": "Email address of a prospect to match by contact info",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "phone",
+    "type": "string",
+    "description": "Phone number of a prospect to match by contact info. Should begin with + country code",
+    "required": false,
+    "nullable": false
+  }
+];
+
+  const responseAttributes = [
+  {
+    "name": "data",
+    "type": "array<BookedAppointment>",
+    "description": "",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "page",
+    "type": "integer",
+    "description": "Current page number",
+    "required": false,
+    "nullable": false,
+    "example": "1"
+  },
+  {
+    "name": "total_pages",
+    "type": "integer",
+    "description": "Total number of pages available",
+    "required": false,
+    "nullable": false,
+    "example": "1"
+  },
+  {
+    "name": "total_items",
+    "type": "integer",
+    "description": "Total number of matching appointments",
+    "required": false,
+    "nullable": false,
+    "example": "1"
+  }
+];
+
+  const requestExampleCode = "{}";
+
+  const responseExampleCode = "{\n  \"data\": [\n    {\n      \"id\": 123,\n      \"date\": \"2023-10-05\",\n      \"time\": \"09:55\",\n      \"client\": {\n        \"id\": 1,\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"email\": \"johndoe@sample.email\",\n        \"phone\": \"+15551234567\",\n        \"origin_source\": \"Online Leasing\"\n      },\n      \"agent\": {\n        \"name\": \"Jane Doe\",\n        \"email\": \"janedoe@sample.email\"\n      },\n      \"tour_type\": \"Self-Guided\",\n      \"status\": \"Completed\"\n    }\n  ],\n  \"page\": 1,\n  \"total_pages\": 1,\n  \"total_items\": 1\n}";
+
+  return (
+    <ApiPage
+      title="Get all appointments for a community."
+      description="Returns a paginated list of booked appointments ordered by appointment ID."
+      method="GET"
+      path="/api/partners/v1/community/:community_id/appointments/booked/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/partners/v1/community/:community_id/appointments/booked/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

@@ -1,0 +1,334 @@
+---
+title: Get community details
+sidebar_label: Get community details
+sidebar_position: 31
+hide_table_of_contents: true
+---
+
+# Get community details
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [];
+
+  const responseAttributes = [
+  {
+    "name": "id",
+    "type": "integer",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "7"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "The Soho Muse"
+  },
+  {
+    "name": "street_address",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "550 Memory Lane"
+  },
+  {
+    "name": "city",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "New York"
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "NY"
+  },
+  {
+    "name": "postal_code",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "11231"
+  },
+  {
+    "name": "special_offers",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "example": "One month free on immediate move-in."
+  },
+  {
+    "name": "hours_of_operation",
+    "type": "WeekdaysHoursOfOperation",
+    "description": "",
+    "required": false,
+    "nullable": false,
+    "children": [
+      {
+        "name": "monday",
+        "type": "HoursOfOperation",
+        "description": "",
+        "required": false,
+        "nullable": false,
+        "children": [
+          {
+            "name": "open_at",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "09:00:00"
+          },
+          {
+            "name": "close_at",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "18:00:00"
+          },
+          {
+            "name": "is_closed",
+            "type": "boolean",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "false"
+          }
+        ]
+      },
+      {
+        "name": "tuesday",
+        "type": "HoursOfOperation",
+        "description": "",
+        "required": false,
+        "nullable": false,
+        "children": [
+          {
+            "name": "open_at",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "09:00:00"
+          },
+          {
+            "name": "close_at",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "18:00:00"
+          },
+          {
+            "name": "is_closed",
+            "type": "boolean",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "false"
+          }
+        ]
+      },
+      {
+        "name": "wednesday",
+        "type": "HoursOfOperation",
+        "description": "",
+        "required": false,
+        "nullable": false,
+        "children": [
+          {
+            "name": "open_at",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "09:00:00"
+          },
+          {
+            "name": "close_at",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "18:00:00"
+          },
+          {
+            "name": "is_closed",
+            "type": "boolean",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "false"
+          }
+        ]
+      },
+      {
+        "name": "thursday",
+        "type": "HoursOfOperation",
+        "description": "",
+        "required": false,
+        "nullable": false,
+        "children": [
+          {
+            "name": "open_at",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "09:00:00"
+          },
+          {
+            "name": "close_at",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "18:00:00"
+          },
+          {
+            "name": "is_closed",
+            "type": "boolean",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "false"
+          }
+        ]
+      },
+      {
+        "name": "friday",
+        "type": "HoursOfOperation",
+        "description": "",
+        "required": false,
+        "nullable": false,
+        "children": [
+          {
+            "name": "open_at",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "09:00:00"
+          },
+          {
+            "name": "close_at",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "18:00:00"
+          },
+          {
+            "name": "is_closed",
+            "type": "boolean",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "false"
+          }
+        ]
+      },
+      {
+        "name": "saturday",
+        "type": "HoursOfOperation",
+        "description": "",
+        "required": false,
+        "nullable": false,
+        "children": [
+          {
+            "name": "open_at",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "09:00:00"
+          },
+          {
+            "name": "close_at",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "18:00:00"
+          },
+          {
+            "name": "is_closed",
+            "type": "boolean",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "false"
+          }
+        ]
+      },
+      {
+        "name": "sunday",
+        "type": "HoursOfOperation",
+        "description": "",
+        "required": false,
+        "nullable": false,
+        "children": [
+          {
+            "name": "open_at",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "09:00:00"
+          },
+          {
+            "name": "close_at",
+            "type": "string",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "18:00:00"
+          },
+          {
+            "name": "is_closed",
+            "type": "boolean",
+            "description": "",
+            "required": false,
+            "nullable": false,
+            "example": "false"
+          }
+        ]
+      }
+    ]
+  }
+];
+
+  const requestExampleCode = "{}";
+
+  const responseExampleCode = "{\n  \"id\": 7,\n  \"name\": \"The Soho Muse\",\n  \"street_address\": \"550 Memory Lane\",\n  \"city\": \"New York\",\n  \"state\": \"NY\",\n  \"postal_code\": \"11231\",\n  \"special_offers\": \"One month free on immediate move-in.\",\n  \"hours_of_operation\": {\n    \"monday\": {\n      \"open_at\": \"09:00:00\",\n      \"close_at\": \"18:00:00\",\n      \"is_closed\": false\n    }\n  }\n}";
+
+  return (
+    <ApiPage
+      title="Get community details"
+      description="Return details about a community"
+      method="GET"
+      path="/api/partners/v1/community/:community_id/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/partners/v1/community/:community_id/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

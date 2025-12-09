@@ -1,5 +1,15 @@
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
+// Import Partner API mappings (may not exist if docs haven't been generated yet)
+let partnerApiEndpointMethodMap = {};
+try {
+  const partnerApiMappings = require('./partner-api-badge-mappings.js');
+  partnerApiEndpointMethodMap = partnerApiMappings.partnerApiEndpointMethodMap || {};
+} catch (e) {
+  // Mappings file doesn't exist yet - that's okay, badges just won't show for Partner API
+  console.warn('Partner API badge mappings not found. Run generate:partner-api-docs to generate them.');
+}
+
 if (ExecutionEnvironment.canUseDOM) {
   /**
    * ============================================================================
@@ -16,9 +26,11 @@ if (ExecutionEnvironment.canUseDOM) {
    * 
    * Example:
    *   '/apis/customer-api/applicant/applicant': 'GET',
+   * 
+   * Partner API mappings are auto-generated from the OpenAPI spec.
    * ============================================================================
    */
-  const hrefToMethodMap = {
+  const customerApiHrefToMethodMap = {
     // Applicant
     '/apis/customer-api/applicant/applicant': 'GET',
     '/apis/customer-api/applicant/applicant-spii': 'GET',
@@ -65,6 +77,12 @@ if (ExecutionEnvironment.canUseDOM) {
     '/apis/customer-api/quote/quote-pdf': 'GET',
   };
 
+  // Merge Customer API and Partner API mappings
+  const hrefToMethodMap = {
+    ...customerApiHrefToMethodMap,
+    ...partnerApiEndpointMethodMap,
+  };
+
   // Normalize href for consistent lookup (remove trailing slash and hash)
   function normalizeHref(href) {
     if (!href) return '';
@@ -85,35 +103,71 @@ if (ExecutionEnvironment.canUseDOM) {
     method = hrefToMethodMap[normalized + '/'];
     if (method) return method;
     
-    // For single-item categories, try matching just the folder name
-    // e.g., /apis/customer-api/employee-group -> employee-group/employee-group
-    const singleCategoryMatch = normalized.match(/\/apis\/customer-api\/([^\/]+)$/);
-    if (singleCategoryMatch) {
-      const folderName = singleCategoryMatch[1];
-      // Try the folder/folder pattern (for single-item categories)
-      method = hrefToMethodMap[`/apis/customer-api/${folderName}/${folderName}`];
-      if (method) return method;
-    }
-    
-    // Try matching by path segments
-    const pathMatch = normalized.match(/\/apis\/customer-api\/(.+)$/);
-    if (pathMatch) {
-      const path = pathMatch[1];
-      const segments = path.split('/');
-      
-      // Try last segment as filename
-      if (segments.length >= 2) {
-        const folder = segments[0];
-        const file = segments[segments.length - 1];
-        method = hrefToMethodMap[`/apis/customer-api/${folder}/${file}`];
+    // Handle Customer API links
+    if (normalized.includes('/apis/customer-api/')) {
+      // For single-item categories, try matching just the folder name
+      // e.g., /apis/customer-api/employee-group -> employee-group/employee-group
+      const singleCategoryMatch = normalized.match(/\/apis\/customer-api\/([^\/]+)$/);
+      if (singleCategoryMatch) {
+        const folderName = singleCategoryMatch[1];
+        // Try the folder/folder pattern (for single-item categories)
+        method = hrefToMethodMap[`/apis/customer-api/${folderName}/${folderName}`];
         if (method) return method;
       }
       
-      // For single segment (category-only), try folder/folder pattern
-      if (segments.length === 1) {
-        const folder = segments[0];
-        method = hrefToMethodMap[`/apis/customer-api/${folder}/${folder}`];
+      // Try matching by path segments
+      const pathMatch = normalized.match(/\/apis\/customer-api\/(.+)$/);
+      if (pathMatch) {
+        const path = pathMatch[1];
+        const segments = path.split('/');
+        
+        // Try last segment as filename
+        if (segments.length >= 2) {
+          const folder = segments[0];
+          const file = segments[segments.length - 1];
+          method = hrefToMethodMap[`/apis/customer-api/${folder}/${file}`];
+          if (method) return method;
+        }
+        
+        // For single segment (category-only), try folder/folder pattern
+        if (segments.length === 1) {
+          const folder = segments[0];
+          method = hrefToMethodMap[`/apis/customer-api/${folder}/${folder}`];
+          if (method) return method;
+        }
+      }
+    }
+    
+    // Handle Partner API links
+    if (normalized.includes('/apis/partner-api/')) {
+      // For single-item categories, try matching just the folder name
+      const singleCategoryMatch = normalized.match(/\/apis\/partner-api\/([^\/]+)$/);
+      if (singleCategoryMatch) {
+        const folderName = singleCategoryMatch[1];
+        method = hrefToMethodMap[`/apis/partner-api/${folderName}/${folderName}`];
         if (method) return method;
+      }
+      
+      // Try matching by path segments
+      const pathMatch = normalized.match(/\/apis\/partner-api\/(.+)$/);
+      if (pathMatch) {
+        const path = pathMatch[1];
+        const segments = path.split('/');
+        
+        // Try last segment as filename
+        if (segments.length >= 2) {
+          const folder = segments[0];
+          const file = segments[segments.length - 1];
+          method = hrefToMethodMap[`/apis/partner-api/${folder}/${file}`];
+          if (method) return method;
+        }
+        
+        // For single segment (category-only), try folder/folder pattern
+        if (segments.length === 1) {
+          const folder = segments[0];
+          method = hrefToMethodMap[`/apis/partner-api/${folder}/${folder}`];
+          if (method) return method;
+        }
       }
     }
     
@@ -187,8 +241,8 @@ if (ExecutionEnvironment.canUseDOM) {
       const href = link.getAttribute('href');
       if (!href || href === '#' || href.startsWith('#')) return;
 
-      // Only process customer-api links
-      if (!href.includes('/apis/customer-api/')) return;
+      // Process both customer-api and partner-api links
+      if (!href.includes('/apis/customer-api/') && !href.includes('/apis/partner-api/')) return;
 
       const httpMethod = getHttpMethod(href);
       if (httpMethod) {

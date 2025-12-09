@@ -75,6 +75,7 @@ const plugins = [
     path: 'docs/apis/partner-api',
     routeBasePath: '/apis/partner-api',
     sidebarPath: require.resolve('./sidebars-default.js'),
+    exclude: ['README.md', 'README.mdx'],
   }),
   // Webhooks latest docs
   create_doc_plugin({

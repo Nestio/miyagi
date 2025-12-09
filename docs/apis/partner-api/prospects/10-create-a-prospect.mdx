@@ -1,0 +1,330 @@
+---
+title: Create a Prospect
+sidebar_label: Create a Prospect
+sidebar_position: 40
+hide_table_of_contents: true
+---
+
+# Create a Prospect
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [
+  {
+    "name": "people",
+    "type": "array<object>",
+    "description": "",
+    "required": true,
+    "nullable": false,
+    "children": [
+      {
+        "name": "first_name",
+        "type": "string",
+        "description": "",
+        "required": false,
+        "nullable": true
+      },
+      {
+        "name": "last_name",
+        "type": "string",
+        "description": "",
+        "required": false,
+        "nullable": true
+      },
+      {
+        "name": "is_primary",
+        "type": "boolean",
+        "description": "",
+        "required": false,
+        "nullable": true
+      },
+      {
+        "name": "phone_1",
+        "type": "string",
+        "description": "",
+        "required": false,
+        "nullable": true
+      },
+      {
+        "name": "phone_2",
+        "type": "string",
+        "description": "",
+        "required": false,
+        "nullable": true
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "description": "",
+        "required": false,
+        "nullable": false
+      }
+    ]
+  },
+  {
+    "name": "move_in_date",
+    "type": "string",
+    "description": "YYYY-MM-DD (ISO 8601 date format)\n- Prospect's desired move-in date\n",
+    "required": false,
+    "nullable": true,
+    "example": "2022-06-25"
+  },
+  {
+    "name": "price_floor",
+    "type": "string",
+    "description": "The prospect's price floor",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "price_ceiling",
+    "type": "string",
+    "description": "The prospect's price ceiling",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "discovery_source",
+    "type": "string",
+    "description": "Funnel Discovery Source ID. \n- Valid values can be retrieved from the /discovery_sources endpoint for a given customer. \n- Most vendors typically only send a value for lead_source, not discovery_source.\n",
+    "required": false,
+    "nullable": true,
+    "example": "123"
+  },
+  {
+    "name": "lead_source",
+    "type": "string",
+    "description": "Funnel Discovery Source ID. \n- Valid values can be retrieved from the /discovery_sources endpoint for a given customer. \n- Most vendors typically only send a value for lead_source, not discovery_source.\n",
+    "required": false,
+    "nullable": true,
+    "example": "123"
+  },
+  {
+    "name": "medium",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "agents",
+    "type": "array<string>",
+    "description": "- Any agents that are associated with the prospect\n",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "parking",
+    "type": "integer",
+    "description": "PARKING_ANY = 10\nPARKING_OFF_STREET = 20\nPARKING_GARAGE = 30\nPARKING_ATTACHED_GARAGE = 35\nPARKING_DETACHED_GARAGE = 40\nPARKING_COVERED = 45\nPARKING_STREET = 50\n- Prospect's desired parking options\n",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "doorman",
+    "type": "integer",
+    "description": "DOORMAN_NONE = -10\nDOORMAN_ANY = 10\nDOORMAN_FULL_TIME = 20\n- Prospect's desired doorman options\n",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "group",
+    "type": "string",
+    "description": "Funnel Employee group ID",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "sms_opted_in",
+    "type": "boolean",
+    "description": "If you explicitly collect SMS Opt-in consent in a TCPA compliant way, pass true to this field, otherwise leave it out of your submission.",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "elevator",
+    "type": "boolean",
+    "description": "- Prospect's desired elevator options\n",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "pets",
+    "type": "array<integer>",
+    "description": "PETS_NO_PETS = 10\nPETS_ALLOWED = 20\nPETS_CATS_ONLY = 30\n- Prospect's desired pet options\n",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "laundry",
+    "type": "array<integer>",
+    "description": "LAUNDRY_IN_UNIT = 10\nLAUNDRY_IN_BUILDING = 20\n[UNUSED / UNKNOWN — do not use] = 30\n- Prospect's desired laundry options\n- Value 30 is not currently supported or clearly defined; do not use it in production.\n",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "outdoor_space",
+    "type": "array<integer>",
+    "description": "OUTDOOR_SPACE_PRIVATE = 10\nOUTDOOR_SPACE_PUBLIC = 20\n[UNUSED / UNKNOWN — do not use] = 30\n- Prospect's desired outdoor space options\n- Value 30 is not currently supported or clearly defined; do not use it in production.\n",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "layout",
+    "type": "array<string>",
+    "description": "- Prospect's desired layout options.\n",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "notes",
+    "type": "string",
+    "description": "This field should be used for any message submitted by the prospect. This will appear as a message in the receiving system.\n",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "neighborhoods",
+    "type": "array<string>",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "third_party_vla_handling",
+    "type": "boolean",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "broker_company",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "broker_first_name",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "broker_last_name",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "broker_phone",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "current_postal_code",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "client_referral",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "marketing_email_opt_in",
+    "type": "boolean",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "source_type",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "broker_email",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "device",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "campaign_id",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "campaign_info",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "website_session_id",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "website_app_id",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  },
+  {
+    "name": "website_user_id",
+    "type": "string",
+    "description": "",
+    "required": false,
+    "nullable": true
+  }
+];
+
+  const responseAttributes = [];
+
+  const requestExampleCode = "{\n  \"people\": [\n    {\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"is_primary\": false,\n      \"phone_1\": \"string\",\n      \"phone_2\": \"string\",\n      \"email\": \"string\"\n    }\n  ],\n  \"move_in_date\": \"2022-06-25\",\n  \"price_floor\": \"string\",\n  \"price_ceiling\": \"string\",\n  \"discovery_source\": \"123\",\n  \"lead_source\": \"123\",\n  \"medium\": \"string\",\n  \"agents\": [],\n  \"parking\": 0,\n  \"doorman\": 0,\n  \"group\": \"string\",\n  \"sms_opted_in\": false,\n  \"elevator\": false,\n  \"pets\": [],\n  \"laundry\": [],\n  \"outdoor_space\": [],\n  \"layout\": [\n    \"loft\"\n  ],\n  \"notes\": \"string\",\n  \"neighborhoods\": [],\n  \"third_party_vla_handling\": false,\n  \"broker_company\": \"string\",\n  \"broker_first_name\": \"string\",\n  \"broker_last_name\": \"string\",\n  \"broker_phone\": \"string\",\n  \"current_postal_code\": \"string\",\n  \"client_referral\": \"string\",\n  \"marketing_email_opt_in\": false,\n  \"source_type\": \"string\",\n  \"broker_email\": \"string\",\n  \"device\": \"string\",\n  \"campaign_id\": \"string\",\n  \"campaign_info\": \"string\",\n  \"website_session_id\": \"string\",\n  \"website_app_id\": \"string\",\n  \"website_user_id\": \"string\"\n}";
+
+  const responseExampleCode = "{}";
+
+  return (
+    <ApiPage
+      title="Create a Prospect"
+      description="TODO"
+      method="POST"
+      path="/api/partners/v1/community/:community_id/prospects/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="POST"
+      requestPath="/api/partners/v1/community/:community_id/prospects/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}

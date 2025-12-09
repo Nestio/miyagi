@@ -1,0 +1,68 @@
+---
+title: Get team details
+sidebar_label: Get team details
+sidebar_position: 90
+hide_table_of_contents: true
+---
+
+# Get team details
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const requestAttributes = [];
+
+  const responseAttributes = [
+  {
+    "name": "id",
+    "type": "integer",
+    "description": "The id of the team",
+    "required": false,
+    "nullable": false,
+    "example": "123"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the team",
+    "required": false,
+    "nullable": false,
+    "example": "TeamName"
+  },
+  {
+    "name": "team_type",
+    "type": "string",
+    "description": "The type of the team",
+    "required": false,
+    "nullable": false
+  },
+  {
+    "name": "users",
+    "type": "array<TeamUser>",
+    "description": "",
+    "required": false,
+    "nullable": false
+  }
+];
+
+  const requestExampleCode = "{}";
+
+  const responseExampleCode = "{\n  \"id\": 123,\n  \"name\": \"TeamName\",\n  \"team_type\": \"string\",\n  \"users\": [\n    {\n      \"id\": 123,\n      \"first_name\": \"Elon\",\n      \"last_name\": \"Zukerburg\",\n      \"email\": \"elon.zukerburg@x.com\",\n      \"role\": \"user-role\"\n    }\n  ]\n}";
+
+  return (
+    <ApiPage
+      title="Get team details"
+      description="Return team details including a list of the employees"
+      method="GET"
+      path="/api/partners/v1/team/:team_id/"
+      requestAttributes={requestAttributes.length > 0 ? requestAttributes : undefined}
+      requestExampleCode={requestAttributes.length > 0 ? requestExampleCode : undefined}
+      requestExampleTitle="Example request"
+      requestMethod="GET"
+      requestPath="/api/partners/v1/team/:team_id/"
+      attributes={responseAttributes}
+      exampleCode={responseExampleCode}
+      exampleTitle="Example response"
+      exampleLang="json"
+    />
+  );
+})()}
