@@ -1,0 +1,262 @@
+---
+title: agent_task.status_changed
+sidebar_label: agent_task.status_changed
+sidebar_position: 16
+hide_table_of_contents: true
+---
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const eventName = 'agent_task.status_changed';
+  const attributes = [
+    {
+      name: "task_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the task.",
+    },
+    {
+      name: "renter_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the renter.",
+    },
+    {
+      name: "community_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the community.",
+    },
+    {
+      name: "user_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the user assigned to the task.",
+      nullable: true,
+    },
+    {
+      name: "pms_identifier",
+      type: "string",
+      description: "External customer identifier for the tenant.",
+    },
+    {
+      name: "new_status",
+      type: "string",
+      description: "The new status of the task.",
+    },
+    {
+      name: "old_status",
+      type: "string",
+      description: "The previous status of the task.",
+    },
+  ];
+
+  const exampleCode = `{
+  "id": "8cc87045-cccc-4a16-a882-454044e6762a",
+  "event": "agent_task.status_changed",
+  "timestamp": "2024-10-09T13:49:31.658518+00:00",
+  "data": {
+    "task_id": 12345,
+    "renter_id": 67890,
+    "community_id": 435242,
+    "user_id": 98765,
+    "pms_identifier": "t1234",
+    "new_status": "Completed",
+    "old_status": "In Progress"
+  }
+}`;
+
+  return (
+    <>
+      {/* Event Name Header with Copy Button */}
+      <div style={{ 
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        marginBottom: '24px',
+        flexWrap: 'wrap',
+      }}>
+        <h1 style={{ 
+          margin: 0,
+          fontSize: '32px',
+          fontWeight: 700,
+          color: '#111827',
+          fontFamily: 'inherit',
+          letterSpacing: '-0.02em',
+        }}>
+          {eventName}
+        </h1>
+        <EventNameCopyButton eventName={eventName} />
+      </div>
+
+      {/* Overview Section */}
+      <div style={{ marginBottom: '32px' }}>
+        <p 
+          className="font-normal"
+          style={{ 
+            marginBottom: '0',
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+            maxWidth: '640px',
+          }}
+        >
+          Triggered when an agent task status changes. This event allows you to track task progress and update your systems accordingly.
+        </p>
+      </div>
+
+      {/* When This Event Fires Section */}
+      <div style={{ 
+        marginBottom: '48px',
+        padding: '24px',
+        backgroundColor: '#f8fafc',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+      }}>
+        <h2 style={{ 
+          fontSize: '20px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '24px',
+            height: '24px',
+            borderRadius: '6px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            fontSize: '14px',
+            fontWeight: 600,
+          }}>⚡</span>
+          When this event fires
+        </h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.75',
+            color: '#475569',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            This event is triggered in the following scenarios:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '0',
+            listStyleType: 'disc',
+            paddingLeft: '0',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Task assignment:</strong> When a task is assigned to an agent or user
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Task started:</strong> When an agent begins working on a task (status changes to "In Progress")
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Task completion:</strong> When a task is marked as completed
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Task cancellation:</strong> When a task is canceled or closed without completion
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Status updates:</strong> When any status transition occurs (e.g., "Pending" → "In Progress" → "Completed")
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Subtle separator */}
+      <div 
+        style={{ 
+          borderBottom: '1px solid #f1eef3',
+          marginTop: '32px',
+          marginBottom: '32px',
+        }}
+      />
+
+      <div
+        style={{
+          border: '1px solid #eee',
+          borderRadius: '16px',
+          background: 'white',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+          padding: '24px 24px',
+          marginBottom: '48px',
+          marginLeft: '8px',
+        }}
+      >
+        <h4 
+          className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+          style={{ 
+            marginTop: '0',
+            fontFamily: 'inherit',
+          }}
+        >Event Payload</h4>
+
+        <ApiDocumentation
+          attributes={attributes}
+          code={exampleCode}
+          title="Example payload"
+          lang="json"
+        />
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Usage Notes</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '16px' }}>
+            When you receive this event, you can use it to:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '16px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>Update task status in your Property Management System (PMS) or task management system</li>
+            <li style={{ marginBottom: '8px' }}>Track task completion rates and agent performance</li>
+            <li style={{ marginBottom: '8px' }}>Trigger automated workflows based on task status changes (e.g., send notifications when tasks are completed)</li>
+            <li style={{ marginBottom: '8px' }}>Update task dashboards and reporting systems</li>
+            <li style={{ marginBottom: '8px' }}>Log task activity for audit purposes</li>
+          </ul>
+          <p>
+            The event includes both the <code>new_status</code> and <code>old_status</code> fields, allowing you to track the status transition and implement conditional logic based on the specific status change. Use the <code>pms_identifier</code> to map the task to your existing tenant records.
+          </p>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Related Events</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            This event is typically used independently to track task status changes. For more information about tasks, refer to the Partner API documentation for task management endpoints.
+          </p>
+        </div>
+      </div>
+    </>
+  );
+})()}
+

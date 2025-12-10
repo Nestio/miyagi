@@ -1,0 +1,296 @@
+---
+title: lease_transaction.status_updated
+sidebar_label: lease_transaction.status_updated
+sidebar_position: 3
+hide_table_of_contents: true
+---
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const eventName = 'lease_transaction.status_updated';
+  const attributes = [
+    {
+      name: "lease_transaction_id",
+      type: "integer",
+      description: "Internal Funnel Leasing unique ID that points to the lease transaction.",
+    },
+    {
+      name: "lease_transaction_type",
+      type: "string",
+      description: 'Type of lease transaction. Possible values: "Lease Transaction", "Application", "Lease Revision", "Renewal", "Notice to Vacate", "Lease Confirmation", "Transfer", "Holdover", "Lease Document Generation".',
+    },
+    {
+      name: "current_status",
+      type: "string",
+      description: 'The current status of the lease transaction. Possible values: "In Progress", "Submitted", "Approved", "Denied", "Canceled", "Completed", "Conditionally Approved", "Pending Criminal Review".',
+    },
+    {
+      name: "previous_status",
+      type: "string",
+      description: 'The previous status of the lease transaction, if applicable. Possible values: "In Progress", "Submitted", "Approved", "Denied", "Canceled", "Completed", "Conditionally Approved", "Pending Criminal Review".',
+      nullable: true,
+    },
+    {
+      name: "client_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the guest card of the client.",
+    },
+    {
+      name: "tenant_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the tenant, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "unit_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the unit, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "community_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the community.",
+    },
+    {
+      name: "community_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the community, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "lease_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the lease, if applicable.",
+      nullable: true,
+    },
+  ];
+
+  const exampleCode = `{
+  "id": "8cc87045-0e02-4a16-a882-454044e6762a",
+  "event": "lease_transaction.status_updated",
+  "timestamp": "2024-10-09T13:49:31.658518+00:00",
+  "data": {
+    "lease_id": null,
+    "client_id": 16167303,
+    "community_id": 831,
+    "current_status": "Conditionally Approved",
+    "previous_status": "Submitted",
+    "unit_pms_identifier": "u1234",
+    "lease_transaction_id": 413513,
+    "tenant_pms_identifier": "t1234",
+    "lease_transaction_type": "Application",
+    "community_pms_identifier": "c1234"
+  }
+}`;
+
+  return (
+    <>
+      {/* Event Name Header with Copy Button */}
+      <div style={{ 
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        marginBottom: '24px',
+        flexWrap: 'wrap',
+      }}>
+        <h1 style={{ 
+          margin: 0,
+          fontSize: '32px',
+          fontWeight: 700,
+          color: '#111827',
+          fontFamily: 'inherit',
+          letterSpacing: '-0.02em',
+        }}>
+          {eventName}
+        </h1>
+        <EventNameCopyButton eventName={eventName} />
+      </div>
+
+      {/* Overview Section */}
+      <div style={{ marginBottom: '32px' }}>
+        <p 
+          className="font-normal"
+          style={{ 
+            marginBottom: '0',
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+            maxWidth: '640px',
+          }}
+        >
+          Triggered when a lease transaction changes status (e.g., from Submitted to Approved). This event is vital for keeping systems in sync with the latest transaction statuses.
+        </p>
+      </div>
+
+      {/* When This Event Fires Section */}
+      <div style={{ 
+        marginBottom: '48px',
+        padding: '24px',
+        backgroundColor: '#f8fafc',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+      }}>
+        <h2 style={{ 
+          fontSize: '20px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '24px',
+            height: '24px',
+            borderRadius: '6px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            fontSize: '14px',
+            fontWeight: 600,
+          }}>⚡</span>
+          When this event fires
+        </h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.75',
+            color: '#475569',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            This event is triggered in the following scenarios:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '0',
+            listStyleType: 'disc',
+            paddingLeft: '0',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Status transitions:</strong> When a lease transaction moves from one status to another (e.g., "Submitted" → "Approved", "In Progress" → "Submitted")
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Manual status updates:</strong> When a leasing professional manually changes the status of a lease transaction in the Funnel Leasing system
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Automated status changes:</strong> When the system automatically updates a transaction status based on workflow rules or completed actions (e.g., all documents signed → "Approved")
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Application review completion:</strong> When an application review is completed, resulting in status changes like "Approved", "Denied", or "Conditionally Approved"
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Subtle separator */}
+      <div 
+        style={{ 
+          borderBottom: '1px solid #f1eef3',
+          marginTop: '32px',
+          marginBottom: '32px',
+        }}
+      />
+
+      <div
+        style={{
+          border: '1px solid #eee',
+          borderRadius: '16px',
+          background: 'white',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+          padding: '24px 24px',
+          marginBottom: '48px',
+          marginLeft: '8px',
+        }}
+      >
+        <h4 
+          className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+          style={{ 
+            marginTop: '0',
+            fontFamily: 'inherit',
+          }}
+        >Event Payload</h4>
+
+        <ApiDocumentation
+          attributes={attributes}
+          code={exampleCode}
+          title="Example payload"
+          lang="json"
+        />
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Usage Notes</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '16px' }}>
+            When you receive this event, you can use it to:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '16px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>Update your Property Management System (PMS) with the new transaction status</li>
+            <li style={{ marginBottom: '8px' }}>Trigger automated workflows based on status changes (e.g., send approval emails when status becomes "Approved")</li>
+            <li style={{ marginBottom: '8px' }}>Update internal dashboards and reporting systems</li>
+            <li style={{ marginBottom: '8px' }}>Notify relevant stakeholders about status changes</li>
+            <li style={{ marginBottom: '8px' }}>Reserve or release units in your PMS when applications are approved or denied</li>
+          </ul>
+          <p>
+            The event includes both the <code>current_status</code> and <code>previous_status</code> fields, allowing you to track the status transition and implement conditional logic based on the specific status change.
+          </p>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Related Events</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            Events that are commonly related to this event:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-transaction-updated" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease_transaction.updated</code>
+              </a> - Triggered when any update is made on a lease transaction
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-transaction-unit-reserved" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease_transaction.unit_reserved</code>
+              </a> - Triggered when a unit is reserved
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+})()}
+

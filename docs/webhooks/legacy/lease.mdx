@@ -1,0 +1,582 @@
+---
+title: Lease Events
+description: Legacy webhooks for lease move-in events
+sidebar_label: Lease Events
+sidebar_position: 30
+hide_table_of_contents: true
+---
+
+{/* Event 1: lease.move_in */}
+{(() => {
+  const eventName1 = 'lease.move_in';
+  const attributes1 = [
+    {
+      name: "id",
+      type: "string",
+      description: "A unique identifier (UUID) for this event.",
+    },
+    {
+      name: "event",
+      type: "string",
+      description: "The event type identifier. Always 'lease.move_in' for this webhook.",
+    },
+    {
+      name: "timestamp",
+      type: "string",
+      description: "The timestamp when the event occurred. Format: ISO 8601 timestamp.",
+    },
+    {
+      name: "data",
+      type: "object",
+      description: "The event data payload.",
+      children: [
+        {
+          name: "move_in_date",
+          type: "string",
+          description: "The lease start date. Format: YYYY-MM-DD (ISO date).",
+        },
+        {
+          name: "pms_identifier",
+          type: "string",
+          description: "The identifier for this renter in the Property Management System (PMS).",
+        },
+        {
+          name: "community_pms_identifier",
+          type: "string",
+          description: "The identifier for the community in the Property Management System (PMS).",
+        },
+        {
+          name: "charges",
+          type: "array",
+          description: "A list of charges to apply at move-in.",
+          children: [
+            {
+              name: "charge_type",
+              type: "string",
+              description: "Indicates whether this is a one-time or monthly charge. Possible values: 'Monthly', 'OneTime'.",
+            },
+            {
+              name: "pms_identifier",
+              type: "string",
+              description: "The charge code to use with this charge in the PMS.",
+            },
+            {
+              name: "start_date",
+              type: "string",
+              description: "The first date the charge should be applied. Format: YYYY-MM-DD (ISO date).",
+            },
+            {
+              name: "end_date",
+              type: "string",
+              description: "The last date the charge should be applied. Format: YYYY-MM-DD (ISO date).",
+            },
+            {
+              name: "amount",
+              type: "integer",
+              description: "How much the charge is for in cents (e.g., 250000 = $2,500.00).",
+            },
+            {
+              name: "description",
+              type: "string",
+              description: "A summary description of the charge.",
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
+  const exampleCode1 = `{
+  "id": "3eb29a92-e480-40ee-9a9f-61fff5e3f3d5",
+  "event": "lease.move_in",
+  "timestamp": "2023-03-11T14:23:56.010+00:00",
+  "data": {
+    "move_in_date": "2023-03-11",
+    "pms_identifier": "t0000000",
+    "community_pms_identifier": "123",
+    "charges": [
+      {
+        "charge_type": "Monthly",
+        "pms_identifier": "rent",
+        "start_date": "2023-03-11",
+        "end_date": "2024-03-10",
+        "amount": 250000,
+        "description": "Rent"
+      },
+      {
+        "charge_type": "Monthly",
+        "pms_identifier": "pet",
+        "start_date": "2023-03-11",
+        "end_date": "2024-03-10",
+        "amount": 5000,
+        "description": "Dog Rent"
+      }
+    ]
+  }
+}`;
+
+  return (
+    <>
+      <Callout type="warning" title="Legacy Webhooks - Deprecated">
+        These webhooks are part of the legacy webhook system. For new integrations, we recommend using the <a href="/webhooks/latest/" style={{ color: '#8b5cf6', textDecoration: 'none' }}>modern webhooks v2</a> system.
+      </Callout>
+
+      {/* Event 1: lease.move_in */}
+      <div style={{ marginBottom: '64px' }}>
+        {/* Event Name Header with Copy Button */}
+        <div style={{ 
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          marginBottom: '24px',
+          flexWrap: 'wrap',
+        }}>
+          <h1 style={{ 
+            margin: 0,
+            fontSize: '32px',
+            fontWeight: 700,
+            color: '#111827',
+            fontFamily: 'inherit',
+            letterSpacing: '-0.02em',
+          }}>
+            {eventName1}
+          </h1>
+          <EventNameCopyButton eventName={eventName1} />
+        </div>
+
+        {/* Overview Section */}
+        <div style={{ marginBottom: '32px' }}>
+          <p 
+            className="font-normal"
+            style={{ 
+              marginBottom: '0',
+              fontSize: '15px',
+              lineHeight: '1.65',
+              color: '#4b5563',
+              maxWidth: '640px',
+            }}
+          >
+            This event is published when a renter should be marked as moved in. It includes the move-in date, renter and community identifiers, and a list of charges to apply at move-in.
+          </p>
+        </div>
+
+        {/* When This Event Fires Section */}
+        <div style={{ 
+          marginBottom: '48px',
+          padding: '24px',
+          backgroundColor: '#f8fafc',
+          borderRadius: '12px',
+          border: '1px solid #e2e8f0',
+        }}>
+          <h2 style={{ 
+            fontSize: '20px',
+            fontWeight: 600,
+            marginBottom: '16px',
+            color: '#111827',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}>
+            <span style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '24px',
+              height: '24px',
+              borderRadius: '6px',
+              backgroundColor: '#3b82f6',
+              color: 'white',
+              fontSize: '14px',
+              fontWeight: 600,
+            }}>⚡</span>
+            When this event fires
+          </h2>
+          <div 
+            style={{
+              fontSize: '15px',
+              lineHeight: '1.75',
+              color: '#475569',
+            }}
+          >
+            <p style={{ marginBottom: '12px' }}>
+              This event is triggered when:
+            </p>
+            <ul style={{ 
+              marginLeft: '24px',
+              marginBottom: '0',
+              listStyleType: 'disc',
+              paddingLeft: '0',
+            }}>
+              <li style={{ marginBottom: '8px' }}>
+                <strong>Move-in confirmation:</strong> When a renter's move-in is confirmed and they should be marked as moved in
+              </li>
+              <li style={{ marginBottom: '8px' }}>
+                <strong>Lease activation:</strong> When a lease becomes active and the renter officially moves into the unit
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Subtle separator */}
+        <div 
+          style={{ 
+            borderBottom: '1px solid #f1eef3',
+            marginTop: '32px',
+            marginBottom: '32px',
+          }}
+        />
+
+        {/* Event Payload Section */}
+        <div
+          style={{
+            border: '1px solid #eee',
+            borderRadius: '16px',
+            background: 'white',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+            padding: '24px 24px',
+            marginBottom: '48px',
+            marginLeft: '8px',
+          }}
+        >
+          <h4 
+            className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+            style={{ 
+              marginTop: '0',
+              fontFamily: 'inherit',
+            }}
+          >Event Payload</h4>
+
+          <ApiDocumentation
+            attributes={attributes1}
+            code={exampleCode1}
+            title="Example payload"
+            lang="json"
+          />
+        </div>
+
+        {/* Usage Notes Section */}
+        <div style={{ marginBottom: '48px' }}>
+          <h2 style={{ 
+            fontSize: '24px',
+            fontWeight: 600,
+            marginBottom: '16px',
+            color: '#111827',
+          }}>Usage Notes</h2>
+          <div 
+            style={{
+              fontSize: '15px',
+              lineHeight: '1.65',
+              color: '#4b5563',
+            }}
+          >
+            <p style={{ marginBottom: '16px' }}>
+              When you receive this event, you can use it to:
+            </p>
+            <ul style={{ 
+              marginLeft: '24px',
+              marginBottom: '16px',
+              listStyleType: 'disc',
+            }}>
+              <li style={{ marginBottom: '8px' }}>Mark the renter as moved in within your Property Management System (PMS)</li>
+              <li style={{ marginBottom: '8px' }}>Update the lease status to active</li>
+              <li style={{ marginBottom: '8px' }}>Apply charges to the renter's account based on the <code>charges</code> array</li>
+              <li style={{ marginBottom: '8px' }}>Set up recurring charges for monthly fees (rent, pet rent, etc.)</li>
+              <li style={{ marginBottom: '8px' }}>Record one-time charges that should be applied at move-in</li>
+              <li style={{ marginBottom: '8px' }}>Update unit occupancy status</li>
+            </ul>
+            <p style={{ marginBottom: '12px' }}>
+              <strong>Important notes:</strong>
+            </p>
+            <ul style={{ 
+              marginLeft: '24px',
+              marginBottom: '0',
+              listStyleType: 'disc',
+            }}>
+              <li style={{ marginBottom: '8px' }}>
+                The <code>amount</code> field in charges is specified in <strong>cents</strong> (e.g., 250000 = $2,500.00)
+              </li>
+              <li style={{ marginBottom: '8px' }}>
+                Charges can be either <code>"Monthly"</code> (recurring) or <code>"OneTime"</code> (one-time charges)
+              </li>
+              <li style={{ marginBottom: '8px' }}>
+                The <code>start_date</code> and <code>end_date</code> define the period during which each charge should be applied
+              </li>
+              <li style={{ marginBottom: '8px' }}>
+                Use the <code>pms_identifier</code> fields to map charges to the correct charge codes in your PMS
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Divider between events */}
+      <div 
+        style={{ 
+          borderTop: '2px solid #e5e7eb',
+          marginTop: '48px',
+          marginBottom: '48px',
+        }}
+      />
+
+      {/* Event 2: lease.move_in_canceled */}
+      {(() => {
+        const eventName2 = 'lease.move_in_canceled';
+        const attributes2 = [
+          {
+            name: "id",
+            type: "string",
+            description: "A unique identifier (UUID) for this event.",
+          },
+          {
+            name: "event",
+            type: "string",
+            description: "The event type identifier. Always 'lease.move_in_canceled' for this webhook.",
+          },
+          {
+            name: "timestamp",
+            type: "string",
+            description: "The timestamp when the event occurred. Format: ISO 8601 timestamp.",
+          },
+          {
+            name: "data",
+            type: "object",
+            description: "The event data payload.",
+            children: [
+              {
+                name: "move_in_date",
+                type: "string",
+                description: "The lease start date that was canceled. Format: YYYY-MM-DD (ISO date).",
+              },
+              {
+                name: "pms_identifier",
+                type: "string",
+                description: "The identifier for this renter in the Property Management System (PMS).",
+              },
+              {
+                name: "community_pms_identifier",
+                type: "string",
+                description: "The identifier for the community in the Property Management System (PMS).",
+              },
+            ],
+          },
+        ];
+
+        const exampleCode2 = `{
+  "id": "3eb29a92-e480-40ee-9a9f-61fff5e3f3d5",
+  "event": "lease.move_in_canceled",
+  "timestamp": "2023-03-11T14:23:56.010+00:00",
+  "data": {
+    "move_in_date": "2023-03-11",
+    "pms_identifier": "t0000000",
+    "community_pms_identifier": "123"
+  }
+}`;
+
+        return (
+          <div style={{ marginBottom: '64px' }}>
+            {/* Event Name Header with Copy Button */}
+            <div style={{ 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              marginBottom: '24px',
+              flexWrap: 'wrap',
+            }}>
+              <h1 style={{ 
+                margin: 0,
+                fontSize: '32px',
+                fontWeight: 700,
+                color: '#111827',
+                fontFamily: 'inherit',
+                letterSpacing: '-0.02em',
+              }}>
+                {eventName2}
+              </h1>
+              <EventNameCopyButton eventName={eventName2} />
+            </div>
+
+            {/* Overview Section */}
+            <div style={{ marginBottom: '32px' }}>
+              <p 
+                className="font-normal"
+                style={{ 
+                  marginBottom: '0',
+                  fontSize: '15px',
+                  lineHeight: '1.65',
+                  color: '#4b5563',
+                  maxWidth: '640px',
+                }}
+              >
+                This event is published when a renter's move-in should be canceled or reversed. This may occur if an update needs to be made to the lease or if the renter has not actually moved in at the property.
+              </p>
+            </div>
+
+            {/* When This Event Fires Section */}
+            <div style={{ 
+              marginBottom: '48px',
+              padding: '24px',
+              backgroundColor: '#f8fafc',
+              borderRadius: '12px',
+              border: '1px solid #e2e8f0',
+            }}>
+              <h2 style={{ 
+                fontSize: '20px',
+                fontWeight: 600,
+                marginBottom: '16px',
+                color: '#111827',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+              }}>
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '6px',
+                  backgroundColor: '#3b82f6',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                }}>⚡</span>
+                When this event fires
+              </h2>
+              <div 
+                style={{
+                  fontSize: '15px',
+                  lineHeight: '1.75',
+                  color: '#475569',
+                }}
+              >
+                <p style={{ marginBottom: '12px' }}>
+                  This event is triggered when:
+                </p>
+                <ul style={{ 
+                  marginLeft: '24px',
+                  marginBottom: '0',
+                  listStyleType: 'disc',
+                  paddingLeft: '0',
+                }}>
+                  <li style={{ marginBottom: '8px' }}>
+                    <strong>Move-in cancellation:</strong> When a previously confirmed move-in needs to be canceled or reversed
+                  </li>
+                  <li style={{ marginBottom: '8px' }}>
+                    <strong>Lease updates:</strong> When changes need to be made to the lease that require canceling the move-in
+                  </li>
+                  <li style={{ marginBottom: '8px' }}>
+                    <strong>Renter not moved in:</strong> When it's determined that the renter has not actually moved in at the property
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Subtle separator */}
+            <div 
+              style={{ 
+                borderBottom: '1px solid #f1eef3',
+                marginTop: '32px',
+                marginBottom: '32px',
+              }}
+            />
+
+            {/* Event Payload Section */}
+            <div
+              style={{
+                border: '1px solid #eee',
+                borderRadius: '16px',
+                background: 'white',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+                padding: '24px 24px',
+                marginBottom: '48px',
+                marginLeft: '8px',
+              }}
+            >
+              <h4 
+                className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+                style={{ 
+                  marginTop: '0',
+                  fontFamily: 'inherit',
+                }}
+              >Event Payload</h4>
+
+              <ApiDocumentation
+                attributes={attributes2}
+                code={exampleCode2}
+                title="Example payload"
+                lang="json"
+              />
+            </div>
+
+            {/* Usage Notes Section */}
+            <div style={{ marginBottom: '48px' }}>
+              <h2 style={{ 
+                fontSize: '24px',
+                fontWeight: 600,
+                marginBottom: '16px',
+                color: '#111827',
+              }}>Usage Notes</h2>
+              <div 
+                style={{
+                  fontSize: '15px',
+                  lineHeight: '1.65',
+                  color: '#4b5563',
+                }}
+              >
+                <p style={{ marginBottom: '16px' }}>
+                  When you receive this event, you should:
+                </p>
+                <ul style={{ 
+                  marginLeft: '24px',
+                  marginBottom: '16px',
+                  listStyleType: 'disc',
+                }}>
+                  <li style={{ marginBottom: '8px' }}>Reverse or cancel the move-in status in your Property Management System (PMS)</li>
+                  <li style={{ marginBottom: '8px' }}>Remove or reverse any charges that were applied during the move-in</li>
+                  <li style={{ marginBottom: '8px' }}>Update the lease status back to pre-move-in state</li>
+                  <li style={{ marginBottom: '8px' }}>Update unit occupancy status if the renter was marked as occupying the unit</li>
+                  <li style={{ marginBottom: '8px' }}>Cancel any recurring charges that were set up for the move-in</li>
+                </ul>
+                <p>
+                  This event allows you to cleanly reverse a move-in operation, ensuring that your PMS accurately reflects the current state of the lease and renter.
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Migration Note */}
+      <div style={{ marginTop: '64px', marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Migration to Webhooks v2</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '16px' }}>
+            These legacy webhooks are deprecated. For new integrations, we recommend using the <a href="/webhooks/latest/" style={{ color: '#8b5cf6', textDecoration: 'none' }}>modern webhooks v2 system</a>, which provides:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '0',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>Better event structure with consistent formatting</li>
+            <li style={{ marginBottom: '8px' }}>More granular events for different activities</li>
+            <li style={{ marginBottom: '8px' }}>Improved reliability and retry logic</li>
+            <li style={{ marginBottom: '8px' }}>Enhanced security features</li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+})()}
+

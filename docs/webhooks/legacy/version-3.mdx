@@ -1,0 +1,114 @@
+---
+title: Webhooks v3 Overview
+description: Overview of webhooks v3 configuration and payload structure
+sidebar_label: Webhooks v3
+sidebar_position: 40
+---
+
+<Callout type="warning" title="Legacy Webhooks - Deprecated">
+This webhook system is part of the legacy webhook infrastructure. For new integrations, we strongly recommend using the [modern webhooks v2](/webhooks/latest/) which provide better structure, more events, and improved reliability.
+</Callout>
+
+## Overview
+
+A webhook enables Funnel to push real-time notifications to your application. When an event occurs, Funnel will attempt to make a POST request with JSON body to any applicable configured webhooks. This request will be considered successful with any 2XX or 3XX status code that returns within 5 seconds. If we receive any other response or the request exceeds the timeout, it will be considered a failure. Funnel will retry sending the event 3 times, for a total of 4 attempts before considering the event publish a failure.
+
+## Webhook Configuration
+
+Currently, the Funnel team needs to configure webhooks, so please reach out to your account manager or via Funnel Support to configure webhooks.
+
+## Webhook Payload Structure
+
+All webhook events follow a consistent payload structure:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | String/UUID | A unique identifier for this event |
+| `event` | String | The type of event (e.g., "lease.move_in", "lease.move_in_canceled") |
+| `timestamp` | String/ISOTimestamp | The timestamp when the event occurred (ISO 8601 format) |
+| `data` | JSON Object | The content of the event, varies by event type |
+
+### Example Webhook Payload
+
+```json
+{
+  "id": "3eb29a92-e480-40ee-9a9f-61fff5e3f3d5",
+  "event": "lease.move_in_canceled",
+  "timestamp": "2023-03-11T14:23:56.010+00:00",
+  "data": {
+    "move_in_date": "2023-03-11",
+    "pms_identifier": "t0000000",
+    "community_pms_identifier": "123"
+  }
+}
+```
+
+## Request Details
+
+### HTTP Method and Headers
+
+- **Method:** POST
+- **Content-Type:** `application/json`
+- **Timeout:** 5 seconds
+
+### Response Requirements
+
+Your webhook endpoint should return:
+- **Status Code:** Any 2XX or 3XX HTTP status code for success
+- **Response Time:** Must respond within 5 seconds
+- **Failure Handling:** Any other response or timeout will be considered a failure
+
+### Retry Logic
+
+If a webhook request fails, Funnel will retry sending the event:
+- **Total Attempts:** 4 attempts (1 initial + 3 retries)
+- **Retry Behavior:** Automatic retries for failed requests
+- **Failure Handling:** After 4 failed attempts, the event publish is considered a failure
+
+## Available Events
+
+The following legacy webhook events are available:
+
+- **[Lease Events](/webhooks/legacy/lease)**
+  - [`lease.move_in`](/webhooks/legacy/lease#leasemove_in) - Triggered when a renter should be marked as moved in
+  - [`lease.move_in_canceled`](/webhooks/legacy/lease#leasemove_in_canceled) - Triggered when a move-in should be canceled/reversed
+
+## Usage Notes
+
+### Implementing Your Webhook Handler
+
+When implementing your webhook endpoint, ensure:
+
+1. **Fast Response Times:** Your endpoint should respond quickly (ideally under 1 second) to avoid timeouts
+2. **Idempotency:** Use the `id` field to ensure you don't process the same event multiple times
+3. **Error Handling:** Handle errors gracefully and return appropriate HTTP status codes
+4. **Logging:** Log incoming webhook events for debugging and audit purposes
+
+### Best Practices
+
+- **Validate the payload:** Verify the structure and required fields before processing
+- **Process asynchronously:** For time-consuming operations, acknowledge the webhook quickly and process the event asynchronously
+- **Monitor retries:** Track failed webhook deliveries and investigate issues promptly
+- **Test thoroughly:** Test your webhook handler with various event types and edge cases
+
+## Migration to Webhooks v2
+
+<Callout type="info" title="Recommended: Migrate to Webhooks v2">
+For new integrations, we strongly recommend using the [modern webhooks v2 system](/webhooks/latest/), which provides:
+
+- **Better event structure:** Consistent event object format with `id`, `event_type`, `event_timestamp`, and `event_data`
+- **More events:** Comprehensive coverage of all Funnel Leasing activities
+- **Improved reliability:** Better retry logic and error handling
+- **Enhanced security:** Optional API token authentication
+- **Better documentation:** Detailed payload schemas and examples
+
+To get started, see the [Webhooks Overview](/webhooks/latest/) and [Webhook Walkthrough](/webhooks/latest/10-walkthrough).
+</Callout>
+
+## Support
+
+If you have questions about webhook configuration, implementation, or need assistance migrating to webhooks v2, please contact:
+
+- **Funnel Support:** [support@funnelleasing.com](mailto:support@funnelleasing.com)
+- **Your Account Manager:** Reach out to your assigned account representative
+

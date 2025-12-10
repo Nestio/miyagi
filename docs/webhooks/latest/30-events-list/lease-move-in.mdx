@@ -1,0 +1,299 @@
+---
+title: lease.move_in
+sidebar_label: lease.move_in
+sidebar_position: 12
+hide_table_of_contents: true
+---
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const eventName = 'lease.move_in';
+  const attributes = [
+    {
+      name: "unit_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the unit, if applicable.",
+    },
+    {
+      name: "community_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the community, if applicable.",
+    },
+    {
+      name: "move_in_date",
+      type: "string",
+      description: "The date when the resident moves in (YYYY-MM-DD).",
+    },
+    {
+      name: "pms_identifier",
+      type: "string",
+      description: "External customer identifier for the tenant.",
+    },
+    {
+      name: "charges",
+      type: "array",
+      description: "List of charges associated with the move-in.",
+      children: [
+        {
+          name: "charge_type",
+          type: "string",
+          description: 'Type of charge (e.g., "Monthly").',
+        },
+        {
+          name: "pms_identifier",
+          type: "string",
+          description: "External customer identifier for the charge.",
+        },
+        {
+          name: "start_date",
+          type: "string",
+          description: "Start date of the charge (YYYY-MM-DD).",
+        },
+        {
+          name: "end_date",
+          type: "string",
+          description: "End date of the charge (YYYY-MM-DD).",
+        },
+        {
+          name: "amount",
+          type: "number",
+          description: "Amount of the charge in cents.",
+        },
+        {
+          name: "description",
+          type: "string",
+          description: "Description of the charge.",
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+  "id": "8cc87045-8888-4a16-a882-454044e6762a",
+  "event": "lease.move_in",
+  "timestamp": "2024-10-09T13:49:31.658518+00:00",
+  "data": {
+    "unit_pms_identifier": "u1234",
+    "community_pms_identifier": "c1234",
+    "move_in_date": "2023-05-01",
+    "pms_identifier": "t1234",
+    "charges": [
+      {
+        "charge_type": "Monthly",
+        "pms_identifier": "rent",
+        "start_date": "2023-05-01",
+        "end_date": "2024-04-30",
+        "amount": 150000,
+        "description": "Monthly Rent"
+      }
+    ]
+  }
+}`;
+
+  return (
+    <>
+      {/* Event Name Header with Copy Button */}
+      <div style={{ 
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        marginBottom: '24px',
+        flexWrap: 'wrap',
+      }}>
+        <h1 style={{ 
+          margin: 0,
+          fontSize: '32px',
+          fontWeight: 700,
+          color: '#111827',
+          fontFamily: 'inherit',
+          letterSpacing: '-0.02em',
+        }}>
+          {eventName}
+        </h1>
+        <EventNameCopyButton eventName={eventName} />
+      </div>
+
+      {/* Overview Section */}
+      <div style={{ marginBottom: '32px' }}>
+        <p 
+          className="font-normal"
+          style={{ 
+            marginBottom: '0',
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+            maxWidth: '640px',
+          }}
+        >
+          Triggered when a lease move-in is confirmed. This event includes move-in details and associated charges that should be set up in your Property Management System (PMS).
+        </p>
+      </div>
+
+      {/* When This Event Fires Section */}
+      <div style={{ 
+        marginBottom: '48px',
+        padding: '24px',
+        backgroundColor: '#f8fafc',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+      }}>
+        <h2 style={{ 
+          fontSize: '20px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '24px',
+            height: '24px',
+            borderRadius: '6px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            fontSize: '14px',
+            fontWeight: 600,
+          }}>⚡</span>
+          When this event fires
+        </h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.75',
+            color: '#475569',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            This event is triggered in the following scenarios:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '0',
+            listStyleType: 'disc',
+            paddingLeft: '0',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Move-in confirmation:</strong> When a lease move-in is confirmed in the system, typically after all required documents are signed and conditions are met
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>PMS synchronization:</strong> When the move-in is synchronized with your Property Management System, triggering the setup of recurring charges
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Lease activation:</strong> When the lease becomes active and the resident officially takes occupancy
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Subtle separator */}
+      <div 
+        style={{ 
+          borderBottom: '1px solid #f1eef3',
+          marginTop: '32px',
+          marginBottom: '32px',
+        }}
+      />
+
+      <div
+        style={{
+          border: '1px solid #eee',
+          borderRadius: '16px',
+          background: 'white',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+          padding: '24px 24px',
+          marginBottom: '48px',
+          marginLeft: '8px',
+        }}
+      >
+        <h4 
+          className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+          style={{ 
+            marginTop: '0',
+            fontFamily: 'inherit',
+          }}
+        >Event Payload</h4>
+
+        <ApiDocumentation
+          attributes={attributes}
+          code={exampleCode}
+          title="Example payload"
+          lang="json"
+        />
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Usage Notes</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '16px' }}>
+            When you receive this event, you can use it to:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '16px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>Update your Property Management System (PMS) to confirm the move-in</li>
+            <li style={{ marginBottom: '8px' }}>Set up recurring charges (e.g., monthly rent) in your PMS using the <code>charges</code> array</li>
+            <li style={{ marginBottom: '8px' }}>Activate resident accounts and access</li>
+            <li style={{ marginBottom: '8px' }}>Update unit occupancy status</li>
+            <li style={{ marginBottom: '8px' }}>Begin billing cycles for the resident</li>
+          </ul>
+          <p>
+            The <code>charges</code> array contains all charges that should be set up for the resident at move-in. The <code>amount</code> field is in cents, so you'll need to divide by 100 to get the dollar amount. Use the <code>pms_identifier</code> fields to map the data to your existing PMS records.
+          </p>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Related Events</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            Events that are commonly related to this event:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-move-in-canceled" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease.move_in_canceled</code>
+              </a> - Triggered when a lease move-in is canceled
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-resident-move-in" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease.resident_move_in</code>
+              </a> - Triggered when a future resident moves into a unit
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+})()}
+

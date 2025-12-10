@@ -1,0 +1,262 @@
+---
+title: message.send_success
+sidebar_label: message.send_success
+sidebar_position: 14
+hide_table_of_contents: true
+---
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const eventName = 'message.send_success';
+  const attributes = [
+    {
+      name: "message_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the message.",
+    },
+    {
+      name: "renter_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the renter.",
+      nullable: true,
+    },
+    {
+      name: "renter_person_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the person.",
+      nullable: true,
+    },
+    {
+      name: "pms_identifier",
+      type: "string",
+      description: "External customer identifier for the tenant.",
+    },
+    {
+      name: "phone",
+      type: "string",
+      description: "Phone number where the message was sent.",
+      nullable: true,
+    },
+    {
+      name: "email",
+      type: "string",
+      description: "Email address where the message was sent.",
+      nullable: true,
+    },
+  ];
+
+  const exampleCode = `{
+  "id": "8cc87045-aaaa-4a16-a882-454044e6762a",
+  "event": "message.send_success",
+  "timestamp": "2024-10-09T13:49:31.658518+00:00",
+  "data": {
+    "message_id": 12345,
+    "renter_id": 67890,
+    "renter_person_id": 54321,
+    "pms_identifier": "t1234",
+    "phone": "+1234567890",
+    "email": "renter@example.com"
+  }
+}`;
+
+  return (
+    <>
+      {/* Event Name Header with Copy Button */}
+      <div style={{ 
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        marginBottom: '24px',
+        flexWrap: 'wrap',
+      }}>
+        <h1 style={{ 
+          margin: 0,
+          fontSize: '32px',
+          fontWeight: 700,
+          color: '#111827',
+          fontFamily: 'inherit',
+          letterSpacing: '-0.02em',
+        }}>
+          {eventName}
+        </h1>
+        <EventNameCopyButton eventName={eventName} />
+      </div>
+
+      {/* Overview Section */}
+      <div style={{ marginBottom: '32px' }}>
+        <p 
+          className="font-normal"
+          style={{ 
+            marginBottom: '0',
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+            maxWidth: '640px',
+          }}
+        >
+          Triggered when a message is successfully sent to a renter. This event confirms that the message was delivered via the specified channel (email or phone).
+        </p>
+      </div>
+
+      {/* When This Event Fires Section */}
+      <div style={{ 
+        marginBottom: '48px',
+        padding: '24px',
+        backgroundColor: '#f8fafc',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+      }}>
+        <h2 style={{ 
+          fontSize: '20px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '24px',
+            height: '24px',
+            borderRadius: '6px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            fontSize: '14px',
+            fontWeight: 600,
+          }}>⚡</span>
+          When this event fires
+        </h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.75',
+            color: '#475569',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            This event is triggered in the following scenarios:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '0',
+            listStyleType: 'disc',
+            paddingLeft: '0',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Email delivery success:</strong> When an email message is successfully delivered to the renter's email address
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>SMS delivery success:</strong> When an SMS/text message is successfully delivered to the renter's phone number
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Message confirmation:</strong> When the message delivery service confirms successful delivery to the recipient
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Subtle separator */}
+      <div 
+        style={{ 
+          borderBottom: '1px solid #f1eef3',
+          marginTop: '32px',
+          marginBottom: '32px',
+        }}
+      />
+
+      <div
+        style={{
+          border: '1px solid #eee',
+          borderRadius: '16px',
+          background: 'white',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+          padding: '24px 24px',
+          marginBottom: '48px',
+          marginLeft: '8px',
+        }}
+      >
+        <h4 
+          className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+          style={{ 
+            marginTop: '0',
+            fontFamily: 'inherit',
+          }}
+        >Event Payload</h4>
+
+        <ApiDocumentation
+          attributes={attributes}
+          code={exampleCode}
+          title="Example payload"
+          lang="json"
+        />
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Usage Notes</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '16px' }}>
+            When you receive this event, you can use it to:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '16px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>Update message delivery status in your systems</li>
+            <li style={{ marginBottom: '8px' }}>Track successful message deliveries for reporting and analytics</li>
+            <li style={{ marginBottom: '8px' }}>Log communication history with renters</li>
+            <li style={{ marginBottom: '8px' }}>Update message tracking dashboards</li>
+          </ul>
+          <p>
+            The event includes the delivery channel (email or phone) via the <code>email</code> or <code>phone</code> fields. Only one of these fields will be populated, depending on which channel was used to send the message. Use the <code>pms_identifier</code> to map the message to your existing tenant records.
+          </p>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Related Events</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            Events that are commonly related to this event:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/message-send-failure" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>message.send_failure</code>
+              </a> - Triggered when a message fails to send to a renter
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+})()}
+

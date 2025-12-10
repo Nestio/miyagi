@@ -1,0 +1,381 @@
+---
+title: lease_transaction.fees_updated
+sidebar_label: lease_transaction.fees_updated
+sidebar_position: 6
+hide_table_of_contents: true
+---
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const eventName = 'lease_transaction.fees_updated';
+  const mainAttributes = [
+    {
+      name: "lease_transaction_id",
+      type: "integer",
+      description: "Internal Funnel Leasing unique ID that points to the lease transaction.",
+    },
+    {
+      name: "lease_transaction_type",
+      type: "string",
+      description: 'Type of lease transaction. Possible values: "Lease Transaction", "Application", "Lease Revision", "Renewal", "Notice to Vacate", "Lease Confirmation", "Transfer", "Holdover", "Lease Document Generation".',
+    },
+    {
+      name: "client_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the guest card of the client.",
+    },
+    {
+      name: "tenant_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the tenant, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "unit_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the unit, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "community_id",
+      type: "integer",
+      description: "Unique internal ID for the community in Funnel Leasing.",
+    },
+    {
+      name: "community_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the community, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "lease_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the lease, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "fees",
+      type: "array",
+      description: "List of fees associated with the lease transaction, including their metadata. Funnel will send all applicable fees with this event, even if only one has been updated.",
+      children: [
+        {
+          name: "id",
+          type: "integer",
+          description: "Unique internal ID for the lease transaction fee in Funnel Leasing.",
+        },
+        {
+          name: "name",
+          type: "string",
+          description: "Name of the fee, configurable per property.",
+        },
+        {
+          name: "fee_type",
+          type: "string",
+          description: 'Type of lease transaction fee. Possible values: "Application Fee", "Holding Deposit", "Transfer Fee", "Roommate Fee".',
+        },
+        {
+          name: "amount",
+          type: "number",
+          description: "Amount in US dollars.",
+        },
+        {
+          name: "paid",
+          type: "boolean",
+          description: "Indicates whether the fee has been paid.",
+        },
+        {
+          name: "waived",
+          type: "boolean",
+          description: "Indicates whether the fee has been waived by a leasing professional.",
+        },
+        {
+          name: "status",
+          type: "string",
+          description: "Current status of the fee, set internally by Funnel Leasing based on events received from Stripe.",
+          nullable: true,
+        },
+        {
+          name: "charge_success",
+          type: "boolean",
+          description: "Indicates whether Funnel Leasing has successfully captured the authorized (paid) charges for the fee.",
+        },
+        {
+          name: "is_handled_offline",
+          type: "boolean",
+          description: "Indicates whether the fee was paid offline.",
+        },
+        {
+          name: "payer",
+          type: "string",
+          description: "Full name of the applicant who paid the fee.",
+          nullable: true,
+        },
+        {
+          name: "charged_to",
+          type: "string",
+          description: "Full name of the applicant to whom this fee was charged.",
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+  "id": "8cc87045-4444-4a16-a882-454044e6762a",
+  "event": "lease_transaction.fees_updated",
+  "timestamp": "2024-10-09T13:49:31.658518+00:00",
+  "data": {
+    "lease_transaction_id": 74825,
+    "lease_transaction_type": "Application",
+    "client_id": 12457534,
+    "tenant_pms_identifier": "t1234",
+    "unit_pms_identifier": "u1234",
+    "community_id": 435242,
+    "community_pms_identifier": "c1234",
+    "lease_id": 12345,
+    "fees": [
+      {
+        "id": 1,
+        "name": "Application Fee",
+        "fee_type": "Application Fee",
+        "amount": 15.50,
+        "paid": false,
+        "waived": false,
+        "status": "stripe.charge_created",
+        "charge_success": false,
+        "is_handled_offline": false,
+        "payer": null,
+        "charged_to": "John Doe"
+      },
+      {
+        "id": 2,
+        "name": "Unit Holding Deposit",
+        "fee_type": "Holding Deposit",
+        "amount": 200.00,
+        "paid": false,
+        "waived": false,
+        "status": "stripe.charge_created",
+        "charge_success": false,
+        "is_handled_offline": false,
+        "payer": null,
+        "charged_to": "John Doe"
+      }
+    ]
+  }
+}`;
+
+  return (
+    <>
+      {/* Event Name Header with Copy Button */}
+      <div style={{ 
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        marginBottom: '24px',
+        flexWrap: 'wrap',
+      }}>
+        <h1 style={{ 
+          margin: 0,
+          fontSize: '32px',
+          fontWeight: 700,
+          color: '#111827',
+          fontFamily: 'inherit',
+          letterSpacing: '-0.02em',
+        }}>
+          {eventName}
+        </h1>
+        <EventNameCopyButton eventName={eventName} />
+      </div>
+
+      {/* Overview Section */}
+      <div style={{ marginBottom: '32px' }}>
+        <p 
+          className="font-normal"
+          style={{ 
+            marginBottom: '0',
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+            maxWidth: '640px',
+          }}
+        >
+          Triggered when any update is made on a lease transaction fee (e.g., when a fee is paid, waived, refunded, added, etc.). Funnel will send all applicable fees with this event, even if only one has been updated.
+        </p>
+      </div>
+
+      {/* When This Event Fires Section */}
+      <div style={{ 
+        marginBottom: '48px',
+        padding: '24px',
+        backgroundColor: '#f8fafc',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+      }}>
+        <h2 style={{ 
+          fontSize: '20px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '24px',
+            height: '24px',
+            borderRadius: '6px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            fontSize: '14px',
+            fontWeight: 600,
+          }}>⚡</span>
+          When this event fires
+        </h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.75',
+            color: '#475569',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            This event is triggered in the following scenarios:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '0',
+            listStyleType: 'disc',
+            paddingLeft: '0',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Fee payment:</strong> When an applicant pays a fee (e.g., application fee, holding deposit) through the payment system
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Fee waiver:</strong> When a leasing professional waives a fee for an applicant
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Fee refund:</strong> When a fee is refunded to the applicant
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Fee addition:</strong> When a new fee is added to the lease transaction
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Fee amount changes:</strong> When the amount of an existing fee is modified
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Payment status updates:</strong> When the payment status changes (e.g., from pending to successful, or payment failure)
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Subtle separator */}
+      <div 
+        style={{ 
+          borderBottom: '1px solid #f1eef3',
+          marginTop: '32px',
+          marginBottom: '32px',
+        }}
+      />
+
+      <div
+        style={{
+          border: '1px solid #eee',
+          borderRadius: '16px',
+          background: 'white',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+          padding: '24px 24px',
+          marginBottom: '48px',
+          marginLeft: '8px',
+        }}
+      >
+        <h4 
+          className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+          style={{ 
+            marginTop: '0',
+            fontFamily: 'inherit',
+          }}
+        >Event Payload</h4>
+
+        <ApiDocumentation
+          attributes={mainAttributes}
+          code={exampleCode}
+          title="Example payload"
+          lang="json"
+        />
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Usage Notes</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '16px' }}>
+            When you receive this event, you can use it to:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '16px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>Update fee payment status in your Property Management System (PMS)</li>
+            <li style={{ marginBottom: '8px' }}>Sync fee information with accounting systems</li>
+            <li style={{ marginBottom: '8px' }}>Track fee payment history and generate receipts</li>
+            <li style={{ marginBottom: '8px' }}>Notify relevant parties when fees are paid, waived, or refunded</li>
+            <li style={{ marginBottom: '8px' }}>Reconcile payment transactions with your payment processor</li>
+          </ul>
+          <p>
+            The event includes all fees associated with the lease transaction, not just the ones that changed. This ensures you have a complete picture of the fee status. Use the <code>paid</code>, <code>waived</code>, and <code>charge_success</code> fields to determine the current state of each fee.
+          </p>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Related Events</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            Events that are commonly related to this event:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-transaction-updated" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease_transaction.updated</code>
+              </a> - Triggered when any update is made on a lease transaction
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-transaction-status-updated" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease_transaction.status_updated</code>
+              </a> - Triggered when the lease transaction status changes
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+})()}
+

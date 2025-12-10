@@ -26,6 +26,7 @@ import AttributeList from '../components/AttributeList';
 import CodeExample from '../components/CodeExample';
 import ApiDocumentation from '../components/ApiDocumentation';
 import ApiPage from '../components/ApiPage';
+import EventNameCopyButton from '../components/EventNameCopyButton';
 import { Row, Col, Properties, Property } from '../components/Layout';
 import * as icons from '../icons';
 
@@ -60,6 +61,7 @@ export default {
   CodeExample,
   ApiDocumentation,
   ApiPage,
+  EventNameCopyButton,
   Row,
   Col,
   Properties,

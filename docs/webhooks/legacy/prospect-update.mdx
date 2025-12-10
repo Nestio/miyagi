@@ -1,0 +1,916 @@
+---
+title: Prospect Update Webhooks
+description: Legacy webhooks for renter and appointment events
+sidebar_label: Prospect Update
+sidebar_position: 20
+hide_table_of_contents: true
+---
+
+{/* Event 1: renter.created */}
+{(() => {
+  const eventName1 = 'renter.created';
+  const attributes1 = [
+    {
+      name: "event",
+      type: "string",
+      description: "The event type identifier. Always 'renter.created' for this webhook.",
+    },
+    {
+      name: "data",
+      type: "object",
+      description: "The event data payload.",
+      children: [
+        {
+          name: "funnel_renter_id",
+          type: "integer",
+          description: "Internal Funnel Leasing ID that points to the renter.",
+        },
+        {
+          name: "funnel_community_id",
+          type: "integer",
+          description: "Internal Funnel Leasing ID that points to the community.",
+        },
+        {
+          name: "status",
+          type: "string",
+          description: "The current status of the renter. Example: 'Prospect'.",
+        },
+        {
+          name: "people",
+          type: "array",
+          description: "List of people associated with the renter.",
+          children: [
+            {
+              name: "first_name",
+              type: "string",
+              description: "The person's first name.",
+            },
+            {
+              name: "last_name",
+              type: "string",
+              description: "The person's last name.",
+            },
+            {
+              name: "email",
+              type: "string",
+              description: "The person's email address.",
+            },
+            {
+              name: "phone_1",
+              type: "string",
+              description: "The person's primary phone number.",
+            },
+            {
+              name: "phone_2",
+              type: "string",
+              description: "The person's secondary phone number.",
+            },
+            {
+              name: "sms_opt_in",
+              type: "boolean",
+              description: "Whether the person has opted in to receive SMS messages.",
+            },
+          ],
+        },
+        {
+          name: "lead_source",
+          type: "string",
+          description: "The way the renter became a lead for your property.",
+        },
+        {
+          name: "move_in_date",
+          type: "string",
+          description: "Move-in date, if available. Format: YYYY-MM-DD.",
+          nullable: true,
+        },
+        {
+          name: "created_at",
+          type: "string",
+          description: "The datetime when the renter was created. Format: ISO 8601 datetime.",
+        },
+        {
+          name: "layouts",
+          type: "array",
+          description: "List of layout preferences (e.g., ['1-bedroom', '2-bedroom']).",
+          children: [
+            {
+              name: "",
+              type: "string",
+              description: "Layout preference string.",
+            },
+          ],
+        },
+        {
+          name: "listings",
+          type: "array",
+          description: "A list of listings the renter has expressed interest in.",
+          children: [
+            {
+              name: "funnel_unit_id",
+              type: "integer",
+              description: "The ID of the unit, assigned by Funnel.",
+            },
+            {
+              name: "property_address",
+              type: "string",
+              description: "The address of the property that the listing is in.",
+            },
+            {
+              name: "property_internal_id",
+              type: "string",
+              description: "If you have provided Funnel with identifiers for your properties, that value will be included here.",
+              nullable: true,
+            },
+          ],
+        },
+        {
+          name: "messages",
+          type: "array",
+          description: "Any messages the renter has sent.",
+          children: [
+            {
+              name: "message",
+              type: "string",
+              description: "The text of the message.",
+            },
+            {
+              name: "received_at",
+              type: "string",
+              description: "Datetime of when the message was received. Format: ISO 8601 datetime.",
+            },
+            {
+              name: "message_type",
+              type: "string",
+              description: "The type of message. Example: 'ILS'.",
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
+  const exampleCode1 = `{
+  "event": "renter.created",
+  "data": {
+    "funnel_renter_id": 456678,
+    "funnel_community_id": 1234,
+    "status": "Prospect",
+    "people": [
+      {
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "johndoe@example.com",
+        "phone_1": "510-555-4567",
+        "phone_2": "",
+        "sms_opt_in": true
+      },
+      {
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "email": "janedoe@example.com",
+        "phone_1": "",
+        "phone_2": "",
+        "sms_opt_in": false
+      }
+    ],
+    "lead_source": "apartments.com",
+    "move_in_date": "1970-01-01",
+    "created_at": "2019-01-01T04:55:55",
+    "layouts": ["1-bedroom", "2-bedroom"],
+    "listings": [
+      {
+        "funnel_unit_id": 123,
+        "property_address": "123 First St",
+        "property_internal_id": "AAAA"
+      }
+    ],
+    "messages": [
+      {
+        "message": "Hi am i interested in seeing apt 2a.",
+        "received_at": "2019-01-01T04:55:55",
+        "message_type": "ILS"
+      }
+    ]
+  }
+}`;
+
+  return (
+    <>
+      <Callout type="warning" title="Legacy Webhooks - Deprecated">
+        These webhooks are part of the legacy webhook system. For new integrations, we recommend using the <a href="/webhooks/latest/" style={{ color: '#8b5cf6', textDecoration: 'none' }}>modern webhooks v2</a> system.
+      </Callout>
+
+      {/* Event 1: renter.created */}
+      <div style={{ marginBottom: '64px' }}>
+        {/* Event Name Header with Copy Button */}
+        <div style={{ 
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          marginBottom: '24px',
+          flexWrap: 'wrap',
+        }}>
+          <h1 style={{ 
+            margin: 0,
+            fontSize: '32px',
+            fontWeight: 700,
+            color: '#111827',
+            fontFamily: 'inherit',
+            letterSpacing: '-0.02em',
+          }}>
+            {eventName1}
+          </h1>
+          <EventNameCopyButton eventName={eventName1} />
+        </div>
+
+        {/* Overview Section */}
+        <div style={{ marginBottom: '32px' }}>
+          <p 
+            className="font-normal"
+            style={{ 
+              marginBottom: '0',
+              fontSize: '15px',
+              lineHeight: '1.65',
+              color: '#4b5563',
+              maxWidth: '640px',
+            }}
+          >
+            Webhook triggered when a renter is created in Funnel Leasing. This event provides all the initial information about the renter, including contact details, preferences, and any initial messages or listing interests.
+          </p>
+        </div>
+
+        {/* When This Event Fires Section */}
+        <div style={{ 
+          marginBottom: '48px',
+          padding: '24px',
+          backgroundColor: '#f8fafc',
+          borderRadius: '12px',
+          border: '1px solid #e2e8f0',
+        }}>
+          <h2 style={{ 
+            fontSize: '20px',
+            fontWeight: 600,
+            marginBottom: '16px',
+            color: '#111827',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}>
+            <span style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '24px',
+              height: '24px',
+              borderRadius: '6px',
+              backgroundColor: '#3b82f6',
+              color: 'white',
+              fontSize: '14px',
+              fontWeight: 600,
+            }}>⚡</span>
+            When this event fires
+          </h2>
+          <div 
+            style={{
+              fontSize: '15px',
+              lineHeight: '1.75',
+              color: '#475569',
+            }}
+          >
+            <p style={{ marginBottom: '12px' }}>
+              This event is triggered when:
+            </p>
+            <ul style={{ 
+              marginLeft: '24px',
+              marginBottom: '0',
+              listStyleType: 'disc',
+              paddingLeft: '0',
+            }}>
+              <li style={{ marginBottom: '8px' }}>
+                <strong>New renter creation:</strong> When a new renter/prospect is created in the Funnel Leasing system
+              </li>
+              <li style={{ marginBottom: '8px' }}>
+                <strong>Initial registration:</strong> When someone first registers or becomes a prospect through any channel
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Subtle separator */}
+        <div 
+          style={{ 
+            borderBottom: '1px solid #f1eef3',
+            marginTop: '32px',
+            marginBottom: '32px',
+          }}
+        />
+
+        {/* Event Payload Section */}
+        <div
+          style={{
+            border: '1px solid #eee',
+            borderRadius: '16px',
+            background: 'white',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+            padding: '24px 24px',
+            marginBottom: '48px',
+            marginLeft: '8px',
+          }}
+        >
+          <h4 
+            className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+            style={{ 
+              marginTop: '0',
+              fontFamily: 'inherit',
+            }}
+          >Event Payload</h4>
+
+          <ApiDocumentation
+            attributes={attributes1}
+            code={exampleCode1}
+            title="Example payload"
+            lang="json"
+          />
+        </div>
+
+        {/* Usage Notes Section */}
+        <div style={{ marginBottom: '48px' }}>
+          <h2 style={{ 
+            fontSize: '24px',
+            fontWeight: 600,
+            marginBottom: '16px',
+            color: '#111827',
+          }}>Usage Notes</h2>
+          <div 
+            style={{
+              fontSize: '15px',
+              lineHeight: '1.65',
+              color: '#4b5563',
+            }}
+          >
+            <p style={{ marginBottom: '16px' }}>
+              When you receive this event, you can use it to:
+            </p>
+            <ul style={{ 
+              marginLeft: '24px',
+              marginBottom: '16px',
+              listStyleType: 'disc',
+            }}>
+              <li style={{ marginBottom: '8px' }}>Create new renter/prospect records in your CRM or Property Management System</li>
+              <li style={{ marginBottom: '8px' }}>Track lead sources and discovery channels</li>
+              <li style={{ marginBottom: '8px' }}>Store contact information and SMS opt-in preferences</li>
+              <li style={{ marginBottom: '8px' }}>Record layout preferences for matching with available units</li>
+              <li style={{ marginBottom: '8px' }}>Track initial messages and communication history</li>
+            </ul>
+            <p>
+              The <code>sms_opt_in</code> field in the people array indicates whether each person has consented to receive SMS messages, which is important for compliance with communication preferences.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Divider between events */}
+      <div 
+        style={{ 
+          borderTop: '2px solid #e5e7eb',
+          marginTop: '48px',
+          marginBottom: '48px',
+        }}
+      />
+
+      {/* Event 2: renter.status-change */}
+      {(() => {
+        const eventName2 = 'renter.status-change';
+        const attributes2 = [
+          {
+            name: "event",
+            type: "string",
+            description: "The event type identifier. Always 'renter.status-change' for this webhook.",
+          },
+          {
+            name: "data",
+            type: "object",
+            description: "The event data payload.",
+            children: [
+              {
+                name: "funnel_renter_id",
+                type: "integer",
+                description: "Internal Funnel Leasing ID that points to the renter.",
+              },
+              {
+                name: "funnel_team_id",
+                type: "integer",
+                description: "Internal Funnel Leasing ID that points to the team.",
+              },
+              {
+                name: "status",
+                type: "string",
+                description: "The new status of the renter. Example: 'Applicant'.",
+              },
+            ],
+          },
+        ];
+
+        const exampleCode2 = `{
+  "event": "renter.status-change",
+  "data": {
+    "funnel_renter_id": 456678,
+    "funnel_team_id": 1234,
+    "status": "Applicant"
+  }
+}`;
+
+        return (
+          <div style={{ marginBottom: '64px' }}>
+            {/* Event Name Header with Copy Button */}
+            <div style={{ 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              marginBottom: '24px',
+              flexWrap: 'wrap',
+            }}>
+              <h1 style={{ 
+                margin: 0,
+                fontSize: '32px',
+                fontWeight: 700,
+                color: '#111827',
+                fontFamily: 'inherit',
+                letterSpacing: '-0.02em',
+              }}>
+                {eventName2}
+              </h1>
+              <EventNameCopyButton eventName={eventName2} />
+            </div>
+
+            {/* Overview Section */}
+            <div style={{ marginBottom: '32px' }}>
+              <p 
+                className="font-normal"
+                style={{ 
+                  marginBottom: '0',
+                  fontSize: '15px',
+                  lineHeight: '1.65',
+                  color: '#4b5563',
+                  maxWidth: '640px',
+                }}
+              >
+                Webhook triggered when a renter's status changes in Funnel Leasing. This event notifies you of status transitions, such as when a prospect becomes an applicant.
+              </p>
+            </div>
+
+            {/* When This Event Fires Section */}
+            <div style={{ 
+              marginBottom: '48px',
+              padding: '24px',
+              backgroundColor: '#f8fafc',
+              borderRadius: '12px',
+              border: '1px solid #e2e8f0',
+            }}>
+              <h2 style={{ 
+                fontSize: '20px',
+                fontWeight: 600,
+                marginBottom: '16px',
+                color: '#111827',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+              }}>
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '6px',
+                  backgroundColor: '#3b82f6',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                }}>⚡</span>
+                When this event fires
+              </h2>
+              <div 
+                style={{
+                  fontSize: '15px',
+                  lineHeight: '1.75',
+                  color: '#475569',
+                }}
+              >
+                <p style={{ marginBottom: '12px' }}>
+                  This event is triggered when:
+                </p>
+                <ul style={{ 
+                  marginLeft: '24px',
+                  marginBottom: '0',
+                  listStyleType: 'disc',
+                  paddingLeft: '0',
+                }}>
+                  <li style={{ marginBottom: '8px' }}>
+                    <strong>Status transitions:</strong> When a renter's status changes (e.g., "Prospect" → "Applicant", "Applicant" → "Approved")
+                  </li>
+                  <li style={{ marginBottom: '8px' }}>
+                    <strong>Workflow progression:</strong> When a renter moves through different stages of the leasing process
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Subtle separator */}
+            <div 
+              style={{ 
+                borderBottom: '1px solid #f1eef3',
+                marginTop: '32px',
+                marginBottom: '32px',
+              }}
+            />
+
+            {/* Event Payload Section */}
+            <div
+              style={{
+                border: '1px solid #eee',
+                borderRadius: '16px',
+                background: 'white',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+                padding: '24px 24px',
+                marginBottom: '48px',
+                marginLeft: '8px',
+              }}
+            >
+              <h4 
+                className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+                style={{ 
+                  marginTop: '0',
+                  fontFamily: 'inherit',
+                }}
+              >Event Payload</h4>
+
+              <ApiDocumentation
+                attributes={attributes2}
+                code={exampleCode2}
+                title="Example payload"
+                lang="json"
+              />
+            </div>
+
+            {/* Usage Notes Section */}
+            <div style={{ marginBottom: '48px' }}>
+              <h2 style={{ 
+                fontSize: '24px',
+                fontWeight: 600,
+                marginBottom: '16px',
+                color: '#111827',
+              }}>Usage Notes</h2>
+              <div 
+                style={{
+                  fontSize: '15px',
+                  lineHeight: '1.65',
+                  color: '#4b5563',
+                }}
+              >
+                <p style={{ marginBottom: '16px' }}>
+                  When you receive this event, you can use it to:
+                </p>
+                <ul style={{ 
+                  marginLeft: '24px',
+                  marginBottom: '0',
+                  listStyleType: 'disc',
+                }}>
+                  <li style={{ marginBottom: '8px' }}>Update renter status in your CRM or Property Management System</li>
+                  <li style={{ marginBottom: '8px' }}>Trigger automated workflows based on status changes</li>
+                  <li style={{ marginBottom: '8px' }}>Update internal dashboards and reporting systems</li>
+                  <li style={{ marginBottom: '8px' }}>Notify relevant stakeholders about status transitions</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Divider between events */}
+      <div 
+        style={{ 
+          borderTop: '2px solid #e5e7eb',
+          marginTop: '48px',
+          marginBottom: '48px',
+        }}
+      />
+
+      {/* Event 3: appointment.updated */}
+      {(() => {
+        const eventName3 = 'appointment.updated';
+        const attributes3 = [
+          {
+            name: "event",
+            type: "string",
+            description: "The event type identifier. Always 'appointment.updated' for this webhook.",
+          },
+          {
+            name: "data",
+            type: "object",
+            description: "The event data payload.",
+            children: [
+              {
+                name: "funnel_renter_id",
+                type: "integer",
+                description: "Internal Funnel Leasing ID that points to the renter.",
+              },
+              {
+                name: "funnel_tour_id",
+                type: "integer",
+                description: "Internal Funnel Leasing ID that points to the tour/appointment.",
+              },
+              {
+                name: "funnel_community_id",
+                type: "integer",
+                description: "Internal Funnel Leasing ID that points to the community.",
+              },
+              {
+                name: "pms_unit_ids",
+                type: "array",
+                description: "Array of PMS unit identifiers associated with the appointment.",
+                children: [
+                  {
+                    name: "",
+                    type: "string",
+                    description: "PMS unit identifier string.",
+                  },
+                ],
+              },
+              {
+                name: "tour_type",
+                type: "string",
+                description: "The type of tour. Example: 'Guided'.",
+              },
+              {
+                name: "start",
+                type: "string",
+                description: "The start datetime of the appointment. Format: YYYY-MM-DD HH:mm:ss.",
+              },
+              {
+                name: "end",
+                type: "string",
+                description: "The end datetime of the appointment. Format: YYYY-MM-DD HH:mm:ss.",
+              },
+              {
+                name: "status",
+                type: "string",
+                description: "The status of the appointment. Possible values: 'completed', 'no-show', 'cancelled', 'unknown'.",
+              },
+            ],
+          },
+        ];
+
+        const exampleCode3 = `{
+  "event": "appointment.updated",
+  "data": {
+    "funnel_renter_id": 456,
+    "funnel_tour_id": 879,
+    "funnel_community_id": 123,
+    "pms_unit_ids": ["123", "456"],
+    "tour_type": "Guided",
+    "start": "2021-08-01 15:00:00",
+    "end": "2021-08-01 15:30:00",
+    "status": "completed"
+  }
+}`;
+
+        return (
+          <div style={{ marginBottom: '64px' }}>
+            {/* Event Name Header with Copy Button */}
+            <div style={{ 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              marginBottom: '24px',
+              flexWrap: 'wrap',
+            }}>
+              <h1 style={{ 
+                margin: 0,
+                fontSize: '32px',
+                fontWeight: 700,
+                color: '#111827',
+                fontFamily: 'inherit',
+                letterSpacing: '-0.02em',
+              }}>
+                {eventName3}
+              </h1>
+              <EventNameCopyButton eventName={eventName3} />
+            </div>
+
+            {/* Overview Section */}
+            <div style={{ marginBottom: '32px' }}>
+              <p 
+                className="font-normal"
+                style={{ 
+                  marginBottom: '0',
+                  fontSize: '15px',
+                  lineHeight: '1.65',
+                  color: '#4b5563',
+                  maxWidth: '640px',
+                }}
+              >
+                Webhook triggered when an appointment is created or updated in Funnel Leasing. This event provides information about tour appointments, including scheduling details and status updates.
+              </p>
+            </div>
+
+            {/* When This Event Fires Section */}
+            <div style={{ 
+              marginBottom: '48px',
+              padding: '24px',
+              backgroundColor: '#f8fafc',
+              borderRadius: '12px',
+              border: '1px solid #e2e8f0',
+            }}>
+              <h2 style={{ 
+                fontSize: '20px',
+                fontWeight: 600,
+                marginBottom: '16px',
+                color: '#111827',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+              }}>
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '6px',
+                  backgroundColor: '#3b82f6',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                }}>⚡</span>
+                When this event fires
+              </h2>
+              <div 
+                style={{
+                  fontSize: '15px',
+                  lineHeight: '1.75',
+                  color: '#475569',
+                }}
+              >
+                <p style={{ marginBottom: '12px' }}>
+                  This event is triggered when:
+                </p>
+                <ul style={{ 
+                  marginLeft: '24px',
+                  marginBottom: '0',
+                  listStyleType: 'disc',
+                  paddingLeft: '0',
+                }}>
+                  <li style={{ marginBottom: '8px' }}>
+                    <strong>Appointment creation:</strong> When a new appointment/tour is scheduled
+                  </li>
+                  <li style={{ marginBottom: '8px' }}>
+                    <strong>Appointment updates:</strong> When appointment details are modified (time, units, etc.)
+                  </li>
+                  <li style={{ marginBottom: '8px' }}>
+                    <strong>Status changes:</strong> When the appointment status changes (completed, cancelled, no-show, etc.)
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Subtle separator */}
+            <div 
+              style={{ 
+                borderBottom: '1px solid #f1eef3',
+                marginTop: '32px',
+                marginBottom: '32px',
+              }}
+            />
+
+            {/* Event Payload Section */}
+            <div
+              style={{
+                border: '1px solid #eee',
+                borderRadius: '16px',
+                background: 'white',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+                padding: '24px 24px',
+                marginBottom: '48px',
+                marginLeft: '8px',
+              }}
+            >
+              <h4 
+                className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+                style={{ 
+                  marginTop: '0',
+                  fontFamily: 'inherit',
+                }}
+              >Event Payload</h4>
+
+              <ApiDocumentation
+                attributes={attributes3}
+                code={exampleCode3}
+                title="Example payload"
+                lang="json"
+              />
+            </div>
+
+            {/* Status Values Section */}
+            <div style={{ marginBottom: '48px' }}>
+              <h2 style={{ 
+                fontSize: '24px',
+                fontWeight: 600,
+                marginBottom: '16px',
+                color: '#111827',
+              }}>Appointment Status Values</h2>
+              <div 
+                style={{
+                  fontSize: '15px',
+                  lineHeight: '1.65',
+                  color: '#4b5563',
+                }}
+              >
+                <p style={{ marginBottom: '12px' }}>
+                  The <code>status</code> field can have one of the following values:
+                </p>
+                <ul style={{ 
+                  marginLeft: '24px',
+                  marginBottom: '0',
+                  listStyleType: 'disc',
+                }}>
+                  <li style={{ marginBottom: '8px' }}><code>completed</code> - The appointment was successfully completed</li>
+                  <li style={{ marginBottom: '8px' }}><code>no-show</code> - The renter did not show up for the appointment</li>
+                  <li style={{ marginBottom: '8px' }}><code>cancelled</code> - The appointment was cancelled</li>
+                  <li style={{ marginBottom: '8px' }}><code>unknown</code> - The status is unknown or not yet determined</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Usage Notes Section */}
+            <div style={{ marginBottom: '48px' }}>
+              <h2 style={{ 
+                fontSize: '24px',
+                fontWeight: 600,
+                marginBottom: '16px',
+                color: '#111827',
+              }}>Usage Notes</h2>
+              <div 
+                style={{
+                  fontSize: '15px',
+                  lineHeight: '1.65',
+                  color: '#4b5563',
+                }}
+              >
+                <p style={{ marginBottom: '16px' }}>
+                  When you receive this event, you can use it to:
+                </p>
+                <ul style={{ 
+                  marginLeft: '24px',
+                  marginBottom: '16px',
+                  listStyleType: 'disc',
+                }}>
+                  <li style={{ marginBottom: '8px' }}>Sync appointment schedules with your calendar system</li>
+                  <li style={{ marginBottom: '8px' }}>Track tour completion rates and no-show statistics</li>
+                  <li style={{ marginBottom: '8px' }}>Update appointment status in your CRM or Property Management System</li>
+                  <li style={{ marginBottom: '8px' }}>Link appointments to specific units using the <code>pms_unit_ids</code> array</li>
+                  <li style={{ marginBottom: '8px' }}>Trigger follow-up workflows based on appointment status (e.g., send feedback survey after completed tours)</li>
+                </ul>
+                <p>
+                  The <code>pms_unit_ids</code> array contains the PMS identifiers for units associated with the appointment, allowing you to link the tour to specific units in your system.
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Migration Note */}
+      <div style={{ marginTop: '64px', marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Migration to Webhooks v2</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '16px' }}>
+            These legacy webhooks are deprecated. For new integrations, we recommend using the <a href="/webhooks/latest/" style={{ color: '#8b5cf6', textDecoration: 'none' }}>modern webhooks v2 system</a>, which provides:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '0',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>Better event structure with consistent formatting</li>
+            <li style={{ marginBottom: '8px' }}>More granular events for different activities</li>
+            <li style={{ marginBottom: '8px' }}>Improved reliability and retry logic</li>
+            <li style={{ marginBottom: '8px' }}>Enhanced security features</li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+})()}
+

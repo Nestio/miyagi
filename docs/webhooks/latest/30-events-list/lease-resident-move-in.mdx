@@ -1,0 +1,273 @@
+---
+title: lease.resident_move_in
+sidebar_label: lease.resident_move_in
+sidebar_position: 9
+hide_table_of_contents: true
+---
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const eventName = 'lease.resident_move_in';
+  const attributes = [
+    {
+      name: "lease_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the lease.",
+    },
+    {
+      name: "tenant_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the tenant, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "unit_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the unit.",
+    },
+    {
+      name: "unit_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the unit, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "community_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the community.",
+    },
+    {
+      name: "community_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the community, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "move_in_date",
+      type: "string",
+      description: "The date when the resident moves in (YYYY-MM-DD).",
+    },
+  ];
+
+  const exampleCode = `{
+  "id": "8cc87045-6666-4a16-a882-454044e6762a",
+  "event": "lease.resident_move_in",
+  "timestamp": "2024-10-09T13:49:31.658518+00:00",
+  "data": {
+    "lease_id": 74827,
+    "tenant_pms_identifier": "t1234",
+    "unit_id": 4355,
+    "unit_pms_identifier": "u1234",
+    "community_id": 435245,
+    "community_pms_identifier": "c1234",
+    "move_in_date": "2023-05-01"
+  }
+}`;
+
+  return (
+    <>
+      {/* Event Name Header with Copy Button */}
+      <div style={{ 
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        marginBottom: '24px',
+        flexWrap: 'wrap',
+      }}>
+        <h1 style={{ 
+          margin: 0,
+          fontSize: '32px',
+          fontWeight: 700,
+          color: '#111827',
+          fontFamily: 'inherit',
+          letterSpacing: '-0.02em',
+        }}>
+          {eventName}
+        </h1>
+        <EventNameCopyButton eventName={eventName} />
+      </div>
+
+      {/* Overview Section */}
+      <div style={{ marginBottom: '32px' }}>
+        <p 
+          className="font-normal"
+          style={{ 
+            marginBottom: '0',
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+            maxWidth: '640px',
+          }}
+        >
+          Triggered when a future resident moves into a unit. This event is crucial for tracking resident occupancy and updating relevant systems.
+        </p>
+      </div>
+
+      {/* When This Event Fires Section */}
+      <div style={{ 
+        marginBottom: '48px',
+        padding: '24px',
+        backgroundColor: '#f8fafc',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+      }}>
+        <h2 style={{ 
+          fontSize: '20px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '24px',
+            height: '24px',
+            borderRadius: '6px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            fontSize: '14px',
+            fontWeight: 600,
+          }}>⚡</span>
+          When this event fires
+        </h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.75',
+            color: '#475569',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            This event is triggered in the following scenarios:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '0',
+            listStyleType: 'disc',
+            paddingLeft: '0',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Resident move-in:</strong> When a future resident physically moves into their assigned unit
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Move-in confirmation:</strong> When a leasing professional confirms that a resident has moved in
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Occupancy activation:</strong> When the resident's occupancy status changes from "future resident" to "current resident"
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Subtle separator */}
+      <div 
+        style={{ 
+          borderBottom: '1px solid #f1eef3',
+          marginTop: '32px',
+          marginBottom: '32px',
+        }}
+      />
+
+      <div
+        style={{
+          border: '1px solid #eee',
+          borderRadius: '16px',
+          background: 'white',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+          padding: '24px 24px',
+          marginBottom: '48px',
+          marginLeft: '8px',
+        }}
+      >
+        <h4 
+          className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+          style={{ 
+            marginTop: '0',
+            fontFamily: 'inherit',
+          }}
+        >Event Payload</h4>
+
+        <ApiDocumentation
+          attributes={attributes}
+          code={exampleCode}
+          title="Example payload"
+          lang="json"
+        />
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Usage Notes</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '16px' }}>
+            When you receive this event, you can use it to:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '16px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>Update your Property Management System (PMS) to mark the resident as moved in</li>
+            <li style={{ marginBottom: '8px' }}>Activate resident accounts and access in your systems</li>
+            <li style={{ marginBottom: '8px' }}>Trigger move-in workflows (e.g., welcome emails, key handoff notifications)</li>
+            <li style={{ marginBottom: '8px' }}>Update unit availability and occupancy status</li>
+            <li style={{ marginBottom: '8px' }}>Begin billing cycles for the resident</li>
+          </ul>
+          <p>
+            This event indicates that a resident has physically moved into the unit. Use the <code>move_in_date</code> to track when the move-in occurred and synchronize this information with your systems.
+          </p>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Related Events</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            Events that are commonly related to this event:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-resident-move-in-canceled" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease.resident_move_in_canceled</code>
+              </a> - Triggered when a resident move-in is canceled
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-move-in" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease.move_in</code>
+              </a> - Triggered when a lease move-in is confirmed
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+})()}
+

@@ -1,0 +1,319 @@
+---
+title: lease_transaction.updated
+sidebar_label: lease_transaction.updated
+sidebar_position: 5
+hide_table_of_contents: true
+---
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const eventName = 'lease_transaction.updated';
+  const attributes = [
+    {
+      name: "lease_transaction_id",
+      type: "integer",
+      description: "Internal Funnel Leasing unique ID that points to the lease transaction.",
+    },
+    {
+      name: "lease_transaction_type",
+      type: "string",
+      description: 'Type of lease transaction. Possible values: "Lease Transaction", "Application", "Lease Revision", "Renewal", "Notice to Vacate", "Lease Confirmation", "Transfer", "Holdover", "Lease Document Generation".',
+    },
+    {
+      name: "client_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the guest card of the client.",
+    },
+    {
+      name: "tenant_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the tenant, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "unit_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the unit, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "community_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the community.",
+    },
+    {
+      name: "community_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the community, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "lease_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the lease, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "update_type",
+      type: "string",
+      description: 'The type of update that happened that triggered this event. Possible values include: "Dependent added", "CoApplicant invited", "Guarantor invited", "Occupant invited", "Applicant Signed Lease", "User countersigned lease", "Lease Revision Document Countersigned", "Offline Lease Document Generated", "User countersigned notice to vacate", "Notice to Vacate Completed", "Application lease sent", "Application request a guarantor", "Applicant removed from application", "Application re-screened", "Applicant role changed", "Primary applicant changed", "Concessions changed", "Rental options changed", "Rental options price changed", "User Overrode move out date for applicant", "User overrode unit availability", "Agent updated applicant personal details".',
+    },
+    {
+      name: "context",
+      type: "object",
+      description: "Contains more details about the specific section that has been updated. The structure varies based on the update_type.",
+    },
+  ];
+
+  const exampleCode = `{
+  "id": "8cc87045-3333-4a16-a882-454044e6762a",
+  "event": "lease_transaction.updated",
+  "timestamp": "2024-10-09T13:49:31.658518+00:00",
+  "data": {
+    "lease_transaction_id": 74825,
+    "lease_transaction_type": "Application",
+    "client_id": 12457534,
+    "tenant_pms_identifier": "t1234",
+    "unit_pms_identifier": "u1234",
+    "community_id": 435242,
+    "community_pms_identifier": "c1234",
+    "lease_id": null,
+    "update_type": "Agent updated applicant personal details",
+    "context": {
+      "email": "josh.doe@funnelleasing.com",
+      "suffix": "jr",
+      "has_ssn": true,
+      "last_name": "Doe",
+      "first_name": "John",
+      "middle_name": null,
+      "address_city": "Atlanta",
+      "phone_number": "(701) 885-9206",
+      "address_state": "GA",
+      "date_of_birth": "1988-08-23",
+      "address_street": "5530 cherry street",
+      "address_line_2": "1",
+      "address_postal_code": "30040"
+    }
+  }
+}`;
+
+  return (
+    <>
+      {/* Event Name Header with Copy Button */}
+      <div style={{ 
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        marginBottom: '24px',
+        flexWrap: 'wrap',
+      }}>
+        <h1 style={{ 
+          margin: 0,
+          fontSize: '32px',
+          fontWeight: 700,
+          color: '#111827',
+          fontFamily: 'inherit',
+          letterSpacing: '-0.02em',
+        }}>
+          {eventName}
+        </h1>
+        <EventNameCopyButton eventName={eventName} />
+      </div>
+
+      {/* Overview Section */}
+      <div style={{ marginBottom: '32px' }}>
+        <p 
+          className="font-normal"
+          style={{ 
+            marginBottom: '0',
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+            maxWidth: '640px',
+          }}
+        >
+          Triggered when any update is made on a lease transaction (e.g., lease transaction reached a new milestone, moved to another step, people were added, terms were updated, etc.). This is a general update event that covers many types of changes.
+        </p>
+      </div>
+
+      {/* When This Event Fires Section */}
+      <div style={{ 
+        marginBottom: '48px',
+        padding: '24px',
+        backgroundColor: '#f8fafc',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+      }}>
+        <h2 style={{ 
+          fontSize: '20px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '24px',
+            height: '24px',
+            borderRadius: '6px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            fontSize: '14px',
+            fontWeight: 600,
+          }}>⚡</span>
+          When this event fires
+        </h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.75',
+            color: '#475569',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            This event is triggered in the following scenarios:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '0',
+            listStyleType: 'disc',
+            paddingLeft: '0',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Applicant changes:</strong> When applicants are added, removed, or their details are updated (e.g., personal information, role changes)
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Document actions:</strong> When documents are signed, countersigned, or generated (e.g., lease documents, notices to vacate)
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Milestone updates:</strong> When a lease transaction reaches a new milestone or moves to another step in the workflow
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Invitations sent:</strong> When co-applicants, guarantors, or occupants are invited to join the transaction
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Concessions or rental options:</strong> When concessions are changed or rental options (like rentable items) are modified
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Agent actions:</strong> When leasing professionals make manual updates to transaction details
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Subtle separator */}
+      <div 
+        style={{ 
+          borderBottom: '1px solid #f1eef3',
+          marginTop: '32px',
+          marginBottom: '32px',
+        }}
+      />
+
+      <div
+        style={{
+          border: '1px solid #eee',
+          borderRadius: '16px',
+          background: 'white',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+          padding: '24px 24px',
+          marginBottom: '48px',
+          marginLeft: '8px',
+        }}
+      >
+        <h4 
+          className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+          style={{ 
+            marginTop: '0',
+            fontFamily: 'inherit',
+          }}
+        >Event Payload</h4>
+
+        <ApiDocumentation
+          attributes={attributes}
+          code={exampleCode}
+          title="Example payload"
+          lang="json"
+        />
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Usage Notes</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '16px' }}>
+            When you receive this event, you can use it to:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '16px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>Keep your systems synchronized with lease transaction changes</li>
+            <li style={{ marginBottom: '8px' }}>Track updates that don't have specific event types (e.g., applicant details, document generation)</li>
+            <li style={{ marginBottom: '8px' }}>Update applicant information in your Property Management System (PMS)</li>
+            <li style={{ marginBottom: '8px' }}>Log transaction activity for audit purposes</li>
+          </ul>
+          <p>
+            The <code>update_type</code> field indicates what kind of update occurred, and the <code>context</code> object contains relevant details about the specific change. Note that this event does not specify all details of the updates—for more specific information, consider listening to more granular events like <code>lease_transaction.status_updated</code> or <code>lease_transaction.terms_updated</code>.
+          </p>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Related Events</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            Events that are commonly related to this event:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-transaction-status-updated" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease_transaction.status_updated</code>
+              </a> - Triggered when the lease transaction status changes
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-transaction-terms-updated" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease_transaction.terms_updated</code>
+              </a> - Triggered when lease transaction terms change
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-transaction-fees-updated" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease_transaction.fees_updated</code>
+              </a> - Triggered when lease transaction fees are updated
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+})()}
+

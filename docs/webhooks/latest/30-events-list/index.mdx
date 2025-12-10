@@ -1,30 +1,47 @@
 ---
 title: Events List
-description: Events List
+description: Complete list of webhook events with links to detailed documentation
 sidebar_label: Events List
 sidebar_position: 30
 ---
 
-Here is a list of webhook events that can be sent to your callback URLs:
+# Webhook Events
 
-| Event type                         | Description                                                                                                                                                                 | Event                                             |
+Here is a complete list of webhook events that can be sent to your callback URLs. Each event has detailed documentation including payload schemas, example payloads, usage notes, and related events.
+
+| Event type                         | Description                                                                                                                                                                 | Documentation                                     |
 | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| `lease_transaction.unit_reserved`  | Triggered when a lease transaction (e.g., Application) reserves a unit                                                                                                      | [Documentation](#lease_transactionunit_reserved)  |
-| `lease_transaction.unit_released`  | Triggered when a leasing professional releases a unit previously reserved by a lease transaction                                                                            | [Documentation](#lease_transactionunit_released)  |
-| `lease_transaction.status_updated` | Triggered when a lease transaction changes status (e.g., from Submitted to Approved)                                                                                        | [Documentation](#lease_transactionstatus_updated) |
-| `lease_transaction.terms_updated`  | Triggered when a lease transaction terms changes (including: Move in date, Lease Term, Unit Number, Unit Price and Lease End)                                               | [Documentation](#lease_transactionterms_updated)  |
-| `lease_transaction.updated`        | Triggered when any update is made on a lease transaction (e.g lease transaction reached a new milestone, moved to another step, people where added, terms were updated etc) | [Documentation](#lease_transactionupdated)        |
-| `lease_transaction.fees_updated`   | Triggered when any update is made on a lease transaction fee (e.g when a fee is paid, waived, refunded, added etc)                                                          | [Documentation](#lease_transactionfees_updated)   |
-| `lease_transaction.rentable_item_selected` | Triggered when a rentable item (e.g., parking spot or storage unit) is selected as part of a lease transaction                                             | [Documentation](#lease_transactionrentable_item_selected) |
-| `lease_transaction.rentable_item_deselected` | Triggered when a previously selected rentable item is deselected from a lease transaction                                                                  | [Documentation](#lease_transactionrentable_item_deselected) |
-| `lease.resident_move_in`           | Triggered when a future resident moves into a unit                                                                                                                          | [Documentation](#leaseresident_move_in)           |
-| `lease.resident_move_in_canceled`  | Triggered when a future resident's move-in is canceled by a leasing professional                                                                                            | [Documentation](#leaseresident_move_in_canceled)  |
-| `quote.created`                    | Triggered when a leasing professional creates a quote                                                                                                                       | [Documentation](#quotecreated)                   |
-| `lease.move_in`                    | Triggered when a lease move-in is confirmed                                                                                                                                  | [Documentation](#leasemove_in)                   |
-| `lease.move_in_canceled`           | Triggered when a lease move-in is canceled                                                                                                                                   | [Documentation](#leasemove_in_canceled)          |
-| `message.send_success`             | Triggered when a message is successfully sent to a renter                                                                                                                   | [Documentation](#messagesend_success)            |
-| `message.send_failure`             | Triggered when a message fails to send to a renter                                                                                                                          | [Documentation](#messagesend_failure)            |
-| `agent_task.status_changed`        | Triggered when an agent task status changes                                                                                                                                  | [Documentation](#agent_taskstatus_changed)       |
+| `lease_transaction.unit_reserved`  | Triggered when a lease transaction (e.g., Application) reserves a unit                                                                                                      | [View Details](/webhooks/latest/30-events-list/lease-transaction-unit-reserved)  |
+| `lease_transaction.unit_released`  | Triggered when a leasing professional releases a unit previously reserved by a lease transaction                                                                            | [View Details](/webhooks/latest/30-events-list/lease-transaction-unit-released)  |
+| `lease_transaction.status_updated` | Triggered when a lease transaction changes status (e.g., from Submitted to Approved)                                                                                        | [View Details](/webhooks/latest/30-events-list/lease-transaction-status-updated) |
+| `lease_transaction.terms_updated`  | Triggered when a lease transaction terms changes (including: Move in date, Lease Term, Unit Number, Unit Price and Lease End)                                               | [View Details](/webhooks/latest/30-events-list/lease-transaction-terms-updated)  |
+| `lease_transaction.updated`        | Triggered when any update is made on a lease transaction (e.g lease transaction reached a new milestone, moved to another step, people where added, terms were updated etc) | [View Details](/webhooks/latest/30-events-list/lease-transaction-updated)        |
+| `lease_transaction.fees_updated`   | Triggered when any update is made on a lease transaction fee (e.g when a fee is paid, waived, refunded, added etc)                                                          | [View Details](/webhooks/latest/30-events-list/lease-transaction-fees-updated)   |
+| `lease_transaction.rentable_item_selected` | Triggered when a rentable item (e.g., parking spot or storage unit) is selected as part of a lease transaction                                             | [View Details](/webhooks/latest/30-events-list/lease-transaction-rentable-item-selected) |
+| `lease_transaction.rentable_item_deselected` | Triggered when a previously selected rentable item is deselected from a lease transaction                                                                  | [View Details](/webhooks/latest/30-events-list/lease-transaction-rentable-item-deselected) |
+| `lease.resident_move_in`           | Triggered when a future resident moves into a unit                                                                                                                          | [View Details](/webhooks/latest/30-events-list/lease-resident-move-in)           |
+| `lease.resident_move_in_canceled`  | Triggered when a future resident's move-in is canceled by a leasing professional                                                                                            | [View Details](/webhooks/latest/30-events-list/lease-resident-move-in-canceled)  |
+| `quote.created`                    | Triggered when a leasing professional creates a quote                                                                                                                       | [View Details](/webhooks/latest/30-events-list/quote-created)                   |
+| `lease.move_in`                    | Triggered when a lease move-in is confirmed                                                                                                                                  | [View Details](/webhooks/latest/30-events-list/lease-move-in)                   |
+| `lease.move_in_canceled`           | Triggered when a lease move-in is canceled                                                                                                                                   | [View Details](/webhooks/latest/30-events-list/lease-move-in-canceled)          |
+| `message.send_success`             | Triggered when a message is successfully sent to a renter                                                                                                                   | [View Details](/webhooks/latest/30-events-list/message-send-success)            |
+| `message.send_failure`             | Triggered when a message fails to send to a renter                                                                                                                          | [View Details](/webhooks/latest/30-events-list/message-send-failure)            |
+| `agent_task.status_changed`        | Triggered when an agent task status changes                                                                                                                                  | [View Details](/webhooks/latest/30-events-list/agent-task-status-changed)       |
 
-<br />
-<br />
+## Getting Started
+
+To learn more about webhooks and how to set them up, see:
+
+- [Webhooks Overview](/webhooks/latest/) - Introduction to webhooks and how they work
+- [Event Object](/webhooks/latest/20-event-object) - Understanding the structure of webhook events
+- [Webhook Walkthrough](/webhooks/latest/10-walkthrough) - Step-by-step guide to implementing webhooks
+
+## Event Categories
+
+Webhook events are organized into the following categories:
+
+- **Lease Transaction Events** - Events related to lease transactions, applications, and their status changes
+- **Lease Events** - Events related to resident move-ins and lease confirmations
+- **Quote Events** - Events related to quote creation
+- **Message Events** - Events related to message delivery status
+- **Task Events** - Events related to agent task status changes

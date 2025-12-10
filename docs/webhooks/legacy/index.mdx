@@ -1,8 +1,39 @@
 ---
-title: Overview
-description: Legacy Webhooks Overview
+title: Legacy Webhooks Overview
+description: Overview of legacy webhook events (deprecated)
 sidebar_label: Overview
 sidebar_position: 0
 ---
 
-here is the legacy webhooks and why it is a legacy webhooks (we do not use it anymore) 
+<Callout type="warning" title="Legacy Webhooks - Deprecated">
+These webhooks are part of the legacy webhook system and are no longer actively maintained. For new integrations, we strongly recommend using the [modern webhooks v2](/webhooks/latest/) which provide better structure, more events, and improved reliability.
+</Callout>
+
+## Overview
+
+This section contains documentation for legacy webhook events that were part of Funnel Leasing's earlier webhook system. While these webhooks may still be functional for existing integrations, they are considered deprecated and will not receive new features or updates.
+
+## Available Legacy Webhooks
+
+| Webhook | Description | Documentation |
+|---------|-------------|--------------|
+| **Lead Webhook** | Triggered when a lead is created or updated | [View Details](/webhooks/legacy/lead-webhook) |
+| **Prospect Update Webhooks** | Multiple events for renter and appointment updates | [View Details](/webhooks/legacy/prospect-update) |
+| **Lease Events** | Events for lease move-in and cancellations | [View Details](/webhooks/legacy/lease) |
+| **Webhooks v3 Overview** | Configuration and payload structure for webhooks v3 | [View Details](/webhooks/legacy/version-3) |
+
+## Migration to Webhooks v2
+
+If you're currently using legacy webhooks, we recommend migrating to the [modern webhooks v2 system](/webhooks/latest/). The new system provides:
+
+- **Better event structure**: Consistent event object format with `id`, `event_type`, `event_timestamp`, and `event_data`
+- **More events**: Comprehensive coverage of all Funnel Leasing activities
+- **Improved reliability**: Better retry logic and error handling
+- **Enhanced security**: Optional API token authentication
+- **Better documentation**: Detailed payload schemas and examples
+
+To get started with webhooks v2, see the [Webhooks Overview](/webhooks/latest/) and [Webhook Walkthrough](/webhooks/latest/10-walkthrough).
+
+## Support
+
+If you have questions about migrating from legacy webhooks or need assistance with the new webhook system, please contact our support team at [support@funnelleasing.com](mailto:support@funnelleasing.com).

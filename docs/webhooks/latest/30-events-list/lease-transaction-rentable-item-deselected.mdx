@@ -1,0 +1,309 @@
+---
+title: lease_transaction.rentable_item_deselected
+sidebar_label: lease_transaction.rentable_item_deselected
+sidebar_position: 8
+hide_table_of_contents: true
+---
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const eventName = 'lease_transaction.rentable_item_deselected';
+  const attributes = [
+    {
+      name: "id",
+      type: "integer",
+      description: "Internal Funnel Leasing unique identifier for the rental option item.",
+    },
+    {
+      name: "item_id",
+      type: "string",
+      description: "Unique external customer identifier for the rentable item.",
+      nullable: true,
+    },
+    {
+      name: "item_name",
+      type: "string",
+      description: 'External customer-assigned name or number for the rentable item (e.g., "#12", "Storage Unit A").',
+      nullable: true,
+    },
+    {
+      name: "item_type_id",
+      type: "string",
+      description: "Unique external customer identifier for the rentable item type.",
+      nullable: true,
+    },
+    {
+      name: "item_type_name",
+      type: "string",
+      description: 'External customer-defined name for the rentable item type (e.g., "Parking", "Storage").',
+      nullable: true,
+    },
+    {
+      name: "lease_transaction_id",
+      type: "integer",
+      description: "Internal Funnel Leasing unique ID that points to the lease transaction.",
+    },
+    {
+      name: "lease_transaction_type",
+      type: "string",
+      description: 'Type of lease transaction (e.g., "Application", "Lease Revision", "Renewal", "Notice to Vacate", "Lease Confirmation", "Transfer").',
+    },
+    {
+      name: "client_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the guest card of the client.",
+    },
+    {
+      name: "guestcard_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the guest card, if applicable. If missing, it means the guest card has not yet been pushed to the PMS.",
+      nullable: true,
+    },
+    {
+      name: "tenant_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the tenant, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "community_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the community.",
+    },
+    {
+      name: "community_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the community, if applicable.",
+      nullable: true,
+    },
+  ];
+
+  const exampleCode = `{
+  "id": "8cc87045-1111-4a16-a882-454044e6762a",
+  "event": "lease_transaction.rentable_item_deselected",
+  "timestamp": "2024-10-09T13:49:31.658518+00:00",
+  "data": {
+    "id": 1,
+    "item_id": "item1",
+    "item_name": "#12",
+    "item_type_id": "type1",
+    "item_type_name": "Parking",
+    "lease_transaction_id": 1,
+    "lease_transaction_type": "Application",
+    "client_id": 1,
+    "guestcard_pms_identifier": "g123",
+    "tenant_pms_identifier": "t123",
+    "community_id": 1,
+    "community_pms_identifier": "c123"
+  }
+}`;
+
+  return (
+    <>
+      {/* Event Name Header with Copy Button */}
+      <div style={{ 
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        marginBottom: '24px',
+        flexWrap: 'wrap',
+      }}>
+        <h1 style={{ 
+          margin: 0,
+          fontSize: '32px',
+          fontWeight: 700,
+          color: '#111827',
+          fontFamily: 'inherit',
+          letterSpacing: '-0.02em',
+        }}>
+          {eventName}
+        </h1>
+        <EventNameCopyButton eventName={eventName} />
+      </div>
+
+      {/* Overview Section */}
+      <div style={{ marginBottom: '32px' }}>
+        <p 
+          className="font-normal"
+          style={{ 
+            marginBottom: '0',
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+            maxWidth: '640px',
+          }}
+        >
+          Triggered when a previously selected rentable item (e.g., parking spot or storage unit) is deselected from a lease transaction. These items are ingested from your Property Management System (PMS).
+        </p>
+      </div>
+
+      {/* When This Event Fires Section */}
+      <div style={{ 
+        marginBottom: '48px',
+        padding: '24px',
+        backgroundColor: '#f8fafc',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+      }}>
+        <h2 style={{ 
+          fontSize: '20px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '24px',
+            height: '24px',
+            borderRadius: '6px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            fontSize: '14px',
+            fontWeight: 600,
+          }}>⚡</span>
+          When this event fires
+        </h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.75',
+            color: '#475569',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            This event is triggered in the following scenarios:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '0',
+            listStyleType: 'disc',
+            paddingLeft: '0',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Item removal:</strong> When a previously selected rentable item (parking spot, storage unit, etc.) is removed from a lease transaction
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Manual deselection:</strong> When a leasing professional or applicant manually deselects a rentable item
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Item replacement:</strong> When one rentable item is replaced with another (the deselection event fires before the new selection)
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Transaction changes:</strong> When changes to the lease transaction require removing a rentable item (e.g., unit change, term modifications)
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Subtle separator */}
+      <div 
+        style={{ 
+          borderBottom: '1px solid #f1eef3',
+          marginTop: '32px',
+          marginBottom: '32px',
+        }}
+      />
+
+      <div
+        style={{
+          border: '1px solid #eee',
+          borderRadius: '16px',
+          background: 'white',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+          padding: '24px 24px',
+          marginBottom: '48px',
+          marginLeft: '8px',
+        }}
+      >
+        <h4 
+          className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+          style={{ 
+            marginTop: '0',
+            fontFamily: 'inherit',
+          }}
+        >Event Payload</h4>
+
+        <ApiDocumentation
+          attributes={attributes}
+          code={exampleCode}
+          title="Example payload"
+          lang="json"
+        />
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Usage Notes</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '16px' }}>
+            When you receive this event, you can use it to:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '16px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>Update your Property Management System (PMS) to mark the rentable item as available again</li>
+            <li style={{ marginBottom: '8px' }}>Remove charges or fees associated with the deselected rentable item</li>
+            <li style={{ marginBottom: '8px' }}>Update availability of rentable items in your systems</li>
+            <li style={{ marginBottom: '8px' }}>Track rentable item assignment changes for inventory management</li>
+          </ul>
+          <p>
+            The event includes both internal Funnel IDs and external PMS identifiers for the rentable item and its type, allowing you to map the deselection to your existing systems.
+          </p>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Related Events</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            Events that are commonly related to this event:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-transaction-rentable-item-selected" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease_transaction.rentable_item_selected</code>
+              </a> - Triggered when a rentable item is selected
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-transaction-updated" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease_transaction.updated</code>
+              </a> - Triggered when any update is made on a lease transaction
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+})()}
+

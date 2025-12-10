@@ -1,0 +1,356 @@
+---
+title: quote.created
+sidebar_label: quote.created
+sidebar_position: 11
+hide_table_of_contents: true
+---
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const eventName = 'quote.created';
+  const attributes = [
+    {
+      name: "client_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the guest card of the client.",
+    },
+    {
+      name: "guestcard_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the guest card, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "quote_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the quote.",
+    },
+    {
+      name: "quote_type",
+      type: "string",
+      description: 'Type of quote (e.g., "Application", "Transfer lease", "Renewal lease").',
+    },
+    {
+      name: "quote_url",
+      type: "string",
+      description: "Funnel API endpoint to call to retrieve the quote's PDF content.",
+      nullable: true,
+    },
+    {
+      name: "unit_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the unit.",
+    },
+    {
+      name: "unit_number",
+      type: "string",
+      description: "Internal unit number.",
+      nullable: true,
+    },
+    {
+      name: "unit_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the unit, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "previous_unit_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the previous unit, if applicable (Transfer lease only).",
+      nullable: true,
+    },
+    {
+      name: "previous_unit_number",
+      type: "string",
+      description: "Internal previous unit number, if applicable (Transfer lease only).",
+      nullable: true,
+    },
+    {
+      name: "previous_unit_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the previous unit, if applicable (Transfer lease only).",
+      nullable: true,
+    },
+    {
+      name: "lease_start_date",
+      type: "string",
+      description: "Start date of the lease (YYYY-MM-DD).",
+    },
+    {
+      name: "lease_end_date",
+      type: "string",
+      description: "End date of the lease (YYYY-MM-DD).",
+    },
+    {
+      name: "lease_term",
+      type: "integer",
+      description: "Duration of the lease in months.",
+    },
+    {
+      name: "tenant_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the tenant, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "community_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the community.",
+    },
+    {
+      name: "community_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the community, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "building_number",
+      type: "string",
+      description: "The external ID of the building originating from the internal id.",
+      nullable: true,
+    },
+    {
+      name: "internal_building_number",
+      type: "string",
+      description: "Internal building number.",
+      nullable: true,
+    },
+  ];
+
+  const exampleCode = `{
+  "id": "4f5d7bea-84c9-40ad-9b96-7271b38166ed",
+  "event": "quote.created",
+  "timestamp": "2024-10-09T13:29:09.210102+00:00",
+  "data": {
+    "client_id": 1,
+    "guestcard_pms_identifier": "P1234",
+    "quote_id": 1,
+    "quote_type": "Transfer lease",
+    "quote_url": "https://api.funnelleasing.com/api/v2/quotes/1/pdf",
+    "unit_id": 1,
+    "unit_number": "0123",
+    "unit_pms_identifier": "U123",
+    "previous_unit_id": 2,
+    "previous_unit_number": "04321",
+    "previous_unit_pms_identifier": "U4321",
+    "lease_start_date": "2024-11-27",
+    "lease_end_date": "2025-11-27",
+    "lease_term": 12,
+    "tenant_pms_identifier": "T123",
+    "community_id": 1,
+    "community_pms_identifier": "C123",
+    "building_number": "123",
+    "internal_building_number": "456"
+  }
+}`;
+
+  return (
+    <>
+      {/* Event Name Header with Copy Button */}
+      <div style={{ 
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        marginBottom: '24px',
+        flexWrap: 'wrap',
+      }}>
+        <h1 style={{ 
+          margin: 0,
+          fontSize: '32px',
+          fontWeight: 700,
+          color: '#111827',
+          fontFamily: 'inherit',
+          letterSpacing: '-0.02em',
+        }}>
+          {eventName}
+        </h1>
+        <EventNameCopyButton eventName={eventName} />
+      </div>
+
+      {/* Overview Section */}
+      <div style={{ marginBottom: '32px' }}>
+        <p 
+          className="font-normal"
+          style={{ 
+            marginBottom: '0',
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+            maxWidth: '640px',
+          }}
+        >
+          Triggered when a leasing professional creates a quote. This event provides all the details about the quote, including pricing, lease terms, and unit information.
+        </p>
+      </div>
+
+      {/* When This Event Fires Section */}
+      <div style={{ 
+        marginBottom: '48px',
+        padding: '24px',
+        backgroundColor: '#f8fafc',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+      }}>
+        <h2 style={{ 
+          fontSize: '20px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '24px',
+            height: '24px',
+            borderRadius: '6px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            fontSize: '14px',
+            fontWeight: 600,
+          }}>⚡</span>
+          When this event fires
+        </h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.75',
+            color: '#475569',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            This event is triggered in the following scenarios:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '0',
+            listStyleType: 'disc',
+            paddingLeft: '0',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>New quote creation:</strong> When a leasing professional creates a new quote for an applicant or existing tenant
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Application quotes:</strong> When a quote is generated as part of an application process
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Transfer lease quotes:</strong> When a quote is created for a lease transfer (moving from one unit to another)
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Renewal quotes:</strong> When a quote is created for a lease renewal
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Subtle separator */}
+      <div 
+        style={{ 
+          borderBottom: '1px solid #f1eef3',
+          marginTop: '32px',
+          marginBottom: '32px',
+        }}
+      />
+
+      <div
+        style={{
+          border: '1px solid #eee',
+          borderRadius: '16px',
+          background: 'white',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+          padding: '24px 24px',
+          marginBottom: '48px',
+          marginLeft: '8px',
+        }}
+      >
+        <h4 
+          className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+          style={{ 
+            marginTop: '0',
+            fontFamily: 'inherit',
+          }}
+        >Event Payload</h4>
+
+        <ApiDocumentation
+          attributes={attributes}
+          code={exampleCode}
+          title="Example payload"
+          lang="json"
+        />
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Usage Notes</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '16px' }}>
+            When you receive this event, you can use it to:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '16px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>Store quote information in your Property Management System (PMS)</li>
+            <li style={{ marginBottom: '8px' }}>Retrieve and store the quote PDF using the <code>quote_url</code> endpoint</li>
+            <li style={{ marginBottom: '8px' }}>Track quote creation for reporting and analytics</li>
+            <li style={{ marginBottom: '8px' }}>Notify relevant parties about new quotes</li>
+            <li style={{ marginBottom: '8px' }}>Sync quote data with CRM or other business systems</li>
+          </ul>
+          <p>
+            The <code>quote_url</code> field provides a direct link to retrieve the quote PDF. You'll need to authenticate with your API key when accessing this URL, just as you would with other Funnel API endpoints. For transfer leases, the event includes information about both the previous and new units.
+          </p>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Related Events</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            Events that are commonly related to this event:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-transaction-status-updated" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease_transaction.status_updated</code>
+              </a> - Triggered when a lease transaction status changes (e.g., when a quote is accepted)
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-transaction-updated" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease_transaction.updated</code>
+              </a> - Triggered when any update is made on a lease transaction
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+})()}
+

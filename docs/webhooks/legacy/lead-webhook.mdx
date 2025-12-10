@@ -1,0 +1,408 @@
+---
+title: Lead Webhook
+description: Legacy webhook for lead creation and updates
+sidebar_label: Lead Webhook
+sidebar_position: 10
+hide_table_of_contents: true
+---
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const attributes = [
+    {
+      name: "nestio_client_id",
+      type: "integer",
+      description: "The unique ID for this lead assigned by Funnel.",
+    },
+    {
+      name: "nestio_team_id",
+      type: "integer",
+      description: "The unique ID of the company team to which this client was assigned.",
+    },
+    {
+      name: "people",
+      type: "array",
+      description: "List of people associated with the contact.",
+      children: [
+        {
+          name: "first_name",
+          type: "string",
+          description: "The person's first name.",
+        },
+        {
+          name: "last_name",
+          type: "string",
+          description: "The person's last name.",
+        },
+        {
+          name: "email",
+          type: "string",
+          description: "The person's email address.",
+        },
+        {
+          name: "phone_1",
+          type: "string",
+          description: "The person's primary phone number.",
+        },
+        {
+          name: "phone_2",
+          type: "string",
+          description: "The person's secondary phone number.",
+        },
+      ],
+    },
+    {
+      name: "lead_source",
+      type: "string",
+      description: "The way the client became a lead for your property. Use name values from Discovery Sources API.",
+    },
+    {
+      name: "move_in_date",
+      type: "string",
+      description: "Move-in date, if available. Format: YYYY-MM-DD.",
+      nullable: true,
+    },
+    {
+      name: "created_at",
+      type: "string",
+      description: "The datetime when the lead was initially created. Format: ISO 8601 datetime.",
+    },
+    {
+      name: "listings",
+      type: "array",
+      description: "A list of listings the lead has expressed interest in.",
+      children: [
+        {
+          name: "nestio_unit_id",
+          type: "integer",
+          description: "The ID of the unit, assigned by Funnel.",
+        },
+        {
+          name: "property_address",
+          type: "string",
+          description: "The address of the property that the listing is in.",
+        },
+        {
+          name: "property_internal_id",
+          type: "string",
+          description: "If you have provided Funnel with identifiers for your properties, that value will be included here.",
+          nullable: true,
+        },
+        {
+          name: "unit_number",
+          type: "string",
+          description: "The unit number of the listing. Note that in the event that the ILS has only provided a Property and not a unit, this will not be included.",
+          nullable: true,
+        },
+        {
+          name: "unit_internal_id",
+          type: "string",
+          description: "If you have provided Funnel with identifiers for your units, that value will be included here.",
+          nullable: true,
+        },
+      ],
+    },
+    {
+      name: "messages",
+      type: "array",
+      description: "Any messages the lead has sent.",
+      children: [
+        {
+          name: "message",
+          type: "string",
+          description: "The text of the message.",
+        },
+        {
+          name: "received_at",
+          type: "string",
+          description: "Datetime of when the message was received. Format: ISO 8601 datetime.",
+        },
+      ],
+    },
+    {
+      name: "agents",
+      type: "array",
+      description: "Any agents assigned to the lead.",
+      children: [
+        {
+          name: "name",
+          type: "string",
+          description: "The agent's name.",
+        },
+        {
+          name: "email",
+          type: "string",
+          description: "The agent's email address.",
+        },
+        {
+          name: "nestio_agent_id",
+          type: "string",
+          description: "The unique ID of the agent.",
+        },
+      ],
+    },
+  ];
+
+  const exampleCode = `{
+  "nestio_client_id": 456678,
+  "nestio_team_id": 1234,
+  "people": [
+    {
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "johndoe@example.com",
+      "phone_1": "510-555-4567",
+      "phone_2": ""
+    },
+    {
+      "first_name": "Jane",
+      "last_name": "Doe",
+      "email": "janedoe@example.com",
+      "phone_1": "",
+      "phone_2": ""
+    }
+  ],
+  "lead_source": "streeteasy",
+  "move_in_date": "1970-01-01",
+  "created_at": "2019-01-01T04:55:55",
+  "listings": [
+    {
+      "nestio_unit_id": 123,
+      "property_address": "123 First St",
+      "property_internal_id": "AAAA",
+      "unit_number": "2A",
+      "unit_internal_id": "XXXX"
+    }
+  ],
+  "messages": [
+    {
+      "message": "Hi am i interested in seeing apt 2a.",
+      "received_at": "2019-01-01T04:55:55"
+    }
+  ],
+  "agents": [
+    {
+      "name": "Dave Agently",
+      "email": "dave@agently.com",
+      "nestio_agent_id": "2"
+    }
+  ]
+}`;
+
+  return (
+    <>
+      <Callout type="warning" title="Legacy Webhook - Deprecated">
+        This webhook is part of the legacy webhook system. For new integrations, we recommend using the <a href="/webhooks/latest/" style={{ color: '#8b5cf6', textDecoration: 'none' }}>modern webhooks v2</a> system.
+      </Callout>
+
+      {/* Page Title */}
+      <h1 style={{ 
+        margin: 0,
+        marginBottom: '24px',
+        fontSize: '32px',
+        fontWeight: 700,
+        color: '#111827',
+        fontFamily: 'inherit',
+        letterSpacing: '-0.02em',
+      }}>
+        Lead Webhook
+      </h1>
+
+      {/* Overview Section */}
+      <div style={{ marginBottom: '32px' }}>
+        <p 
+          className="font-normal"
+          style={{ 
+            marginBottom: '0',
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+            maxWidth: '640px',
+          }}
+        >
+          Funnel will submit a POST request to your specified webhook each time a lead is created, as well as whenever the lead is updated, such as if they contact another listing.
+        </p>
+      </div>
+
+      {/* When This Event Fires Section */}
+      <div style={{ 
+        marginBottom: '48px',
+        padding: '24px',
+        backgroundColor: '#f8fafc',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+      }}>
+        <h2 style={{ 
+          fontSize: '20px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '24px',
+            height: '24px',
+            borderRadius: '6px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            fontSize: '14px',
+            fontWeight: 600,
+          }}>⚡</span>
+          When this webhook fires
+        </h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.75',
+            color: '#475569',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            This webhook is triggered in the following scenarios:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '0',
+            listStyleType: 'disc',
+            paddingLeft: '0',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Lead creation:</strong> When a new lead is created in Funnel Leasing
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Lead updates:</strong> When an existing lead is updated, such as when they contact another listing
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Contact activity:</strong> When a lead interacts with listings, sends messages, or is assigned to agents
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Subtle separator */}
+      <div 
+        style={{ 
+          borderBottom: '1px solid #f1eef3',
+          marginTop: '32px',
+          marginBottom: '32px',
+        }}
+      />
+
+      {/* Event Payload Section */}
+      <div
+        style={{
+          border: '1px solid #eee',
+          borderRadius: '16px',
+          background: 'white',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+          padding: '24px 24px',
+          marginBottom: '48px',
+          marginLeft: '8px',
+        }}
+      >
+        <h4 
+          className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+          style={{ 
+            marginTop: '0',
+            fontFamily: 'inherit',
+          }}
+        >Webhook Payload</h4>
+
+        <ApiDocumentation
+          attributes={attributes}
+          code={exampleCode}
+          title="Example payload"
+          lang="json"
+        />
+      </div>
+
+      {/* Usage Notes Section */}
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Usage Notes</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '16px' }}>
+            When you receive this webhook, you can use it to:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '16px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>Create or update lead records in your CRM or Property Management System (PMS)</li>
+            <li style={{ marginBottom: '8px' }}>Track lead sources and discovery channels for marketing analytics</li>
+            <li style={{ marginBottom: '8px' }}>Sync contact information (people, phone numbers, emails) with your systems</li>
+            <li style={{ marginBottom: '8px' }}>Monitor lead interest in specific listings and units</li>
+            <li style={{ marginBottom: '8px' }}>Track messages and communication history</li>
+            <li style={{ marginBottom: '8px' }}>Assign leads to agents in your system based on Funnel assignments</li>
+          </ul>
+          <p style={{ marginBottom: '12px' }}>
+            <strong>Important notes:</strong>
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '16px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              The <code>lead_source</code> field should match values from the <a href="/customer-api/discovery-sources/" style={{ color: '#8b5cf6', textDecoration: 'none' }}>Discovery Sources API</a>
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              The <code>unit_number</code> field in listings may be <code>null</code> if the ILS has only provided a Property and not a unit
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              The <code>people</code> array can contain multiple people associated with a single lead (e.g., co-applicants)
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Migration Note */}
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Migration to Webhooks v2</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '16px' }}>
+            This legacy webhook is deprecated. For new integrations, we recommend using the <a href="/webhooks/latest/" style={{ color: '#8b5cf6', textDecoration: 'none' }}>modern webhooks v2 system</a>, which provides:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '0',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>Better event structure with consistent formatting</li>
+            <li style={{ marginBottom: '8px' }}>More granular events for different activities</li>
+            <li style={{ marginBottom: '8px' }}>Improved reliability and retry logic</li>
+            <li style={{ marginBottom: '8px' }}>Enhanced security features</li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+})()}
+

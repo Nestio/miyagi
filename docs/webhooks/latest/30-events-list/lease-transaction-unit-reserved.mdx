@@ -1,0 +1,311 @@
+---
+title: lease_transaction.unit_reserved
+sidebar_label: lease_transaction.unit_reserved
+sidebar_position: 1
+hide_table_of_contents: true
+---
+
+{/* Define attributes and code as variables */}
+{(() => {
+  const eventName = 'lease_transaction.unit_reserved';
+  const attributes = [
+    {
+      name: "lease_transaction_id",
+      type: "integer",
+      description: "Internal Funnel Leasing unique ID that points to the lease transaction.",
+    },
+    {
+      name: "lease_transaction_type",
+      type: "string",
+      description: 'Type of lease transaction. Possible values: "Lease Transaction", "Application", "Lease Revision", "Renewal", "Notice to Vacate", "Lease Confirmation", "Transfer", "Holdover", "Lease Document Generation".',
+    },
+    {
+      name: "client_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the guest card of the client.",
+    },
+    {
+      name: "guestcard_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the guest card, if applicable. If missing, it means the guest card has not yet been pushed to the PMS.",
+      nullable: true,
+    },
+    {
+      name: "tenant_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the tenant, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "unit_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the unit.",
+    },
+    {
+      name: "unit_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the unit, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "unit_number",
+      type: "string",
+      description: "The unit number within the building.",
+    },
+    {
+      name: "community_id",
+      type: "integer",
+      description: "Internal Funnel Leasing ID that points to the community.",
+    },
+    {
+      name: "community_pms_identifier",
+      type: "string",
+      description: "External customer identifier for the community, if applicable.",
+      nullable: true,
+    },
+    {
+      name: "building_number",
+      type: "string",
+      description: "The external ID of the building originating from the internal id.",
+    },
+    {
+      name: "internal_building_number",
+      type: "string",
+      description: "Internal building number.",
+    },
+  ];
+
+  const exampleCode = `{
+  "id": "8cc87045-1111-4a16-a882-454044e6762a",
+  "event": "lease_transaction.unit_reserved",
+  "timestamp": "2024-10-09T13:49:31.658518+00:00",
+  "data": {
+    "lease_transaction_id": 74824,
+    "lease_transaction_type": "Application",
+    "client_id": 12457533,
+    "guestcard_pms_identifier": "p1234",
+    "tenant_pms_identifier": "t1234",
+    "unit_id": 4352,
+    "unit_pms_identifier": "u1234",
+    "unit_number": "101",
+    "community_id": 435242,
+    "community_pms_identifier": "c1234",
+    "building_number": "123",
+    "internal_building_number": "456"
+  }
+}`;
+
+  return (
+    <>
+      {/* Event Name Header with Copy Button */}
+      <div style={{ 
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        marginBottom: '24px',
+        flexWrap: 'wrap',
+      }}>
+        <h1 style={{ 
+          margin: 0,
+          fontSize: '32px',
+          fontWeight: 700,
+          color: '#111827',
+          fontFamily: 'inherit',
+          letterSpacing: '-0.02em',
+        }}>
+          {eventName}
+        </h1>
+        <EventNameCopyButton eventName={eventName} />
+      </div>
+
+      {/* Overview Section */}
+      <div style={{ marginBottom: '32px' }}>
+        <p 
+          className="font-normal"
+          style={{ 
+            marginBottom: '0',
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+            maxWidth: '640px',
+          }}
+        >
+          Triggered when a lease transaction (e.g., Application) reserves a unit. This event is essential for tracking and managing the reservation process, providing necessary data for integrations to act in real-time.
+        </p>
+      </div>
+
+      {/* When This Event Fires Section */}
+      <div style={{ 
+        marginBottom: '48px',
+        padding: '24px',
+        backgroundColor: '#f8fafc',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+      }}>
+        <h2 style={{ 
+          fontSize: '20px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '24px',
+            height: '24px',
+            borderRadius: '6px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            fontSize: '14px',
+            fontWeight: 600,
+          }}>⚡</span>
+          When this event fires
+        </h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.75',
+            color: '#475569',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            This event is triggered in the following scenarios:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '0',
+            listStyleType: 'disc',
+            paddingLeft: '0',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Application reserves a unit:</strong> When a leasing professional or applicant selects and reserves a specific unit as part of an application process
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Lease transaction reserves a unit:</strong> When any type of lease transaction (Application, Renewal, Transfer, etc.) successfully reserves a unit in the system
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong>Unit assignment:</strong> When a unit is assigned to a lease transaction, marking it as temporarily unavailable for other applicants
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Subtle separator */}
+      <div 
+        style={{ 
+          borderBottom: '1px solid #f1eef3',
+          marginTop: '32px',
+          marginBottom: '32px',
+        }}
+      />
+
+      {/* Payload Section */}
+      <div
+        style={{
+          border: '1px solid #eee',
+          borderRadius: '16px',
+          background: 'white',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+          padding: '24px 24px',
+          marginBottom: '48px',
+          marginLeft: '8px',
+        }}
+      >
+        <h4 
+          className="text-[18px] font-semibold text-gray-900 border-b border-[#efeff3] pb-3 mb-4"
+          style={{ 
+            marginTop: '0',
+            fontFamily: 'inherit',
+          }}
+        >Event Payload</h4>
+
+        <ApiDocumentation
+          attributes={attributes}
+          code={exampleCode}
+          title="Example payload"
+          lang="json"
+        />
+      </div>
+
+      {/* Usage Notes Section */}
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Usage Notes</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '16px' }}>
+            When you receive this event, you can use it to:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            marginBottom: '16px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>Update your Property Management System (PMS) to mark the unit as reserved</li>
+            <li style={{ marginBottom: '8px' }}>Trigger notifications to leasing staff about the new reservation</li>
+            <li style={{ marginBottom: '8px' }}>Sync reservation data with third-party systems</li>
+            <li style={{ marginBottom: '8px' }}>Update availability calendars and unit status displays</li>
+          </ul>
+          <p>
+            The event includes both internal Funnel IDs and external PMS identifiers, allowing you to map the reservation to your existing systems using either identifier type.
+          </p>
+        </div>
+      </div>
+
+      {/* Related Events Section */}
+      <div style={{ marginBottom: '48px' }}>
+        <h2 style={{ 
+          fontSize: '24px',
+          fontWeight: 600,
+          marginBottom: '16px',
+          color: '#111827',
+        }}>Related Events</h2>
+        <div 
+          style={{
+            fontSize: '15px',
+            lineHeight: '1.65',
+            color: '#4b5563',
+          }}
+        >
+          <p style={{ marginBottom: '12px' }}>
+            Events that are commonly related to this event:
+          </p>
+          <ul style={{ 
+            marginLeft: '24px',
+            listStyleType: 'disc',
+          }}>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-transaction-unit-released" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease_transaction.unit_released</code>
+              </a> - Triggered when a previously reserved unit is released
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-transaction-status-updated" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease_transaction.status_updated</code>
+              </a> - Triggered when the lease transaction status changes
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <a href="/webhooks/latest/30-events-list/lease-transaction-updated" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+                <code>lease_transaction.updated</code>
+              </a> - Triggered when any update is made on a lease transaction
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+})()}
+
