@@ -122,7 +122,9 @@ hide_table_of_contents: true
       </Callout>
 
       {/* Event 1: lease.move_in */}
-      <div style={{ marginBottom: '64px' }}>
+      {/* Hidden anchor for Docusaurus static analysis */}
+      <h2 id="leasemove_in" style={{ display: 'none', margin: 0, padding: 0, height: 0 }}>lease.move_in</h2>
+      <div style={{ marginBottom: '64px', scrollMarginTop: '80px' }}>
         {/* Event Name Header with Copy Button */}
         <div style={{ 
           display: 'flex',
@@ -131,7 +133,8 @@ hide_table_of_contents: true
           marginBottom: '24px',
           flexWrap: 'wrap',
         }}>
-          <h1 style={{ 
+          <h1 
+            style={{ 
             margin: 0,
             fontSize: '32px',
             fontWeight: 700,
@@ -319,6 +322,8 @@ hide_table_of_contents: true
       />
 
       {/* Event 2: lease.move_in_canceled */}
+      {/* Hidden anchor for Docusaurus static analysis */}
+      <h2 id="leasemove_in_canceled" style={{ display: 'none', margin: 0, padding: 0, height: 0 }}>lease.move_in_canceled</h2>
       {(() => {
         const eventName2 = 'lease.move_in_canceled';
         const attributes2 = [
@@ -373,7 +378,7 @@ hide_table_of_contents: true
 }`;
 
         return (
-          <div style={{ marginBottom: '64px' }}>
+          <div style={{ marginBottom: '64px', scrollMarginTop: '80px' }}>
             {/* Event Name Header with Copy Button */}
             <div style={{ 
               display: 'flex',
@@ -382,7 +387,8 @@ hide_table_of_contents: true
               marginBottom: '24px',
               flexWrap: 'wrap',
             }}>
-              <h1 style={{ 
+              <h1 
+                style={{ 
                 margin: 0,
                 fontSize: '32px',
                 fontWeight: 700,

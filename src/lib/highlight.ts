@@ -202,10 +202,9 @@ function highlightWithPrism(code: string, lang: string): string {
     // The actual highlighting will be done via CSS classes in the component
     const lines = code.split(/\r?\n/);
     return lines.map((line) => {
-      const div = document.createElement('div');
-      div.textContent = line;
+      const escaped = escapeHtml(line);
       // Wrap in a span with language class for CSS-based highlighting
-      return `<div class="code-section-line-content"><span class="language-${lang}">${div.innerHTML}</span></div>`;
+      return `<div class="code-section-line-content"><span class="language-${lang}">${escaped}</span></div>`;
     }).join('\n');
   } catch (error) {
     console.error('Prism highlighting failed', error);
@@ -217,9 +216,18 @@ function highlightWithPrism(code: string, lang: string): string {
 }
 
 /**
- * Escapes HTML special characters
+ * Escapes HTML special characters (SSR-safe)
  */
 function escapeHtml(text: string): string {
+  if (typeof document === 'undefined') {
+    // SSR-safe escape
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;

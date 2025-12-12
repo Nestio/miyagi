@@ -23,8 +23,6 @@
     "generate:partner-api-docs": "node bin/generate-partner-api-docs.cjs"
   },
   "dependencies": {
-    "@codesandbox/sandpack-react": "^2.13.5",
-    "@codesandbox/sandpack-themes": "^2.0.21",
     "@docsly/react": "^1.8.6",
     "@docusaurus/core": "^3.7.0",
     "@docusaurus/faster": "^3.7.0",
@@ -33,7 +31,7 @@
     "@docusaurus/preset-classic": "^3.7.0",
     "@docusaurus/remark-plugin-npm2yarn": "^3.7.0",
     "@docusaurus/theme-live-codeblock": "^3.7.0",
-    "@docusaurus/theme-mermaid": "3.7.0",
+    "@docusaurus/theme-mermaid": "^3.9.2",
     "@dytesdk/docs-ai-react": "^2.0.1",
     "@dytesdk/react-ui-kit": "^1.66.0",
     "@dytesdk/react-web-core": "file:modules/dytesdk-react-web-core-1.36.4-stripped.1.tgz",
@@ -41,7 +39,8 @@
     "@fluentui/react-icons": "^2.0.271",
     "@headlessui/react": "^1.7.14",
     "@radix-ui/react-select": "^2.1.5",
-    "@stoplight/elements": "^8.0.2",
+    "@stoplight/elements": "8.0.2",
+    "ajv": "^8.17.1",
     "clsx": "^2.1.1",
     "nanoid": "^5.0.6",
     "param-case": "^3.0.4",
@@ -50,9 +49,7 @@
     "raw-loader": "^4.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-feather": "^2.0.10",
-    "reactflow": "^11.10.4",
-    "zustand": "^4.5.2"
+    "react-feather": "^2.0.10"
   },
   "devDependencies": {
     "@docusaurus/tsconfig": "3.7.0",
@@ -76,9 +73,10 @@
     "process": "^0.11.10",
     "react-markdown": "^8.0.4",
     "stream-browserify": "^3.0.0",
+    "styled-components": "^6.1.0",
     "swc-loader": "^0.2.6",
     "tailwindcss": "^3.4.17",
-    "typedoc": "^0.23.28",
+    "typedoc": "^0.24.0",
     "typedoc-plugin-markdown": "^3.14.0",
     "typescript": "^5.0.2",
     "url": "^0.11.4"

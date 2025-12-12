@@ -8,6 +8,15 @@ import './prism-theme-stripeish.css';
 
 // Helper to escape HTML
 function escapeHtml(text: string): string {
+  if (typeof document === 'undefined') {
+    // SSR-safe escape
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
