@@ -267,6 +267,48 @@
   @apply rounded-lg;
 }
 
+/* Modern FAQ Accordion Styles */
+.faq-accordion-item {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.faq-accordion-item:hover {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.faq-answer-content a,
+.faq-answer-content .docs-link {
+  color: #2563EB !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: text-decoration 150ms ease-out !important;
+}
+
+.faq-answer-content a:hover,
+.faq-answer-content .docs-link:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+}
+
+.faq-answer-content p {
+  margin: 0 0 12px 0;
+}
+
+.faq-answer-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Dark mode support for FAQ accordion */
+html[data-theme='dark'] .faq-accordion-item {
+  background-color: #1F2937 !important;
+  border-color: #374151 !important;
+}
+
+html[data-theme='dark'] .faq-accordion-item:hover {
+  background-color: #111827 !important;
+  border-color: #4B5563 !important;
+}
+
 @layer components {
   .noise-bg {
     background-image: linear-gradient(

@@ -377,7 +377,14 @@ print(response.text)`,
         <DocsSection>
           <SectionHeader icon={<QuestionCircleRegular />} title="Frequently asked questions" />
 
-          <DocsP variant="body">
+          <DocsP
+            variant="body"
+            style={{
+              fontSize: '14px',
+              color: '#6B7280',
+              marginBottom: '16px',
+            }}
+          >
             If you do not see your question here, contact{' '}
             <a href="mailto:support@funnelleasing.com" className="docs-link">
               support@funnelleasing.com
@@ -391,19 +398,21 @@ print(response.text)`,
                 question: 'My API key was compromised. What should I do?',
                 answer: (
                   <div>
-                    <DocsP variant="body" className="!mb-2">
-                      Rotate the key as soon as possible and investigate the source of exposure (for example, a code
-                      repository, CI logs, or client-side code). If you need assistance rotating the key or reviewing
-                      access patterns, contact{' '}
+                    <p className="font-medium text-gray-900 dark:text-gray-100 mb-2">
+                      Rotate the API key immediately.
+                    </p>
+                    <p className="mb-2">
+                      Investigate the source of exposure (e.g., repositories, CI logs, client-side code). If you need
+                      assistance rotating the key or reviewing access patterns, contact{' '}
                       <a href="mailto:support@funnelleasing.com" className="docs-link">
                         support@funnelleasing.com
                       </a>
                       .
-                    </DocsP>
-                    <DocsP variant="body" className="!mb-0">
+                    </p>
+                    <p className="mb-0">
                       If you believe the key was used by an unauthorized party, include approximate timestamps and any
                       relevant request identifiers when you contact support.
-                    </DocsP>
+                    </p>
                   </div>
                 ),
               },
