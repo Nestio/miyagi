@@ -15,6 +15,7 @@ import AuthenticationPage from '../components/AuthenticationPage';
 import IntroductionPage from '../components/IntroductionPage';
 import PartnerIntroductionPage from '../components/PartnerIntroductionPage';
 import ErrorsPage from '../components/ErrorsPage';
+import UsageAndTermsPage from '../components/UsageAndTermsPage';
 import CodeSection from '../components/CodeSection';
 import Callout from '../components/Callout';
 import Badge from '../components/Badge';
@@ -53,6 +54,7 @@ export default {
   IntroductionPage,
   PartnerIntroductionPage,
   ErrorsPage,
+  UsageAndTermsPage,
   CodeSection,
   Callout,
   Badge,
