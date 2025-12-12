@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import useIsBrowser from '@docusaurus/useIsBrowser';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
@@ -7,16 +7,12 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import { usePrismTheme } from '@docusaurus/theme-common';
 import styles from './styles.module.css';
-import { DyteProvider, useDyteClient } from '@dytesdk/react-web-core';
-import { provideDyteDesignSystem } from '@dytesdk/react-ui-kit';
-import { useColorMode } from '@docusaurus/theme-common';
 
 function Header({ children }) {
   return <div className={clsx(styles.playgroundHeader)}>{children}</div>;
 }
 
 function LivePreviewLoader() {
-  // Is it worth improving/translating?
   return <div>Loading...</div>;
 }
 
@@ -31,7 +27,6 @@ function ResultWithHeader() {
           Preview
         </Translate>
       </Header>
-      {/* https://github.com/facebook/docusaurus/issues/5747 */}
       <div className={styles.playgroundPreview}>
         <BrowserOnly fallback={<LivePreviewLoader />}>
           {() => (
@@ -50,8 +45,6 @@ function ThemedLiveEditor() {
   const isBrowser = useIsBrowser();
   return (
     <LiveEditor
-      // We force remount the editor on hydration,
-      // otherwise dark prism theme is not applied
       key={String(isBrowser)}
       className={clsx(
         styles.playgroundEditor,
@@ -60,6 +53,7 @@ function ThemedLiveEditor() {
     />
   );
 }
+
 function EditorWithHeader() {
   return (
     <div className="relative">
@@ -86,10 +80,6 @@ function EditorWithHeader() {
   );
 }
 
-const initInProgress = {
-  value: false,
-};
-
 export default function Playground({ children, transformCode, ...props }) {
   const {
     siteConfig: { themeConfig },
@@ -101,79 +91,31 @@ export default function Playground({ children, transformCode, ...props }) {
 
   const prismTheme = usePrismTheme();
 
-  const [meeting, initMeeting] = useDyteClient();
-  const { colorMode } = useColorMode();
-
-  // TODO: Uncomment following block of code after adding mock web-core package
-  useEffect(() => {
-    if (initInProgress.value) return;
-    initInProgress.value = true;
-    initMeeting({
-      roomName: 'qplrfc-uuujcj',
-      authToken:
-        'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdkYzU0MGRjLWQ5MjUtNDVjMi1hZTFiLWM2NDc2YTUwNmM2NyIsImxvZ2dlZEluIjp0cnVlLCJpYXQiOjE2NjU2NDcxNjksImV4cCI6MTY3NDI4NzE2OX0.hJvo1PV1_jaxwiQbT8ft7Yi4lhIPgAsuEJHqohHYC_2XNef7kA4NhrYLvwrrxOo3AKh9_XTjnj_bsgzIDh35RRggawJniEjuE83ju2xhMXMVaa7TNDje2BsH5-VnFJ4y5hOwxGphrP5iHY_U4k_0qOQcEfVEJMymJvx0gq_Ueds',
-      defaults: {
-        audio: false,
-        video: false,
-      },
-    }).then((m) => {
-      // Object.defineProperty(m.self.permissions, 'produceAudio', {
-      //   value: 'ALLOWED',
-      // });
-      // Object.defineProperty(m.self.permissions.produceVideo, 'allow', {
-      //   value: 'ALLOWED',
-      // });
-      // Object.defineProperty(m, 'connectedMeetings', {
-      //   value: {
-      //     supportsConnectedMeetings: false,
-      //   },
-      // });
-      if (location.href.includes('build-pre-call-ui') == false) {
-        m.join();
-      }
-      window.meeting = m;
-      m.meta.meetingStartedTimestamp = new Date();
-      m.participants.setMockParticipantCount(5, 5);
-      // m.recording.recordingState = 'RECORDING';
-      const theme = document.getElementsByTagName('html')[0].dataset['theme'];
-      provideDyteDesignSystem(document.body, {
-        theme,
-      });
-      initInProgress.value = false;
-    });
-  }, []);
-
-  useEffect(() => {
-    provideDyteDesignSystem(document.body, {
-      theme: colorMode,
-    });
-  }, [colorMode]);
+  // Removed Dyte-specific initialization
+  // Playground now works as a generic live code editor without Dyte dependencies
 
   return (
     <div
       className={clsx(styles.playgroundContainer, '!rounded-none !shadow-none')}
     >
-      <DyteProvider value={meeting}>
-        {/* @ts-expect-error: type incompatibility with refs */}
-        <LiveProvider
-          code={children.replace(/\n$/, '')}
-          transformCode={transformCode ?? ((code) => `${code};`)}
-          theme={prismTheme}
-          {...props}
-        >
-          {playgroundPosition === 'top' ? (
-            <>
-              <ResultWithHeader />
-              <EditorWithHeader />
-            </>
-          ) : (
-            <>
-              <EditorWithHeader />
-              <ResultWithHeader />
-            </>
-          )}
-        </LiveProvider>
-      </DyteProvider>
+      <LiveProvider
+        code={children.replace(/\n$/, '')}
+        transformCode={transformCode ?? ((code) => `${code};`)}
+        theme={prismTheme}
+        {...props}
+      >
+        {playgroundPosition === 'top' ? (
+          <>
+            <ResultWithHeader />
+            <EditorWithHeader />
+          </>
+        ) : (
+          <>
+            <EditorWithHeader />
+            <ResultWithHeader />
+          </>
+        )}
+      </LiveProvider>
     </div>
   );
 }

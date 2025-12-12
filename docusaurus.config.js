@@ -114,7 +114,6 @@ const config = {
   onBrokenMarkdownLinks: 'ignore',
   themes: ['@docusaurus/theme-live-codeblock', '@docusaurus/theme-mermaid'],
   clientModules: [
-    require.resolve('./src/client/define-ui-kit.js'),
     require.resolve('./src/client/set-framework.js'),
     require.resolve('./src/client/add-http-badges.js'),
   ],

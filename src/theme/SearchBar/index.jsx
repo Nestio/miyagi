@@ -23,7 +23,7 @@ import { createPortal } from 'react-dom';
 import translations from '@theme/SearchTranslations';
 import { Tab } from '@headlessui/react';
 import clsx from 'clsx';
-import { ChatBot } from '@dytesdk/docs-ai-react';
+// Removed @dytesdk/docs-ai-react import - search is currently disabled
 
 import { Search } from 'react-feather';
 import { DyteAISearchIcon } from '@site/src/icons';
@@ -271,8 +271,9 @@ function DocSearch({ contextualSearch, externalUrlRegex, ...props }) {
 
               <Tab.Panels>
                 <Tab.Panel>
+                  {/* ChatBot removed - search is currently disabled */}
                   <div className="absolute left-1/2 w-full max-w-[720px] -translate-x-1/2 overflow-clip rounded-lg">
-                    <ChatBot />
+                    {/* ChatBot component would go here if search is re-enabled */}
                   </div>
                 </Tab.Panel>
 

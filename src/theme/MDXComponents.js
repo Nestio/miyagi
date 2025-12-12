@@ -4,12 +4,8 @@ import MDXComponents from '@theme-original/MDXComponents';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-import ColorCode from '../components/ColorCode';
-import ColorPalette from '../components/ColorPalette';
-import VideoPlayer from '../components/VideoPlayer';
-import InfoTooltip from '../components/InfoTooltip';
-import PropsTable from '../components/PropsTable';
-import ComponentsGrid from '../components/ComponentsGrid';
+// Removed unused components: ColorCode, ColorPalette, VideoPlayer, InfoTooltip, PropsTable, ComponentsGrid
+// These were for Dyte UI Kit documentation which is not used in Funnel Leasing docs
 import { CardSection, Card } from '../components/CardComponents';
 import AuthenticationPage from '../components/AuthenticationPage';
 import IntroductionPage from '../components/IntroductionPage';
@@ -42,12 +38,6 @@ export default {
   Tabs,
   TabItem,
 
-  color: ColorCode,
-  ColorPalette,
-  VideoPlayer,
-  InfoTooltip,
-  PropsTable,
-  ComponentsGrid,
   CardSection,
   Card,
   AuthenticationPage,
