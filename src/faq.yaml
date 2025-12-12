@@ -2,411 +2,363 @@
 # General FAQs
 #
 
-- question: What does Dyte do?
+- question: What is Funnel Leasing?
   tags: ['General']
   answer: |-
-    Dyte offers a real-time video and voice solution for integrating
-    high-quality video/voice calls into your web, mobile, and desktop
-    applications and websites.
+    Funnel Leasing is a comprehensive property management software platform designed to streamline the leasing process for property managers and rental communities. Funnel Leasing provides a suite of products and tools to help property management companies manage prospects, process applications, handle lease transactions, and engage with residents.
 
-    Call recording, live streaming, webinars,
-    live transcription and translation, chatting, polling, quizzes, and
-    many other features are available with Dyte.
+    Funnel Leasing includes:
 
-    Dyte includes:
+    **CRM**: Comprehensive customer relationship management for property managers to track and manage prospects, leads, and communications.
 
-    **Core SDKs:** These SDKs enable you to create high-quality custom
-    video and voice calls with real-time communication. Core SDKs are
-    completely customizable and simple to integrate.
+    **Online Leasing**: Streamlined digital leasing application and processing system that allows prospects to apply for rentals online.
 
-    **UI Kit:** Using Dyte&quot;s prebuilt design library of UI
-    components, you can integrate video and voice calls into your app or
-    website in minutes.
+    **Resident Portal**: Self-service portal for residents to manage their accounts, make payments, submit maintenance requests, and more.
 
-    The following platforms are currently supported:
+    **AI Virtual Assistant**: Intelligent chatbot and automation solutions that provide 24/7 support and lead capture capabilities.
 
-    - Mobile: Flutter, Android (Java/Kotlin), iOS(Objective-C/Swift), React Native
-    - Web: Javascript Core SDK + UI Kit for React JS, Angular, Web Components for everything else
-    - Desktop: Electron
+    **Voice AI & Insights**: Advanced call analytics and voice recognition technology to track and analyze customer interactions.
 
-    For more information, see [Dyte docs](/)
+    For more information, see [Funnel Leasing](https://funnelleasing.com)
 
-- question: What businesses can use Dyte?
+- question: What businesses can use Funnel Leasing?
   tags: ['General']
   answer: |-
-    Dyte can add value to a wide range of industries, including telehealth, eLearning, gaming, remote working, education, event management, metaverse, adult entertainment, and others.
+    Funnel Leasing is designed for property management companies, rental communities, real estate professionals, and organizations that manage residential or commercial properties. It's ideal for businesses that need to:
 
-- question: What is a Developer Portal?
+    - Manage prospects and leads
+    - Process rental applications
+    - Handle lease transactions
+    - Engage with residents through self-service portals
+    - Track marketing attribution and lead sources
+    - Automate leasing workflows
+
+- question: What is the Customer API?
   tags: ['General']
   answer: |-
-    To get started with Dyte, you must first register in the [developer portal](https://dev.dyte.io/).
+    The Funnel Customer API is provided to Funnel customers (property management companies) to integrate Funnel into internal systems and production workflows. Access is restricted to customer-authorized users, including internal engineering teams and approved development partners, using credentials issued for the customer's account.
 
-    The developer portal provides the following information:
+    The Customer API allows you to:
 
-    - Dashboard: A view of your usage, billing, and organization details etc.
-    - API Keys: The API Keys are required to instantiate a meeting.
-      The values for Organization ID, API Key, and Base URL are generated
-      dynamically for your Organization. You require these settings when
-      performing different actions, such as, create a meeting, delete a
-      meeting, add a participant, etc. Learn more: [Web SDKs](/react-ui-kit), [Mobile SDKs](/rn-core), [APIs](/api).
-    - Logs and Sample Apps: You can view logs and sample apps in developer portal.
+    - Retrieve listings and related data for internal tools and customer-facing experiences
+    - Integrate Funnel data with property management systems, CRMs, and operational workflows
+    - Build dashboards and reporting pipelines based on Funnel data
+    - Run scheduled synchronization jobs using supported sync endpoints
+    - Automate operational processes that depend on Funnel data and events
 
-    You can also create a webhook, roles, presets, and so on using the developer portal.
+    For more information, see [Customer API documentation](/apis/customer-api/)
 
-- question: What are Presets?
+- question: What is the Partner API?
   tags: ['General']
   answer: |-
-    A set of roles, UI elements, buttons, and configurations that determines how the meeting will appear for a specific participant. Presets can be created using [Developer Portal](https://dev.dyte.io/roles-presets) as well as [REST APIs](https://docs.dyte.io/api#/operations/post-presets). Learn more: [DytePermissionsPreset](/rn-core/reference/DytePermissionsPreset#module_DytePermissionsPreset).
+    The Funnel Partner API is designed for building reusable integrations intended to serve multiple customers (not tied to a single customer account). If you are a third-party developer or integration partner building solutions that will be used by multiple Funnel customers, you should use the Partner API.
 
-- question: What are Core SDKs used for?
+    The Partner API provides access to similar functionality as the Customer API but with different access controls and terms suitable for multi-tenant integrations.
+
+    For more information, see [Partner API documentation](/apis/partner-api/)
+
+- question: How do I get API access?
   tags: ['General']
   answer: |-
-    The Dyte Core SDKs are designed to provide developers with an easy way to incorporate real-time communication (RTC) solutions into their apps and websites. With full customization and branding options, you can build your own UI from the ground up without dealing with complicated media layers. 
+    To request API access, contact your Funnel customer service representative or email support@funnelleasing.com. Funnel issues API keys on request and configures them based on your intended use.
 
-    The Core SDK acts as a data-only layer, offering high-level primitives and abstracting away complex media and networking optimizations. It only provides simple APIs that are user-friendly and easy to work with.
-    See [Dyte docs](/).
+    When requesting API access, please provide:
 
-- question: What is the UI Kit?
+    - Your customer account name and primary technical contact
+    - Where the integration will run (server-side service, internal tool, website, etc.)
+    - Whether the key needs to be used in a browser or other client-side environment
+    - Any listing display requirements (for example, whether full addresses may be shown)
+    - Expected volume and synchronization patterns (scheduled sync, near real-time, etc.)
+
+    For more information, see [Authentication documentation](/apis/customer-api/authentication)
+
+- question: What are Website Widgets?
   tags: ['General']
   answer: |-
-    Dyte's React UI Kit is a prebuilt design library of UI components that makes it easy to integrate video and voice calls into any app or website within minutes. See [Dyte docs](/react-ui-kit).
+    Website widgets are JavaScript-based components that you embed directly into your website's HTML. They enable you to:
 
-- question: What is the Plugin SDK?
+    - **Capture leads** - Collect visitor information through customizable lead forms
+    - **Schedule appointments** - Allow prospects to book appointments with your leasing team
+    - **Provide AI chat support** - Offer instant assistance through an AI-powered chatbot
+    - **Track marketing attribution** - Dynamically update phone numbers and capture campaign data based on UTM parameters and referrers
+
+    Available widgets include:
+
+    - **Lead Form**: Captures visitor contact information and creates leads in Funnel Leasing
+    - **Appointment Scheduler**: Allows prospects to schedule appointments with leasing professionals
+    - **Chatbot**: AI-powered chat widget that answers questions and captures leads
+    - **Dynamic Number Insertion (DNI)**: Updates phone numbers on your site based on marketing sources
+
+    For more information, see [Website Integration documentation](/integration/)
+
+- question: What are Webhooks?
   tags: ['General']
   answer: |-
-    You can use [Dyte plugin SDKs](https://docs.dyte.io/plugin-sdk) to add third-party plugins to experience the most immersive, collaborative, and more human interaction right in your video and audio calls. Dyte provides multiple out-of-the-box plugins, for example, YouTube, Miro, WhiteBoard, and so on.
+    Funnel Leasing Webhooks are messages about events that are sent via POST request from Funnel Leasing's servers to a user-defined callback URL that you own. They allow Funnel Leasing to automatically send real-time event data to your app when triggered by an event (like a unit being reserved, an application being completed, or a lease transaction being updated).
 
-- question: How to access API Keys and other details from the Developer Portal?
-  tags: ['General']
-  answer: |-
-    Log onto [https://dev.dyte.io/apikeys](https://dev.dyte.io/apikeys) with the credentials you used to sign up for Dyte.
+    You can think of webhooks as push notifications for servers. They enable you to:
 
-- question: How many people can join a Dyte meeting with audio & video turned ON?
-  tags: ['General']
-  answer: |-
-    On Dyte, you can have up to 2000 people on the same call with video and voice enabled.
-    However, if you have any specific requirements that require more people joining the same call, please
-    [contact us](https://dyte.io/contact).
+    - Stay informed about crucial actions as they unfold within Funnel Online Leasing
+    - Automate workflows based on Funnel events
+    - Keep your systems in sync with Funnel data
+    - Trigger actions in your systems when specific events occur
 
-    We will support you with your requirements.
-
-- question: How many attendees can be seen on a live grid?'
-  tags: ['General']
-  answer: |-
-    In order to provide the best possible experience, we recommend the number of attendees on live grid to be set in range of 4 to 9. However, we can tailor it to a maximum of 25 attendees.
-
-- question: How many people can join a Dyte webinar?
-  tags: ['General']
-  answer: |-
-    5000 people. 100 users with the audio-video enabled and everyone else attending
-    the call. However, if you have any specific
-    requirements that require more people joining the same call, please 
-    [contact us](https://dyte.io/contact).
-
-    We will support you with your requirements.
-
-- question: What is an organization in Dyte?
-  tags: ['General']
-  answer: |-
-    In Dyte, organization allows you to group all of your company's
-    members. This is a top-level entity to which all members of your group
-    are added. Dyte also considers the organization to be a billing unit.
-
-- question: Where can I find my auth token and room name?
-  tags: ['General']
-  answer: |-
-    The Add Participant API call returns your authentication token.
-
-    See [Add a participant](/api#/operations/addParticipant).
-
-    Room name is generated when you create a meeting. You can get the room
-    name from the developer portal or using REST APIs. For example,
-
-    ![Create Meeting response](/static/faq/create-meeting.png)
-
-    It is to be noted that a V2 integration of our APIs doesn't have the concept of roomName therefore neither the APIs return roomName nor it is needed by SDK to initialize the meeting.
-
-    For more information, see [Create a meeting](/api#/operations/createMeeting).
-
-- question: Can I join a meeting from the mobile which is started on the web?
-  tags: ['General']
-  answer: |-
-    Yes, you can.
+    Events are transmitted as `application/json` POST requests. For more information, see [Webhooks documentation](/webhooks/latest/)
 
 #
 # Technical FAQs
 #
 
-- question: What are the minimum browser and internet requirements for Dyte?
+- question: How do I authenticate API requests?
   tags: ['Technical']
   answer: |-
-    Browser Requirements:
-    - Chrome (or Chromium based) 74+
-    - Firefox 78+
-    - Opera 64+
-    - Safari 12+
-    - Edge 79+
-    - iOS (Safari) 12.1+
-    - iOS (Non-Safari) 15+
+    All requests to the Funnel Customer APIs must be authenticated using an API key issued for your customer account. Authentication uses HTTP Basic Authentication protocol.
 
-    Internet Requirements:
-    - Downlink (Minimum) 4 Mbps
-    - Downlink (Optimal) 8 Mbps
-    - Uplink (Minimum) 2 Mbps
-    - Uplink (Optimal) 4 Mbps
+    The username is your API key and the password is blank.
 
-- question: What is the difference between a meeting and a session?
+    **Example using curl:**
+    ```bash
+    curl --user <API_KEY>: https://api.funnelleasing.com/api/v2/onlineleasing-link/
+    ```
+
+    **Example using Python:**
+    ```python
+    import requests
+
+    url = "https://api.funnelleasing.com/api/v2/onlineleasing-link/"
+    response = requests.get(url, auth=("<API_KEY>", ""))
+    ```
+
+    For more information, see [Authentication documentation](/apis/customer-api/authentication)
+
+- question: What is the API base URL?
   tags: ['Technical']
   answer: |-
-    Every Dyte communication channel is referred to as a meeting. A meeting is basically a recurring instance of that communication channel, and an ongoing meeting is referred to as a session.
+    The Funnel Customer API base URL is:
 
-- question: Which part of the meeting is customizable?
+    ```
+    https://api.funnelleasing.com/api/v2/
+    ```
+
+    All API endpoints are relative to this base URL.
+
+- question: Are there rate limits on the API?
   tags: ['Technical']
   answer: |-
-    To match your branding, you can change the logo, colors, font, border,
-    and spacing. Design tokens in UI Kit are used to customize these
-    components.
+    Funnel does not enforce a specific rate limit for requests made to our API, but simply asks that you be reasonable and polite. We will not limit your usage for normal website traffic, but we ask that you do not hammer our API with rapid requests made by an automated script. If you do, we will revoke your API access.
 
-    Our Core SDKs can also be used to create fully customized video/voice
-    calls for your applications.
+    If you have a use case that requires polling the API data for changes on a regular basis, or syncing large amounts of data at one time from the API to your system, we require using the **Listings Sync Endpoint**. We also have other technical solutions available that might better suit your needs. Please contact us, and we can discuss technical solutions that are mutually satisfactory.
 
-- question: Can I record a meeting?
-  tags: ['Technical', 'Recording']
-  answer: |-
-    Yes, you can record a meeting. See [Start recording a meeting](/guides/recording/start-recording).
+    For more information, see [Usage & Terms](/apis/customer-api/usage-and-terms)
 
-    However, it's important to note that if there are no participants in the meeting for a duration of 1 minute after you've started the recording, the recording automatically stops and the recording is not saved.
-
-- question: Where are the meeting recordings stored?
-  tags: ['Technical', 'Recording']
-  answer: |-
-    The meeting recordings are saved in your cloud storage that you set up. The supported cloud providers are AWS S3 bucket, DigitalOcean Spaces, Azure Blob storage, and Google Cloud Storage (GCS) buckets. 
-
-    For more information on how to configure storage configs for Dyte Recordings, see [Set storage configuration](/guides/capabilities/recording/custom-cloud-storage#set-storage-configuration). 
-
-    If you haven't set up your storage configurations, Dyte will keep your recordings for 7 days, after which they will expire and become inaccessible.
-
-- question: Where is Dyte hosted?
+- question: What data formats does the API support?
   tags: ['Technical']
   answer: |-
-    Resiliency is important. Dyte uses multi-cloud and multi-region
-    architecture to provide that seamless experience. Dyte is hosted in
-    Mumbai, Virginia (US East), Singapore, Frankfurt & [more](https://dyte.io/blog/new-media-regions/). You can also read
-    through [this](https://dyte.io/blog/multi-region-resiliency/) blog to understand how Dyte manages a multi-region setup.
+    The Funnel Customer API uses JSON for request and response data. All API responses are returned in JSON format, and request bodies should also be sent as JSON with the `Content-Type: application/json` header.
 
-- question: Can I self-host Dyte on my own servers?
-  tags: ['Technical']
-  answer: No. Dyte is a Software as a Service (SaaS), fully managed and hosted by Dyte.
+    Webhook events are also sent as `application/json` POST requests.
 
-- question: What platforms, language, and technologies can I build on using Dyte?
+- question: How do I set up webhooks?
   tags: ['Technical']
   answer: |-
-    The following are the supported platforms:
-    - Web: React JS, Angular, Javascript
-    - Mobile: Flutter, Kotlin, Swift, React Native
-    - Desktop: Electron
+    To set up webhooks, you need to:
 
-- question: What backend services can I use with Dyte?
+    1. **Create an endpoint** - Set up a URL endpoint on your server that can receive POST requests
+    2. **Configure the webhook** - Contact your Funnel customer service representative to configure webhook URLs for your account
+    3. **Handle the events** - Implement logic to parse the JSON payload and handle the events you're interested in
+
+    Webhook events are sent as `application/json` POST requests to your configured callback URL. You should implement proper error handling and return appropriate HTTP status codes (200-299 for success).
+
+    For more information, see [Webhooks documentation](/webhooks/latest/)
+
+- question: What webhook events are available?
   tags: ['Technical']
   answer: |-
-    We have no restrictions on our end. Our APIs are HTTP REST APIs and thus
-    can be called from services written in any language or framework. To
-    find your language-specific backend code, refer to our [API reference](/api)
+    Funnel Leasing provides a comprehensive set of webhook events that cover various aspects of the leasing process, including:
 
-- question: What are webhooks?
+    - **Lease Transaction Events**: Unit reservations, releases, status updates, terms updates, fees updates
+    - **Lease Events**: Move-in events, move-in cancellations
+    - **Quote Events**: Quote creation
+    - **Message Events**: Message send success/failure
+    - **Agent Task Events**: Task status changes
+
+    For a complete list of available events, see [Webhook Events List](/webhooks/latest/30-events-list/)
+
+- question: How do I integrate widgets into my website?
   tags: ['Technical']
   answer: |-
-    Webhook service enables you to subscribe to server events. These events
-    allow to trigger specific server actions in response to Dyte meeting
-    events and state changes. 
+    To integrate Funnel Leasing widgets into your website:
 
-    To access the current list of events that can be used with webhooks, see [Webhook Events List](/guides/capabilities/webhooks/webhook-events).
+    1. **Obtain your credentials** - Contact your Funnel Leasing account representative or support team to get your API key and Community/Group IDs
+    2. **Choose your widgets** - Determine which widgets best fit your website's needs (Lead Form, Appointment Scheduler, Chatbot, DNI)
+    3. **Add script tags** - Include the widget's JavaScript file in your HTML
+    4. **Initialize the widget** - Call the widget's initialization function with your configuration
+    5. **Customize appearance** - Set colors, labels, and other styling options
+    6. **Test and validate** - Verify that widgets are working correctly on your site
 
-- question: How do I set up and transfer a recording to my storage configuration?
-  tags: ['Technical', 'Recording']
-  answer: |-
-    You can pass an optional object storageConfig in the start recording
-    request, and we will publish the recording directly to your cloud provider
-    once it stops. For more information, see [Publishing a recording to your
-    cloud provider](/guides/capabilities/recording/custom-cloud-storage).
+    Each widget follows a similar integration pattern. For detailed instructions, see the specific widget documentation:
 
-- question: I'm unable to locate my recorded meeting through the Developer Portal or downloadUrl. Was my meeting successfully recorded?
-  tags: ['Technical', 'Recording']
-  answer: |-
-    There are two possible reasons:
+    - [Lead Form Widget](/integration/lead-form)
+    - [Appointment Scheduler Widget](/integration/appointment-scheduler)
+    - [Chatbot Widget](/integration/chatbot)
+    - [Dynamic Number Insertion (DNI)](/integration/dni)
 
-    1. Dyte's recording feature will automatically stop recording if no participants are present in the meeting for 1 minute or longer. Please verify whether there were any participants present during the time the recording was initiated. 
-
-    2. In case you haven't set up an external storage configuration and have also disabled uploads to Dyte's bucket, the recording will not be saved in any location and will be considered invalid. For more information, see [Publishing a recording to your
-    cloud provider](/guides/capabilities/recording/custom-cloud-storage).
-
-- question: How do I create a region-specific room?
+- question: What programming languages can I use with the API?
   tags: ['Technical']
   answer: |-
-    To create a meeting in your preferred region, pass preferredRegion in
-    the body of the createMeeting endpoint. For more information, see [Create a meeting](/api#/operations/createMeeting).
+    The Funnel Customer API uses standard HTTP REST APIs, which means you can use any programming language or framework that can make HTTP requests. Common languages include:
 
-- question: Is it possible to record specific streams or users during a meeting, regardless of who is on the screen?
-  tags: ['Technical', 'Recording']
-  answer: No, it is not possible to selectively record specific streams or users. Instead, our recording feature captures the entire screen and not individual streams or users.
+    - Python
+    - JavaScript/Node.js
+    - Ruby
+    - PHP
+    - Java
+    - Go
+    - C#
+    - And many others
 
-- question: Can I send an attachment via chat in a live session?
+    Since the API uses standard HTTP Basic Authentication and JSON for data exchange, you can use any HTTP client library in your preferred language.
+
+- question: Can I use the API in a browser or client-side application?
   tags: ['Technical']
   answer: |-
-    Yes, you can share media files via chat during a live session. You can
-    send files, pdfs, images, and more. You can also use plugins such as Doc
-    sync to view the shared file as a group and annotate the points that you
-    would want to clarify.
+    API keys can be configured for different use cases. When requesting API access, specify whether the key needs to be used in a browser or other client-side environment. Funnel can issue public access keys that are appropriate for website frontends, or private access keys that are required for server-to-server API integration.
 
-- question: Can I retrieve the chat history of a session?
+    However, for security reasons, it's generally recommended to use server-side integrations when possible, especially for operations that modify data or access sensitive information.
+
+- question: How do I handle errors from the API?
   tags: ['Technical']
   answer: |-
-    You can programmatically retrieve all chat messages of a Dyte session using [Chat Replay API](/guides/export-chat-dump).
-    For more information, see [How to Fetch Chat History of a Dyte Session](https://dyte.io/blog/fetch-chat-history-of-a-dyte-session/)
-    blog.
+    The Funnel Customer API uses standard HTTP status codes to indicate success or failure:
 
-- question: What is the duration for which Dyte keeps chat records?
+    - **2xx**: Success
+    - **4xx**: Client errors (bad request, unauthorized, not found, etc.)
+    - **5xx**: Server errors
+
+    Error responses include a JSON body with details about what went wrong. For more information about error handling and common error codes, see [Errors documentation](/apis/customer-api/errors)
+
+- question: What is the difference between a prospect and an applicant?
   tags: ['Technical']
   answer: |-
-    Dyte stores chat records for a period of 7 days, only if you've enabled [Chat Replay API](/guides/export-chat-dump) for your organization. You can download the chat using the `chat_download_url` in CSV format from AWS S3.
-    However, it is important to note that this download link is only valid for 24 hours. In case the link has expired, you can request for a new `chat_download_url` by sending an HTTP GET request to the [Chat Replay API](/guides/export-chat-dump).
+    In Funnel Leasing:
 
-- question: |-
-    How do I view session metadata such as start time, end time, number of
-    participants, and so on?
+    - **Prospect**: A potential renter who has expressed interest in a property but has not yet submitted a formal application. Prospects are typically leads that have been captured through your website, marketing campaigns, or other channels.
+
+    - **Applicant**: A person who has submitted a formal rental application as part of a lease transaction. An applicant is associated with a specific lease transaction and may have a role such as "Primary Applicant", "Roommate", "Guarantor", "Occupant", or "Corporation".
+
+    The progression typically goes: Lead → Prospect → Applicant → Resident
+
+- question: What is a lease transaction?
   tags: ['Technical']
   answer: |-
-    You can use the [Session API](/api?v=v2#/operations/GetSessionDetails) to
-    fetch the metadata for a given session.
+    A lease transaction represents the process of leasing a unit, from initial interest through move-in. It includes:
 
-- question: Is there a way for me to write on the screen during the meeting?
+    - The unit being leased
+    - The applicants involved
+    - Lease terms and conditions
+    - Fees and charges
+    - Status tracking (reserved, application in progress, approved, etc.)
+
+    Lease transactions can be created, updated, and tracked through the API. Various webhook events are triggered as lease transactions progress through different stages.
+
+    For more information, see [Lease Transaction documentation](/apis/customer-api/lease-transaction/)
+
+- question: How do I retrieve listings data?
   tags: ['Technical']
   answer: |-
-    Dyte provides multiple out-of-the-box plugins, for example, YouTube, Miro,
-    WhiteBoard, and so on. You can use WhiteBoard for the collaboration.
+    You can retrieve listings data using the Listings API endpoints:
 
-- question: Can I add participants when creating a meeting only?
-  tags: ['Technical']
-  answer: No, after creating a meeting, use the [Add Participants
-    API](/api/?v=v2#/operations/add_participant) to add participants to the
-    meeting.
+    - **Get a specific listing**: Retrieve details for a single listing by ID
+    - **List all listings**: Get a list of all available listings
+    - **Listings Sync**: Use the sync endpoint for efficient bulk data synchronization
 
-- question: |-
-    Can I pass recording parameters such as codec and storage configurations
-    when creating a meeting or create a template that can be used for all the
-    meetings?
-  tags: ['Technical', 'Recording']
-  answer: |-
-    Yes, codec and storage information can be passed through the recording API.
-    Per recording, you can pass the parameters storageConfig and videoConfig.
-    You can also send an email to [dev@dyte.io](mailto:dev.dyte.io) to set the
-    orgs default configuration.
+    The Listings Sync Endpoint is recommended if you need to sync large amounts of data or poll for changes regularly, as it's optimized for these use cases.
 
-- question: |-
-    Can I save my recordings directly to my storage bucket without saving them to Dyte?
-  tags: ['Technical', 'Recording']
-  answer: |-
-    Yes, you can. By default, Dyte uploads all recordings to Dyte's S3 bucket in the AWS ap-south-1 region. However, Dyte provides users with the flexibility to choose whether or not to upload their recordings to Dyte's S3 bucket. 
+    For more information, see [Listings documentation](/apis/customer-api/listings/)
 
-    If you wish to disable uploads to Dyte's bucket, you can set the `dyte_bucket_config` parameter to false in the [Start Recording](/api?v=v2#/operations/start_recording) endpoint. For more information, see [Manage Dyte's Default Recording Upload Settings](/guides/recording/configure-dyte-bucket-config).
-
-- question: |-
-    What is the average file size of a Dyte recording?
-  tags: ['Technical', 'Recording']
-  answer: |-
-    Based on historical data, here are estimations for recording sizes with different components:
-
-    - Format: H264 video codec
-    - Resolution: 720p
-    - Duration: 1 hour
-    - Estimated size: On average, around 230MB
-    - Range: Typically falls between 200-250MB, with potential outliers for static or rapidly changing content.
-
-    Please note that these estimations are based on historical data and apply to recordings with a resolution of 720p. Actual sizes may vary depending on factors such as content, codec settings, and resolution.
-
-- question: |-
-    What if our server fails to consume the webhook? When will they be fired
-    again, and are they idempotent?
+- question: Can I customize widget appearance?
   tags: ['Technical']
   answer: |-
-    For timeouts and 5xx errors, we retry three times with a one-second delay
-    between each retry.
+    Yes, Funnel Leasing widgets are customizable. You can configure various aspects of widget appearance and behavior, including:
 
-- question: Is it possible to get the total running time of a session from the meeting.ended webhook?
+    - Colors and styling
+    - Labels and text
+    - Size and positioning
+    - Behavior and functionality
+
+    Each widget has its own set of configuration options. Refer to the specific widget documentation for detailed customization options:
+
+    - [Lead Form Widget](/integration/lead-form)
+    - [Appointment Scheduler Widget](/integration/appointment-scheduler)
+    - [Chatbot Widget](/integration/chatbot)
+    - [Dynamic Number Insertion (DNI)](/integration/dni)
+
+- question: How do I track widget events in Google Analytics?
   tags: ['Technical']
   answer: |-
-    We send `startedAt` and `endedAt` timestamps in a `meeting.ended` webhook
-    that can be used to compute the session's running time.
+    Funnel Leasing widgets can be integrated with Google Analytics to track user interactions and events. The widgets support callback functions that can trigger Google Analytics events when specific actions occur (such as form submissions, appointment bookings, etc.).
 
-- question: What is the expected delay in the livestream, and what happens if it exceeds the expected delay?
-  tags: ['Technical', 'Livestreaming']
-  answer: Typically, there is a 3-5 second lag in all livestreams. If the delay exceeds 10 seconds, users can "Skip to Live," which involves dropping frames in order to synchronize the user's video with the live stream. Once the videos are synced, we stop dropping frames until the time exceeds 10 seconds again.
+    For detailed instructions on setting up Google Analytics integration, see [Google Analytics Integration documentation](/integration/google-analytics)
 
-- question: What is the maximum number of hosts and viewers allowed to participate in a livestream?
-  tags: ['Technical', 'Livestreaming']
-  answer: Dyte's Interactive Livestreaming (ILS) can currently accommodate 25,000 viewers and 100 hosts on a single livestream.
-
-- question: What is the maximum number of users that the livestream can handle, and how does this impact its quality?
-  tags: ['Technical', 'Livestreaming']
-  answer: Currently, our platform can support up to 25,000 viewers in a single livestream, and the quality of the stream is not affected by the number of viewers. However, an increase in the number of users may impact other features such as chats and polls.
-
-- question: How do I manage viewer permissions for a livestream?
-  tags: ['Technical', 'Livestreaming']
-  answer: You can manage the permissions for a viewer using presets. For livestreaming, you must create two presets. One preset is for the livestreaming host, while the other is for the livestreaming viewer. For details, see Create [Presets](/guides/livestream/getting-started-with-livestreaming#step-2-create-presets).
-
-- question: Can I join the livestream as a host in the middle of the livestream?
-  tags: ['Technical', 'Livestreaming']
-  answer: Yes, you can. However, ensure that you've the required preset permissions. For details, see Create [Presets](/guides/livestream/getting-started-with-livestreaming#step-2-create-presets).
-
-- question: What permissions does a host require to start a livestream?
-  tags: ['Technical', 'Livestreaming']
-  answer: The host requires certain host controls such as the ability to Kick Participants, Mute Audio, Mute Video, and Pin Participant, as well as media permissions like Start Livestream and Admit or remove participants from the livestream. For details, see Create [Presets](/guides/livestream/getting-started-with-livestreaming#step-2-create-presets).
-
-- question: How much latency can be expected with Dyte's live streams?
-  tags: ['Technical', 'Livestreaming']
-  answer: Dyte provides live streams with a low latency of only 3 to 6 seconds.
-
-- question: Is it necessary to generate new stream keys for each live event?
-  tags: ['Technical', 'Livestreaming']
-  answer: |-
-    No, stream keys can be reused multiple times. However, it's important to keep the stream key private as it grants access to the live stream. Therefore, users should be informed to keep their stream key secure.
-
-    For more information, see [Live Stream Custom Video Input via RTMP](/guides/livestream/livestream-any-rtmp).
-
-- question: |-
-    I'm encountering audio and video problems while developing a live video
-    solution for my app. I'm using Chrome to test the microphone and camera.
-    What could be causing this?
+- question: What happens if my webhook endpoint is unavailable?
   tags: ['Technical']
   answer: |-
-    The issue could be due to the security features implemented by the
-    browser. Most of the standard browsers with best security practices restrict
-    many features to HTTPS instead of HTTP. You can read about the details of
-    the features that are restricted in Chrome
-    [here](https://sites.google.com/a/chromium.org/dev/Home/chromium-security/deprecating-powerful-features-on-insecure-origins).
+    If your webhook endpoint is unavailable or returns an error, Funnel Leasing will retry the webhook delivery. The exact retry behavior depends on the type of error:
 
+    - For timeouts and 5xx errors, Funnel typically retries multiple times with delays between retries
+    - For 4xx errors (client errors), retries may not be attempted as these usually indicate a configuration issue
 
-    To troubleshoot, we recommend trying the steps mentioned in this
-    [document](https://web.dev/how-to-use-local-https/). If this does not
-    resolve the issue, you can try using [ngrok](https://ngrok.com/) as an
-    alternative solution.
+    It's important to ensure your webhook endpoint is reliable and returns appropriate HTTP status codes. Always return a 2xx status code for successful webhook processing.
 
+- question: Can I test webhooks locally during development?
+  tags: ['Technical']
+  answer: |-
+    Yes, you can test webhooks locally during development using tools like:
 
-    To use ngrok, download the software and run it with the local port
-    specified. This generates an HTTPS URL that you can use for testing the
-    microphone and camera.
+    - **ngrok**: Creates a secure tunnel to your local server
+    - **localtunnel**: Similar to ngrok, provides a public URL for your local server
+    - **webhook.site**: A service that provides temporary URLs for testing webhooks
 
-    1. Download ngrok.
+    These tools allow you to receive webhook events on your local development machine for testing purposes.
 
-    2. Run the command 'ngrok http PUT_LOCAL_PORT_HERE'.
+- question: What information is included in webhook payloads?
+  tags: ['Technical']
+  answer: |-
+    Webhook payloads include relevant information about the event that occurred. The exact structure depends on the event type, but typically includes:
 
-    3. Use the HTTPS URL to test your microphone and camera.
+    - Event type/name
+    - Timestamp
+    - Related entity IDs (prospect ID, lease transaction ID, etc.)
+    - Event-specific data (status changes, updates, etc.)
+
+    For detailed information about webhook payload structures, see [Event Object documentation](/webhooks/latest/20-event-object/)
 
 #
-# Pricing FAQs
+# Support FAQs
 #
 
-- question: How do I make a payment?
-  tags: ['Pricing']
+- question: Where can I get help or support?
+  tags: ['Support']
   answer: |-
-    Once Dyte has generated an invoice, you can pay using a link, a saved card, or do a direct bank transfer.
+    If you need help with Funnel Leasing APIs, webhooks, or widgets, you can:
+
+    - **Contact Support**: Email support@funnelleasing.com
+    - **Contact Your Account Representative**: Reach out to your assigned Funnel Leasing account representative
+    - **Visit the Documentation**: Browse the comprehensive documentation at [docs.funnelleasing.com](https://docs.funnelleasing.com)
+    - **Contact Sales**: For questions about features or pricing, visit [funnelleasing.com/contact](https://funnelleasing.com/contact)
+
+- question: How do I report a bug or request a feature?
+  tags: ['Support']
+  answer: |-
+    To report bugs or request features:
+
+    - **Email Support**: Send details to support@funnelleasing.com
+    - **Contact Your Account Representative**: Discuss with your assigned Funnel Leasing account representative
+    - **GitHub Issues**: If you have access to the documentation repository, you can open an issue there
+
+    When reporting bugs, please include:
+    - Description of the issue
+    - Steps to reproduce
+    - Expected vs. actual behavior
+    - API endpoint or feature involved
+    - Error messages or logs (if applicable)

@@ -155,7 +155,7 @@ export default function FAQPage() {
   return (
     <Layout
       title="FAQ Documentation"
-      description="Find answers to frequently asked questions in Dyte's comprehensive FAQ documentation. Explore solutions and get insights into common queries."
+      description="Find answers to frequently asked questions about Funnel Leasing APIs, webhooks, widgets, and integrations. Explore solutions and get insights into common queries."
       wrapperClassName="faq-page bg-secondary-1000"
       noFooter
     >

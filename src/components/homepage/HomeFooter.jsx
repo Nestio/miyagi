@@ -275,13 +275,6 @@ export default function Footer() {
               Terms of Service
             </Link>
             &bull;
-            <Link
-              href="https://funnelleasing.com/website-terms-of-use"
-              className="text-inherit hover:text-black hover:underline dark:text-[#999] dark:hover:text-[#2160fd]"
-            >
-              Website Terms of Use
-            </Link>
-            &bull;
             <span className="text-inherit dark:text-[#999]">
               &copy; {new Date().getFullYear()} Funnel Leasing Inc.
             </span>
@@ -289,7 +282,7 @@ export default function Footer() {
 
           <div className="flex items-center gap-4">
             <Link
-              href="https://github.com/funnelleasing"
+              href="https://github.com/nestio/yoda"
               aria-label="Funnel Leasing's GitHub Organization"
             >
               <Github className="h-7 w-7 text-zinc-400 hover:text-primary" />

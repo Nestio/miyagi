@@ -193,11 +193,11 @@ const config = {
             className: 'funnel-dropdown docs-dropdown',
             items: [
               {
-                label: 'Latest (V2)',
+                label: 'Version 2',
                 to: '/webhooks/latest/',
               },
               {
-                label: 'Legacy (V1)',
+                label: 'Legacy (Version 1)',
                 to: '/webhooks/legacy/',
               },
             ],
