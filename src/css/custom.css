@@ -81,7 +81,144 @@
     --docs-color-secondary-1000: 255 255 255;
 
     --docs-color-text-400: 71 71 71;
+
+    /* Introduction Page Color Tokens */
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --text-muted: #6B7280;
+    --border: #E5E7EB;
+    --link: #1D4ED8;
+    --bg-subtle: #F9FAFB;
+    --bg-zebra: #FAFAFA;
+    --text-empty: #D1D5DB;
   }
+
+  /* Global transitions - 150ms ease-out, no bounce, no spring */
+  * {
+    transition: color 150ms ease-out, background-color 150ms ease-out, border-color 150ms ease-out, opacity 150ms ease-out;
+  }
+
+  /* Focus states - 2px outline with 2px offset, brand accent color */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid #ff2fff;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Hover states - color shift only, no movement */
+  a:hover {
+    transform: none !important;
+  }
+
+  /* Prevent visited links from turning purple */
+  a:visited {
+    color: inherit;
+  }
+
+  /* Introduction Page Typography Classes */
+  .docs-p {
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-secondary);
+    margin: 0 0 16px 0;
+    max-width: 680px;
+  }
+
+  .docs-p-body {
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-primary);
+    margin: 0 0 16px 0;
+    max-width: 680px;
+  }
+
+  .docs-p-muted {
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-muted);
+    margin: 0 0 16px 0;
+    max-width: 680px;
+  }
+
+  .docs-p-lead {
+    font-size: 16px;
+    line-height: 26px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    max-width: 620px;
+  }
+
+  .docs-ul {
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-primary);
+    margin: 12px 0 16px;
+    padding-left: 24px;
+    max-width: 680px;
+  }
+
+  .docs-h3 {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 32px;
+    margin-bottom: 16px;
+  }
+
+  .docs-link {
+    color: var(--link);
+    text-decoration: none;
+    transition: color 150ms ease-out, text-decoration 150ms ease-out;
+    font-weight: 500;
+  }
+
+  .docs-link:hover {
+    color: var(--link);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .docs-link:focus-visible {
+    outline: 2px solid #ff2fff;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Section anchor link styling */
+  .docs-link-anchor {
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-left: 8px;
+    transition: opacity 150ms ease-out, color 150ms ease-out;
+  }
+
+  .docs-link-anchor:hover {
+    color: var(--text-secondary);
+  }
+
+  .docs-section {
+    margin-bottom: 64px;
+  }
+
+  .docs-intro {
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+  }
+
+  /* Spacing utility classes - standardized scale: 16/24/32/48/64 */
+  .docs-mt-16 { margin-top: 16px; }
+  .docs-mt-24 { margin-top: 24px; }
+  .docs-mt-32 { margin-top: 32px; }
+  .docs-mt-48 { margin-top: 48px; }
+  .docs-mt-64 { margin-top: 64px; }
+
+  .docs-mb-16 { margin-bottom: 16px; }
+  .docs-mb-24 { margin-bottom: 24px; }
+  .docs-mb-32 { margin-bottom: 32px; }
+  .docs-mb-48 { margin-bottom: 48px; }
+  .docs-mb-64 { margin-bottom: 64px; }
 
   html[data-theme='dark'] {
     --docs-color-text-400: 153 153 153;
@@ -1841,5 +1978,18 @@ html[data-theme='dark'] .section-separator {
 
 .attribute-list > li:last-child {
   border-bottom: none !important;
+}
+
+/* Introduction Page List Styling */
+.introduction-page ul.list-disc {
+  padding-left: 24px;
+}
+
+.introduction-page ul.list-disc li {
+  margin-bottom: 8px;
+}
+
+.introduction-page ul.list-disc li::marker {
+  color: #9CA3AF;
 }
 

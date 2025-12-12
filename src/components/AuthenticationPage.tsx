@@ -6,6 +6,7 @@ import Badge from './Badge';
 import SectionHeader from './SectionHeader';
 import FAQAccordion, { type FAQItem } from './FAQAccordion';
 import ModernTable, { type TableColumn, type TableRow } from './ModernTable';
+import { DocsH3, DocsP, DocsSection } from './DocsPrimitives';
 import {
   KeyRegular,
   LockClosedRegular,
@@ -17,6 +18,8 @@ import {
 } from '@fluentui/react-icons';
 
 export default function AuthenticationPage() {
+  const EMPTY = <span style={{ color: 'var(--text-empty)' }}>—</span>;
+
   const codeTabs: CodeTab[] = [
     {
       label: 'Unix Shell',
@@ -38,50 +41,49 @@ response = requests.get('https://api.funnelleasing.com/api/v2/onlineleasing-link
 
   return (
     <div className="authentication-page">
-      {/* API Key Section */}
-      <section className="mb-12">
-        <SectionHeader
-          icon={<KeyRegular className="w-6 h-6" style={{ color: 'var(--docs-color-text)' }} />}
-          title="API Key"
-        />
+      <div className="max-w-[760px] mx-auto px-8">
+        {/* API Key Section */}
+        <DocsSection>
+          <SectionHeader
+            icon={<KeyRegular />}
+            title="API Key"
+          />
 
-        <div className="mb-8">
-          <h3 className="mb-4 text-xl font-semibold" style={{ color: 'var(--docs-color-text)' }}>
+          <DocsH3>
             Getting your Authorized API Key
-          </h3>
-          <p className="mb-4 text-base leading-relaxed" style={{ color: 'var(--docs-color-text-100)' }}>
+          </DocsH3>
+          <DocsP variant="body">
             To get access to the Funnel listings API please contact your customer service representative. We will create a key for you on request, configured according to your needs.
-          </p>
-          <p className="mb-6 text-base leading-relaxed" style={{ color: 'var(--docs-color-text-100)' }}>
+          </DocsP>
+          <DocsP variant="body">
             Your customer service representative will discuss your intended API use to determine if you need a <strong>public</strong> or <strong>private</strong> access key. Typically public access keys are appropriate for website frontends and private access keys are required for server-to-server API integration.
-          </p>
-        </div>
-      </section>
+          </DocsP>
+        </DocsSection>
 
-      {/* Basic Authentication */}
-      <section className="mb-12">
-        <SectionHeader
-          icon={<LockClosedRegular className="w-6 h-6" style={{ color: 'var(--docs-color-text)' }} />}
-          title="Basic Authentication"
-        />
+        {/* Basic Authentication */}
+        <DocsSection>
+          <SectionHeader
+            icon={<LockClosedRegular />}
+            title="Basic Authentication"
+          />
         
-        <p className="mb-6 text-base leading-relaxed" style={{ color: 'var(--docs-color-text-100)' }}>
-          Requests are made using the HTTP Basic Authentication protocol. The username is your key and the password is blank. See the{' '}
-          <a
-            href="https://en.wikipedia.org/wiki/Basic_access_authentication"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 hover:underline dark:text-blue-400 font-medium"
-          >
-            wikipedia page
-          </a>{' '}
-          for more details: HTTP Basic Auth
-        </p>
+          <DocsP variant="body">
+            Requests are made using the HTTP Basic Authentication protocol. The username is your key and the password is blank. See{' '}
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="docs-link"
+            >
+              HTTP Basic Authentication
+            </a>{' '}
+            for more details.
+          </DocsP>
 
-        <h3 className="mb-5 text-xl font-semibold" style={{ color: 'var(--docs-color-text)' }}>
-          Example Usage
-        </h3>
-        <div className="mb-6">
+          <DocsH3>
+            Example Usage
+          </DocsH3>
+          <div className="docs-mb-24">
           <CodeSection
             variant="terminal"
             tabs={codeTabs}
@@ -96,33 +98,47 @@ response = requests.get('https://api.funnelleasing.com/api/v2/onlineleasing-link
             ariaDescription="Code examples showing how to authenticate API requests using Unix Shell and Python"
           />
         </div>
-      </section>
+        </DocsSection>
 
-      {/* Best Practices */}
-      <section className="mb-12">
-        <SectionHeader
-          icon={<ShieldCheckmarkRegular className="w-6 h-6" style={{ color: 'var(--docs-color-text)' }} />}
-          title="Best Practices"
-        />
-        <p className="mb-6 text-base leading-relaxed" style={{ color: 'var(--docs-color-text-100)' }}>
-          We recommend the following best practices when using Funnel Online Leasing API keys:
-        </p>
+        {/* Best Practices */}
+        <DocsSection>
+          <SectionHeader
+            icon={<ShieldCheckmarkRegular />}
+            title="Best Practices"
+          />
+          <DocsP variant="body">
+            We recommend the following best practices when using Funnel Online Leasing API keys:
+          </DocsP>
 
-        <div className="mb-6">
+          <div className="docs-mt-24 docs-mb-24">
           <ModernTable
             columns={[
               {
                 header: (
-                  <div className="flex items-center gap-2">
-                    <CheckmarkCircleRegular className="w-4 h-4 text-emerald-600" />
+                  <div className="flex items-baseline gap-2">
+                    <span className="inline-flex items-center justify-center w-5 h-5">
+                      <span className="inline-flex -translate-y-[0.5px] [&>svg]:w-4 [&>svg]:h-4 [&>svg]:block">
+                        <CheckmarkCircleRegular 
+                          className="text-emerald-600" 
+                          style={{ display: 'block' }} 
+                        />
+                      </span>
+                    </span>
                     Do These
                   </div>
                 ),
               },
               {
                 header: (
-                  <div className="flex items-center gap-2">
-                    <DismissCircleRegular className="w-4 h-4 text-red-600" />
+                  <div className="flex items-baseline gap-2">
+                    <span className="inline-flex items-center justify-center w-5 h-5">
+                      <span className="inline-flex -translate-y-[0.5px] [&>svg]:w-4 [&>svg]:h-4 [&>svg]:block">
+                        <DismissCircleRegular 
+                          className="text-red-600" 
+                          style={{ display: 'block' }} 
+                        />
+                      </span>
+                    </span>
                     Don't Do These
                   </div>
                 ),
@@ -150,19 +166,19 @@ response = requests.get('https://api.funnelleasing.com/api/v2/onlineleasing-link
               {
                 cells: [
                   'Periodically rotate your API key on an annual basis as a proactive security measure.',
-                  '',
+                  EMPTY,
                 ],
               },
               {
                 cells: [
                   'Keep minimum number of API keys as possible.',
-                  '',
+                  EMPTY,
                 ],
               },
               {
                 cells: [
                   'Always remove keys that are inactive or serving a temporary need.',
-                  '',
+                  EMPTY,
                 ],
               },
             ]}
@@ -172,72 +188,67 @@ response = requests.get('https://api.funnelleasing.com/api/v2/onlineleasing-link
         <Callout type="warning" title="Security Notice">
           Always store your API keys securely and never commit them to version control. Use environment variables or secure credential management systems. If an API key is exposed, rotate it immediately to prevent unauthorized access to your account.
         </Callout>
-      </section>
+        </DocsSection>
 
-      {/* FAQs */}
-      <section className="mb-12">
-        <SectionHeader
-          icon={<QuestionCircleRegular className="w-6 h-6" style={{ color: 'var(--docs-color-text)' }} />}
-          title="Frequently Asked Questions"
-        />
-        <p className="mb-10 text-base leading-relaxed" style={{ color: 'var(--docs-color-text-100)' }}>
-          Answers to commonly asked questions. When in doubt, please reach out to{' '}
-          <a href="mailto:support@funnelleasing.com" className="text-blue-600 hover:underline dark:text-blue-400 font-medium">
-            support@funnelleasing.com
-          </a>
-          .
-        </p>
+        {/* FAQs */}
+        <DocsSection>
+          <SectionHeader
+            icon={<QuestionCircleRegular />}
+            title="Frequently Asked Questions"
+          />
+          <DocsP variant="body">
+            Answers to commonly asked questions. If you're unsure, contact{' '}
+            <a href="mailto:support@funnelleasing.com" className="docs-link">
+              support@funnelleasing.com
+            </a>
+            .
+          </DocsP>
 
         <FAQAccordion
           items={[
             {
               question: 'My API key was compromised, what should I do?',
               answer: (
-                <div className="space-y-4">
-                  <p className="text-base font-medium leading-relaxed" style={{ color: 'var(--docs-color-text)' }}>
-                    Do you suspect a breach?
-                  </p>
-                  <div className="space-y-3">
-                    <p className="text-base leading-relaxed" style={{ color: 'var(--docs-color-text-100)' }}>
-                      <strong className="font-semibold" style={{ color: 'var(--docs-color-text)' }}>Yes</strong> — Contact your customer service representative as soon as possible and ask to delete the compromised credentials immediately. You can fix your integration right after with minimal down time.
-                    </p>
-                    <p className="text-base leading-relaxed" style={{ color: 'var(--docs-color-text-100)' }}>
-                      <strong className="font-semibold" style={{ color: 'var(--docs-color-text)' }}>No</strong> — Send an email to{' '}
-                      <a href="mailto:support@funnelleasing.com" className="text-blue-600 hover:underline dark:text-blue-400 font-medium">
-                        support@funnelleasing.com
-                      </a>{' '}
-                      and rotate your API key as soon as possible.
-                    </p>
-                  </div>
+                <div>
+                  <DocsP variant="body" className="!mb-2">
+                    <strong className="font-semibold">If exposed:</strong> Revoke the compromised key immediately, rotate to a new key, and audit your access logs for any unauthorized activity.
+                  </DocsP>
+                  <DocsP variant="body" className="!mb-0">
+                    <strong className="font-semibold">If unsure:</strong> Rotate your API key as a precaution, monitor your account activity, and contact{' '}
+                    <a href="mailto:support@funnelleasing.com" className="docs-link">
+                      support@funnelleasing.com
+                    </a>{' '}
+                    if you notice any suspicious behavior.
+                  </DocsP>
                 </div>
               ),
             },
             {
               question: 'When does my API key expire?',
-              answer: 'API keys are long-lived and do not expire. You maintain full control over their lifecycle and can rotate or revoke them at any time through your account settings.',
+              answer: <DocsP variant="body" className="!mb-0">API keys are long-lived by default and do not expire automatically. You maintain full control over their lifecycle and can rotate or revoke them at any time through your account settings.</DocsP>,
             },
             {
               question: 'How often should I rotate my API key?',
-              answer: 'We recommend rotating API keys at least once a year, but you can adjust the frequency to fit your security requirements. Consider rotating more frequently if you handle sensitive data or have strict compliance requirements.',
+              answer: <DocsP variant="body" className="!mb-0">We recommend rotating API keys at least once a year, but you can adjust the frequency to fit your security requirements. Consider rotating more frequently if you handle sensitive data or have strict compliance requirements.</DocsP>,
             },
           ]}
         />
-      </section>
+        </DocsSection>
 
-      {/* API Data Display Preferences */}
-      <section className="mb-12">
-        <SectionHeader
-          icon={<SettingsRegular className="w-6 h-6" style={{ color: 'var(--docs-color-text)' }} />}
-          title="API Data Display Preferences"
-        />
-        <p className="mb-8 text-base leading-relaxed" style={{ color: 'var(--docs-color-text-100)' }}>
-          Configuration for how data is displayed in the open listings API. Display preferences are specific to single key. In some cases, you will need more than one key to have API integrations with different display preferences.
-        </p>
+        {/* API Data Display Preferences */}
+        <DocsSection>
+          <SectionHeader
+            icon={<SettingsRegular />}
+            title="API Data Display Preferences"
+          />
+          <DocsP variant="body">
+            Configuration for how data is displayed in the open listings API. Display preferences are specific to single key. In some cases, you will need more than one key to have API integrations with different display preferences.
+          </DocsP>
 
-        <h3 className="mb-5 text-xl font-semibold" style={{ color: 'var(--docs-color-text)' }}>
-          Location Visibility
-        </h3>
-        <div className="mb-8">
+          <h3 className="docs-h3">
+            Location Visibility
+          </h3>
+          <div className="docs-mt-24 docs-mb-32">
           <ModernTable
             columns={[
               { header: 'Option' },
@@ -276,10 +287,10 @@ response = requests.get('https://api.funnelleasing.com/api/v2/onlineleasing-link
           The Neighborhood Only option is a legacy field and should not be used for new integrations. We recommend using Full Address Visibility or Street Only Visibility instead.
         </Callout>
 
-        <h3 className="mb-5 text-xl font-semibold" style={{ color: 'var(--docs-color-text)' }}>
-          Additional Display Options
-        </h3>
-        <div className="mb-6">
+          <DocsH3>
+            Additional Display Options
+          </DocsH3>
+          <div className="docs-mt-24 docs-mb-24">
           <ModernTable
             columns={[
               { header: 'Option' },
@@ -309,10 +320,11 @@ response = requests.get('https://api.funnelleasing.com/api/v2/onlineleasing-link
           />
         </div>
 
-        <Callout type="info" title="Broker Information">
-          Broker information is intended for internal use and should not be displayed to public users. Only enable this option if your integration requires access to this sensitive information.
-        </Callout>
-      </section>
+          <Callout type="info" title="Broker Information">
+            Broker information is intended for internal use and should not be displayed to public users. Only enable this option if your integration requires access to this sensitive information.
+          </Callout>
+        </DocsSection>
+      </div>
     </div>
   );
 }

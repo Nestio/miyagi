@@ -202,21 +202,21 @@ export default function CodeSection({
       )}
 
       {/* Header */}
-      <div className="code-section-header bg-[#1B254D] px-4 py-3 flex items-center justify-between rounded-t-xl">
-        <div className="flex items-center gap-3">
+      <div className="code-section-header bg-[#1B254D] flex items-baseline justify-between rounded-t-xl" style={{ padding: '18px 20px' }}>
+        <div className="flex items-baseline gap-3">
           {variant === 'file' && activeTab?.filename && (
             <span className="code-section-filename text-sm font-medium px-2 py-0.5 rounded bg-[#232C5F] text-[#FDFDFE]">
               {activeTab.filename}
             </span>
           )}
           {activeTitle && (
-            <span className="text-sm font-medium text-[#FDFDFE]" id={`${codeId}-title`}>
+            <span className="text-sm font-medium text-[#FDFDFE] leading-none" id={`${codeId}-title`}>
               {activeTitle}
             </span>
           )}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-baseline gap-2">
           {/* Language Switcher */}
           {tabs.length > 1 && (
             <Select.Root
@@ -224,7 +224,7 @@ export default function CodeSection({
               onValueChange={(value) => setActiveTabIndex(parseInt(value, 10))}
             >
               <Select.Trigger
-                className="code-section-language-trigger inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded bg-[#232C5F] text-[#FDFDFE] hover:bg-[#2A3568] focus:outline-none focus:ring-2 focus:ring-[#81B5C9] focus:ring-offset-2 focus:ring-offset-[#1B254D] transition-colors"
+                className="code-section-language-trigger inline-flex items-baseline gap-1.5 px-3 py-1.5 text-xs font-medium rounded bg-[#232C5F] text-[#FDFDFE] hover:bg-[#2A3568] focus:outline-none focus:ring-2 focus:ring-[#81B5C9] focus:ring-offset-2 focus:ring-offset-[#1B254D] transition-colors"
                 aria-label="Select code language"
               >
                 <Select.Value>{activeTab?.label || 'Select'}</Select.Value>
@@ -267,7 +267,7 @@ export default function CodeSection({
                 handleCopy();
               }
             }}
-            className="code-section-copy-button relative inline-flex items-center justify-center w-8 h-8 rounded hover:bg-[#2A3568] focus:outline-none focus:ring-2 focus:ring-[#81B5C9] focus:ring-offset-2 focus:ring-offset-[#1B254D] transition-colors"
+            className="code-section-copy-button relative inline-flex items-baseline justify-center w-8 h-8 rounded hover:bg-[#2A3568] focus:outline-none focus:ring-2 focus:ring-[#81B5C9] focus:ring-offset-2 focus:ring-offset-[#1B254D] transition-colors"
             aria-label={copyLabel}
             aria-pressed={copied}
             title={copied ? 'Copied!' : copyLabel}

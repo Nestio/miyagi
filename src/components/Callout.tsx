@@ -13,46 +13,34 @@ export interface CalloutProps {
 export default function Callout({ type, title, children, className }: CalloutProps) {
   const styles = {
     info: {
-      bg: 'bg-blue-50 dark:bg-blue-950/20',
-      border: 'border-blue-200 dark:border-blue-800',
-      icon: 'text-blue-600 dark:text-blue-400',
-      title: 'text-blue-900 dark:text-blue-100',
-      text: 'text-blue-800 dark:text-blue-200',
+      bg: 'rgba(59, 130, 246, 0.03)',
+      border: 'rgba(59, 130, 246, 0.3)',
+      icon: '#3B82F6',
     },
     warning: {
-      bg: 'bg-amber-50 dark:bg-amber-950/20',
-      border: 'border-amber-200 dark:border-amber-800',
-      icon: 'text-amber-600 dark:text-amber-400',
-      title: 'text-amber-900 dark:text-amber-100',
-      text: 'text-amber-800 dark:text-amber-200',
+      bg: 'rgba(245, 158, 11, 0.04)',
+      border: 'rgba(245, 158, 11, 0.5)',
+      icon: '#F59E0B',
     },
     success: {
-      bg: 'bg-emerald-50 dark:bg-emerald-950/20',
-      border: 'border-emerald-200 dark:border-emerald-800',
-      icon: 'text-emerald-600 dark:text-emerald-400',
-      title: 'text-emerald-900 dark:text-emerald-100',
-      text: 'text-emerald-800 dark:text-emerald-200',
+      bg: 'rgba(16, 185, 129, 0.04)',
+      border: 'rgba(16, 185, 129, 0.5)',
+      icon: '#10B981',
     },
     error: {
-      bg: 'bg-red-50 dark:bg-red-950/20',
-      border: 'border-red-200 dark:border-red-800',
-      icon: 'text-red-600 dark:text-red-400',
-      title: 'text-red-900 dark:text-red-100',
-      text: 'text-red-800 dark:text-red-200',
+      bg: 'rgba(239, 68, 68, 0.04)',
+      border: 'rgba(239, 68, 68, 0.5)',
+      icon: '#EF4444',
     },
     tip: {
-      bg: 'bg-emerald-50 dark:bg-emerald-950/20',
-      border: 'border-emerald-200 dark:border-emerald-800',
-      icon: 'text-emerald-600 dark:text-emerald-400',
-      title: 'text-emerald-900 dark:text-emerald-100',
-      text: 'text-emerald-800 dark:text-emerald-200',
+      bg: 'rgba(16, 185, 129, 0.04)',
+      border: 'rgba(16, 185, 129, 0.5)',
+      icon: '#10B981',
     },
     note: {
-      bg: 'bg-blue-50 dark:bg-blue-950/20',
-      border: 'border-blue-200 dark:border-blue-800',
-      icon: 'text-blue-600 dark:text-blue-400',
-      title: 'text-blue-900 dark:text-blue-100',
-      text: 'text-blue-800 dark:text-blue-200',
+      bg: 'rgba(59, 130, 246, 0.04)',
+      border: 'rgba(59, 130, 246, 0.5)',
+      icon: '#3B82F6',
     },
   };
 
@@ -68,24 +56,62 @@ export default function Callout({ type, title, children, className }: CalloutPro
 
   return (
     <div
-      className={clsx(
-        'rounded-lg border-l-4 p-4 mb-6',
-        style.bg,
-        style.border,
-        className
-      )}
+      className={clsx('max-w-[680px]', className)}
+      style={{
+        borderRadius: '12px',
+        padding: '18px 20px',
+        backgroundColor: style.bg,
+        borderLeft: `3px solid ${style.border}`,
+        marginTop: '32px',
+        marginBottom: '32px',
+      }}
     >
       <div className="flex items-start gap-3">
-        <span className={clsx('text-xl flex-shrink-0 mt-0.5', style.icon)}>
-          {icons[type]}
-        </span>
-        <div className="flex-1">
+        <div
+          style={{
+            width: '20px',
+            height: '20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+            position: 'relative',
+            top: '2px',
+          }}
+        >
+          <span 
+            style={{ 
+              color: style.icon,
+              fontSize: '16px',
+              lineHeight: '1',
+            }}
+          >
+            {icons[type]}
+          </span>
+        </div>
+        <div className="flex-1" style={{ textAlign: 'left' }}>
           {title && (
-            <h4 className={clsx('font-semibold mb-2 text-sm', style.title)}>
+            <h4 
+              className="font-semibold"
+              style={{ 
+                fontSize: '13px',
+                fontWeight: 600,
+                textTransform: 'none',
+                marginBottom: '4px',
+                color: 'var(--text-primary)',
+              }}
+            >
               {title}
             </h4>
           )}
-          <div className={clsx('text-sm leading-relaxed', style.text)}>
+          <div 
+            style={{ 
+              fontSize: '14px',
+              lineHeight: '24px',
+              color: 'var(--text-primary)',
+              textAlign: 'left',
+            }}
+          >
             {children}
           </div>
         </div>

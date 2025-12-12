@@ -2,79 +2,88 @@ import React from 'react';
 import Callout from './Callout';
 import SectionHeader from './SectionHeader';
 import ModernTable, { type TableColumn, type TableRow } from './ModernTable';
+import CodeSection, { type CodeTab } from './CodeSection';
+import { DocsP, DocsUl, DocsSection } from './DocsPrimitives';
 import {
   ErrorCircleRegular,
   DocumentRegular,
 } from '@fluentui/react-icons';
 
 export default function ErrorsPage() {
+  // Code chip component for consistent styling
+  const CodeChip = ({ children }: { children: React.ReactNode }) => (
+    <code
+      style={{
+        display: 'inline-block',
+        borderRadius: '6px',
+        border: '1px solid var(--border)',
+        backgroundColor: 'var(--bg-subtle)',
+        padding: '4px 8px',
+        fontSize: '12px',
+        fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
+        fontWeight: 500,
+        lineHeight: '1.4',
+        verticalAlign: 'baseline',
+        color: 'var(--text-primary)',
+      }}
+    >
+      {children}
+    </code>
+  );
+
   const httpStatusColumns: TableColumn[] = [
-    { header: 'Code' },
-    { header: 'Status' },
+    { header: 'Code', width: '100px', align: 'center' as const },
+    { header: 'Status', width: '180px' },
     { header: 'Description' },
   ];
 
   const httpStatusRows: TableRow[] = [
     {
       cells: [
-        <code key="200" className="rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium">
-          200
-        </code>,
-        <span key="ok" className="font-medium" style={{ color: 'var(--docs-color-text)' }}>OK</span>,
+        <CodeChip key="200">200</CodeChip>,
+        <span key="ok" className="font-medium" style={{ color: 'var(--text-primary)' }}>OK</span>,
         'Everything worked as expected.',
       ],
     },
     {
       cells: [
-        <code key="400" className="rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium">
-          400
-        </code>,
-        <span key="bad" className="font-medium" style={{ color: 'var(--docs-color-text)' }}>Bad Request</span>,
+        <CodeChip key="400">400</CodeChip>,
+        <span key="bad" className="font-medium" style={{ color: 'var(--text-primary)' }}>Bad Request</span>,
         'The request was unacceptable, often due to missing a required parameter.',
       ],
     },
     {
       cells: [
-        <code key="401" className="rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium">
-          401
-        </code>,
-        <span key="unauth" className="font-medium" style={{ color: 'var(--docs-color-text)' }}>Unauthorized</span>,
+        <CodeChip key="401">401</CodeChip>,
+        <span key="unauth" className="font-medium" style={{ color: 'var(--text-primary)' }}>Unauthorized</span>,
         'No valid API key provided.',
       ],
     },
     {
       cells: [
-        <code key="403" className="rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium">
-          403
-        </code>,
-        <span key="forbidden" className="font-medium" style={{ color: 'var(--docs-color-text)' }}>Forbidden</span>,
+        <CodeChip key="403">403</CodeChip>,
+        <span key="forbidden" className="font-medium" style={{ color: 'var(--text-primary)' }}>Forbidden</span>,
         'The API key doesn\'t have permissions to perform the request.',
       ],
     },
     {
       cells: [
-        <code key="404" className="rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium">
-          404
-        </code>,
-        <span key="notfound" className="font-medium" style={{ color: 'var(--docs-color-text)' }}>Not Found</span>,
+        <CodeChip key="404">404</CodeChip>,
+        <span key="notfound" className="font-medium" style={{ color: 'var(--text-primary)' }}>Not Found</span>,
         'The requested resource doesn\'t exist.',
       ],
     },
     {
       cells: [
-        <code key="429" className="rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium">
-          429
-        </code>,
-        <span key="ratelimit" className="font-medium" style={{ color: 'var(--docs-color-text)' }}>Too Many Requests</span>,
+        <CodeChip key="429">429</CodeChip>,
+        <span key="ratelimit" className="font-medium" style={{ color: 'var(--text-primary)' }}>Too Many Requests</span>,
         'Too many requests hit the API too quickly. Try exponential backoff.',
       ],
     },
     {
       cells: [
-        <code key="5xx" className="rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium">
-          5xx
-        </code>,
-        <span key="server" className="font-medium" style={{ color: 'var(--docs-color-text)' }}>Server Errors</span>,
+        <CodeChip key="5xx">5xx</CodeChip>,
+        <span key="server" className="font-medium" style={{ color: 'var(--text-primary)' }}>Server Errors</span>,
         'Something went wrong on Funnel Leasing\'s end.',
       ],
     },
@@ -89,108 +98,122 @@ export default function ErrorsPage() {
   const errorAttributesRows: TableRow[] = [
     {
       cells: [
-        <code key="code" className="rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium">
-          code
-        </code>,
-        <code key="int" className="rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium">
-          integer
-        </code>,
+        <CodeChip key="code">code</CodeChip>,
+        <CodeChip key="int">integer</CodeChip>,
         'Represents the specific error code returned by the API.',
       ],
     },
     {
       cells: [
-        <code key="message" className="rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium">
-          message
-        </code>,
-        <code key="nullable" className="rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium">
-          nullable string
-        </code>,
+        <CodeChip key="message">message</CodeChip>,
+        <CodeChip key="nullable">nullable string</CodeChip>,
         'A human-readable message describing the error.',
       ],
     },
     {
       cells: [
-        <code key="param" className="rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium">
-          param
-        </code>,
-        <code key="nullable2" className="rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium">
-          nullable string
-        </code>,
+        <CodeChip key="param">param</CodeChip>,
+        <CodeChip key="nullable2">nullable string</CodeChip>,
         'The parameter that caused the error (if applicable).',
       ],
     },
   ];
 
+  const errorExampleTabs: CodeTab[] = [
+    {
+      label: 'JSON',
+      language: 'json',
+      title: 'Error Response Example',
+      code: `{
+  "code": 1234,
+  "message": "Invalid parameter: start_date",
+  "param": "start_date"
+}`,
+    },
+  ];
+
   return (
     <div className="errors-page">
-      <div className="mb-10">
-        <p className="text-lg leading-relaxed" style={{ color: 'var(--docs-color-text-100)' }}>
+      <div className="max-w-[760px] mx-auto px-8">
+        <DocsP variant="body" className="!mb-8">
           Funnel Leasing uses conventional HTTP response codes to indicate the success or failure of an API request.
-        </p>
+        </DocsP>
+
+        {/* Overview */}
+        <DocsSection>
+          <SectionHeader
+            icon={<ErrorCircleRegular />}
+            title="Overview"
+          />
+
+          <DocsP variant="body">
+            HTTP status codes are grouped into ranges that indicate different types of responses:
+          </DocsP>
+          <DocsUl>
+            <li><strong className="font-semibold">2xx range:</strong> Indicates success.</li>
+            <li><strong className="font-semibold">4xx range:</strong> Indicates an error due to the provided information.</li>
+            <li><strong className="font-semibold">5xx range:</strong> Indicates a server error on Funnel Leasing's end.</li>
+          </DocsUl>
+          <Callout type="info">
+            Some 4xx errors include a response body with <CodeChip>code</CodeChip>, <CodeChip>message</CodeChip>, and optionally <CodeChip>param</CodeChip> fields that provide detailed information about the error.
+          </Callout>
+        </DocsSection>
+
+        {/* Error Response Structure */}
+        <DocsSection>
+          <SectionHeader
+            icon={<DocumentRegular />}
+            title="Error Response Structure"
+          />
+
+          <DocsP variant="body">
+            When an error occurs, the API returns a response body with the following attributes:
+          </DocsP>
+
+          <div className="docs-mt-24 docs-mb-24">
+            <ModernTable
+              columns={errorAttributesColumns}
+              rows={errorAttributesRows}
+            />
+          </div>
+
+          <DocsP variant="body" className="!mt-6 !mb-0">
+            Example error response:
+          </DocsP>
+
+          <div className="docs-mt-16 docs-mb-24">
+            <CodeSection
+              variant="file"
+              tabs={errorExampleTabs}
+              initialTab={0}
+              ariaDescription="Example error response JSON structure"
+            />
+          </div>
+        </DocsSection>
+
+        {/* HTTP Status Codes */}
+        <DocsSection>
+          <SectionHeader
+            icon={<ErrorCircleRegular />}
+            title="HTTP Status Codes"
+          />
+
+          <DocsP variant="body">
+            The following table lists the HTTP status codes used by the Funnel Leasing API:
+          </DocsP>
+
+          <div className="docs-mt-24 docs-mb-24">
+            <ModernTable
+              columns={httpStatusColumns}
+              rows={httpStatusRows}
+            />
+          </div>
+
+          <Callout type="warning" title="Rate Limiting">
+            If you receive a 429 (Too Many Requests) error, implement exponential backoff in your retry logic. Wait progressively longer between retry attempts to avoid overwhelming the API. Honor the <CodeChip>Retry-After</CodeChip> header if provided.
+          </Callout>
+        </DocsSection>
       </div>
-
-      {/* Overview */}
-      <section className="mb-12">
-        <SectionHeader
-          icon={<ErrorCircleRegular className="w-6 h-6" style={{ color: 'var(--docs-color-text)' }} />}
-          title="Overview"
-        />
-
-        <p className="mb-4 text-base leading-relaxed" style={{ color: 'var(--docs-color-text-100)' }}>
-          HTTP status codes are grouped into ranges that indicate different types of responses:
-        </p>
-        <ul className="mb-6 space-y-2 pl-6 text-base leading-relaxed list-disc" style={{ color: 'var(--docs-color-text-100)' }}>
-          <li><strong className="font-semibold" style={{ color: 'var(--docs-color-text)' }}>2xx range:</strong> Indicates success.</li>
-          <li><strong className="font-semibold" style={{ color: 'var(--docs-color-text)' }}>4xx range:</strong> Indicates an error due to the provided information.</li>
-          <li><strong className="font-semibold" style={{ color: 'var(--docs-color-text)' }}>5xx range:</strong> Indicates a server error on Funnel Leasing's end.</li>
-        </ul>
-        <Callout type="info">
-          Some 4xx errors include an error code that explains the issue with a human-friendly message.
-        </Callout>
-      </section>
-
-      {/* Error Response Structure */}
-      <section className="mb-12">
-        <SectionHeader
-          icon={<DocumentRegular className="w-6 h-6" style={{ color: 'var(--docs-color-text)' }} />}
-          title="Error Response Structure"
-        />
-
-        <p className="mb-6 text-base leading-relaxed" style={{ color: 'var(--docs-color-text-100)' }}>
-          When an error occurs, the API returns a response body with the following attributes:
-        </p>
-
-        <div className="mb-6">
-          <ModernTable
-            columns={errorAttributesColumns}
-            rows={errorAttributesRows}
-          />
-        </div>
-      </section>
-
-      {/* HTTP Status Codes */}
-      <section className="mb-12">
-        <SectionHeader
-          icon={<ErrorCircleRegular className="w-6 h-6" style={{ color: 'var(--docs-color-text)' }} />}
-          title="HTTP Status Codes"
-        />
-
-        <p className="mb-6 text-base leading-relaxed" style={{ color: 'var(--docs-color-text-100)' }}>
-          The following table lists the HTTP status codes used by the Funnel Leasing API:
-        </p>
-
-        <div className="mb-6">
-          <ModernTable
-            columns={httpStatusColumns}
-            rows={httpStatusRows}
-          />
-        </div>
-
-        <Callout type="warning" title="Rate Limiting">
-          If you receive a 429 (Too Many Requests) error, implement exponential backoff in your retry logic. Wait progressively longer between retry attempts to avoid overwhelming the API.
-        </Callout>
-      </section>
     </div>
   );
 }

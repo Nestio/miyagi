@@ -5,6 +5,8 @@ export interface TableColumn {
   header: ReactNode;
   accessor?: string;
   className?: string;
+  width?: string | number;
+  align?: 'left' | 'center' | 'right';
 }
 
 export interface TableRow {
@@ -29,17 +31,35 @@ export default function ModernTable({
   rowClassName,
 }: ModernTableProps) {
   return (
-    <div className={`overflow-hidden rounded-xl shadow-sm ${className || ''}`} style={{ 
-      border: '1px solid #e5e7eb' 
-    }}>
+    <div 
+      className={`overflow-hidden ${className || ''}`} 
+      style={{ 
+        borderRadius: '12px',
+        border: '1px solid var(--border)',
+      }}
+    >
       <table className="w-full" style={{ borderCollapse: 'collapse', width: '100%' }}>
         <thead>
-          <tr style={{ background: 'linear-gradient(135deg, #f9fafb, #f3f4f6)' }} className={headerClassName}>
+          <tr 
+            style={{ backgroundColor: 'var(--bg-subtle)' }} 
+            className={headerClassName}
+          >
             {columns.map((column, index) => (
               <th
                 key={index}
-                className={`px-5 py-4 text-left text-sm font-semibold ${column.className || ''}`}
-                style={{ color: '#1f2937', borderBottom: '1px solid #e5e7eb' }}
+                className={`font-semibold ${column.className || ''}`}
+                style={{ 
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  letterSpacing: '0.01em',
+                  textTransform: 'none',
+                  padding: '14px 16px',
+                  borderBottom: '1px solid var(--border)',
+                  borderRight: index < columns.length - 1 ? '1px solid var(--border)' : 'none',
+                  color: 'var(--text-primary)',
+                  textAlign: column.align || 'left',
+                  width: column.width,
+                }}
               >
                 {column.header}
               </th>
@@ -50,24 +70,48 @@ export default function ModernTable({
           {rows.map((row, rowIndex) => (
             <tr
               key={rowIndex}
-              className={`hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors ${rowClassName || ''} ${row.className || ''}`}
+              className={rowClassName || ''}
               style={{
-                ...(rowIndex % 2 === 0 ? { backgroundColor: '#fafafa' } : {}),
+                backgroundColor: rowIndex % 2 === 1 ? 'var(--bg-zebra)' : 'transparent',
+                transition: 'background-color 120ms ease-out',
                 ...row.style,
               }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--bg-subtle)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = rowIndex % 2 === 1 ? 'var(--bg-zebra)' : 'transparent';
+              }}
             >
-              {row.cells.map((cell, cellIndex) => (
-                <td
-                  key={cellIndex}
-                  className="px-5 py-4 text-sm leading-relaxed"
-                  style={{
-                    color: 'var(--docs-color-text-100)',
-                    borderBottom: rowIndex < rows.length - 1 ? '1px solid #f3f4f6' : 'none',
-                  }}
-                >
-                  {cell}
-                </td>
-              ))}
+              {row.cells.map((cell, cellIndex) => {
+                // Handle empty values: null, undefined, empty string, or whitespace-only string
+                const isEmpty = cell == null || cell === '' || (typeof cell === 'string' && cell.trim() === '');
+                // Check if this is the last cell and it's empty (for visual de-emphasis)
+                const isLastCellEmpty = cellIndex === row.cells.length - 1 && isEmpty;
+                return (
+                  <td
+                    key={cellIndex}
+                    style={{
+                      fontSize: '14px',
+                      lineHeight: '22px',
+                      padding: '14px 16px',
+                      verticalAlign: 'middle',
+                      borderBottom: rowIndex < rows.length - 1 ? '1px solid var(--border)' : 'none',
+                      borderRight: cellIndex < row.cells.length - 1 ? '1px solid var(--border)' : 'none',
+                      color: isEmpty ? 'var(--text-empty)' : 'var(--text-primary)',
+                      backgroundColor: isLastCellEmpty ? 'var(--bg-subtle)' : 'transparent',
+                      textAlign: columns[cellIndex]?.align || 'left',
+                      width: columns[cellIndex]?.width,
+                    }}
+                  >
+                    {isEmpty ? (
+                      <span style={{ color: 'var(--text-empty)' }}>—</span>
+                    ) : (
+                      cell
+                    )}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>

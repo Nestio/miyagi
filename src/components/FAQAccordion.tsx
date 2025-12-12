@@ -31,13 +31,15 @@ export default function FAQAccordion({ items, defaultOpenIndex = null, className
                 <h3 className="text-lg font-semibold leading-snug flex-1" style={{ color: 'var(--docs-color-text)' }}>
                   {item.question}
                 </h3>
-                <ChevronDownRegular
-                  className={`w-5 h-5 flex-shrink-0 transition-transform duration-200 mt-0.5 ${
-                    isOpen ? 'rotate-180' : ''
-                  }`}
-                  style={{ color: 'var(--docs-color-text)' }}
-                  aria-hidden="true"
-                />
+                <span className="inline-flex h-10 w-10 items-center justify-center flex-shrink-0">
+                  <ChevronDownRegular
+                    className={`w-5 h-5 transition-transform duration-200 ${
+                      isOpen ? 'rotate-180' : ''
+                    }`}
+                    style={{ color: 'var(--docs-color-text)' }}
+                    aria-hidden="true"
+                  />
+                </span>
               </button>
               <div
                 id={`faq-answer-${index}`}
