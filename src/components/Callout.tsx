@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-export type CalloutType = 'info' | 'warning' | 'success' | 'error';
+export type CalloutType = 'info' | 'warning' | 'success' | 'error' | 'tip' | 'note';
 
 export interface CalloutProps {
   type: CalloutType;
@@ -40,14 +40,30 @@ export default function Callout({ type, title, children, className }: CalloutPro
       title: 'text-red-900 dark:text-red-100',
       text: 'text-red-800 dark:text-red-200',
     },
+    tip: {
+      bg: 'bg-emerald-50 dark:bg-emerald-950/20',
+      border: 'border-emerald-200 dark:border-emerald-800',
+      icon: 'text-emerald-600 dark:text-emerald-400',
+      title: 'text-emerald-900 dark:text-emerald-100',
+      text: 'text-emerald-800 dark:text-emerald-200',
+    },
+    note: {
+      bg: 'bg-blue-50 dark:bg-blue-950/20',
+      border: 'border-blue-200 dark:border-blue-800',
+      icon: 'text-blue-600 dark:text-blue-400',
+      title: 'text-blue-900 dark:text-blue-100',
+      text: 'text-blue-800 dark:text-blue-200',
+    },
   };
 
-  const style = styles[type];
+  const style = styles[type] || styles.info;
   const icons = {
     info: 'ℹ️',
     warning: '⚠️',
     success: '✓',
     error: '✕',
+    tip: '💡',
+    note: '📝',
   };
 
   return (

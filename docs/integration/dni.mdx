@@ -1,0 +1,317 @@
+---
+title: Dynamic Number Insertion (DNI)
+description: Automatically update phone numbers on your website based on UTM parameters and referrer domains for marketing attribution
+sidebar_label: Dynamic Number Insertion
+sidebar_position: 40
+---
+
+import CodeExample from '@site/src/components/CodeExample';
+
+Dynamic Number Insertion (DNI) is a powerful marketing attribution tool that automatically updates phone numbers on your website using UTM parameters and/or referrer domains from a user's initial visit. This enables you to track which marketing campaigns are driving phone calls and leads.
+
+## Overview
+
+The DNI script analyzes the UTM parameters and referrer information from a visitor's initial page load and automatically updates phone numbers on your website to match the appropriate marketing campaign. This allows you to:
+
+- **Track marketing attribution** - Know which campaigns are driving phone calls
+- **Display campaign-specific numbers** - Show different phone numbers for different marketing sources
+- **Capture campaign data** - Automatically pass campaign information to other Funnel Leasing widgets
+
+## Prerequisites
+
+Before implementing the DNI script, ensure you have:
+
+- **Funnel Leasing API Key** - Your company API key (provided by Funnel Leasing)
+- **Community ID** - The ID of the community associated with the phone numbers
+- **Marketing/Campaign Source ID mapping** - Campaign IDs mapped within your Funnel account that reflect UTM parameters and referrers to associated Lead Sources
+- **Website access** - Ability to add script tags to your website's HTML
+
+<Callout type="warning">
+Before implementing the DNI script, ensure that you have mapped the Marketing/Campaign Source IDs within your Funnel account. These Campaign IDs will reflect the UTM parameters and referrers to the associated Lead Source. If you need assistance with the mapping, contact your Funnel Account Representative or the Customer Support team.
+</Callout>
+
+## Installation
+
+Add the DNI script just before the closing `</body>` tag in the HTML of your website:
+
+<CodeExample
+  title="Installation code"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.funnelleasing.com/dni/v1/dni.js"></script>
+<script>
+  FunnelDNI("FUNNEL_API_KEY_HERE", FUNNEL_COMMUNITY_ID_HERE);
+</script>`}
+/>
+
+<Callout type="note">
+Your API Key is a string and must be wrapped in quotes. Your Community ID is an integer and should be without quotes.
+</Callout>
+
+## How It Works
+
+Once the DNI script is implemented, it automatically:
+
+1. **Analyzes UTM parameters** - Checks for UTM parameters (`utm_source`, `utm_medium`, `utm_campaign`, etc.) in the URL
+2. **Checks referrer domain** - Examines the referrer domain if UTM parameters are not present
+3. **Maps to campaign** - Matches the UTM parameters or referrer to a campaign in your Funnel account
+4. **Updates phone numbers** - Replaces phone numbers on the page with the campaign-specific number
+5. **Stores marketing info** - Stores the marketing information for use by other Funnel widgets
+
+## Phone Number Selectors
+
+The DNI script automatically looks for elements on the page with specific class names and updates their contents:
+
+- **`DCRPhone`** - For elements with this class, the script replaces the content of the element with the phone number
+- **`DCRPhoneHref`** - For elements with this class, the script replaces the `href` attribute with a `tel:` link to the phone number
+- **Both classes** - You can use both attributes together on an element like this:
+
+```html
+<a class="DCRPhone DCRPhoneHref" href="tel:555-555-5555">555-555-5555</a>
+```
+
+### Example HTML
+
+<CodeExample
+  title="HTML examples"
+  language="html"
+  formatLabel="HTML"
+  code={`<!-- Phone number as text -->
+<span class="DCRPhone">555-555-5555</span>
+
+<!-- Phone number as clickable link -->
+<a class="DCRPhone DCRPhoneHref" href="tel:555-555-5555">555-555-5555</a>
+
+<!-- Phone number with both classes -->
+<a class="DCRPhone DCRPhoneHref" href="tel:555-555-5555">Call us: 555-555-5555</a>`}
+/>
+
+<Callout type="tip">
+If the UTM parameters and/or referrers do not map to a phone number, no replacement will occur. We strongly recommend including a default phone number in the page source as a fallback.
+</Callout>
+
+## Configuration Options
+
+### Basic Configuration
+
+The simplest way to use DNI is with just the API key and Community ID:
+
+<CodeExample
+  title="Basic configuration"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.funnelleasing.com/dni/v1/dni.js"></script>
+<script>
+  FunnelDNI("your-api-key-here", 123);
+</script>`}
+/>
+
+### JavaScript Callback
+
+If you'd like to do something more custom with the phone number, the script accepts a callback function that will be called when the phone number is loaded:
+
+<CodeExample
+  title="JavaScript callback"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.funnelleasing.com/dni/v1/dni.js"></script>
+<script>
+  FunnelDNI("your-api-key-here", 123, function(data) {
+    console.log(data.lead_source_id);
+    console.log(data.phone_number);
+    console.log(data.campaign_info);
+  });
+</script>`}
+/>
+
+The callback function receives an object with the following properties:
+
+- **`lead_source_id`** - The ID of the lead source associated with the campaign
+- **`phone_number`** - The phone number that was selected
+- **`campaign_info`** - An object containing campaign information (UTM parameters, etc.)
+
+### Object-Based Configuration
+
+As an alternate method, you may specify an `onPhoneNumberReady` parameter using an object:
+
+<CodeExample
+  title="Object-based configuration"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.funnelleasing.com/dni/v1/dni.js"></script>
+<script>
+  FunnelDNI({
+    "apiKey": "your-api-key-here",
+    "communityId": 123,
+    "onPhoneNumberReady": function(data) {
+      console.log(data.lead_source_id);
+      console.log(data.phone_number);
+      console.log(data.campaign_info);
+    }
+  });
+</script>`}
+/>
+
+### Custom Class Names
+
+If you have custom class names you'd like to use in place of `DCRPhone` and `DCRPhoneHref`, you may specify those with the `phoneNumberSelector` and `phoneNumberCTCSelector` parameters:
+
+<CodeExample
+  title="Custom class names"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.funnelleasing.com/dni/v1/dni.js"></script>
+<script>
+  FunnelDNI({
+    "apiKey": "your-api-key-here",
+    "communityId": 123,
+    "phoneNumberSelector": ".customClass",
+    "phoneNumberCTCSelector": ".customClassHref",
+    "onPhoneNumberReady": function(data) {
+      console.log(data.lead_source_id);
+      console.log(data.phone_number);
+      console.log(data.campaign_info);
+    }
+  });
+</script>`}
+/>
+
+### Campaign Info Parameters
+
+If you want to capture certain query string parameters that can be passed in and associated with a lead on creation, you can specify these parameters in the `campaignInfoParameters` option:
+
+<CodeExample
+  title="Campaign info parameters"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.funnelleasing.com/dni/v1/dni.js"></script>
+<script>
+  FunnelDNI({
+    "apiKey": "your-api-key-here",
+    "communityId": 123,
+    "phoneNumberSelector": ".customClass",
+    "phoneNumberCTCSelector": ".customClassHref",
+    "campaignInfoParameters": ["gclid", "utm_source", "utm_medium", "utm_campaign"]
+  });
+</script>`}
+/>
+
+This example demonstrates how you can capture the [Google Click Identifier (GCLID)](https://support.google.com/google-ads/answer/9744275) so that it will be associated with the lead on creation. Any other query parameters that are specified will also be captured.
+
+The `campaign_info` property is accessible in the JavaScript callback:
+
+<CodeExample
+  title="Accessing campaign info"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.funnelleasing.com/dni/v1/dni.js"></script>
+<script>
+  FunnelDNI({
+    "apiKey": "your-api-key-here",
+    "communityId": 123,
+    "onPhoneNumberReady": function(data) {
+      console.log(data.campaign_info);
+      // Output: { gclid: "abc123", utm_source: "google", utm_medium: "cpc" }
+    }
+  });
+</script>`}
+/>
+
+<Callout type="note">
+The `campaign_info` property is passed to the callback function as an object containing all the campaign info keys and values. If you need to send this to Funnel's API, you'll need to convert the object to query string format (e.g., `gclid=abc123&utm_source=google`).
+</Callout>
+
+### Converting Campaign Info to Query String
+
+If you need to convert the `campaign_info` object to a query string format for use with Funnel's API:
+
+<CodeExample
+  title="Converting to query string"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.funnelleasing.com/dni/v1/dni.js"></script>
+<script>
+  FunnelDNI({
+    "apiKey": "your-api-key-here",
+    "communityId": 123,
+    "onPhoneNumberReady": function(data) {
+      if (!data.campaign_info) {
+        data.campaign_info = {};
+      }
+
+      // Example: add your custom campaign info parameters
+      data.campaign_info.utm_source = 'yelp';
+
+      // Convert campaign_info object into query string accepted by Funnel's API
+      var campaignInfo = Object.keys(data.campaign_info)
+        .map(k => k + '=' + data.campaign_info[k])
+        .join('&');
+      
+      console.log(campaignInfo); // gclid=abc123&utm_source=yelp
+    }
+  });
+</script>`}
+/>
+
+## Complete Configuration Reference
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `apiKey` | string | Yes | - | Your Funnel Leasing API key |
+| `communityId` | number | Yes | - | The ID of the community associated with the phone numbers |
+| `phoneNumberSelector` | string | No | `.DCRPhone` | CSS selector for elements containing phone numbers to update |
+| `phoneNumberCTCSelector` | string | No | `.DCRPhoneHref` | CSS selector for click-to-call phone number links |
+| `campaignInfoParameters` | array | No | - | Array of query string parameter names to capture (e.g., `["gclid", "utm_source"]`) |
+| `onPhoneNumberReady` | function | No | - | Callback function called when the phone number is loaded. Receives an object with `lead_source_id`, `phone_number`, and `campaign_info` |
+
+## Integration with Other Widgets
+
+The DNI script automatically passes marketing information to other Funnel Leasing widgets on the same page. When using DNI with:
+
+- **Lead Form Widget** - Marketing attribution is automatically applied to leads
+- **Appointment Scheduler Widget** - Appointments are tagged with the correct marketing source
+- **Chatbot Widget** - Set `waitForMarketingInfo: true` to ensure the chatbot receives marketing data
+
+<Callout type="tip">
+When using DNI with other widgets, you typically should not use the `campaignInfo` parameter on those widgets, as DNI will automatically provide this information.
+</Callout>
+
+## Troubleshooting
+
+### Phone Numbers Not Updating
+
+- **Check class names** - Ensure elements have the `DCRPhone` or `DCRPhoneHref` classes (or your custom selectors)
+- **Verify API key** - Confirm your API key is correct and wrapped in quotes
+- **Check Community ID** - Verify your Community ID is a number (without quotes)
+- **Campaign mapping** - Ensure UTM parameters or referrers are mapped to campaigns in your Funnel account
+- **Default number** - Verify a default phone number is present in the HTML as a fallback
+
+### Marketing Attribution Not Working
+
+- **Campaign mapping** - Verify that UTM parameters and referrers are correctly mapped in your Funnel account
+- **UTM parameters** - Check that UTM parameters are present in the URL when testing
+- **Referrer** - If not using UTM parameters, ensure the referrer domain is mapped correctly
+
+### Common Errors
+
+| Error | Solution |
+|-------|----------|
+| API key is invalid | Contact Funnel Leasing support to verify your API key |
+| Community ID not found | Verify the Community ID exists in your Funnel account |
+| Phone numbers not updating | Check that elements have the correct class names and that campaigns are mapped in Funnel |
+| Script not loading | Check that the script source URL is accessible and not blocked by ad blockers |
+
+### Important Notes
+
+- **API Key format** - Your API Key is a string and must be wrapped in quotes. Your Community ID is an integer and should be without quotes
+- **Class names** - The class names `DCRPhone` and `DCRPhoneHref` must be on phone number elements (DCRPhoneHref is only needed to make it a link)
+- **Script placement** - Funnel's script tags should be placed just before the closing `</body>` tag
+- **Default phone number** - Always include a default phone number in your HTML as a fallback
+
+## Support
+
+If you checked the above and are still experiencing issues, please contact:
+
+- **Customer Support**: [support@funnelleasing.com](mailto:support@funnelleasing.com)
+- **Your Account Representative**: Reach out to your assigned Funnel Leasing account representative
+

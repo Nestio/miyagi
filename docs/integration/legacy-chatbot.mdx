@@ -1,0 +1,92 @@
+---
+title: Legacy Chatbot Widget
+description: Documentation for the legacy chatbot widget (deprecated)
+sidebar_label: Legacy Chatbot
+sidebar_position: 35
+---
+
+<Callout type="warning" title="Legacy Widget - Deprecated">
+This chatbot widget is part of the legacy widget system and is no longer actively maintained. For new integrations, we strongly recommend using the [modern Chatbot Widget](/integration/chatbot) which provides better AI capabilities, improved performance, and enhanced features.
+</Callout>
+
+## Overview
+
+This section contains documentation for the legacy chatbot widget that was part of Funnel Leasing's earlier widget system. While this widget may still be functional for existing integrations, it is considered deprecated and will not receive new features or updates.
+
+## Prerequisites
+
+Before embedding the Legacy Chatbot widget, ensure you have:
+
+- **Funnel Leasing API Key** - The API key provided by Funnel Leasing
+- **Community ID** - The ID of the community the chatbot is associated with
+- **Website access** - Ability to add script tags to your website's HTML
+
+:::tip
+Contact your Funnel Leasing account representative or support team at [support@funnelleasing.com](mailto:support@funnelleasing.com) to obtain your API key and Community ID.
+:::
+
+## Installation
+
+To embed the Legacy Chatbot widget on your website, add the following code to your HTML page. The script should be placed in the `<head>` section or just before the closing `</body>` tag:
+
+```html
+<script src="https://chatbot.funnelleasing.com/funnel-chat.min.js"></script>
+<script>
+  window.addEventListener("load", function () {
+    FunnelChat.initialize({
+      apiKey: "YOUR_FUNNEL_API_KEY",
+      communityId: "YOUR_COMMUNITY_ID",
+      timeout: 5000,
+      leadSourceId: 1234,
+      defaultPaddingRight: "10px",
+      defaultPaddingBottom: "10px",
+      reactivePaddingRight: "20px",
+      reactivePaddingBottom: "40px",
+    });
+  });
+</script>
+```
+
+:::note
+Replace `YOUR_FUNNEL_API_KEY` with your actual API key and `YOUR_COMMUNITY_ID` with your Community ID.
+:::
+
+## Configuration
+
+The Legacy Chatbot widget accepts the following configuration parameters:
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `apiKey` | string | Yes | - | The API key provided by Funnel Leasing |
+| `communityId` | string | Yes | - | The ID of the community the chatbot is associated with |
+| `timeout` | number | No | - | The timeout value (in milliseconds) before the chatbot deactivates due to inactivity |
+| `leadSourceId` | number | No | - | ID representing the lead source for tracking |
+| `defaultPaddingRight` | string | No | - | Default padding on the right side (e.g., `"10px"`) |
+| `defaultPaddingBottom` | string | No | - | Default padding at the bottom (e.g., `"10px"`) |
+| `reactivePaddingRight` | string | No | - | Padding adjustment for responsive design on the right (e.g., `"20px"`) |
+| `reactivePaddingBottom` | string | No | - | Padding adjustment for responsive design at the bottom (e.g., `"40px"`) |
+
+## Migration to Modern Chatbot
+
+If you're currently using the legacy chatbot, we recommend migrating to the [modern Chatbot Widget](/integration/chatbot). The new widget provides:
+
+- **Better AI capabilities** - Improved natural language understanding and response quality
+- **Enhanced features** - Better integration with Funnel Leasing's AI systems
+- **Improved performance** - Faster load times and better responsiveness
+- **Active support** - Ongoing updates and feature additions
+- **Better documentation** - Comprehensive guides and examples
+
+To migrate:
+
+1. Replace the legacy script source with the modern chatbot script
+2. Update the initialization code to use `window.FunnelGenAIChat.initialize()` instead of `FunnelChat.initialize()`
+3. Review the [Chatbot Widget documentation](/integration/chatbot) for the updated parameter list
+4. Test the new widget on your website to ensure it works correctly
+
+## Support
+
+If you have questions about migrating from the legacy chatbot or need assistance with the new chatbot widget, please contact:
+
+- **Customer Support**: [support@funnelleasing.com](mailto:support@funnelleasing.com)
+- **Your Account Representative**: Reach out to your assigned Funnel Leasing account representative
+

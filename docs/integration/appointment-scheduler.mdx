@@ -1,0 +1,239 @@
+---
+title: Appointment Scheduler Widget
+description: Embed an appointment scheduling widget on your website to allow prospects to book appointments with your leasing team
+sidebar_label: Appointment Scheduler
+sidebar_position: 20
+---
+
+import CodeExample from '@site/src/components/CodeExample';
+import AppointmentSchedulerWidget from '@site/src/components/integration/AppointmentSchedulerWidget';
+import WidgetCodeGenerator from '@site/src/components/integration/WidgetCodeGenerator';
+
+The Appointment Scheduler widget enables prospects to schedule appointments directly on your website with your leasing professionals. The widget displays available time slots based on the schedules of users in the specified group and automatically assigns appointments as they are booked.
+
+## Overview
+
+The Appointment Scheduler widget provides a user-friendly interface for visitors to select available appointment times. When an appointment is scheduled, it is automatically assigned to a leasing professional based on availability and group assignment rules.
+
+## Prerequisites
+
+Before embedding the Appointment Scheduler widget, ensure you have:
+
+- **Funnel Leasing API Key** - Your company API key (provided by Funnel Leasing)
+- **Group ID** - The ID of the Funnel group that will be used for the widget. This group determines which users' schedules are used to determine availability, and which users are assigned to appointments
+- **Website access** - Ability to add script tags to your website's HTML
+
+<Callout type="tip">
+Contact your Funnel Leasing account representative or support team at [support@funnelleasing.com](mailto:support@funnelleasing.com) to obtain your API key and Group ID.
+</Callout>
+
+## Installation
+
+To embed the Appointment Scheduler widget on your website, add the following code to your HTML page where you want the widget to appear:
+
+<CodeExample
+  title="Installation code"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.nestio.com/contact-widget/v1/integration.js" id="nestio-lead-capture-frame"></script>
+<script type="text/javascript">
+  NestioLeadCapture({
+    "type": "lead_capture_appointment",
+    "key": "FUNNEL_API_KEY_HERE",
+    "group": FUNNEL_GROUP_ID_HERE,
+    "color": "",
+    "location": "",
+    onComplete: function() {
+      dataLayer.push({'event': 'lead-form-submission'});
+    }
+  });
+</script>`}
+/>
+
+<Callout type="note">
+Replace `FUNNEL_API_KEY_HERE` with your actual API key (as a string) and `FUNNEL_GROUP_ID_HERE` with your Group ID (as a number without quotes). The `type` parameter must be set to `"lead_capture_appointment"` for the appointment scheduler.
+</Callout>
+
+## Configuration
+
+The Appointment Scheduler widget accepts the following configuration parameters:
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `key` | string | Yes | - | The company API key provided by Funnel Leasing |
+| `group` | number | Yes | - | The ID of the Funnel group that will be used for the widget. This group determines which users' schedules are used to determine availability, and which users are assigned to appointments |
+| `type` | string | Yes | - | Must be set to `"lead_capture_appointment"` for the appointment scheduler widget |
+| `containerId` | string | No | - | The ID of the div where you want your widget to appear. If not specified, the widget will create its own container |
+| `color` | string | No | - | The brand color (6-digit hex code) used for submit buttons and header text |
+| `location` | string | No | - | The text used to show the user the location of the appointment. This should typically be the address of the building where the appointment will take place. This will be displayed on the widget and in confirmation emails to both the user and the assigned agent |
+| `campaignInfo` | string | No | - | When not using Funnel's [DNI Script](/integration/dni), use this parameter to pass a value to Funnel for marketing attribution. The value must match exactly (case sensitive) the campaign name as entered in Funnel under marketing settings. When using the DNI Script, this parameter should not be used as it will overwrite the lead source |
+| `onComplete` | function | No | - | A callback function that executes after the widget form is submitted. Useful for triggering analytics events (e.g., Google Tag Manager) |
+| `submitLabel` | string | No | "Make Appointment" | Label that displays on the submit button on the client info form |
+| `unit` | number | No | - | ID of Funnel Unit that the client will be associated with in Funnel |
+| `buttonTextColor` | string | No | - | Color of the text on the submit button (6-digit hex code) |
+| `textColor` | string | No | - | Color of the headers for each field on the widget (6-digit hex code) |
+
+## Examples
+
+### Basic Appointment Scheduler
+
+A minimal appointment scheduler with only required parameters:
+
+<CodeExample
+  title="Basic implementation"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.nestio.com/contact-widget/v1/integration.js" id="nestio-lead-capture-frame"></script>
+<script type="text/javascript">
+  NestioLeadCapture({
+    "type": "lead_capture_appointment",
+    "key": "your-api-key-here",
+    "group": 123
+  });
+</script>`}
+/>
+
+### Customized Appointment Scheduler
+
+An appointment scheduler with custom styling and location:
+
+<CodeExample
+  title="Customized styling"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.nestio.com/contact-widget/v1/integration.js" id="nestio-lead-capture-frame"></script>
+<script type="text/javascript">
+  NestioLeadCapture({
+    "type": "lead_capture_appointment",
+    "key": "your-api-key-here",
+    "group": 123,
+    "color": "74FFE7",
+    "location": "123 First Street, New York, NY 10001",
+    "submitLabel": "Schedule My Tour",
+    "buttonTextColor": "FFFFFF",
+    "textColor": "333333"
+  });
+</script>`}
+/>
+
+### Appointment Scheduler with Google Tag Manager Integration
+
+An appointment scheduler that triggers a Google Tag Manager event on submission:
+
+<CodeExample
+  title="Google Tag Manager integration"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.nestio.com/contact-widget/v1/integration.js" id="nestio-lead-capture-frame"></script>
+<script type="text/javascript">
+  NestioLeadCapture({
+    "type": "lead_capture_appointment",
+    "key": "your-api-key-here",
+    "group": 123,
+    "color": "74FFE7",
+    "location": "123 First Street",
+    onComplete: function() {
+      dataLayer.push({'event': 'lead-form-submission'});
+    }
+  });
+</script>`}
+/>
+
+<Callout type="tip">
+For detailed instructions on integrating with Google Tag Manager, see the [Google Analytics Integration](/integration/google-analytics) guide.
+</Callout>
+
+### Appointment Scheduler with Specific Container
+
+An appointment scheduler that targets a specific div on your page:
+
+<CodeExample
+  title="Custom container"
+  language="html"
+  formatLabel="HTML"
+  code={`<div id="my-appointment-widget"></div>
+
+<script src="https://integrations.nestio.com/contact-widget/v1/integration.js" id="nestio-lead-capture-frame"></script>
+<script type="text/javascript">
+  NestioLeadCapture({
+    "type": "lead_capture_appointment",
+    "key": "your-api-key-here",
+    "group": 123,
+    "containerId": "my-appointment-widget"
+  });
+</script>`}
+/>
+
+## Widget Code Generator
+
+Use the code generator below to create custom widget code with your specific configuration:
+
+<WidgetCodeGenerator defaultWidgetType="lead_capture_appointment" />
+
+## Widget Demo
+
+See the Appointment Scheduler widget in action:
+
+<AppointmentSchedulerWidget />
+
+## How It Works
+
+1. **Availability Calculation** - The widget queries the schedules of all users in the specified group to determine available appointment times
+2. **Time Slot Display** - Available time slots are displayed to the visitor in a user-friendly calendar interface
+3. **Appointment Booking** - When a visitor selects a time slot and submits their information, an appointment is created in Funnel Leasing
+4. **Assignment** - The appointment is automatically assigned to a leasing professional based on availability and group assignment rules
+5. **Confirmation** - Both the visitor and the assigned agent receive confirmation emails with the appointment details
+
+## Marketing Attribution
+
+The Appointment Scheduler widget supports marketing attribution in two ways:
+
+1. **Using the DNI Script** (Recommended) - When using Funnel's [Dynamic Number Insertion (DNI) script](/integration/dni), marketing attribution is automatically handled. The DNI script captures UTM parameters and referrer information, which is then passed to the appointment scheduler widget.
+
+2. **Using the `campaignInfo` parameter** - When not using the DNI script, you can manually pass campaign information using the `campaignInfo` parameter. The value must match exactly (case sensitive) the campaign name as entered in Funnel under marketing settings.
+
+<Callout type="warning">
+Do not use both the DNI script and the `campaignInfo` parameter together. If both are present, the `campaignInfo` parameter will overwrite the lead source passed by the DNI script.
+</Callout>
+
+## Troubleshooting
+
+### Widget Not Appearing
+
+- **Check script tags** - Ensure both script tags are present and in the correct order
+- **Verify API key** - Confirm your API key is correct and wrapped in quotes
+- **Check Group ID** - Verify your Group ID is a number (without quotes)
+- **Browser console** - Check the browser console for JavaScript errors
+
+### No Available Time Slots
+
+- **Check user schedules** - Ensure users in the specified group have availability configured in their schedules
+- **Verify Group ID** - Confirm the Group ID is correct and contains users with active schedules
+- **Time zone** - Verify that time zones are configured correctly
+
+### Appointments Not Being Created
+
+- **Verify Group ID** - Ensure the Group ID exists in your Funnel Leasing account
+- **Check API key** - Confirm your API key has the necessary permissions
+- **Network tab** - Check the browser's Network tab to see if requests are being sent successfully
+
+### Styling Issues
+
+- **Color format** - Ensure color values are 6-digit hex codes (e.g., `"74FFE7"`, not `"#74FFE7"` or `"74FFE7FF"`)
+- **Container conflicts** - If using `containerId`, ensure the target div exists on the page
+
+### Common Errors
+
+| Error | Solution |
+|-------|----------|
+| API key is invalid | Contact Funnel Leasing support to verify your API key |
+| Group ID not found | Verify the Group ID exists in your Funnel account |
+| No available appointments | Ensure users in the group have availability configured in their schedules |
+| Widget not loading | Check that the script source URL is accessible and not blocked by ad blockers |
+
+## Support
+
+If you continue to experience issues after checking the troubleshooting steps above, please contact:
+
+- **Customer Support**: [support@funnelleasing.com](mailto:support@funnelleasing.com)
+- **Your Account Representative**: Reach out to your assigned Funnel Leasing account representative

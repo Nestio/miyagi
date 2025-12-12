@@ -53,9 +53,9 @@ export default function CodeExample({
     <div
       className={clsx(
         'overflow-hidden',
+        'transition-all hover:shadow-xl',
         className
       )}
-      className="transition-all hover:shadow-xl"
       style={{
         borderRadius: '12px',
         border: '1px solid #2a1a2f',

@@ -28,6 +28,9 @@ import ApiDocumentation from '../components/ApiDocumentation';
 import ApiPage from '../components/ApiPage';
 import EventNameCopyButton from '../components/EventNameCopyButton';
 import { Row, Col, Properties, Property } from '../components/Layout';
+import LeadWidgetDemo from '../components/integration/LeadWidgetDemo';
+import AppointmentSchedulerWidget from '../components/integration/AppointmentSchedulerWidget';
+import WidgetCodeGenerator from '../components/integration/WidgetCodeGenerator';
 import * as icons from '../icons';
 
 export default {
@@ -66,4 +69,7 @@ export default {
   Col,
   Properties,
   Property,
+  LeadWidgetDemo,
+  AppointmentSchedulerWidget,
+  WidgetCodeGenerator,
 };

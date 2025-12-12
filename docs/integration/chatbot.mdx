@@ -1,0 +1,201 @@
+---
+title: Chatbot Widget
+description: Embed an AI-powered chatbot widget on your website to provide instant support and capture leads
+sidebar_label: Chatbot
+sidebar_position: 30
+---
+
+import CodeExample from '@site/src/components/CodeExample';
+
+The Chatbot widget provides an AI-powered chat interface that visitors can use to get instant answers to questions about your properties. The chatbot can answer questions, provide property information, and capture lead information when needed.
+
+## Overview
+
+The Chatbot widget displays a chat bubble on your website that visitors can click to open a conversation with an AI assistant. The chatbot is powered by Funnel Leasing's AI technology and can handle a variety of inquiries while capturing lead information for your leasing team.
+
+## Prerequisites
+
+Before embedding the Chatbot widget, ensure you have:
+
+- **Funnel Leasing API Key** - Your Funnel Customer API Key (provided by Funnel Leasing)
+- **Community ID** - The ID of the community the chatbot is associated with
+- **Website access** - Ability to add script tags to your website's HTML
+
+<Callout type="tip">
+Contact your Funnel Leasing account representative or support team at [support@funnelleasing.com](mailto:support@funnelleasing.com) to obtain your API key and Community ID.
+</Callout>
+
+## Installation
+
+To embed the Chatbot widget on your website, add the following code to your HTML page. The script should be placed in the `<head>` section or just before the closing `</body>` tag:
+
+<CodeExample
+  title="Installation code"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.funnelleasing.com/gen-ai-chatbot/v1/funnel-gen-ai-chat.js"></script>
+<script>
+  window.addEventListener('load', function () {
+    window.FunnelGenAIChat.initialize({
+      apiKey: 'YOUR_API_KEY_HERE',
+      communityId: YOUR_COMMUNITY_ID_HERE,
+      waitForMarketingInfo: false,
+      leadSourceId: '1234',
+      campaignInfo: 'a-string-of-text',
+      enableGAEvents: true
+    });
+  });
+</script>`}
+/>
+
+<Callout type="note">
+Replace `YOUR_API_KEY_HERE` with your actual API key (as a string) and `YOUR_COMMUNITY_ID_HERE` with your Community ID (as a number without quotes).
+</Callout>
+
+## Configuration
+
+The Chatbot widget accepts the following configuration parameters:
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `apiKey` | string | Yes | - | Funnel Customer API Key |
+| `communityId` | number | Yes | - | The ID of the community the chatbot is associated with |
+| `waitForMarketingInfo` | boolean | No | `false` | Set to `true` if you are using the DNI script. Causes the script to wait to initialize the Chatbot until marketing info is passed in |
+| `leadSourceId` | string | No | - | ID representing the lead source for tracking. If you are using the DNI script, this is not necessary |
+| `campaignInfo` | string | No | - | String of UTM parameters. If you are using the DNI script, this is not necessary |
+| `enableGAEvents` | boolean | No | `false` | If set to `true`, the chatbot will pass the value to a variable called `ENABLE_GA_EVENTS` |
+
+## Examples
+
+### Basic Chatbot
+
+A minimal chatbot with only required parameters:
+
+<CodeExample
+  title="Basic implementation"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.funnelleasing.com/gen-ai-chatbot/v1/funnel-gen-ai-chat.js"></script>
+<script>
+  window.addEventListener('load', function () {
+    window.FunnelGenAIChat.initialize({
+      apiKey: 'your-api-key-here',
+      communityId: 999
+    });
+  });
+</script>`}
+/>
+
+### Chatbot with DNI Integration
+
+A chatbot configured to wait for marketing information from the DNI script:
+
+<CodeExample
+  title="DNI integration"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.funnelleasing.com/gen-ai-chatbot/v1/funnel-gen-ai-chat.js"></script>
+<script>
+  window.addEventListener('load', function () {
+    window.FunnelGenAIChat.initialize({
+      apiKey: 'your-api-key-here',
+      communityId: 999,
+      waitForMarketingInfo: true
+    });
+  });
+</script>`}
+/>
+
+<Callout type="tip">
+When using the DNI script, set `waitForMarketingInfo` to `true` to ensure the chatbot receives marketing attribution information. See the [Dynamic Number Insertion (DNI)](/integration/dni) guide for more information.
+</Callout>
+
+### Chatbot with Google Analytics Events
+
+A chatbot configured to enable Google Analytics event tracking:
+
+<CodeExample
+  title="Google Analytics integration"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.funnelleasing.com/gen-ai-chatbot/v1/funnel-gen-ai-chat.js"></script>
+<script>
+  window.addEventListener('load', function () {
+    window.FunnelGenAIChat.initialize({
+      apiKey: 'your-api-key-here',
+      communityId: 999,
+      enableGAEvents: true
+    });
+  });
+</script>`}
+/>
+
+### Chatbot with Manual Lead Source
+
+A chatbot with manually specified lead source and campaign information:
+
+<CodeExample
+  title="Manual lead source"
+  language="html"
+  formatLabel="HTML"
+  code={`<script src="https://integrations.funnelleasing.com/gen-ai-chatbot/v1/funnel-gen-ai-chat.js"></script>
+<script>
+  window.addEventListener('load', function () {
+    window.FunnelGenAIChat.initialize({
+      apiKey: 'your-api-key-here',
+      communityId: 999,
+      leadSourceId: '1234',
+      campaignInfo: 'utm_source=google&utm_medium=cpc&utm_campaign=summer2024'
+    });
+  });
+</script>`}
+/>
+
+## Marketing Attribution
+
+The Chatbot widget supports marketing attribution in two ways:
+
+1. **Using the DNI Script** (Recommended) - When using Funnel's [Dynamic Number Insertion (DNI) script](/integration/dni), set `waitForMarketingInfo` to `true`. The DNI script will capture UTM parameters and referrer information, which will then be passed to the chatbot widget.
+
+2. **Manual Configuration** - When not using the DNI script, you can manually specify `leadSourceId` and `campaignInfo` parameters. However, this approach is less flexible and requires manual updates when campaigns change.
+
+<Callout type="warning">
+Do not use both the DNI script (with `waitForMarketingInfo: true`) and manual `leadSourceId`/`campaignInfo` parameters together. The DNI script will overwrite manual values.
+</Callout>
+
+## Troubleshooting
+
+### Widget Not Appearing
+
+- **Check script tags** - Ensure the script tag is present and loads correctly
+- **Verify API key** - Confirm your API key is correct and wrapped in quotes
+- **Check Community ID** - Verify your Community ID is a number (without quotes)
+- **Browser console** - Check the browser console for JavaScript errors
+- **Load event** - Ensure the `window.addEventListener('load', ...)` wrapper is used to ensure the page is fully loaded
+
+### Chatbot Not Initializing
+
+- **Check `waitForMarketingInfo`** - If set to `true`, ensure the DNI script is present and functioning
+- **Verify API key** - Confirm your API key has the necessary permissions
+- **Network tab** - Check the browser's Network tab to see if initialization requests are being sent successfully
+
+### Marketing Attribution Not Working
+
+- **DNI script** - If using DNI, ensure `waitForMarketingInfo` is set to `true` and the DNI script is loaded before the chatbot script
+- **Manual parameters** - If not using DNI, ensure `leadSourceId` and `campaignInfo` are set correctly
+
+### Common Errors
+
+| Error | Solution |
+|-------|----------|
+| API key is invalid | Contact Funnel Leasing support to verify your API key |
+| Community ID not found | Verify the Community ID exists in your Funnel account |
+| Chatbot not loading | Check that the script source URL is accessible and not blocked by ad blockers |
+| Marketing info not passed | If using DNI, ensure `waitForMarketingInfo` is `true` and DNI script loads first |
+
+## Support
+
+If you continue to experience issues after checking the troubleshooting steps above, please contact:
+
+- **Customer Support**: [support@funnelleasing.com](mailto:support@funnelleasing.com)
+- **Your Account Representative**: Reach out to your assigned Funnel Leasing account representative

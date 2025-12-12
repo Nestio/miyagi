@@ -91,6 +91,13 @@ const plugins = [
     routeBasePath: '/webhooks/legacy',
     sidebarPath: require.resolve('./sidebars-default.js'),
   }),
+  // Integration docs
+  create_doc_plugin({
+    id: 'integration',
+    path: 'docs/integration',
+    routeBasePath: '/integration',
+    sidebarPath: require.resolve('./sidebars-default.js'),
+  }),
 ];
 
 /** @type {import('@docusaurus/types').Config} */
@@ -196,24 +203,15 @@ const config = {
             ],
           },
           {
-            label: 'Integrations',
-            type: 'dropdown',
-            className: 'funnel-dropdown',
-            items: [
-              {
-                label: 'Customer API',
-                to: '/apis/customer-api/',
-              },
-              {
-                label: 'Partner API',
-                to: '/apis/partner-api/',
-              },
-            ],
+            label: 'Integration',
+            to: '/integration/',
           },
+          /*
           {
             label: 'Guides',
             to: '/guides/',
           },
+          
           {
             label: 'Resources',
             type: 'dropdown',
@@ -233,6 +231,7 @@ const config = {
               },
             ],
           },
+          */
           
           {
             type: 'search',
