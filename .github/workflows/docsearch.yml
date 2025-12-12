@@ -1,3 +1,5 @@
+# Algolia DocSearch workflow - currently disabled since search is hidden
+# Re-enable this workflow when search functionality is restored
 name: Run algolia docsearch
 
 on:
@@ -10,9 +12,11 @@ on:
 jobs:
   docsearch:
     runs-on: ubuntu-latest
-    if: github.repository == 'dyte-io/docs'
+    # Update repository name to match your Funnel Leasing docs repository
+    # Currently disabled - uncomment when search is re-enabled
+    if: false # github.repository == 'funnelleasing/docs' || github.repository == 'Nestio/miyagi'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup environment
         run: |
