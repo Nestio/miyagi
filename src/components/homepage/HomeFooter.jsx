@@ -92,10 +92,6 @@ const developers = [
       },
     ],
   },
-  {
-    name: 'Release Notes',
-    href: '/release-notes',
-  },
 ];
 
 const usecases = [
