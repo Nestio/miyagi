@@ -27,10 +27,6 @@ const products = [
     name: 'Voice AI Insights',
     href: '/voice-ai-insights',
   },
-  {
-    name: 'Getting Started',
-    href: '/getting-started',
-  },
 ];
 
 const developers = [
