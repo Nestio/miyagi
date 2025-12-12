@@ -105,24 +105,103 @@
 /* Language switcher dropdown styles */
 .code-section-language-trigger {
   outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  height: 32px;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.code-section-language-trigger [data-radix-select-value] {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  vertical-align: middle;
+  padding: 0;
+  margin: 0;
+}
+
+.code-section-language-trigger [data-radix-select-icon] {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  vertical-align: middle;
+  margin-left: 4px;
+  padding: 0;
+}
+
+.code-section-language-trigger[data-state="open"] {
+  background-color: #2A3568;
 }
 
 .code-section-language-content {
-  z-index: 50;
+  z-index: 100;
+  will-change: transform, opacity;
+}
+
+.code-section-language-content[data-state="open"] {
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .code-section-language-item {
   transition: background-color 0.15s ease;
+  outline: none;
 }
 
-.code-section-language-item[data-highlighted] {
+.code-section-language-item[data-highlighted],
+.code-section-language-item:hover {
   background-color: #232C5F;
+}
+
+.code-section-language-item[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Copy button styles */
+.code-section-copy-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: #232C5F;
+}
+
+.code-section-copy-button:hover {
+  background-color: #2A3568;
+}
+
+.code-section-copy-button:focus-visible {
+  outline: 2px solid #81B5C9;
+  outline-offset: 2px;
+}
+
+.code-section-copy-button svg {
+  color: #FDFDFE;
+}
+
+.code-section-copy-button[aria-pressed="true"] svg {
+  color: #90CB97;
 }
 
 /* Copy button tooltip */
 .code-section-tooltip {
   transform: translateX(-50%);
   left: 50%;
+  z-index: 10;
 }
 
 /* Table layout for gutter + code (better alignment) */
