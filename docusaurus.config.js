@@ -1,6 +1,4 @@
 const { themes } = require('prism-react-renderer');
-const fs = require('fs');
-const path = require('path');
 
 const code_themes = {
   light: themes.github,
@@ -143,7 +141,9 @@ const config = {
           ],
         },
         sitemap: {
-          ignorePatterns: ['**/tags/**', '/api/*'],
+          // Blog is disabled, so no tag pages to ignore
+          // All actual routes are under /apis/, /webhooks/, /integration/, /guides/
+          ignorePatterns: [],
         },
         googleTagManager: {
           containerId: 'GTM-5FDFFSS',
@@ -155,7 +155,8 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: '/img/dyte-docs-card.png',
+      // TODO: Update to Funnel Leasing branding image
+      // image: '/img/dyte-docs-card.png',
       colorMode: {
         defaultMode: 'light',
         disableSwitch: true,
@@ -209,37 +210,11 @@ const config = {
             label: 'Integration',
             to: '/integration/',
           },
-          /*
-          {
-            label: 'Guides',
-            to: '/guides/',
-          },
-          
-          {
-            label: 'Resources',
-            type: 'dropdown',
-            className: 'funnel-dropdown',
-            items: [
-              {
-                label: 'Release Notes',
-                to: '/release-notes/',
-              },
-              {
-                label: 'FAQ',
-                to: '/faq/',
-              },
-              {
-                label: 'Support',
-                to: 'https://funnelleasing.com/contact?type=docs',
-              },
-            ],
-          },
-          */
-          
-          {
-            type: 'search',
-            position: 'right',
-          },
+          // Search is currently disabled
+          // {
+          //   type: 'search',
+          //   position: 'right',
+          // },
           {
             label: 'Support',
             href: 'https://funnelleasing.com/contact?type=docs',
@@ -262,31 +237,33 @@ const config = {
           height: '36px',
         },
         links: [
-          {
-            title: 'Products',
-            items: [
-              {
-                label: 'CRM',
-                href: '/crm/',
-              },
-              {
-                label: 'Online Leasing',
-                href: '/online-leasing/',
-              },
-              {
-                label: 'Resident Portal',
-                href: '/resident-portal/',
-              },
-              {
-                label: 'AI Virtual Assistant',
-                href: '/ai-virtual-assistant/',
-              },
-              {
-                label: 'Voice AI & Insights',
-                href: '/voice-ai-insights/',
-              },
-            ],
-          },
+          // Product links removed - these routes don't exist in the documentation
+          // If product documentation pages are added, uncomment and update these links
+          // {
+          //   title: 'Products',
+          //   items: [
+          //     {
+          //       label: 'CRM',
+          //       href: '/crm/',
+          //     },
+          //     {
+          //       label: 'Online Leasing',
+          //       href: '/online-leasing/',
+          //     },
+          //     {
+          //       label: 'Resident Portal',
+          //       href: '/resident-portal/',
+          //     },
+          //     {
+          //       label: 'AI Virtual Assistant',
+          //       href: '/ai-virtual-assistant/',
+          //     },
+          //     {
+          //       label: 'Voice AI & Insights',
+          //       href: '/voice-ai-insights/',
+          //     },
+          //   ],
+          // },
           {
             title: 'Company',
             items: [
@@ -336,15 +313,14 @@ const config = {
         theme: code_themes.light,
         darkTheme: code_themes.dark,
         additionalLanguages: [
-          'dart',
-          'ruby',
-          'groovy',
-          'kotlin',
-          'java',
-          'swift',
-          'objectivec',
+          // Essential languages for API documentation
           'json',
           'bash',
+          // API code example languages (used in CodeSection component)
+          'ruby',
+          'php',
+          'java',
+          // Removed unused mobile SDK languages: dart, groovy, kotlin, swift, objectivec
         ],
         magicComments: [
           {
@@ -358,6 +334,7 @@ const config = {
           },
         ],
       },
+      // Algolia search configuration - currently disabled but kept for future use
       algolia: {
         appId: 'HL0HSV62RK',
         apiKey: '72ebf02146698733b7114c7b36da0945',
