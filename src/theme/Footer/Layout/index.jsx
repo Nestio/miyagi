@@ -12,18 +12,19 @@ export default function FooterLayout({ style, links, logo, copyright }) {
       <div className="container-fluid container">
         {logo && <div className="margin-bottom--sm">{logo}</div>}
         <p className="footer__description mb-8">
-          Dyte provides developer friendly live video SDKs that allows you to
-          easily add 1:1 calls, group calls and webinars right within your
-          platform. Our low code approach and user friendly documentation means
-          you are ready to go live with less lines of code. We support use cases
-          such as live classes, telehealth, online fitness, remote work, social
-          meetups, dating and B2B sales.
+          Funnel Leasing provides comprehensive property management and leasing
+          solutions that help you streamline operations, manage leads, and
+          enhance resident experiences. Our developer-friendly APIs and
+          user-friendly documentation enable seamless integration with your
+          existing systems. We support use cases such as online leasing, CRM and
+          lead management, resident portals, AI virtual assistants, and voice
+          AI insights.
         </p>
         <div className="footer__row">
           <div className="footer__data">
             <div className="footer__cta">
-              <p>Signup to get 10,000 minutes free every month!</p>
-              <Link href="https://dev.dyte.in/signup">Sign Up</Link>
+              <p>Get started with Funnel Leasing today!</p>
+              <Link href="https://funnelleasing.com">Learn More</Link>
             </div>
           </div>
           <div className="links">{links}</div>
