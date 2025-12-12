@@ -236,33 +236,6 @@ const config = {
           height: '36px',
         },
         links: [
-          // Product links removed - these routes don't exist in the documentation
-          // If product documentation pages are added, uncomment and update these links
-          // {
-          //   title: 'Products',
-          //   items: [
-          //     {
-          //       label: 'CRM',
-          //       href: '/crm/',
-          //     },
-          //     {
-          //       label: 'Online Leasing',
-          //       href: '/online-leasing/',
-          //     },
-          //     {
-          //       label: 'Resident Portal',
-          //       href: '/resident-portal/',
-          //     },
-          //     {
-          //       label: 'AI Virtual Assistant',
-          //       href: '/ai-virtual-assistant/',
-          //     },
-          //     {
-          //       label: 'Voice AI & Insights',
-          //       href: '/voice-ai-insights/',
-          //     },
-          //   ],
-          // },
           {
             title: 'Company',
             items: [
@@ -306,7 +279,7 @@ const config = {
             ],
           },
         ],
-        copyright: 'Copyright © Funnel Leasing since 2024. All rights reserved.',
+        copyright: 'Copyright © Funnel Leasing 2025. All rights reserved.',
       },
       prism: {
         theme: code_themes.light,
